@@ -1,0 +1,42 @@
+#maincontainer {
+    width: 100%;
+    height: 800px;
+}
+
+#header {
+//    position:absolute;
+//    top: $outer-margin;
+//    left: $outer-margin;
+//    right: $outer-margin;
+//    height: $header-height;
+
+//    .branding {
+//      h1 { margin: 0; padding:0; }
+//      float:left;
+//    }
+
+//    .topnav {
+//      position:absolute;
+//      bottom:-1px;
+//      z-index:10;
+
+//      li a {
+//        line-height:19px;
+//      }    
+//    }
+
+//    .session {
+//      float:right;
+//    }
+}
+
+#mycontent {
+    height: 100%;
+//    position:absolute;
+//    top: $outer-margin + $header-height;
+//    left: $outer-margin;
+//    right: $outer-margin;
+//    bottom: $outer-margin;
+  border-width: 1px;
+  border-style: solid;
+}
