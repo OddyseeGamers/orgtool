@@ -4,8 +4,11 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'orgtool',
     environment: environment,
-    baseURL: '/',
-    locationType: 'auto',
+//     baseURL: '/',
+//     locationType: 'auto',
+//     locationType: 'none',
+    baseURL: null,
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
