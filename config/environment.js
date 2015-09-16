@@ -19,7 +19,19 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' 'unsafe-eval'",
+      'font-src': "'self' http://fonts.gstatic.com",
+      'connect-src': "'self'",
+      'img-src': "'self' www.oddysee.org",
+      'style-src': "'self' 'unsafe-inline'",
+      'report-uri':"'self'"
     }
+
+
   };
 
   if (environment === 'development') {

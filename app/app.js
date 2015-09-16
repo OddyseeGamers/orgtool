@@ -16,6 +16,5 @@ App = Ember.Application.extend({
 
 loadInitializers(App, config.modulePrefix);
 
-console.debug("ember loaded....");
 
 export default App;
