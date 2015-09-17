@@ -1,6 +1,6 @@
 <div id="unit-pilots">
     {{#each content as |unit|}}
-    - {{unit.name}} | kids: {{unit.units.length}} | parent: {{unit.parent.name}}<br>
+    - {{unit.name}} [{{unit.type}}] | kids: {{unit.children.length}} | parent: {{unit.parent.name}}<br>
     {{/each}}
 
 </div>

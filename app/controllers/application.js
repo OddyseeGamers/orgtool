@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
                   color: "",
                   leaders: "",
                   pilots: "",
-                  unit_ids: [2,3,4]
+                  children_ids: [2,3,4]
               }, {
                   id: 2,
                   name: "DIV1",
@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
                   pilots: "",
 
                   parent: 1,
-                  unit_ids: []
+                  children_ids: []
               }, {
                   id: 3,
                   name: "DIV2",
@@ -41,7 +41,7 @@ export default Ember.Controller.extend({
                   pilots: "",
 
                   parent: 1,
-                  unit_ids: []
+                  children_ids: [5, 6]
               }, {
                   id: 4,
                   name: "DIV3",
@@ -52,7 +52,29 @@ export default Ember.Controller.extend({
                   pilots: "",
 
                   parent: 1,
-                  unit_id: []
+                  children_id: []
+              }, {
+                  id: 5,
+                  name: "UNIT1",
+                  type: "unit",
+                  desc: "unit1",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 3,
+                  children_id: []
+              }, {
+                  id: 6,
+                  name: "UNIT2",
+                  type: "unit",
+                  desc: "unit2",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 3,
+                  children_id: []
               }
           ]};
 

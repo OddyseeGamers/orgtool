@@ -5,6 +5,9 @@ import config from './config/environment';
 
 var App;
 
+
+Ember.Inflector.inflector.uncountable('children');
+
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
 App = Ember.Application.extend({
