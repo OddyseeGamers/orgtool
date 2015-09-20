@@ -13,18 +13,18 @@ export default Ember.Controller.extend({
           units: [
               {
                   id: 1,
-                  name: "Org",
+                  name: "UEE",
                   type: "org",
-                  desc: "some org",
+                  desc: "United Empire of Earth",
                   color: "",
                   leaders: "",
                   pilots: "",
                   children_ids: [2,3,4]
               }, {
                   id: 2,
-                  name: "DIV1",
+                  name: "Advocacy",
                   type: "division",
-                  desc: "div1",
+                  desc: "The Advocacy",
                   color: "",
                   leaders: "",
                   pilots: "",
@@ -33,42 +33,50 @@ export default Ember.Controller.extend({
                   children_ids: []
               }, {
                   id: 3,
-                  name: "DIV2",
+                  name: "Military",
                   type: "division",
-                  desc: "div2",
+                  desc: "The Military",
                   color: "",
                   leaders: "",
                   pilots: "",
 
                   parent: 1,
-                  children_ids: [5, 6]
+                  children_ids: [5, 6, 7]
               }, {
                   id: 4,
-                  name: "DIV3",
+                  name: "Senate",
                   type: "division",
-                  desc: "div3",
+                  desc: "The Senate",
                   color: "",
                   leaders: "",
                   pilots: "",
 
                   parent: 1,
-                  children_id: []
               }, {
                   id: 5,
-                  name: "UNIT1",
+                  name: "Army",
                   type: "unit",
-                  desc: "unit1",
+                  desc: "The Army",
                   color: "",
                   leaders: "",
                   pilots: "",
 
                   parent: 3,
-                  children_id: []
               }, {
                   id: 6,
-                  name: "UNIT2",
+                  name: "Marines",
                   type: "unit",
-                  desc: "unit2",
+                  desc: "The Marines",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 3,
+              }, {
+                  id: 7,
+                  name: "Navy",
+                  type: "unit",
+                  desc: "The Navy",
                   color: "",
                   leaders: "",
                   pilots: "",
