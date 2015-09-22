@@ -120,7 +120,7 @@ export default Ember.Component.extend({
 
     var events = get(this, 'events');
     var store = get(this, 'store');
-    console.debug("EVENTS:", store);
+    console.debug("EVENTS:", events);
 //     .trigger('setPath', d);
 
     console.debug(">>> clicked:", d, '-', this.currPath);
