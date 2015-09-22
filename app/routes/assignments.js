@@ -5,6 +5,6 @@ export default Ember.Route.extend({
     this.controllerFor('application').set('showBreadPath', true);
   },
   model: function() {
-    return this.store.peekAll('unit');
+    return this.store.findAll('unit');
   },
 });

@@ -34,8 +34,8 @@ function  color(d) {
 
 export default Ember.Component.extend({
   classNames: ['org-tree'],
+  eventManager: Ember.inject.service('events'),
   store: Ember.inject.service(),
-  events: Ember.inject.service(),
 
   content: null,
   path: null,
@@ -118,12 +118,11 @@ export default Ember.Component.extend({
       temp = temp.parent;
     }
 
-    var events = get(this, 'events');
-    var store = get(this, 'store');
-    console.debug("EVENTS:", events);
-//     .trigger('setPath', d);
+    var id = Ember.$(d.target).data('id');
 
-    console.debug(">>> clicked:", d, '-', this.currPath);
+    this.get('eventManager').trigger('setDetails', id);
+
+//     console.debug(">>> clicked:", idstr);
 
 
 //     setInfo(d);
@@ -182,6 +181,7 @@ export default Ember.Component.extend({
   _serializeChildren: function(obj) {
     var self = this;
     var ret = obj.serialize();
+    ret.id = get(obj, 'id');
     get(obj, 'children').forEach(function(ch) {
       if (!ret.children) {
         ret.children = [ch.serialize()];
@@ -210,6 +210,7 @@ export default Ember.Component.extend({
     var svg = d3.select("#svg");
 
     var struc = this._transformData();
+    console.debug(">> set data", struc);
     var nodes = this.partition.nodes(struc);
 
     Ember.$("#org_group").remove();
@@ -218,13 +219,16 @@ export default Ember.Component.extend({
             .attr("id", "org_group")
             .attr("transform", "translate(" + [radius + diff, radius + diff] + ")");
 
+    var self = this;
     this.path = vis.selectAll("path").data(nodes);
     this.path.enter().append("path")
             .attr("id", function(d, i) { return "path-" + d.id; })
+            .attr("data-id", function(d, i) { return d.id; })
             .attr("d", this.arc)
             .attr("fill-rule", "evenodd")
             .style("fill", color);
-//             .on("click", this.click);
+//             .on("click", self.click.bind(self));
+//             .on("click", self.click.bind(self));
     
     var iw = 106;
     var ih = 106;
@@ -239,7 +243,6 @@ export default Ember.Component.extend({
 //         .attr('height', ih);
 
 
-    var self = this;
     this.text = vis.selectAll("text").data(nodes);
     var textEnter = this.text.enter().append("text")
             .style("fill-opacity", 1)
@@ -257,7 +260,7 @@ export default Ember.Component.extend({
                 rotate = angle + (multiline ? - 0.5 : 0);
                 return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
             })
-            .on("click", this.click);
+            .on("click", self.click.bind(self));
 
     textEnter.append("tspan")
         .attr("x", 0)
