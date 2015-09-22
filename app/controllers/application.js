@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   store: Ember.inject.service(),
+  showBreadPath: true,
 
   initialize: Ember.on('init', function() {
       this.loadStore();
@@ -23,7 +24,7 @@ export default Ember.Controller.extend({
               }, {
                   id: 2,
                   name: "Advocacy",
-                  type: "division",
+                  type: "department",
                   desc: "The Advocacy",
                   color: "",
                   leaders: "",
@@ -34,7 +35,7 @@ export default Ember.Controller.extend({
               }, {
                   id: 3,
                   name: "Military",
-                  type: "division",
+                  type: "department",
                   desc: "The Military",
                   color: "",
                   leaders: "",
@@ -45,7 +46,7 @@ export default Ember.Controller.extend({
               }, {
                   id: 4,
                   name: "Senate",
-                  type: "division",
+                  type: "department",
                   desc: "The Senate",
                   color: "",
                   leaders: "",
@@ -55,7 +56,7 @@ export default Ember.Controller.extend({
               }, {
                   id: 5,
                   name: "Army",
-                  type: "unit",
+                  type: "division",
                   desc: "The Army",
                   color: "",
                   leaders: "",
@@ -65,7 +66,7 @@ export default Ember.Controller.extend({
               }, {
                   id: 6,
                   name: "Marines",
-                  type: "unit",
+                  type: "division",
                   desc: "The Marines",
                   color: "",
                   leaders: "",
@@ -75,14 +76,55 @@ export default Ember.Controller.extend({
               }, {
                   id: 7,
                   name: "Navy",
-                  type: "unit",
+                  type: "division",
                   desc: "The Navy",
                   color: "",
                   leaders: "",
                   pilots: "",
 
+                  children_ids: [8,9, 10],
                   parent: 3,
-                  children_id: []
+              }, {
+                  id: 8,
+                  name: "18th Fleet",
+                  type: "fleet",
+                  desc: "18th Battle Fleet",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 7,
+              }, {
+                  id: 9,
+                  name: "2nd Fleet",
+                  type: "fleet",
+                  desc: "2nd Fleet",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  children_ids: [11],
+                  parent: 7,
+              }, {
+                  id: 10,
+                  name: "33rd Fleet",
+                  type: "fleet",
+                  desc: "33rd Fleet",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 7,
+              }, {
+                  id: 11,
+                  name: "Squadron 42",
+                  type: "squadron",
+                  desc: "Squadron 4",
+                  color: "",
+                  leaders: "",
+                  pilots: "",
+
+                  parent: 9,
               }
           ]};
 

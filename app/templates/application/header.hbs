@@ -1,22 +1,18 @@
 <div id="header" class="clearfix">
-<!--     <div class="topnav"> -->
-        <ul class="nav nav-tabs">
-            <li>{{#link-to 'overview'}}Overview{{/link-to}}</li>
-            <li>{{#link-to 'assignments'}}Assignments{{/link-to}}</li>
-            <li>{{#link-to 'members'}}Members{{/link-to}}</li>
-        </ul>
+  <ul class="nav nav-tabs">
+    <li>{{#link-to 'overview'}}Overview{{/link-to}}</li>
+    <li>{{#link-to 'assignments'}}Assignments{{/link-to}}</li>
+    <li>{{#link-to 'members'}}Members{{/link-to}}</li>
+  </ul>
 
-        <div class="toolbar">
-            <!--     {{session.currentUser.firstname}} {{session.currentUser.lastname}} &nbsp;<i class="fa fa-user"></i> &nbsp; | &nbsp; -->
-            <!--     <a href="" {{action 'logout'}}>Logout &nbsp;<i class="fa fa-sign-out"></i></a> -->
-        </div>
-<!--     </div> -->
 </div>
+{{#if showBreadPath}}
 <ul class="nav nav-pills strucPath" id="breadPath" role="tablist">
-    <li role="presentation" class="dropdown">
-        <a id="drop0" href="#" class="dropdown-toggle last" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-            ODDYSEE&nbsp;&nbsp;&nbsp;
-            <span class="caret-right"></span>
-        </a>
-    </li>
+  <li role="presentation" class="dropdown">
+  <a id="drop0" href="#" class="dropdown-toggle last" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+    ODDYSEE&nbsp;&nbsp;&nbsp;
+    <span class="caret-right"></span>
+  </a>
+  </li>
 </ul>
+{{/if}}
