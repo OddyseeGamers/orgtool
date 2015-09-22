@@ -13,9 +13,9 @@ var x = 0;
 var y = 0;
 
 function  color(d) {
-  if (d && d.depth === 0) {
-    return "url(#img1)";
-  }
+//   if (d && d.depth === 0) {
+//     return "url(#img1)";
+//   }
 
   if (d.children) {
     var idx = d.children.length > 1 ? 1 : 0;
@@ -35,6 +35,7 @@ function  color(d) {
 export default Ember.Component.extend({
   classNames: ['org-tree'],
   store: Ember.inject.service(),
+  events: Ember.inject.service(),
 
   content: null,
   path: null,
@@ -43,7 +44,7 @@ export default Ember.Component.extend({
 
   partition: d3.layout.partition()
       .sort(null)
-      .value(function(d) { return 15.8 - d.depth; }),
+      .value(function(d) { return 18 - d.depth; }),
 
   arc: d3.svg.arc()
       .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
@@ -109,18 +110,24 @@ export default Ember.Component.extend({
   },
 
   click: function(d) {
-/*
-    currPath = [ d ];
+    this.currPath = [ d ];
 
     var temp = d;
     while (temp.parent) {
-        currPath.push(temp.parent);
-        temp = temp.parent;
+      this.currPath.push(temp.parent);
+      temp = temp.parent;
     }
 
+    var events = get(this, 'events');
+    var store = get(this, 'store');
+    console.debug("EVENTS:", store);
+//     .trigger('setPath', d);
 
-    setInfo(d);
-    */
+    console.debug(">>> clicked:", d, '-', this.currPath);
+
+
+//     setInfo(d);
+    
 
 /***** ANIMATION *******/
 /*  
@@ -188,14 +195,14 @@ export default Ember.Component.extend({
 
   _renderStruc: function() {
     var div = Ember.$(".org-tree");
-    width = div.width();
-    height = div.height();
-
-    if (height > width) {
-      height = width;
+    var w = div.width();
+    width = height = Math.min(w, div.height());
+    var diff = padding;
+    if (w > width) {
+      diff = (w - width) / 2;
     }
-
     radius = (width - 8) / 2;
+    console.debug(">>>> w", w, 'diff', diff, 'radius', radius);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -209,15 +216,15 @@ export default Ember.Component.extend({
 
     var vis = svg.append("g")
             .attr("id", "org_group")
-            .attr("transform", "translate(" + [radius + padding, radius + padding] + ")");
+            .attr("transform", "translate(" + [radius + diff, radius + diff] + ")");
 
     this.path = vis.selectAll("path").data(nodes);
     this.path.enter().append("path")
             .attr("id", function(d, i) { return "path-" + d.id; })
             .attr("d", this.arc)
             .attr("fill-rule", "evenodd")
-            .style("fill", color)
-            .on("click", this.click);
+            .style("fill", color);
+//             .on("click", this.click);
     
     var iw = 106;
     var ih = 106;
@@ -225,12 +232,11 @@ export default Ember.Component.extend({
     var yoffset = xoffset;
 
 
-    Ember.$("#img1")
-        .attr('x', radius + padding - iw / 2 + xoffset)
-        .attr('y', radius + padding - ih / 2 + yoffset)
-        .attr('width', iw)
-        .attr('height', ih);
-
+//     Ember.$("#img1")
+//         .attr('x', radius + padding - iw / 2 + xoffset)
+//         .attr('y', radius + padding - ih / 2 + yoffset)
+//         .attr('width', iw)
+//         .attr('height', ih);
 
 
     var self = this;
