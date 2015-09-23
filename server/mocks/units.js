@@ -15,11 +15,17 @@ module.exports = function(app) {
   });
 
   unitsRouter.get('/:id', function(req, res) {
-    res.send({
-      'units': {
-        id: req.params.id
+    var unitArr = payloads.units.units;
+    var unit = {};
+    var id = parseInt(req.params.id);
+
+    for (var i = 0, len = unitArr.length; i < len; i++) {
+      if (id === unitArr[i].id) {
+        unit = unitArr[i];
       }
-    });
+    }
+
+    res.send({ 'unit': unit });
   });
 
   unitsRouter.put('/:id', function(req, res) {

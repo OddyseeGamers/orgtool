@@ -119,8 +119,9 @@ export default Ember.Component.extend({
     }
 
     var id = Ember.$(d.target).data('id');
-
-    this.get('eventManager').trigger('setDetails', id);
+    if (id !== undefined) {
+      this.get('eventManager').trigger('setDetails', id);
+    }
 
 //     console.debug(">>> clicked:", idstr);
 
@@ -202,7 +203,7 @@ export default Ember.Component.extend({
       diff = (w - width) / 2;
     }
     radius = (width - 8) / 2;
-    console.debug(">>>> w", w, 'diff', diff, 'radius', radius);
+//     console.debug(">>>> w", w, 'diff', diff, 'radius', radius);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -210,7 +211,7 @@ export default Ember.Component.extend({
     var svg = d3.select("#svg");
 
     var struc = this._transformData();
-    console.debug(">> set data", struc);
+//     console.debug(">> set data", struc);
     var nodes = this.partition.nodes(struc);
 
     Ember.$("#org_group").remove();
@@ -254,7 +255,6 @@ export default Ember.Component.extend({
             })
             .attr("dy", ".2em")
             .attr("transform", function(d) {
-//                 console.debug("WTF", d);
                 var multiline = (d.name || "").split(" ").length > 1,
                 angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
                 rotate = angle + (multiline ? - 0.5 : 0);

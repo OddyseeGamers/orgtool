@@ -26,7 +26,7 @@ module.exports = function(environment) {
       'script-src': "'self' 'unsafe-eval'",
       'font-src': "'self' http://fonts.gstatic.com",
       'connect-src': "'self'",
-      'img-src': "'self' www.oddysee.org",
+      'img-src': "'self' www.oddysee.org robertsspaceindustries.com",
       'style-src': "'self' 'unsafe-inline'",
       'report-uri':"'self'"
     }

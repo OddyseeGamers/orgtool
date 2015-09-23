@@ -1,0 +1,27 @@
+{
+  "members": [
+    {
+      "id": 1,
+      "name": "Darth Sidious",
+      "handle": "some handle",
+      "rank": "Emperor",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "Emperor",
+      "unit": 1,
+      "leader": 1
+    }, {
+      "id": 2,
+      "name": "Darth Vader",
+      "handle": "some handle",
+      "rank": "Sith Lord",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1,
+      "leader": 1
+    }
+  ]
+}

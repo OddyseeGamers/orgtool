@@ -4,13 +4,16 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   showBreadPath: true,
+  currentUnit: null,
 
   setup: Ember.on('init', function() {
-    console.debug('>>>> init');
-    this.get('eventManager').on('setDetails', this.setDetails);
+    this.get('eventManager').on('setDetails', this.setDetails.bind(this));
   }),
 
-  setDetails: function(args) {
-    console.debug('set details', args);
+  setDetails: function(unitId) {
+    if (unitId !== undefined) {
+      var unit = this.get('store').find('unit', unitId);
+      this.set('currentUnit', unit);
+    }
   }
 });
