@@ -9,6 +9,7 @@ Router.map(function() {
     this.route('overview');
     this.route('assignments');
     this.route('members');
+    this.route('ships');
 });
 
 export default Router;

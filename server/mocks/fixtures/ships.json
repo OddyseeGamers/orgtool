@@ -1,0 +1,370 @@
+{
+  "ships": [
+    {
+      "id": 1,
+      "name": "Aurora",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 2,
+      "name": "Aurora Essential (ES)",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 3,
+      "name": "Aurora Marque (MR)",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 4,
+      "name": "Aurora Clipper (CL)",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 5,
+      "name": "Aurora Deluxe (LX)",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 6,
+      "name": "Aurora Legionnaire (LN)",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 7,
+      "name": "Bengal-class Carrier",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 8,
+      "name": "Constellation Andromeda",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 9,
+      "name": "Constellation Taurus",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 10,
+      "name": "Constellation Aquila",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 11,
+      "name": "Constellation Phoenix",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 12,
+      "name": "Mover Transport",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 13,
+      "name": "Pegasus-class Escort Carrier",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 14,
+      "name": "X-7",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 15,
+      "name": "Zeus",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 16,
+      "name": "Orion",
+      "manufacturer": "Roberts Space Industries",
+      "type": ""
+    }, {
+      "id": 17,
+      "name": "300i",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 18,
+      "name": "315p",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 19,
+      "name": "325a",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 20,
+      "name": "350r",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 21,
+      "name": "600 Series",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 22,
+      "name": "890 Jump",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 23,
+      "name": "85x Runabout",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 24,
+      "name": "M50",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 25,
+      "name": "X3",
+      "manufacturer": "Origin Jumpworks",
+      "type": ""
+    }, {
+      "id": 26,
+      "name": "Avenger",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 27,
+      "name": "Gladius",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 28,
+      "name": "Idris-P",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 29,
+      "name": "Idris-M",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 30,
+      "name": "Javelin",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 31,
+      "name": "Reclaimer",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 32,
+      "name": "Redeemer",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 33,
+      "name": "Retaliator",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 34,
+      "name": "Terrapin",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 35,
+      "name": "Vanguard",
+      "manufacturer": "Aegis Dynamics",
+      "type": ""
+    }, {
+      "id": 36,
+      "name": "Cutlass Blue",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 37,
+      "name": "Cutlass Red",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 38,
+      "name": "Cutlass Black",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 39,
+      "name": "Caterpillar",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 40,
+      "name": "Dragonfly",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 41,
+      "name": "Herald",
+      "manufacturer": "Drake Interplanetary",
+      "type": ""
+    }, {
+      "id": 42,
+      "name": "Carrack",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 43,
+      "name": "Crucible",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 44,
+      "name": "Gladiator",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 45,
+      "name": "Hurricane",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 46,
+      "name": "F7A Hornet",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 47,
+      "name": "F7C Hornet",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 48,
+      "name": "F7C-M Super Hornet",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 49,
+      "name": "F7C-R Hornet Tracker",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 50,
+      "name": "F7C-S Hornet Ghost",
+      "manufacturer": "Anvil Aerospace",
+      "type": ""
+    }, {
+      "id": 51,
+      "name": "Freelancer",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 52,
+      "name": "Freelancer DUR",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 53,
+      "name": "Freelancer MIS",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 54,
+      "name": "Freelancer MAX",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 55,
+      "name": "Hull A",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 56,
+      "name": "Hull B",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 57,
+      "name": "Hull C",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 58,
+      "name": "Hull D",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 59,
+      "name": "Hull E",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 60,
+      "name": "Reliant",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 61,
+      "name": "Starfarer",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 62,
+      "name": "Starfarer Gemini",
+      "manufacturer": "Musashi Industrial & Starflight Concern",
+      "type": ""
+    }, {
+      "id": 63,
+      "name": "P-52 Merlin",
+      "manufacturer": "Kruger Intergalactic",
+      "type": ""
+    }, {
+      "id": 64,
+      "name": "P-72 Archimedes",
+      "manufacturer": "Kruger Intergalactic",
+      "type": ""
+    }, {
+      "id": 65,
+      "name": "Mustang Alpha",
+      "manufacturer": "Consolidated Outland",
+      "type": ""
+    }, {
+      "id": 66,
+      "name": "Mustang Beta",
+      "manufacturer": "Consolidated Outland",
+      "type": ""
+    }, {
+      "id": 67,
+      "name": "Mustang Delta",
+      "manufacturer": "Consolidated Outland",
+      "type": ""
+    }, {
+      "id": 68,
+      "name": "Mustang Gamma",
+      "manufacturer": "Consolidated Outland",
+      "type": ""
+    }, {
+      "id": 69,
+      "name": "Mustang Omega",
+      "manufacturer": "Consolidated Outland",
+      "type": ""
+    }, {
+      "id": 70,
+      "name": "Scythe",
+      "manufacturer": "Vanduul",
+      "type": ""
+    }, {
+      "id": 71,
+      "name": "Glaive",
+      "manufacturer": "Vanduul",
+      "type": ""
+    }, {
+      "id": 72,
+      "name": "Khartu",
+      "manufacturer": "Xi'An",
+      "type": ""
+    }, {
+      "id": 73,
+      "name": "Merchantman",
+      "manufacturer": "Banu",
+      "type": ""
+    }
+  ]
+}

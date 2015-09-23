@@ -2,12 +2,10 @@
   <div class="panel panel-default infoPanel">
     <ul class="list-group">
       <li class="list-group-item">
-        {{#if currentUnit.desc}}
-          <div class="">
-            {{currentUnit.desc}} 
-          </div>
-          <br>
-        {{/if}}
+        <div class="">
+          {{currentUnit.name}}: {{currentUnit.desc}} 
+        </div>
+        <br>
 
         <div class="member-list">
           {{#each currentUnit.leader as |lead|}}
