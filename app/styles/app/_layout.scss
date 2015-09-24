@@ -5,11 +5,15 @@
 
 #maincontainer {
     width: 100%;
-    height: 700px;
+    height: 754px;
 //      height: 100%;
 }
 
 #header {
+}
+
+#breadPath {
+  height: 40px;
 }
 
 #mycontent {
@@ -17,9 +21,13 @@
     background-color: #242424;
 }
 
-$info-width: 25%;
-$overview-width: calc(100% - #{($info-width * 2)});
-$pilot-width: $info-width;
+$pilot-width: 25%;
+$overview-width: calc(100% - #{($pilot-width * 2)});
+$info-width: $pilot-width;
+
+//  $info-width: 25%;
+//  $overview-width: 50%;
+//  $pilot-width: 50%;
 
 @import 'overview/info';
 @import 'overview/chart';

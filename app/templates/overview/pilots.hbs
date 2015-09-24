@@ -1,16 +1,6 @@
 <div id="pilots">
-  <div class="panel panel-default infoPanel">
-    <ul class="list-group">
-      <li class="list-group-item">
-        {{#if currentUnit.pilots.length}}
-          <strong>Pilots: {{currentUnit.pilots.length}}</strong>
-          <br> <br>
-        {{/if}}
-        {{#each currentUnit.pilots as |pilot|}}
-          {{member-details member=pilot}}
-        {{/each}}
-      </li>
-    </ul>
+  <div class="panel panel-default pilot-panel">
+    {{member-tree unit=currentUnit}}
   </div>
 </div>
 
