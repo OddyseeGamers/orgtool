@@ -1,0 +1,41 @@
+{{#if unit}}
+<div class="member-tree">
+  <div class="unit-name">
+    <strong>{{unit.name}}</strong>
+    {{!--
+    <div class="btn-group edit-box" role="group">
+      <i class="btn fa fa-plus"></i>
+      <i class="btn fa fa-pencil-square-o"></i>
+      <i class="btn fa fa-trash"></i>
+    </div>
+    --}}
+  </div>
+
+  {{#if unit.leader}}
+    {{#each unit.leader as |lead|}}
+      {{member-details member=lead}}
+    {{/each}}
+  {{/if}}
+
+  {{#if unit.pilots}}
+    <div class="pilots">
+      <div>
+      Pilots: {{unit.pilots.length}}
+      </div>
+
+      {{#each unit.pilots as |pilot|}}
+        {{member-details member=pilot}}
+      {{/each}}
+    </div>
+  {{/if}}
+
+
+  {{#if unit.children}}
+    {{#each unit.children as |child|}}
+      {{member-tree unit=child}}
+    {{/each}}
+  {{/if}}
+
+  {{yield}}
+</div>
+{{/if}}
