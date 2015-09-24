@@ -6,8 +6,8 @@
       "type": "org",
       "desc": "United Empire of Earth",
       "color": "",
-      "leader_ids": [1, 2],
-      "pilot_ids": [2],
+      "leader_ids": [1],
+      "pilot_ids": [],
       "children_ids": [2,3,4]
     }, {
       "id": 2,
@@ -25,7 +25,7 @@
       "type": "department",
       "desc": "The Military",
       "color": "",
-      "leader_ids": [],
+      "leader_ids": [2],
       "pilot_ids": [],
       "parent": 1,
       "children_ids": [5, 6, 7]
@@ -44,8 +44,8 @@
       "type": "division",
       "desc": "The Army",
       "color": "",
-      "leader_ids": [],
-      "pilot_ids": [],
+      "leader_ids": [17],
+      "pilot_ids": [21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],
       "parent": 3
     }, {
       "id": 6,

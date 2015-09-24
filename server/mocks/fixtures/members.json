@@ -22,6 +22,386 @@
       "position": "",
       "unit": 1,
       "leader": 1
+    }, {
+      "id": 3,
+      "name": "Luke Skywalker",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 4,
+      "name": "Obi-Wan Kenobi",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 5,
+      "name": "Darth Maul",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 6,
+      "name": "Yoda",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 7,
+      "name": "Padmé Amidala",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 8,
+      "name": "Leia Organa",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 9,
+      "name": "Han Solo",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 10,
+      "name": "R2-D2",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 11,
+      "name": "Boba Fett",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 12,
+      "name": "Chewbacca",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 13,
+      "name": "Ahsoka Tano",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 14,
+      "name": "C-3PO",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 15,
+      "name": "Count Dooku",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 16,
+      "name": "General Grievous",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 17,
+      "name": "Kylo Ren",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 18,
+      "name": "Qui-Gon Jinn",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 19,
+      "name": "Mace Windu",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 20,
+      "name": "Lando Calrissian",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 21,
+      "name": "Stormtrooper 1",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 22,
+      "name": "Stormtrooper 2",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 23,
+      "name": "Stormtrooper 3",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 24,
+      "name": "Stormtrooper 4",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 25,
+      "name": "Stormtrooper 5",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 26,
+      "name": "Stormtrooper 6",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 27,
+      "name": "Stormtrooper 7",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 28,
+      "name": "Stormtrooper 8",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 29,
+      "name": "Stormtrooper 9",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 30,
+      "name": "Stormtrooper 10",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 31,
+      "name": "Stormtrooper 11",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 32,
+      "name": "Stormtrooper 12",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 33,
+      "name": "Stormtrooper 13",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 34,
+      "name": "Stormtrooper 14",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 35,
+      "name": "Stormtrooper 15",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 36,
+      "name": "Stormtrooper 16",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 37,
+      "name": "Stormtrooper 17",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 38,
+      "name": "Stormtrooper 18",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 39,
+      "name": "Stormtrooper 19",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
+    }, {
+      "id": 40,
+      "name": "Stormtrooper 20",
+      "handle": "some handle",
+      "rank": "some rank",
+      "role": "some role",
+      "avatar": "/rsi/static/images/account/avatar_default.jpg",
+      "certs": "all of them",
+      "position": "",
+      "unit": 1
     }
   ]
 }
