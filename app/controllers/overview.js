@@ -19,6 +19,9 @@ export default Ember.Controller.extend({
       }
     };
 */
+
+    this.set('content', this.store.findAll('unit'));
+    this.set('members', this.store.findAll('member'));
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
   }),
 

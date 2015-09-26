@@ -1,24 +1,31 @@
 {{#if unit}}
-<div class="member-tree">
-  <div class="unit-name">
-    <strong>{{unit.name}}</strong>
-    {{!--
-    <div class="btn-group edit-box" role="group">
-      <i class="btn fa fa-plus"></i>
-      <i class="btn fa fa-pencil-square-o"></i>
-      <i class="btn fa fa-trash"></i>
+<div class="unit-tree">
+  <div class="unit-header">
+    <div class="unit-name">
+      <strong>{{unit.name}}</strong>
+      {{#bs-dropdown class="unit-menu"}}
+        {{#bs-dropdown-toggle}}
+          {{fa-icon "gear"}}
+        {{/bs-dropdown-toggle}}
+        {{#bs-dropdown-menu class="pull-right"}}
+          <li><a href="#">{{fa-icon "plus"}} Add Unit</a></li>
+          <li><a href="#">{{fa-icon "pencil-square-o"}} Edit Unit</a></li>
+          <li><a href="#">{{fa-icon "remove"}} Delete Unit</a></li>
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
     </div>
-    --}}
+
+    {{#if unit.leader}}
+      <div class="unit-leader">
+      {{#each unit.leader as |lead|}}
+        {{member-details member=lead}}
+      {{/each}}
+      </div>
+    {{/if}}
   </div>
 
-  {{#if unit.leader}}
-    {{#each unit.leader as |lead|}}
-      {{member-details member=lead}}
-    {{/each}}
-  {{/if}}
-
   {{#if unit.pilots}}
-    <div class="pilots">
+    <div class="unit-pilots">
       <div>
       Pilots: {{unit.pilots.length}}
       </div>
@@ -31,9 +38,11 @@
 
 
   {{#if unit.units}}
+    <div class="child-units">
     {{#each unit.units as |child|}}
       {{unit-tree unit=child}}
     {{/each}}
+    </div>
   {{/if}}
 
   {{yield}}

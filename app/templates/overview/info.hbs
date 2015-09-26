@@ -1,4 +1,12 @@
 <div id="info">
+  <div class="panel panel-default impart-panel">
+  {{#each members as |member|}}
+    {{member-details member=member}}
+  {{/each}}
+</div>
+
+
+  {{!--
   <div class="panel panel-default infoPanel">
     <ul class="list-group">
       <li class="list-group-item">
@@ -26,4 +34,5 @@
       </li>
     </ul>
   </div>
+  --}}
 </div>

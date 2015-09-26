@@ -1,0 +1,43 @@
+.unit-tree {
+//    padding-bottom: 10px;
+  padding-top: 10px;
+
+  .unit-header {
+    padding-left: 10px;
+//      min-height: 60px;
+    min-height: 30px;
+//      border: 1px solid #222;
+    background-color: #29292a;
+
+    .unit-name {
+      color: #1a80b6;
+      font-size: 16px;
+    }
+
+    .unit-menu {
+      padding-right: 4px;
+      display: inline;
+      float: right;
+    }
+  }
+
+  .unit-leader {
+    color: #31708f;
+  }
+
+  .unit-leader > .member-details {
+    display: inline;
+  }
+
+  .unit-pilots {
+    background-color: #29292a;
+    padding-top: 10px;
+    padding-left: 40px;
+  }
+
+  .child-units {
+    padding-left: 20px;
+  }
+
+}
+
