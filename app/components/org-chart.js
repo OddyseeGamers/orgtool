@@ -41,6 +41,7 @@ export default Ember.Component.extend({
   path: null,
   text: null,
   currPath: null,
+  currSelection: null,
 
   partition: d3.layout.partition()
       .sort(null)
@@ -120,6 +121,15 @@ export default Ember.Component.extend({
 
     var id = Ember.$(d.target).data('id');
     if (id !== undefined) {
+      var $sel = this.get('currSelection');
+      if ($sel) {
+        $sel.attr("class", "");
+      }
+
+      var $path = Ember.$(d.target);
+      $path.attr("class", "selected");
+      this.set('currSelection', $path);
+
       this.get('eventManager').trigger('setDetails', id);
     }
 
@@ -183,13 +193,13 @@ export default Ember.Component.extend({
     var self = this;
     var ret = obj.serialize();
     ret.id = get(obj, 'id');
-    get(obj, 'children').forEach(function(ch) {
+    get(obj, 'units').forEach(function(unit) {
       if (!ret.children) {
-        ret.children = [ch.serialize()];
+        ret.children = [unit.serialize()];
       } else {
-        ret.children.push(ch.serialize());
+        ret.children.push(unit.serialize());
       }
-      ret.children[ret.children.length - 1] = self._serializeChildren(ch);
+      ret.children[ret.children.length - 1] = self._serializeChildren(unit);
     });
     return ret;
   },

@@ -8,7 +8,7 @@ export default DS.Model.extend({
   leader: DS.hasMany('member', { async: true }),
   pilots: DS.hasMany('member', { inverse: 'unit', async: true }),
 
-  parent: DS.belongsTo('unit', { inverse: 'children', async: false }),
-  children: DS.hasMany('unit', { inverse: 'parent', async: false })
+  parent: DS.belongsTo('unit', { inverse: 'units', async: false }),
+  units: DS.hasMany('unit', { inverse: 'parent', async: false })
 });
 
