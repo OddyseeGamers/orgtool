@@ -18,7 +18,7 @@ export default Ember.Component.extend({
     if (unit) {
       this.$(".unit-pilots-container").droppable({
         tolerance: 'pointer',
-  //       hoverClass: 'hovered',
+        hoverClass: 'hovered',
   //       zIndex: 10,
   //       over: function(event, ui) {
   //         ui.draggable.css("cursor", "copy");

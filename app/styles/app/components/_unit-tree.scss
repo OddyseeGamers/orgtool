@@ -73,15 +73,20 @@
   }
 
   .unit-bg {
-    background-color: transparent;
+//      background-color: transparent;
 //      padding-top: 10px;
     padding-left: 20px;
   }
 
-  .hovered {
-    cursor: copy !important;
+//    .hovered {
+//      cursor: copy !important;
 //      z-index: 11;
 //      background: rgba(255,0,0,.7) !important;
+//    }
+
+  .hovered, .hovered > div {
+    background: rgba(0,0,0,.2);
+    border-radius: 4px;
   }
 
 }

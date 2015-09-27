@@ -27,6 +27,9 @@ export default Ember.Controller.extend({
 //     }
 //   }),
 
+  filteredMembers: Ember.computed.filterBy('members', 'unit.id', undefined),
+
+  /*
   filteredMembers: function() {
       var self = this;
       return this.store.find('unit', 5).then(function(unit) {
@@ -34,6 +37,7 @@ export default Ember.Controller.extend({
         return self.get('members').filterBy('unit', unit);
       });
   }.property('members', 'currentUnit'),
+  */
 
   /*
   setupOrg: Ember.observer('units.@each.typs', function() {
