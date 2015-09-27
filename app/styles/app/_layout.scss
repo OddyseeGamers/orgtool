@@ -29,6 +29,28 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 //  $overview-width: 50%;
 //  $pilot-width: 50%;
 
+
+//  .ui-draggable {
+//      cursor: move;
+//  }
+
+.ui-draggable-dragging {
+/*   cursor: move; */
+//    min-width: 100px;
+  width: 200px;
+  background: rgba(0,0,0,.7);
+//    border-radius: 4px;
+}
+
+.ui-draggable.member:hover {
+//    cursor: move;
+  background: rgba(255,255,255,.2);
+//    border-radius: 4px;
+}
+
+
+
+
 @import 'overview/units';
 @import 'overview/chart';
 @import 'overview/members';

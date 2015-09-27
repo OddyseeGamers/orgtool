@@ -1,43 +1,63 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  showDeitails: null,
+  store: Ember.inject.service(),
+  unit: null,
+  collapseUnits: null,
+  collapseLeader: null,
+  collapsePilots: null,
 
   setup: Ember.on('init', function() {
-    this.set('showDeitails', true);
+    this.set('collapseUnits', true);
+    this.set('collapseLeader', true);
+    this.set('collapsePilots', true);
   }),
 
-
-  showUnit: Ember.computed.bool('showDeitails'),
-
-  actions: {
-    toggleShow: function() {
-      this.set('showDeitails', ! this.get('showDeitails'));
+  setupDrops: Ember.on('didInsertElement', function() {
+    var unit = this.get('unit');
+    if (unit) {
+      this.$(".unit-pilots-container").droppable({
+        tolerance: 'pointer',
+  //       hoverClass: 'hovered',
+  //       zIndex: 10,
+  //       over: function(event, ui) {
+  //         ui.draggable.css("cursor", "copy");
+  //       },
+  //       out: function(event, ui) {
+  //         ui.draggable.css("cursor", "no-drop");
+  //       },
+  //       over: function(){
+  //         $('.unit-content').css('cursor','copy');
+  //       },
+  //       out: function(){
+  //         $('.unit-content').css('cursor','no-drop');
+  //       },
+        drop: Ember.$.proxy(this.onNodeDropped, this),
+  //       over: Ember.$.proxy(this.onNodeOver, this),
+  //       out: Ember.$.proxy(this.onNodeOut, this)
+      });
     }
-  }
-
-/*
-  hideList: null,
-  setup: Ember.on('init', function() {
-    this.set('hideList', Ember.A());
   }),
 
-  showUnit: function() {
-    return this.get('hideList').indexOf(parseInt(this.get('unit.id'))) < 0;
-  }.property('hideList.[]'),
+  showUnits: Ember.computed.bool('collapseUnits'),
+  showLeader: Ember.computed.bool('collapseLeader'),
+  showPilots: Ember.computed.bool('collapsePilots'),
+
+  onNodeDropped: function(event, ui) {
+    var id = parseInt(ui.draggable.data('memberid'));
+    var unitid = $(event.target).data('unitid');
+    console.debug("droped here", id, unitid);
+  },
 
   actions: {
-    toggleShow: function(unitId) {
-      var id = parseInt(unitId);
-      var list = this.get('hideList');
-      var idx = list.indexOf(id);
-      if (idx < 0) {
-        list.pushObject(id);
-      } else {
-        var temp = list.removeAt(idx);
-      }
-      this.set('hideList', list);
+    toggleUnits: function() {
+      this.set('collapseUnits', ! this.get('collapseUnits'));
+    },
+    toggleLeader: function() {
+      this.set('collapseLeader', ! this.get('collapseLeader'));
+    },
+    togglePilots: function() {
+      this.set('collapsePilots', ! this.get('collapsePilots'));
     }
   }
-*/
 });

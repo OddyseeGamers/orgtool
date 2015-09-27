@@ -2,7 +2,10 @@
 <div class="unit-tree">
   <div class="unit-header">
     <div class="unit-name"> 
-      <strong><a class="toggle" {{action 'toggleShow'}} > <i class="fixedWidth fa {{if showUnit "fa-chevron-down" "fa-chevron-right"}}"/> {{unit.name}}</a></strong>
+      <a class="toggle" {{action 'toggleUnits'}}>
+        <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
+        {{unit.name}}
+      </a>
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
@@ -15,39 +18,38 @@
       {{/bs-dropdown}}
     </div>
 
-    {{#if unit.leader}}
-      <div class="unit-leader">
+    <a class="toggleElement" {{action 'toggleLeader'}}>
+      <i class="fixedWidth fa {{if showLeader "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
+      Leader: {{unit.leader.length}}
+    </a>
+    <div class="unit-leader {{unless showLeader "hide"}}">
       {{#each unit.leader as |lead|}}
-        {{member-details member=lead}}
-      {{/each}}
-      </div>
-      <div style="clear: both"/>
-    {{/if}}
-  </div>
-
-  <div class={{unless showUnit "hide"}}>
-  {{#if unit.pilots}}
-    <div class="unit-pilots">
-      <div>
-      Pilots: {{unit.pilots.length}}
-      </div>
-
-      {{#each unit.pilots as |pilot|}}
-        {{member-details member=pilot}}
+        {{member-details member=lead draggable=true}}
       {{/each}}
     </div>
-  {{/if}}
+    <div style="clear: both"/>
+  </div>
 
 
-  {{#if unit.units}}
+  <div class="unit-pilots-container" data-unitid={{unit.id}}>
+    <a class="toggleElement" {{action 'togglePilots'}}>
+      <i class="fixedWidth fa {{if showPilots "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
+      Pilots: {{unit.pilots.length}}
+    </a>
+    <div class="unit-pilots {{unless showPilots "hide"}}">
+      {{#each unit.pilots as |pilot|}}
+        {{member-details member=pilot draggable=true}}
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="unit-bg {{unless showUnits "hide"}}">
     <div class="child-units">
     {{#each unit.units as |child|}}
-      {{unit-tree unit=child}}
+      {{unit-tree unit=child unitId=child.id}}
     {{/each}}
     </div>
-  {{/if}}
-
-  </div>
+ </div>
 
   {{yield}}
 </div>

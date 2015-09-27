@@ -9,14 +9,12 @@
 //      border: 1px solid #222;
     background-color: #29292a;
 
-    .fixedWidth {
-      width: 20px;
-    }
 
     .unit-name {
       color: #1a80b6;
       font-size: 16px;
       border-bottom: 1px solid #222;
+      font-weight: bold;
 
       a.toggle {
         cursor: pointer;
@@ -31,7 +29,12 @@
     }
   }
 
+  .fixedWidth {
+    width: 20px;
+  }
+
   .unit-leader {
+    padding-top: 10px;
     color: #fff;
     font-weight: bold;
   }
@@ -41,15 +44,44 @@
     float: left;
   }
 
+  a.toggleElement {
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .unit-pilots-container {
+
+    padding-top: 10px;
+//      padding-bottom: 8px;
+    padding-left: 10px;
+    min-height: 30px;
+    background-color: #29292a;
+
+  }
+
+
   .unit-pilots {
-    border-top: 1px solid #222;
+//      border-top: 1px solid #222;
     background-color: #29292a;
     padding-top: 10px;
-    padding-left: 40px;
+    padding-left: 20px;
   }
 
   .child-units {
     padding-left: 20px;
+  }
+
+  .unit-bg {
+    background-color: transparent;
+//      padding-top: 10px;
+    padding-left: 20px;
+  }
+
+  .hovered {
+    cursor: copy !important;
+//      z-index: 11;
+//      background: rgba(255,0,0,.7) !important;
   }
 
 }

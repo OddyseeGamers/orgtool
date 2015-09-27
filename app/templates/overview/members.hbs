@@ -3,7 +3,7 @@
     {{#if currentUnit}}
       members: {{filteredMembers.length}}
       {{#each members as |member|}}
-        {{member-details member=member}}
+        {{member-details member=member draggable=true}}
       {{/each}}
     {{/if}}
   </div>

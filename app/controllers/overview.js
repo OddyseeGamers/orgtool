@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
   filteredMembers: function() {
       var self = this;
       return this.store.find('unit', 5).then(function(unit) {
-        console.debug("something changed", unit);
+//         console.debug("something changed", unit);
         return self.get('members').filterBy('unit', unit);
       });
   }.property('members', 'currentUnit'),
