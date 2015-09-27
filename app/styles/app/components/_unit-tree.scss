@@ -12,6 +12,7 @@
     .unit-name {
       color: #1a80b6;
       font-size: 16px;
+      border-bottom: 1px solid #222;
     }
 
     .unit-menu {
@@ -30,6 +31,7 @@
   }
 
   .unit-pilots {
+    border-top: 1px solid #222;
     background-color: #29292a;
     padding-top: 10px;
     padding-left: 40px;

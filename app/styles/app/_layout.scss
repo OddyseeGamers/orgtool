@@ -29,9 +29,9 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 //  $overview-width: 50%;
 //  $pilot-width: 50%;
 
-@import 'overview/info';
+@import 'overview/units';
 @import 'overview/chart';
-@import 'overview/pilots';
+@import 'overview/members';
 
 @import 'components/org-chart';
 @import 'components/unit-tree';
