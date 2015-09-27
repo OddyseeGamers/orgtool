@@ -1,0 +1,10 @@
+<div id="info">
+  <div class="panel panel-default impart-panel">
+    {{#if currentUnit}}
+      members: {{filteredMembers.length}}
+      {{#each members as |member|}}
+        {{member-details member=member}}
+      {{/each}}
+    {{/if}}
+  </div>
+</div>
