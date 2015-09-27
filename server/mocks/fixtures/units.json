@@ -6,7 +6,7 @@
       "type": "org",
       "desc": "United Empire of Earth",
       "color": "",
-      "leader_ids": [1],
+      "leader_ids": [1,2, 3,4],
       "pilot_ids": [],
       "unit_ids": [2,3,4]
     }, {

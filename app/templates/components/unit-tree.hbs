@@ -1,8 +1,8 @@
 {{#if unit}}
 <div class="unit-tree">
   <div class="unit-header">
-    <div class="unit-name">
-      <strong>{{unit.name}}</strong>
+    <div class="unit-name"> 
+      <strong><a class="toggle" {{action 'toggleShow'}} > <i class="fixedWidth fa {{if showUnit "fa-chevron-down" "fa-chevron-right"}}"/> {{unit.name}}</a></strong>
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
@@ -21,9 +21,11 @@
         {{member-details member=lead}}
       {{/each}}
       </div>
+      <div style="clear: both"/>
     {{/if}}
   </div>
 
+  <div class={{unless showUnit "hide"}}>
   {{#if unit.pilots}}
     <div class="unit-pilots">
       <div>
@@ -44,6 +46,8 @@
     {{/each}}
     </div>
   {{/if}}
+
+  </div>
 
   {{yield}}
 </div>

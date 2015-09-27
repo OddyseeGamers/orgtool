@@ -9,10 +9,19 @@
 //      border: 1px solid #222;
     background-color: #29292a;
 
+    .fixedWidth {
+      width: 20px;
+    }
+
     .unit-name {
       color: #1a80b6;
       font-size: 16px;
       border-bottom: 1px solid #222;
+
+      a.toggle {
+        cursor: pointer;
+        text-decoration: none;
+      }
     }
 
     .unit-menu {
@@ -23,11 +32,13 @@
   }
 
   .unit-leader {
-    color: #31708f;
+    color: #fff;
+    font-weight: bold;
   }
 
-  .unit-leader > .member-details {
-    display: inline;
+  .unit-leader > .ember-view {
+    width: 50%;
+    float: left;
   }
 
   .unit-pilots {

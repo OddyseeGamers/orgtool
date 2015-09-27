@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   units: null,
   members: null,
 
-//   mems: Ember.computed.filterBy('members', 'unit.id', 5),
+  mems: Ember.computed.filterBy('members.[]', 'unit', 5),
 
   setup: Ember.on('init', function() {
     this.set('units', this.store.findAll('unit'));
