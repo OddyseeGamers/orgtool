@@ -37,7 +37,7 @@ export default Ember.Component.extend({
   eventManager: Ember.inject.service('events'),
   store: Ember.inject.service(),
 
-  content: null,
+//   content: null,
   path: null,
   text: null,
   currPath: null,
@@ -177,7 +177,7 @@ export default Ember.Component.extend({
 
   _transformData: function() {
     var org = null;
-    var data = get(this, 'content');
+    var data = get(this, 'units');
     for (var i = 0; i < get(data, 'length') && !org; i++) {
       var el = data.objectAt(i);
       if (get(el, 'type') === "org") {
