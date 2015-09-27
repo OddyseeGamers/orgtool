@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   //       out: function(){
   //         $('.unit-content').css('cursor','no-drop');
   //       },
-        drop: Ember.$.proxy(this.onNodeDropped, this),
+//         drop: Ember.$.proxy(this.onNodeDropped, this),
   //       over: Ember.$.proxy(this.onNodeOver, this),
   //       out: Ember.$.proxy(this.onNodeOut, this)
       });

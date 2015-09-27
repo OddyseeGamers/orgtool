@@ -1,6 +1,20 @@
 import Ember from 'ember';
 import d3 from 'd3';
 
+var DragDropManager = {
+	dragged: null,
+	droppable: null,
+	draggedMatchesTarget: function() {
+    console.debug("dropable?");
+		if (!this.droppable)
+      return false;
+    console.debug("dropable?");
+    return false;
+//     return (dwarfSet[this.droppable].indexOf(this.dragged) >= 0);
+	}
+}
+
+
 var get = Ember.get;
 var set = Ember.set;
 
@@ -119,12 +133,13 @@ export default Ember.Component.extend({
       temp = temp.parent;
     }
 
-    var id = Ember.$(d.target).data('id');
+    var id = Ember.$(d.target).data('unitid');
     if (id !== undefined) {
       var $sel = this.get('currSelection');
       if ($sel) {
         $sel.attr("class", "");
       }
+      console.debug("somewas clicked", id);
 
       var $path = Ember.$(d.target);
       $path.attr("class", "selected");
@@ -234,12 +249,32 @@ export default Ember.Component.extend({
     this.path = vis.selectAll("path").data(nodes);
     this.path.enter().append("path")
             .attr("id", function(d, i) { return "path-" + d.id; })
-            .attr("data-id", function(d, i) { return d.id; })
+            .attr("data-unitid", function(d, i) { return d.id; })
             .attr("d", this.arc)
             .attr("fill-rule", "evenodd")
-            .style("fill", color);
+            .attr("width", 100)
+            .attr("height", 100)
+            .style("fill", color)
+            .on("click", self.click.bind(self))
+            .on('mouseover',function(d,i) {
+              DragDropManager.droppable = d; 
+            })
+            .on('mouseOut',function(e){
+              DragDropManager.droppable = null;
+            });
+//             .on("mouseover", function (item, data) {
+//                 console.debug("mouse over", item, '---', data);
+//               });
+
 //             .on("click", self.click.bind(self));
-//             .on("click", self.click.bind(self));
+
+//     var drops = vis.selectAll("path"); //d3.select("path");
+//     console.debug("all paths:", drops);
+//     $('path').droppable({
+//               tolerance: 'pointer',
+//               hoverClass: 'hovered',
+//               drop: Ember.$.proxy(this.onNodeDropped, this),
+//             });
     
     var iw = 106;
     var ih = 106;
@@ -269,8 +304,8 @@ export default Ember.Component.extend({
                 angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
                 rotate = angle + (multiline ? - 0.5 : 0);
                 return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-            })
-            .on("click", self.click.bind(self));
+            });
+//             .on("click", self.click.bind(self));
 
     textEnter.append("tspan")
         .attr("x", 0)

@@ -85,7 +85,9 @@
 //    }
 
   .hovered, .hovered > div {
-    background: rgba(0,0,0,.2);
+//      background: rgba(0,0,0,.2);
+    cursor: copy;
+    background: #424242;
     border-radius: 4px;
   }
 

@@ -16,14 +16,44 @@ export default Ember.Component.extend({
       return;
     }
 
+    var self = this;
+
     this.$().draggable({
 //       cursor: 'move',
+//       tolerance: 'pointer',
       helper: 'clone',
       zIndex: 10,
-      //         revert: true,
-      cursorAt: { left: 0, top: 0 }, 
-      revertDuration: 100,
-      revert: true
+      cursorAt: { left: -1, top: 0 }, 
+      revert: true,
+      drag: function (e) {
+        var el = self.getElementId(event);
+        var matches = el.unitid !== undefined;
+        $('body').css("cursor", function() {
+          return (matches) ? "copy" : "move";
+        });
+        if (el.isSvg) {
+          $(el.dest).css({ fill: "#f00"});
+        }
+        $(e.target).draggable("option","revertDuration",(matches) ? 0 : 100)
+      },
+      stop: function (event, ui) {
+        // Dropped on a non-matching target.
+        var unitid = self.getElementId(event).unitid;
+        if (!unitid) {
+          console.debug("no match");
+          return;
+        }
+
+        var id = parseInt($(event.target).data('memberid'));
+//         var unitid = $(event.target).data('unitid');
+        console.debug("droped here", id, unitid);
+//         var id = parseInt(ui.draggable.data('memberid'));
+//         var unitid = $(event.target).data('unitid');
+//         console.debug("droped here", event);
+
+//         $(e.target).draggable("disable");
+        $("body").css("cursor","");
+      }
 //       appendTo: 'body',
       /*
       helper: function() {
@@ -62,4 +92,24 @@ export default Ember.Component.extend({
 
 //     console.debug("done", hmm);
   }),
+
+  draggedMatchesTarget: function(item) {
+    return this.getElementId(item).unitid !== undefined;
+  },
+
+  getElementId: function(item) {
+    var id = $(item.toElement).data('unitid');
+    var dest = null;
+    var svg = false;
+    if (!id) {
+      id = $(item.toElement).closest( ".unit-pilots-container" ).data('unitid');
+      if (id) {
+        dest = $(item.toElement).closest( ".unit-pilots-container" );
+      }
+    } else {
+      svg = true;
+      dest = item.toElement;
+    }
+    return {unitid: id, isSvg: svg, obj: dest};
+  },
 });
