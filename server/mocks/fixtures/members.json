@@ -9,7 +9,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "Emperor",
-      "unit": 1,
+      "unit": null,
       "leader": 1
     }, {
       "id": 2,
@@ -20,7 +20,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1,
+      "unit": null,
       "leader": 1
     }, {
       "id": 3,
@@ -31,7 +31,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 4,
       "name": "Obi-Wan Kenobi",
@@ -41,7 +41,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 5,
       "name": "Darth Maul",
@@ -51,7 +51,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 6,
       "name": "Yoda",
@@ -61,7 +61,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 7,
       "name": "Padmé Amidala",
@@ -71,7 +71,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 8,
       "name": "Leia Organa",
@@ -81,7 +81,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 9,
       "name": "Han Solo",
@@ -91,7 +91,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 10,
       "name": "R2-D2",
@@ -101,7 +101,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 11,
       "name": "Boba Fett",
@@ -111,7 +111,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 12,
       "name": "Chewbacca",
@@ -121,7 +121,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 13,
       "name": "Ahsoka Tano",
@@ -131,7 +131,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 14,
       "name": "C-3PO",
@@ -141,7 +141,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 15,
       "name": "Count Dooku",
@@ -151,7 +151,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 16,
       "name": "General Grievous",
@@ -161,7 +161,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 17,
       "name": "Kylo Ren",
@@ -171,7 +171,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 18,
       "name": "Qui-Gon Jinn",
@@ -181,7 +181,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 19,
       "name": "Mace Windu",
@@ -191,7 +191,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 20,
       "name": "Lando Calrissian",
@@ -201,7 +201,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": null
     }, {
       "id": 21,
       "name": "Stormtrooper 1",
@@ -211,7 +211,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 22,
       "name": "Stormtrooper 2",
@@ -221,7 +221,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 23,
       "name": "Stormtrooper 3",
@@ -231,7 +231,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 24,
       "name": "Stormtrooper 4",
@@ -241,7 +241,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 25,
       "name": "Stormtrooper 5",
@@ -251,7 +251,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 26,
       "name": "Stormtrooper 6",
@@ -261,7 +261,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 27,
       "name": "Stormtrooper 7",
@@ -271,7 +271,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 28,
       "name": "Stormtrooper 8",
@@ -281,7 +281,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 29,
       "name": "Stormtrooper 9",
@@ -291,7 +291,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 30,
       "name": "Stormtrooper 10",
@@ -301,7 +301,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 31,
       "name": "Stormtrooper 11",
@@ -311,7 +311,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 32,
       "name": "Stormtrooper 12",
@@ -321,7 +321,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 33,
       "name": "Stormtrooper 13",
@@ -331,7 +331,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 34,
       "name": "Stormtrooper 14",
@@ -341,7 +341,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 35,
       "name": "Stormtrooper 15",
@@ -351,7 +351,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 36,
       "name": "Stormtrooper 16",
@@ -361,7 +361,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 37,
       "name": "Stormtrooper 17",
@@ -371,7 +371,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 38,
       "name": "Stormtrooper 18",
@@ -381,7 +381,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 39,
       "name": "Stormtrooper 19",
@@ -391,7 +391,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }, {
       "id": 40,
       "name": "Stormtrooper 20",
@@ -401,7 +401,7 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 1
+      "unit": 5
     }
   ]
 }
