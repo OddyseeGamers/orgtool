@@ -24,7 +24,9 @@
     </a>
     <div class="unit-leader {{unless showLeader "hide"}}">
       {{#each unit.leader as |lead|}}
-        {{member-details member=lead draggable=true}}
+        <div class="unit-leader-col">
+          {{member-details member=lead draggable=true}}
+        </div>
       {{/each}}
     </div>
     <div style="clear: both"/>
