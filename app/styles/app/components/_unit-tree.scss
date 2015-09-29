@@ -13,7 +13,7 @@
     .unit-name {
       color: #1a80b6;
       font-size: 16px;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #444;
       font-weight: bold;
 
       a.toggle {
@@ -34,7 +34,7 @@
   }
 
   .unit-leader {
-    padding-top: 10px;
+    padding-top: 4px;
     color: #fff;
     font-weight: bold;
   }
@@ -51,6 +51,16 @@
     color: #fff;
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .unit-leader-container {
+
+    padding-top: 10px;
+//      padding-bottom: 8px;
+    padding-left: 10px;
+    min-height: 30px;
+    background-color: #29292a;
+
   }
 
   .unit-pilots-container {

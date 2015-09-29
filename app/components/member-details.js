@@ -64,9 +64,7 @@ export default Ember.Component.extend({
         classes = classes.split(" ");
         var idx = classes.indexOf("drop-hover");
         if (idx >= 0) {
-          console.debug("before", classes);
           classes.splice(idx, 1);
-          console.debug("after", classes);
           $(last).attr("class", classes.join(" "));
         }
       }
