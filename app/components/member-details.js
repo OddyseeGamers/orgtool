@@ -6,12 +6,10 @@ export default Ember.Component.extend({
   selectable: true,
   attributeBindings: ["memberid:data-memberid"],
   memberid: Ember.computed.alias('member.id'),
+  lastElement: null,
+  lastColor: null,
 
   setup: Ember.on('didInsertElement', function() {
-//     this._super();
-//     var view = this,
-//     treeDraggingNodeView = this.get('treeDraggingNodeView');
-
     if (!this.get('draggable')) {
       return;
     }
@@ -20,23 +18,42 @@ export default Ember.Component.extend({
 
     this.$().draggable({
 //       cursor: 'move',
-//       tolerance: 'pointer',
+      tolerance: 'pointer',
       helper: 'clone',
       zIndex: 10,
-      cursorAt: { left: -1, top: 0 }, 
+      cursorAt: { left: -5, top: -5 }, 
       revert: true,
       drag: function (e) {
-        var el = self.getElementId(event);
+        var el = self.getElementId(e);
         var matches = el.unitid !== undefined;
         $('body').css("cursor", function() {
           return (matches) ? "copy" : "move";
         });
-        if (el.isSvg) {
-          $(el.dest).css({ fill: "#f00"});
+        var last = self.get('lastElement');
+        if (matches && el.isSvg) {
+          if (last) {
+            $(last).css({ fill: self.get('lastColor')});
+          }
+
+          self.set('lastElement', e.toElement);
+          self.set('lastColor', $(e.toElement).css('fill'));
+          $(e.toElement).css({ fill: "#ff0000"});
+        } else {
+          if (last) {
+            $(last).css({ fill: self.get('lastColor')});
+          }
+          self.set('lastElement', null);
+          self.set('lastColor', null);
         }
         $(e.target).draggable("option","revertDuration",(matches) ? 0 : 100)
       },
       stop: function (event, ui) {
+        var last = self.get('lastElement');
+        if (last) {
+          $(last).css({ fill: self.get('lastColor')});
+        }
+        self.set('lastElement', null);
+        self.set('lastColor', null);
         // Dropped on a non-matching target.
         var unitid = self.getElementId(event).unitid;
         if (!unitid) {
@@ -99,17 +116,12 @@ export default Ember.Component.extend({
 
   getElementId: function(item) {
     var id = $(item.toElement).data('unitid');
-    var dest = null;
     var svg = false;
     if (!id) {
       id = $(item.toElement).closest( ".unit-pilots-container" ).data('unitid');
-      if (id) {
-        dest = $(item.toElement).closest( ".unit-pilots-container" );
-      }
     } else {
       svg = true;
-      dest = item.toElement;
     }
-    return {unitid: id, isSvg: svg, obj: dest};
+    return {unitid: id, isSvg: svg};
   },
 });
