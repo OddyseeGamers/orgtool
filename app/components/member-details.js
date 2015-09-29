@@ -14,101 +14,65 @@ export default Ember.Component.extend({
       return;
     }
 
-    var self = this;
-
     this.$().draggable({
-//       cursor: 'move',
       tolerance: 'pointer',
       helper: 'clone',
-      zIndex: 10,
       cursorAt: { left: -5, top: -5 }, 
       revert: true,
-      drag: function (e) {
-        var el = self.getElementId(e);
-        var matches = el.unitid !== undefined;
-        $('body').css("cursor", function() {
-          return (matches) ? "copy" : "move";
-        });
-        var last = self.get('lastElement');
-        if (matches && el.isSvg) {
-          if (last) {
-            $(last).css({ fill: self.get('lastColor')});
-          }
-
-          self.set('lastElement', e.toElement);
-          self.set('lastColor', $(e.toElement).css('fill'));
-          $(e.toElement).css({ fill: "#ff0000"});
-        } else {
-          if (last) {
-            $(last).css({ fill: self.get('lastColor')});
-          }
-          self.set('lastElement', null);
-          self.set('lastColor', null);
-        }
-        $(e.target).draggable("option","revertDuration",(matches) ? 0 : 100)
-      },
-      stop: function (event, ui) {
-        var last = self.get('lastElement');
-        if (last) {
-          $(last).css({ fill: self.get('lastColor')});
-        }
-        self.set('lastElement', null);
-        self.set('lastColor', null);
-        // Dropped on a non-matching target.
-        var unitid = self.getElementId(event).unitid;
-        if (!unitid) {
-          console.debug("no match");
-          return;
-        }
-
-        var id = parseInt($(event.target).data('memberid'));
-//         var unitid = $(event.target).data('unitid');
-        console.debug("droped here", id, unitid);
-//         var id = parseInt(ui.draggable.data('memberid'));
-//         var unitid = $(event.target).data('unitid');
-//         console.debug("droped here", event);
-
-//         $(e.target).draggable("disable");
-        $("body").css("cursor","");
-      }
-//       appendTo: 'body',
-      /*
-      helper: function() {
-
-        var treeDraggingNodeViewInstance = treeDraggingNodeView.create();
-
-        treeDraggingNodeViewInstance.setProperties({
-          node: view.get('node'),
-          parentView: view,
-          controller: view.get('controller')
-        });
-
-        view.set('_treeDraggingNodeView', treeDraggingNodeViewInstance.appendTo('#dragging'));
-
-        return Ember.$('<span id="dragging"/>');
-      },
-
-      start: function() {
-        var node = view.get('node'),
-        selectedNodes = view.get('controller.selectedNodes');
-
-        // If current dragging node isn't in selected nodes, we deselect all of them
-        if (-1 === selectedNodes.indexOf(node)) {
-          selectedNodes.forEach(function(node) {
-            node.set('isSelected', false);
-            view.get('controller').nodeSelectionStateChanged(node);
-          }, this);
-        }
-      },
-
-      stop: function() {
-        view.get('_treeDraggingNodeView').destroy();
-      }
-      */
+      drag: Ember.$.proxy(this.onDrag, this),
+      stop: Ember.$.proxy(this.onDropped, this),
     });
-
-//     console.debug("done", hmm);
   }),
+
+  onDrag: function(e) {
+    var el = this.getElementId(e);
+    var matches = el.unitid !== undefined;
+    $('body').css("cursor", function() {
+      return (matches) ? "copy" : "move";
+    });
+    var last = this.get('lastElement');
+    if (matches && el.isSvg) {
+      this.setLast(e.toElement);
+    } else {
+      this.resetLast();
+    }
+    $(e.target).draggable("option","revertDuration",(matches) ? 0 : 100)
+  },
+
+  onDropped: function (event, ui) {
+    this.resetLast();
+    // Dropped on a non-matching target.
+    var unitid = this.getElementId(event).unitid;
+    if (!unitid) {
+      console.debug("no match");
+      return;
+    }
+
+    var id = parseInt($(event.target).data('memberid'));
+    console.debug("droped here", id, unitid);
+    $("body").css("cursor","");
+  },
+
+  resetLast: function() {
+    var last = this.get('lastElement');
+    if (last) {
+      $(last).css({ fill: this.get('lastColor')});
+    }
+    this.set('lastElement', null);
+    this.set('lastColor', null);
+  },
+
+  setLast: function(element) {
+    this.resetLast();
+    var last = this.get('lastElement');
+    if (last) {
+      $(last).css({ fill: this.get('lastColor')});
+    }
+
+    this.set('lastElement', element);
+    this.set('lastColor', $(element).css('fill'));
+    $(element).css({ fill: "#424242"});
+  },
 
   draggedMatchesTarget: function(item) {
     return this.getElementId(item).unitid !== undefined;
