@@ -18,8 +18,6 @@ var DragDropManager = {
 var get = Ember.get;
 var set = Ember.set;
 
-var width = 0;
-var height = 0;
 var radius = 0;
 var padding = 5;
 var duration = 500;
@@ -52,6 +50,8 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
 
 //   content: null,
+//   width: 0,
+//   height = 0;
   path: null,
   text: null,
   currPath: null,
@@ -69,7 +69,7 @@ export default Ember.Component.extend({
 
   setup: Ember.on('didInsertElement', function() {
     var $container = Ember.$(
-        '<svg id="svg" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
+        '<svg id="svg" preserveAspectRatio="xMidYMid" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
 //         '<defs>' +
 //         '<pattern id="img1" patternUnits="userSpaceOnUse">' +
 //         '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="106px" height="106px" x="0" y="0"></image>' +
@@ -139,55 +139,12 @@ export default Ember.Component.extend({
       if ($sel) {
         $sel.attr("class", "");
       }
-      console.debug("somewas clicked", id);
-
       var $path = Ember.$(d.target);
       $path.attr("class", "selected");
       this.set('currSelection', $path);
 
       this.get('eventManager').trigger('setDetails', id);
     }
-
-//     console.debug(">>> clicked:", idstr);
-
-
-//     setInfo(d);
-    
-
-/***** ANIMATION *******/
-/*  
-    path.transition()
-    .duration(duration)
-    .attrTween("d", arcTween(d));
-
-    // Somewhat of a hack as we rely on arcTween updating the scales.
-    text.style("visibility", function(e) {
-        return isParentOf(d, e) ? null : d3.select(this).style("visibility");
-    })
-    .transition()
-    .duration(duration)
-    .attrTween("text-anchor", function(d) {
-        return function() {
-            return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
-        };
-    })
-    .attrTween("transform", function(d) {
-        var multiline = (d.name || "").split(" ").length > 1;
-        return function() {
-            var angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
-            rotate = angle + (multiline ? - 0.5 : 0);
-            return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
-        };
-    })
-    .style("fill-opacity", function(e) { return isParentOf(d, e) ? 1 : 1e-6; })
-    .each("end", function(e) {
-        if (currPath === d.name) {
-            return;
-        }
-
-        d3.select(this).style("visibility", isParentOf(d, e) ? null : "hidden");
-    });
-*/
   },
 
   _transformData: function() {
@@ -200,43 +157,53 @@ export default Ember.Component.extend({
       }
     };
 
-    //         return org;
     return this._serializeChildren(org);
   },
 
   _serializeChildren: function(obj) {
     var self = this;
-    var ret = obj.serialize();
-    ret.id = get(obj, 'id');
-    get(obj, 'units').forEach(function(unit) {
-      if (!ret.children) {
-        ret.children = [unit.serialize()];
-      } else {
-        ret.children.push(unit.serialize());
-      }
-      ret.children[ret.children.length - 1] = self._serializeChildren(unit);
-    });
+    if (obj) {
+      var ret = obj.serialize();
+      ret.id = get(obj, 'id');
+      get(obj, 'units').forEach(function(unit) {
+        if (!ret.children) {
+          ret.children = [unit.serialize()];
+        } else {
+          ret.children.push(unit.serialize());
+        }
+        ret.children[ret.children.length - 1] = self._serializeChildren(unit);
+      });
+    }
     return ret;
   },
 
   _renderStruc: function() {
-    var div = Ember.$(".org-tree");
-    var w = div.width();
-    width = height = Math.min(w, div.height());
-    var diff = padding;
-    if (w > width) {
-      diff = (w - width) / 2;
+    var struc = this._transformData();
+    if (!struc) {
+      return;
     }
-    radius = (width - 8) / 2;
-//     console.debug(">>>> w", w, 'diff', diff, 'radius', radius);
+
+    var div = Ember.$(".org-tree");
+    var width = div.width();
+    var height = div.height();
+
+//     width = height = Math.min(width, height);
+    var diff = padding;
+    if (height > width) {
+      diff = (height - width) / 2;
+      height = width;
+    } else if (width > height) {
+      diff = (width - height) / 2;
+      width = height;
+    }
+    radius = (width - 20) / 2;
+    console.debug(">>>> w", width, 'h', height, 'diff', diff);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
 
     var svg = d3.select("#svg");
 
-    var struc = this._transformData();
-//     console.debug(">> set data", struc);
     var nodes = this.partition.nodes(struc);
 
     Ember.$("#org_group").remove();

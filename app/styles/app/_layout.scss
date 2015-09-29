@@ -1,24 +1,35 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
 #orgtool-container {
-    background-color: #29292a;
-    color: #aaa9a9;
+  height: 100%;
+  background-color: #29292a;
+  color: #aaa9a9;
+}
+
+#orgtool-container > .ember-view {
+  height: 100%;
 }
 
 #maincontainer {
-    width: 100%;
-    height: 754px;
-//      height: 100%;
+  width: 100%;
+//    height: 754px;
+  height: 100%;
 }
+
+
+$menu-height: 43px;
 
 #header {
-}
-
-#breadPath {
-  height: 40px;
+  height: $menu-height;
 }
 
 #mycontent {
-    height: 100%;
-    background-color: #242424;
+  width: 100%;
+  height: calc(100% - #{$menu-height});
+  background-color: #242424;
 }
 
 $pilot-width: 30%;

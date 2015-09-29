@@ -83,7 +83,7 @@ export default Ember.Component.extend({
     this.resetLast();
     this.set('lastElement', element);
     this.set('lastColor', $(element).css('fill'));
-    $(element).css("fill", "");
+    $(element).removeAttr("style");
     var classes = $(element).attr("class");
     console.debug(">>> classes", classes);
     if (classes) {
