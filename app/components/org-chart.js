@@ -1,20 +1,6 @@
 import Ember from 'ember';
 import d3 from 'd3';
 
-var DragDropManager = {
-	dragged: null,
-	droppable: null,
-	draggedMatchesTarget: function() {
-    console.debug("dropable?");
-		if (!this.droppable)
-      return false;
-    console.debug("dropable?");
-    return false;
-//     return (dwarfSet[this.droppable].indexOf(this.dragged) >= 0);
-	}
-}
-
-
 var get = Ember.get;
 var set = Ember.set;
 
@@ -23,26 +9,6 @@ var padding = 5;
 var duration = 500;
 var x = 0;
 var y = 0;
-
-function  color(d) {
-//   if (d && d.depth === 0) {
-//     return "url(#img1)";
-//   }
-
-  if (d.children) {
-    var idx = d.children.length > 1 ? 1 : 0;
-    var self = this;
-    var colors = d.children.map(color),
-                  a = d3.hsl(colors[0]),
-                  b = d3.hsl(colors[idx]);
-
-    // L*a*b* might be better here...
-    return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
-  }
-
-  return d.color || "#fff";
-};
-
 
 export default Ember.Component.extend({
   classNames: ['org-tree'],
@@ -69,7 +35,7 @@ export default Ember.Component.extend({
 
   setup: Ember.on('didInsertElement', function() {
     var $container = Ember.$(
-        '<svg id="svg" preserveAspectRatio="xMidYMid" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
+        '<svg id="svg" preserveAspectRatio="xMinYMin" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
 //         '<defs>' +
 //         '<pattern id="img1" patternUnits="userSpaceOnUse">' +
 //         '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="106px" height="106px" x="0" y="0"></image>' +
@@ -123,6 +89,27 @@ export default Ember.Component.extend({
   brightness: function(rgb) {
     return rgb.r * 0.299 + rgb.g * 0.587 + rgb.b * 0.114;
   },
+
+  color: function(d) {
+  //   if (d && d.depth === 0) {
+  //     return "url(#img1)";
+  //   }
+
+    if (d.children) {
+      var idx = d.children.length > 1 ? 1 : 0;
+      var self = this;
+      var colors = d.children.map(Ember.$.proxy(this.color, this)),
+                    a = d3.hsl(colors[0]),
+                    b = d3.hsl(colors[idx]);
+
+      // L*a*b* might be better here...
+      return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
+    }
+
+    return d.color || "#fff";
+  },
+
+
 
   click: function(d) {
     this.currPath = [ d ];
@@ -221,27 +208,10 @@ export default Ember.Component.extend({
             .attr("fill-rule", "evenodd")
             .attr("width", 100)
             .attr("height", 100)
-            .style("fill", color)
-            .on("click", self.click.bind(self))
-            .on('mouseover',function(d,i) {
-              DragDropManager.droppable = d; 
-            })
-            .on('mouseOut',function(e){
-              DragDropManager.droppable = null;
-            });
-//             .on("mouseover", function (item, data) {
-//                 console.debug("mouse over", item, '---', data);
-//               });
-
+            .style("fill", Ember.$.proxy(this.color, this))
+            .on("click", Ember.$.proxy(this.click, this));
 //             .on("click", self.click.bind(self));
 
-//     var drops = vis.selectAll("path"); //d3.select("path");
-//     console.debug("all paths:", drops);
-//     $('path').droppable({
-//               tolerance: 'pointer',
-//               hoverClass: 'hovered',
-//               drop: Ember.$.proxy(this.onNodeDropped, this),
-//             });
     
     var iw = 106;
     var ih = 106;
@@ -260,7 +230,7 @@ export default Ember.Component.extend({
     var textEnter = this.text.enter().append("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
-                return self.brightness(d3.rgb(color(d))) < 125 ? "#eee" : "#000";
+                return self.brightness(d3.rgb(Ember.$.proxy(this.color, this))) < 125 ? "#000" : "#eee";
             })
             .attr("text-anchor", function(d) {
                 return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
