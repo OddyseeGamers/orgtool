@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   name: DS.attr(),
-  manufacturer: DS.attr(),
-  type: DS.attr(),
+  manufacturer: DS.belongsTo('shipManufacturer', { async: true }),
+  type: DS.belongsTo('shipType', { async: true }),
+  roles: DS.hasMany('shipRole', { async: true })
 });

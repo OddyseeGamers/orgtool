@@ -8,6 +8,9 @@ export default DS.Model.extend({
   avatar: DS.attr(),
   certs: DS.attr(),
   position: DS.attr(),
+  badges: DS.attr(),
+  achievements: DS.attr(),
+  ships: DS.hasMany('ships', {async: true}),
   unit: DS.belongsTo('unit', { inverse: 'pilots', async: true }),
   leader: DS.belongsTo('unit', { async: true })
 });

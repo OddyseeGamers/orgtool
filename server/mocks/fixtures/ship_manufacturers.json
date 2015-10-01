@@ -1,0 +1,60 @@
+{
+  "ship-manufacturers": [
+    {
+      "id": 1,
+      "name": "Roberts Space Industries",
+      "desc": "",
+      "ship_ids": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+    }, {
+      "id": 2,
+      "name": "Origin Jumpworks",
+      "desc": "",
+      "ship_ids": [17,18,19,20,21,22,23,24,25]
+    }, {
+      "id": 3,
+      "name": "Aegis Dynamics",
+      "desc": "",
+      "ship_ids": [26,27,28,29,30,31,32,33,34,35]
+    }, {
+      "id": 4,
+      "name": "Drake Interplanetary",
+      "desc": "",
+      "ship_ids": [36,37,38,39,40,41]
+    }, {
+      "id": 5,
+      "name": "Anvil Aerospace",
+      "desc": "",
+      "ship_ids": [42,43,44,45,46,47,48,49,50]
+    }, {
+      "id": 6,
+      "name": "Musashi Industrial & Starflight Concern",
+      "desc": "",
+      "ship_ids": [51,52,53,54,55,56,57,58,59,60,61,62]
+    }, {
+      "id": 7,
+      "name": "Kruger Intergalactic",
+      "desc": "",
+      "ship_ids": [63,64]
+    }, {
+      "id": 8,
+      "name": "Consolidated Outland",
+      "desc": "",
+      "ship_ids": [65,66,67,68,69]
+    }, {
+      "id": 9,
+      "name": "Vanduul",
+      "desc": "",
+      "ship_ids": [70,71]
+    }, {
+      "id": 10,
+      "name": "Xi'An",
+      "desc": "",
+      "ship_ids": [72]
+    }, {
+      "id": 11,
+      "name": "Banu",
+      "desc": "",
+      "ship_ids": [73]
+    }
+  ]
+}
