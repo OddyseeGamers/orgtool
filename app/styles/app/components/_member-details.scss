@@ -1,16 +1,51 @@
 .member-details {
+  padding-top: 4px;
+  border-bottom: 1px solid #333;
+
   .member-avatar {
     width: 34px;
     float: left;
   }
 
-  .member-name {
+  .member-box {
 //      width: 160px;
     margin-left: 40px;
   }
 
+
+  .member-info {
+    width: 100%;
+  }
+
+  .member-name {
+    display: inline;
+  }
+
+  .member-stats {
+    font-size: 12px;
+    color: #555;
+    display: inline;
+    padding-right: 6px;
+  }
+
+  .member-remove {
+    color: #f00;
+    display: inline;
+    float: right;
+    padding-right: 4px;
+
+    a:hover, a:focus {
+      cursor: pointer;
+    }
+  }
+
+  .member-options {
+    font-size: 13px;
+    display: inline;
+  }
+
   .member-rank {
     font-size: 12px;
-    color:#555;
+    color: #555;
   }
 }

@@ -37,7 +37,7 @@
     <div class="unit-leader {{unless showLeader "hide"}}">
       {{#each unit.leader as |lead|}}
         <div class="half-col">
-          {{member-details member=lead draggable=true}}
+          {{member-details member=lead draggable=true unassign=true}}
         </div>
       {{/each}}
     </div>
@@ -56,7 +56,7 @@
     {{/if}}
     <div class="unit-pilots {{unless showPilots "hide"}}">
       {{#each unit.pilots as |pilot|}}
-          {{member-details member=pilot draggable=true}}
+          {{member-details member=pilot draggable=true unassign=true}}
       {{/each}}
     </div>
   </div>

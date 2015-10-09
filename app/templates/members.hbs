@@ -1,4 +1,6 @@
 <div id="members">
-    members content...
+  {{#each content as |member|}}
+    {{member.name}} - {{member.shipCollection.length}}<br>
+  {{/each}}
 </div>
 

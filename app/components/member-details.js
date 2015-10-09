@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   draggable: false,
   droppable: true,
   selectable: true,
+  unassign: false,
   attributeBindings: ["memberid:data-memberid"],
   memberid: Ember.computed.alias('member.id'),
   lastElement: null,
@@ -103,4 +104,10 @@ export default Ember.Component.extend({
     }
     return {unitid: id, isSvg: svg};
   },
+
+  actions: {
+    unassignMember: function() {
+      console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+    }
+  }
 });

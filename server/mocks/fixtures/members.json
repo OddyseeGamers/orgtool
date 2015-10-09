@@ -10,7 +10,9 @@
       "certs": "all of them",
       "position": "Emperor",
       "unit": null,
-      "leader": 1
+      "leader": 1,
+      "ship_collection_ids": [1, 2, 3],
+      "badge_ids": [1,2]
     }, {
       "id": 2,
       "name": "Darth Vader",
@@ -211,7 +213,8 @@
       "avatar": "/rsi/static/images/account/avatar_default.jpg",
       "certs": "all of them",
       "position": "",
-      "unit": 5
+      "unit": 5,
+      "shipCollection_ids": [1, 2, 3]
     }, {
       "id": 22,
       "name": "Stormtrooper 2",

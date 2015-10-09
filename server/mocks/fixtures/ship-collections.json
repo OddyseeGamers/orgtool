@@ -1,0 +1,20 @@
+{
+  "shipCollections": [
+    {
+      "id": 1,
+      "name": "ship name 1",
+      "member": 21,
+      "ship": 1
+    }, {
+      "id": 2,
+      "name": "ship name 2",
+      "member": 21,
+      "ship": 2
+    }, {
+      "id": 3,
+      "name": "ship name 3",
+      "member": 21,
+      "ship": 2
+    }
+  ]
+}

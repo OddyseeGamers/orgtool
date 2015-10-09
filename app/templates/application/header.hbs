@@ -3,6 +3,21 @@
     <li>{{#link-to 'overview'}}<i class="fa fa-pie-chart"></i> Overview{{/link-to}}</li>
     <li>{{#link-to 'ships'}}<i class="fa fa-space-shuttle"></i> Ships{{/link-to}}</li>
     <li>{{#link-to 'members'}}<i class="fa fa-users"></i> Members{{/link-to}}</li>
-    <li class="pull-right">{{#link-to 'settings'}}<i class="fa fa-gear"></i>{{/link-to}}</li>
+    <li role="presentation" class="pull-right dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-gear"></i>
+    </a>
+    <ul class="dropdown-menu pull-right">
+      <li><a href="#">{{fa-icon "plus"}} Add Unit</a></li>
+      <li><a href="#">{{fa-icon "pencil-square-o"}} Edit Unit</a></li>
+      <li><a href="#">{{fa-icon "remove"}} Delete Unit</a></li>
+    </ul>
+
+      {{!--
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
+      {{#link-to 'settings'}}<i class="fa fa-gear"></i>{{/link-to}}
+      --}}
+    </li>
   </ul>
 </div>
