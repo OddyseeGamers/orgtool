@@ -22,9 +22,9 @@
   stroke-width: 1px;
 }
 
-.node text {
-  font: 10px sans-serif;
-}
+//  .node text {
+//    font: 10px sans-serif;
+//  }
 
 /* .link { */
 /*   fill: #f00; */
@@ -52,8 +52,9 @@ path:hover {
 /* } */
 
 text {
-  font: 14px sans-serif;
-  font-weight: bold;
+  font: 18px Lato;
+//    font: 14px sans-serif;
+  font-weight: 300;
   /*   cursor: pointer; */
   pointer-events: none;
 }
