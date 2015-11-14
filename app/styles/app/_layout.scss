@@ -7,7 +7,8 @@ html, body {
 
 #orgtool-container {
   height: 100%;
-  background-color: #29292a;
+//    background-color: #29292a;
+  background-color: #0A0C11;
   color: #aaa9a9;
 }
 
@@ -31,7 +32,7 @@ $menu-height: 43px;
 #mycontent {
   width: 100%;
   height: calc(100% - #{$menu-height});
-  background-color: #242424;
+  background-color: #0A0C11;
 }
 
 $pilot-width: 30%;

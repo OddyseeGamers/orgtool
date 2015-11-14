@@ -5,7 +5,7 @@
     /*     font-weight: bold; */
     /*     text-transform: uppercase; */
     /*     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; */
-    font-family: 'Antic Slab', Arial, Helvetica, sans-serif;
+//      font-family: 'Antic Slab', Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
     line-height: 20px;
     transition: background .3s ease-in-out;
@@ -22,9 +22,11 @@
     outline: 0;
     color: #1a80b6;
     /*    background-color: rgba(255,255,255,.3);*/
-    background-color: #242424;
+//      background-color: #242424;
+    background-color: #101215;
     border: 1px solid transparent; 
-    border-color: #1A80B6;
+//      border-color: #1A80B6;
+    border-color: #101215;
     border-width: 3px medium medium;
     border-style: solid none none;
     /* border-color: #A0CE4E -moz-use-text-color -moz-use-text-color; */
@@ -37,7 +39,7 @@
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
     /*     color: #fff; */
     color: #1a80b6;
-    background-color: #242424;
+//      background-color: #242424;
     /*    background-color: rgba(255,255,255,.3);*/
     border: 1px solid transparent;
     border: 1px solid transparent; 
@@ -54,7 +56,8 @@
 .nav-tabs {
     /*border-bottom: 1px solid rgba(255,255,255,.3);*/
     border-bottom: 0px;
-    background-color: #29292a;
+//      background-color: #29292a;
+    background-color: #101215;
 }
 
 .nav-pills {

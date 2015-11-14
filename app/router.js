@@ -10,7 +10,12 @@ Router.map(function() {
     this.route('assignments');
     this.route('members');
     this.route('ships');
-    this.route('settings');
+//     this.route('settings');
+    this.resource('settings', function() {
+      this.route('ships');
+    });
+
+
 });
 
 export default Router;

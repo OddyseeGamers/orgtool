@@ -1,10 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-//   activate: function() {
-//     this.controllerFor('application').set('showBreadPath', true);
-//   },
-
 //   model: function(params) {
 //     return Ember.RSVP.hash({
 //       units: this.store.findAll('unit'),

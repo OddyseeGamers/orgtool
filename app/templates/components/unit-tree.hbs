@@ -1,5 +1,6 @@
 {{#if unit}}
 <div class="unit-tree">
+<div class="unit-info">
   <div class="unit-header">
     <div class="unit-name"> 
       {{#if unit.units}}
@@ -10,7 +11,7 @@
       {{else}}
         <i class="fixedWidth fa fa-circle"></i>
         {{unit.name}}
-      {{/if}}
+      {{/if}} {{unit.id}}
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
@@ -60,6 +61,7 @@
       {{/each}}
     </div>
   </div>
+</div>
 
   <div class="unit-bg {{unless showUnits "hide"}}">
     <div class="child-units">

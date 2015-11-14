@@ -10,6 +10,18 @@ var duration = 500;
 var x = 0;
 var y = 0;
 
+        function makeSVG(tag, attrs) {
+            var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
+            ["id", "data-unitid", "d", "fill-rule", "width", "height", "style"].forEach(function(prop) {
+                console.debug(">>>>", prop, Ember.$(attrs));
+//                 console.debug(">",  Ember.$(attrs).);
+            });
+//                 el.setAttribute(k, attrs[k]);
+//             for (var k in attrs)
+//                 el.setAttribute(k, attrs[k]);
+            return el;
+        }
+
 export default Ember.Component.extend({
   classNames: ['org-tree'],
   eventManager: Ember.inject.service('events'),
@@ -36,11 +48,11 @@ export default Ember.Component.extend({
   setup: Ember.on('didInsertElement', function() {
     var $container = Ember.$(
         '<svg id="svg" preserveAspectRatio="xMinYMin" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
-//         '<defs>' +
-//         '<pattern id="img1" patternUnits="userSpaceOnUse">' +
-//         '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="106px" height="106px" x="0" y="0"></image>' +
-//         '</pattern>' +
-//         '</defs>' +
+        '<defs>' +
+        '<pattern id="img1" patternUnits="userSpaceOnUse">' +
+        '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="106px" height="106px" x="0px" y="0px"></image>' +
+        '</pattern>' +
+        '</defs>' +
         '</svg>');
     
     this.$().append($container);
@@ -91,9 +103,10 @@ export default Ember.Component.extend({
   },
 
   color: function(d) {
-  //   if (d && d.depth === 0) {
-  //     return "url(#img1)";
-  //   }
+    if (d && d.depth === 0) {
+//       return "";
+      return "url(#img1)";
+    }
 
     if (d.children) {
       var idx = d.children.length > 1 ? 1 : 0;
@@ -112,13 +125,13 @@ export default Ember.Component.extend({
 
 
   click: function(d) {
-    this.currPath = [ d ];
+//     this.currPath = [ d ];
 
-    var temp = d;
-    while (temp.parent) {
-      this.currPath.push(temp.parent);
-      temp = temp.parent;
-    }
+//     var temp = d;
+//     while (temp.parent) {
+//       this.currPath.push(temp.parent);
+//       temp = temp.parent;
+//     }
 
     var id = Ember.$(d.target).data('unitid');
     if (id !== undefined) {
@@ -132,6 +145,18 @@ export default Ember.Component.extend({
 
       this.get('eventManager').trigger('setDetails', id);
     }
+  },
+  mouseover: function(d) {
+//       var $path = Ember.$(d.target);
+//     var id = Ember.$(d.target).data('unitid');
+
+    var g = d3.select("#org_group");
+    var marker = makeSVG('path', this);
+//     var r = '' + this; // g.append( Ember.$(this));
+    console.debug("copy", d, '-', g, '-',   Ember.$(this), '-', marker);
+  },
+  mouseout: function(d) {
+    console.debug("remove copy", d);
   },
 
   _transformData: function() {
@@ -153,13 +178,22 @@ export default Ember.Component.extend({
       var ret = obj.serialize();
       ret.id = get(obj, 'id');
       get(obj, 'units').forEach(function(unit) {
+        if (ret.color) {
+          unit.set('color', ret.color);
+        }
+        var unit_ser = unit.serialize();
+
         if (!ret.children) {
-          ret.children = [unit.serialize()];
+          ret.children = [unit_ser];
         } else {
-          ret.children.push(unit.serialize());
+          ret.children.push(unit_ser);
         }
         ret.children[ret.children.length - 1] = self._serializeChildren(unit);
       });
+
+      if (ret.children) {
+        ret.color = "";
+      }
     }
     return ret;
   },
@@ -170,6 +204,7 @@ export default Ember.Component.extend({
       return;
     }
 
+    console.debug(">>>> ", struc);
     var div = Ember.$(".org-tree");
     var width = div.width();
     var height = div.height();
@@ -184,7 +219,7 @@ export default Ember.Component.extend({
       width = height;
     }
     radius = (width - 20) / 2;
-    console.debug(">>>> w", width, 'h', height, 'diff', diff);
+//     console.debug(">>>> w", width, 'h', height, 'diff', diff);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -209,19 +244,26 @@ export default Ember.Component.extend({
             .attr("width", 100)
             .attr("height", 100)
             .style("fill", Ember.$.proxy(this.color, this))
-            .on("click", Ember.$.proxy(this.click, this));
+            .on("click", Ember.$.proxy(this.click, this))
+//             .on("mouseover", function(d) {
+//               console.debug("fuckoin scope", this, d);
+//             } );
+            .on("mouseover", self.mouseover);
+//             .on("mouseover", Ember.$.proxy(this.mouseover, this))
+//             .on("mouseout", Ember.$.proxy(this.mouseout, this));
 //             .on("click", self.click.bind(self));
 
     
-    var iw = 106;
-    var ih = 106;
-    var xoffset = 2.0;
-    var yoffset = xoffset;
+//     var iw = 106;
+//     var ih = 106;
+//     var xoffset = document.getElementById("path-1").getBBox().width / 2;
+//     var yoffset = xoffset;
 
+//     console.debug(">>>", document.getElementById("path-1").getBBox().width / 2);
 
 //     Ember.$("#img1")
-//         .attr('x', radius + padding - iw / 2 + xoffset)
-//         .attr('y', radius + padding - ih / 2 + yoffset)
+//         .attr('x', radius  - iw / 2 + xoffset)
+//         .attr('y', radius  - ih / 2 + yoffset)
 //         .attr('width', iw)
 //         .attr('height', ih);
 
@@ -230,7 +272,7 @@ export default Ember.Component.extend({
     var textEnter = this.text.enter().append("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
-                return self.brightness(d3.rgb(Ember.$.proxy(this.color, this))) < 125 ? "#000" : "#eee";
+                return self.brightness(d3.rgb(Ember.$.proxy(this.color, this))) < 125 ? "#bbb" : "#000";
             })
             .attr("text-anchor", function(d) {
                 return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";

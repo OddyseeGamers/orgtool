@@ -4,8 +4,6 @@ export default DS.ActiveModelAdapter.extend({
 // export default DS.JSONAPIAdapter.extend({
   namespace: 'api',
 
-/*
-
   shouldBackgroundReloadRecord: function() {
     return true;
   },
@@ -13,6 +11,5 @@ export default DS.ActiveModelAdapter.extend({
   shouldReloadAll: function() {
     return true;
   },
-  */
 });
 

@@ -4,11 +4,13 @@
       "id": 1,
       "name": "Aurora",
       "ship_manufacturer": 1,
+      "ship_collection_ids": [1],
       "type": null,
       "roles": []
     }, {
       "id": 2,
       "name": "Aurora Essential (ES)",
+      "ship_collection_ids": [2, 3],
       "ship_manufacturer": 1,
       "type": null,
       "roles": []

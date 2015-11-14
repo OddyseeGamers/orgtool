@@ -214,7 +214,7 @@
       "certs": "all of them",
       "position": "",
       "unit": 5,
-      "shipCollection_ids": [1, 2, 3]
+      "ship_collection_ids": [1, 2, 3]
     }, {
       "id": 22,
       "name": "Stormtrooper 2",
