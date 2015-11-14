@@ -23,7 +23,7 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'default-src': "'none'",
-      'script-src': "'self' 'unsafe-eval'",
+      'script-src': "'self' www.oddysee.org 'unsafe-eval'",
       'font-src': "'self' http://fonts.gstatic.com",
       'connect-src': "'self'",
       'img-src': "'self' www.oddysee.org robertsspaceindustries.com",

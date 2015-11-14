@@ -12,10 +12,10 @@ var y = 0;
 
         function makeSVG(tag, attrs) {
             var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
-            ["id", "data-unitid", "d", "fill-rule", "width", "height", "style"].forEach(function(prop) {
-                console.debug(">>>>", prop, Ember.$(attrs));
+//             ["id", "data-unitid", "d", "fill-rule", "width", "height", "style"].forEach(function(prop) {
+//                 console.debug(">>>>", prop, Ember.$(attrs));
 //                 console.debug(">",  Ember.$(attrs).);
-            });
+//             });
 //                 el.setAttribute(k, attrs[k]);
 //             for (var k in attrs)
 //                 el.setAttribute(k, attrs[k]);
@@ -56,8 +56,9 @@ export default Ember.Component.extend({
         '</svg>');
     
     this.$().append($container);
-    Ember.run.next(this, this._renderStruc);
-
+//     Ember.run.next(this, this._renderStruc);
+    console.debug("render");
+    this._renderStruc();
     $(window).bind('resize', this.get('_renderStruc').bind(this));
   }),
 
@@ -146,7 +147,10 @@ export default Ember.Component.extend({
       this.get('eventManager').trigger('setDetails', id);
     }
   },
+
+  
   mouseover: function(d) {
+  /*
 //       var $path = Ember.$(d.target);
 //     var id = Ember.$(d.target).data('unitid');
 
@@ -154,23 +158,15 @@ export default Ember.Component.extend({
     var marker = makeSVG('path', this);
 //     var r = '' + this; // g.append( Ember.$(this));
     console.debug("copy", d, '-', g, '-',   Ember.$(this), '-', marker);
+    */
   },
+
   mouseout: function(d) {
+  /*
     console.debug("remove copy", d);
+    */
   },
 
-  _transformData: function() {
-    var org = null;
-    var data = get(this, 'units');
-    for (var i = 0; i < get(data, 'length') && !org; i++) {
-      var el = data.objectAt(i);
-      if (get(el, 'type') === "org") {
-        org = el;
-      }
-    };
-
-    return this._serializeChildren(org);
-  },
 
   _serializeChildren: function(obj) {
     var self = this;
@@ -196,6 +192,20 @@ export default Ember.Component.extend({
       }
     }
     return ret;
+  },
+
+  _transformData: function() {
+    var org = null;
+    var data = get(this, 'units');
+//     console.debug(">>data>> ", data);
+    for (var i = 0; i < get(data, 'length') && !org; i++) {
+      var el = data.objectAt(i);
+      if (get(el, 'type') === "org") {
+        org = el;
+      }
+    };
+
+    return this._serializeChildren(org);
   },
 
   _renderStruc: function() {
