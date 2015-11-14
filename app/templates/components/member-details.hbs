@@ -1,4 +1,4 @@
-<div class="member-details">
+<div class="member-details {{if draggable "member-details-draggable"}}">
   {{#if member.avatar}}
     <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
   {{else}}
