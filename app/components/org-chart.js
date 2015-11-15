@@ -252,7 +252,7 @@ export default Ember.Component.extend({
             .attr("fill-rule", "evenodd")
             .attr("width", 100)
             .attr("height", 100)
-            .attr("class", "unit-pilots-container")
+            .attr("class", "unit-pilots-path")
             .style("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))
 //             .on("mouseover", function(d) {

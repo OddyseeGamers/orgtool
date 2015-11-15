@@ -32,8 +32,8 @@ export default Ember.Component.extend({
     $('body').css("cursor", function() {
       return (matches) ? "copy" : "move";
     });
-    var last = this.get('lastElement');
-    if (matches && el.isSvg) {
+//     var last = this.get('lastElement');
+    if (matches && el.dest == "path") {
       this.setLast(e.toElement);
     } else {
       this.resetLast();
@@ -87,7 +87,7 @@ export default Ember.Component.extend({
     this.set('lastColor', $(element).css('fill'));
     $(element).removeAttr("style");
     var classes = $(element).attr("class");
-//     console.debug(">>> classes", classes);
+    console.debug(">>> classes", classes);
     if (classes) {
       classes = classes.split(" ");
     } else {
@@ -127,7 +127,8 @@ export default Ember.Component.extend({
   }
 
   if (!id) {
-      dest = "else";
+      id = $(item.toElement).closest( ".unit-pilots-path" ).data('unitid');
+      dest = "path";
   }
 
 //     console.debug(">>> ret", id, dest);

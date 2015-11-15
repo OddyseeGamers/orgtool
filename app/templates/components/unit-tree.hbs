@@ -50,11 +50,11 @@
     {{#if unit.pilots}}
       <a class="toggleElement" {{action 'togglePilots'}}>
         <i class="fixedWidth fa {{if showPilots "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-        Pilots: {{unit.pilots.length}}
+        Member: {{unit.pilots.length}}
       </a>
     {{else}}
       <i class="fixedWidth fa fa-circle"></i>
-      Pilots: {{unit.pilots.length}}
+      Member: {{unit.pilots.length}}
     {{/if}}
     <div class="unit-pilots {{unless showPilots "hide"}}">
       {{#each unit.pilots as |pilot|}}

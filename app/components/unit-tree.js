@@ -36,6 +36,15 @@ export default Ember.Component.extend({
   //       over: Ember.$.proxy(this.onNodeOver, this),
   //       out: Ember.$.proxy(this.onNodeOut, this)
       });
+
+      this.$(".unit-leader-container").droppable({
+        tolerance: 'pointer',
+        hoverClass: 'hovered',
+      });
+      this.$(".unit-name-container").droppable({
+        tolerance: 'pointer',
+        hoverClass: 'hovered',
+      });
     }
   }),
 
