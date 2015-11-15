@@ -44,14 +44,17 @@ export default Ember.Component.extend({
   onDropped: function (event, ui) {
     this.resetLast();
     // Dropped on a non-matching target.
-    var unitid = this.getElementId(event).unitid;
+    var elm = this.getElementId(event);
+    var unitid = elm.unitid;
     if (!unitid) {
       console.debug("no match");
       return;
     }
 
     var id = parseInt($(event.target).data('memberid'));
-    console.debug("droped here", id, unitid);
+    Ember.$(".debug").empty();
+    Ember.$(".debug").append('assign member:' + id + ' to unit: ' + unitid + " as " + elm.dest);
+
     $("body").css("cursor","");
   },
 
@@ -84,7 +87,7 @@ export default Ember.Component.extend({
     this.set('lastColor', $(element).css('fill'));
     $(element).removeAttr("style");
     var classes = $(element).attr("class");
-    console.debug(">>> classes", classes);
+//     console.debug(">>> classes", classes);
     if (classes) {
       classes = classes.split(" ");
     } else {
@@ -95,19 +98,47 @@ export default Ember.Component.extend({
   },
 
   getElementId: function(item) {
-    var id = $(item.toElement).data('unitid');
-    var svg = false;
+//     var id = $(item.toElement).data('unitid');
+    var id;
+    var dest = "";
+
+//     console.debug("i", $(item.toElement).data('unitid'));
+//     console.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
+//     console.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
+//     console.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
+
     if (!id) {
       id = $(item.toElement).closest( ".unit-pilots-container" ).data('unitid');
-    } else {
-      svg = true;
+      console.debug("elm pilos");
+      dest = "pilot"
     }
-    return {unitid: id, isSvg: svg};
+    
+    if (!id) {
+      id = $(item.toElement).closest( ".unit-leader-container" ).data('unitid');
+//       console.debug("elm leader");
+      dest = "leader"
+//     } else {
+//       console.debug(" else");
+    }
+
+  if (!id) {
+      id = $(item.toElement).closest( ".unit-name-container" ).data('unitid');
+      dest = "pilot";
+  }
+
+  if (!id) {
+      dest = "else";
+  }
+
+//     console.debug(">>> ret", id, dest);
+    return {unitid: id, dest: dest};
   },
 
   actions: {
     unassignMember: function() {
-      console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+//       console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+      Ember.$(".debug").empty();
+      Ember.$(".debug").append( "uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
     }
   }
 });

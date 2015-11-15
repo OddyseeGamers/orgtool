@@ -7,6 +7,8 @@ export default Ember.Route.extend({
   afterModel: function(model, controller) {
     // belongsTo is broken?
     this.store.findAll('unit');
+    this.store.findAll('ship');
+//     this.store.findAll('shipManufacturer');
   }
 
 });

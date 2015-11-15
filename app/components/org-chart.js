@@ -57,7 +57,6 @@ export default Ember.Component.extend({
     
     this.$().append($container);
 //     Ember.run.next(this, this._renderStruc);
-    console.debug("render");
     this._renderStruc();
     $(window).bind('resize', this.get('_renderStruc').bind(this));
   }),
@@ -253,6 +252,7 @@ export default Ember.Component.extend({
             .attr("fill-rule", "evenodd")
             .attr("width", 100)
             .attr("height", 100)
+            .attr("class", "unit-pilots-container")
             .style("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))
 //             .on("mouseover", function(d) {

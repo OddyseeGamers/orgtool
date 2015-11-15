@@ -1,35 +1,101 @@
 <div class="member-details {{if draggable "member-details-draggable"}}">
+{{#if details}}
+  <div class="member-box" style="height:42px;vertical-align: middle;">
+  <div style="float:left; width:34px;">
+    {{#if member.avatar}}
+      <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
+    {{else}}
+      <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+    {{/if}}
+  </div>
+
+  <div style="float:left; width:15%;">
+      [{{member.id}}] {{member.name}}
+  </div>
+
+  <div style="float:left; width:15%;">
+    {{#if member.leader}}
+      {{member.leader.name}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+
+  <div style="float:left; width:15%;">
+      {{#if member.unit}}
+         {{member.unit.name}}
+        {{else}}
+          &nbsp;
+      {{/if}}
+  </div>
+
+  <div style="float:left; width:15%;">
+      {{#if member.shipCollection.length}}
+        {{#each member.shipCollection as |collection|}}
+          {{collection.ship.name}}, 
+        {{/each}}
+      {{else}}
+          &nbsp;
+      {{/if}}
+  </div>
+
+  <div style="float:left; width:15%;">
+    {{#if member.rank}}
+      {{member.rank}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+
+  <div style="float:left; width:15%;">
+    {{#if member.role}}
+      {{member.role}}
+    {{else}}
+      &nbsp;
+    {{/if}}
+  </div>
+
+
+
+</div>
+
+{{else}}
   {{#if member.avatar}}
     <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
   {{else}}
     <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
   {{/if}}
   <div class="member-box">
-    <div class="member-info">
-      <div class="member-name"> {{member.name}} </div>
-      <div class="member-remove">
-        <div class="member-stats">
-          [{{member.shipCollection.length}}]
+      <div class="member-info">
+        <div class="member-name">
+          [{{member.id}}] {{member.name}}
+        </div>
 
-          {{#bs-dropdown class="member-options"}}
-            {{#bs-dropdown-toggle}}
-              {{fa-icon "caret-down"}}
-            {{/bs-dropdown-toggle}}
-            {{#bs-dropdown-menu class="pull-right"}}
-              {{#if unassign}}
-                <li><a {{action 'unassignMember'}}>{{fa-icon "close"}} Remove</a></li>
-              {{/if}}
-              <li><a href="#">{{fa-icon "user"}} Profile</a></li>
-              <li><a href="#">{{fa-icon "pencil-square-o"}} other action</a></li>
-            {{/bs-dropdown-menu}}
-          {{/bs-dropdown}}
+        <div class="member-remove">
+          <div class="member-stats">
+            [{{member.shipCollection.length}}]
+
+            {{#bs-dropdown class="member-options"}}
+              {{#bs-dropdown-toggle}}
+                {{fa-icon "caret-down"}}
+              {{/bs-dropdown-toggle}}
+              {{#bs-dropdown-menu class="pull-right"}}
+                {{#if unassign}}
+                  <li><a {{action 'unassignMember'}}>{{fa-icon "close"}} Remove</a></li>
+                {{/if}}
+                <li><a href="#">{{fa-icon "user"}} Profile</a></li>
+                <li><a href="#">{{fa-icon "pencil-square-o"}} other action</a></li>
+              {{/bs-dropdown-menu}}
+            {{/bs-dropdown}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="member-rank">
-      {{member.rank}}
-    </div>
+      <div class="member-rank">
+        {{member.rank}}
+      </div>
   </div>
+  {{/if}}
+
   {{yield}}
 </div>
 

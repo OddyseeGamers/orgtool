@@ -2,16 +2,17 @@
 <div class="unit-tree">
 <div class="unit-info">
   <div class="unit-header">
-    <div class="unit-name"> 
+    <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
+
       {{#if unit.units}}
         <a class="toggle" {{action 'toggleUnits'}}>
           <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-          {{unit.name}}
+          [{{unit.id}}] {{unit.name}}
         </a>
       {{else}}
         <i class="fixedWidth fa fa-circle"></i>
-        {{unit.name}}
-      {{/if}} {{unit.id}}
+        [{{unit.id}}] {{unit.name}}
+      {{/if}}
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
