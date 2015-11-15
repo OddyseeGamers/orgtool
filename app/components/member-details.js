@@ -47,7 +47,7 @@ export default Ember.Component.extend({
     var elm = this.getElementId(event);
     var unitid = elm.unitid;
     if (!unitid) {
-      console.debug("no match");
+//       console.debug("no match");
       return;
     }
 
@@ -87,7 +87,7 @@ export default Ember.Component.extend({
     this.set('lastColor', $(element).css('fill'));
     $(element).removeAttr("style");
     var classes = $(element).attr("class");
-    console.debug(">>> classes", classes);
+//     console.debug(">>> classes", classes);
     if (classes) {
       classes = classes.split(" ");
     } else {
@@ -109,7 +109,6 @@ export default Ember.Component.extend({
 
     if (!id) {
       id = $(item.toElement).closest( ".unit-pilots-container" ).data('unitid');
-      console.debug("elm pilos");
       dest = "pilot"
     }
     

@@ -69,7 +69,8 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 
 .ui-draggable.member:hover {
 //    cursor: move;
-  background: rgba(255,255,255,.2);
+//    background: rgba(255,255,255,.2);
+  background-color: rgb(34, 50, 72);
 //    border-radius: 4px;
 }
 
