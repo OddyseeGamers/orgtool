@@ -23,10 +23,10 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'default-src': "http://www.oddysee.org",
-      'script-src': "'self' http://www.oddysee.org 'unsafe-eval'",
-      'font-src': "'self' http://fonts.gstatic.com http://fonts.googleapis.com",
-      'connect-src': "'self' http://www.oddysee.org",
-      'img-src': "'self' http://www.oddysee.org robertsspaceindustries.com",
+      'script-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 'unsafe-eval'",
+      'font-src': "'self' http://fonts.gstatic.com http://www.oddysee.org:4200 http://fonts.googleapis.com",
+      'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
+      'img-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 robertsspaceindustries.com",
       'style-src': "'self'",
       'report-uri':"'self'"
     }
