@@ -217,7 +217,7 @@ export default Ember.Component.extend({
         }
 
         if (add) {
-          if (ret.color) {
+          if (ret.color && unit.get('color') == "") {
             unit.set('color', ret.color);
           }
           var unit_ser = unit.serialize();
@@ -246,13 +246,12 @@ export default Ember.Component.extend({
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
         var filter = get(this, 'currFilter');
-          console.debug("     test >> ", get(el, 'id'), filter, ' --- ',  (get(el, 'id') == filter));
-
+//         console.debug("     test >> ", get(el, 'id'), filter, ' --- ',  (get(el, 'id') == filter));
         if (filter === "game" && get(el, 'type') === "org") {
-          console.debug("     f game >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
+//           console.debug("     f game >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
           root = el;
         } else if (filter !== "game" && get(el, 'id') == filter) {
-          console.debug("     f id >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
+//           console.debug("     f id >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
           root = el;
 //           get(el, 'type') === "org")
         }
@@ -263,12 +262,12 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
-  console.debug("search.........................");
+    console.debug("search.........................");
 
-  var self = this;
+    var self = this;
 //   get(this, 'units').then(function(res) {
 //         console.debug("### res", get(res, 'length'), '|',  res);
-        self._renderStruc2();
+    self._renderStruc2();
 //   });
 
   /*
