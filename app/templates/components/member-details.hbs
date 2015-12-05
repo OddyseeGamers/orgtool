@@ -66,11 +66,12 @@
 
 {{else}}
   {{#if member.avatar}}
-    <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
+    <img style="width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
   {{else}}
-    <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+    <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
   {{/if}}
-  <div class="member-box">
+<!--   <div class="member-box"> -->
+  <div class="member-box" style="height:42px;vertical-align: middle;">
       <div class="member-info">
         <div class="member-name">
           [{{member.id}}] {{member.name}}
