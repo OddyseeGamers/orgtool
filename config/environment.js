@@ -22,12 +22,12 @@ module.exports = function(environment) {
     },
 
     contentSecurityPolicy: {
-      'default-src': "'none'",
-      'script-src': "'self' www.oddysee.org 'unsafe-eval'",
-      'font-src': "'self' http://fonts.gstatic.com",
-      'connect-src': "'self'",
-      'img-src': "'self' www.oddysee.org robertsspaceindustries.com",
-      'style-src': "'self' 'unsafe-inline'",
+      'default-src': "http://www.oddysee.org",
+      'script-src': "'self' http://www.oddysee.org 'unsafe-eval'",
+      'font-src': "'self' http://fonts.gstatic.com http://fonts.googleapis.com",
+      'connect-src': "'self' http://www.oddysee.org",
+      'img-src': "'self' http://www.oddysee.org robertsspaceindustries.com",
+      'style-src': "'self'",
       'report-uri':"'self'"
     }
 

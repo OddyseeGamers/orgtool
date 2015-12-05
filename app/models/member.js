@@ -1,16 +1,14 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
+  wp_id: DS.attr(),
   name: DS.attr(),
   handle: DS.attr(),
-  rank: DS.attr(),
-  role: DS.attr(),
   avatar: DS.attr(),
-  certs: DS.attr(),
-  position: DS.attr(),
-  badges: DS.hasMany('badge', { async: true}),
-  achievements: DS.attr(),
-  shipCollection: DS.hasMany('shipCollection', { async: true}),
-  unit: DS.belongsTo('unit', { inverse: 'pilots', async: true }),
-  leader: DS.belongsTo('unit', { async: true })
+  timezone: DS.attr(),
+  updated_at: DS.attr(),
+  ships: DS.hasMany('shipCollection', { async: true}),
+  units: DS.belongsTo('unit', { inverse: 'pilots', async: true }),
+  rewards: DS.attr(),
+  logs: DS.attr(),
 });

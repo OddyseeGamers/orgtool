@@ -1,6 +1,9 @@
 <div id="ships" style="height:100%;overflow-y:auto">
-  {{#each content as |collection|}}
-    {{collection.name}} - {{collection.ship.name}} - {{collection.member.name}}  - {{collection.member.unit.name}}<br>
+  {{#each content as |ship|}}
+  {{!--
+  {{ship.name}} - {{ship.crew}} - {{ship.manufacturer}}  - {{ship.img}}<br>
+  --}}
+      {{member-details member=ship details=true}}
   {{/each}}
 </div>
 

@@ -53,6 +53,8 @@ export default Ember.Controller.extend({
     if (unitId !== undefined) {
       var unit = this.get('store').find('unit', unitId);
       this.set('currentUnit', unit);
+    } else {
+      this.set('currentUnit', null);
     }
   }
 });
