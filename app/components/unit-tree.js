@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  eventManager: Ember.inject.service('events'),
   unit: null,
   collapseUnits: null,
   collapseLeader: null,
@@ -67,6 +68,17 @@ export default Ember.Component.extend({
     },
     togglePilots: function() {
       this.set('collapsePilots', ! this.get('collapsePilots'));
-    }
+    },
+      unassignMember: function(member) {
+//         console.debug("uassing member", member.get('id'), 'from', this.get('unit.id'));
+        this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
+//         console.debug("EVENT", $(this)); //.closest( ".unit-pilots-container" ).data('unitid'));
+//         Ember.$(".debug").empty();
+//         Ember.$(".debug").append( "uassing member", this.get('memberid'), ' | units', this.get('member.units.length'));
+        //       this.get('eventManager').trigger('unassign', { 'id': this.get('memberid'), 'type': 'member', 'dest': this.get('member.units.id'), 'destType': "unit" } );
+
+        //       var member = this.get('memberid')
+
+      }
   }
 });

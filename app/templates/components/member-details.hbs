@@ -27,8 +27,10 @@
   </div>
 
   <div style="float:left; width:15%;">
-      {{#if member.unit}}
-         {{member.unit.name}}
+      {{#if member.units.length}}
+        {{#each member.units as |unit|}}
+          {{unit.name}}, 
+        {{/each}}
         {{else}}
           &nbsp;
       {{/if}}
@@ -74,7 +76,8 @@
   <div class="member-box" style="height:42px;vertical-align: middle;">
       <div class="member-info">
         <div class="member-name">
-          [{{member.id}}] {{member.name}}
+<!--           [{{member.id}}] {{member.name}} -->
+          {{member.name}}
         </div>
 
         <div class="member-remove">
@@ -87,7 +90,7 @@
               {{/bs-dropdown-toggle}}
               {{#bs-dropdown-menu class="pull-right"}}
                 {{#if unassign}}
-                  <li><a {{action 'unassignMember'}}>{{fa-icon "close"}} Remove</a></li>
+                  <li><a {{action 'unassignMember' member target=view.parentView}}>{{fa-icon "close"}} Remove</a></li>
                 {{/if}}
                 <li><a href="#">{{fa-icon "user"}} Profile</a></li>
                 <li><a href="#">{{fa-icon "pencil-square-o"}} other action</a></li>

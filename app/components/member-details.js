@@ -10,6 +10,8 @@ export default Ember.Component.extend({
   lastElement: null,
   lastColor: null,
 
+  eventManager: Ember.inject.service('events'),
+
   setup: Ember.on('didInsertElement', function() {
     if (!this.get('draggable')) {
       return;
@@ -53,9 +55,7 @@ export default Ember.Component.extend({
     }
 
     var id = parseInt($(event.target).data('memberid'));
-    Ember.$(".debug").empty();
-    Ember.$(".debug").append('assign member:' + id + ' to unit: ' + unitid + " as " + elm.dest);
-
+    this.get('eventManager').trigger('assign', { 'id': id, 'type': 'member', 'dest': unitid, 'destType': elm.dest } );
     $("body").css("cursor","");
   },
 
@@ -135,11 +135,19 @@ export default Ember.Component.extend({
     return {unitid: id, dest: dest};
   },
 
+/*
+
   actions: {
-    unassignMember: function() {
-//       console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+    unassignMember: function(event) {
+      console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+      console.debug("EVENT", $(this)); //.closest( ".unit-pilots-container" ).data('unitid'));
       Ember.$(".debug").empty();
-      Ember.$(".debug").append( "uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
+      Ember.$(".debug").append( "--- uassing member", this.get('memberid'), ' | units', this.get('member.units.length'));
+//       this.get('eventManager').trigger('unassign', { 'id': this.get('memberid'), 'type': 'member', 'dest': this.get('member.units.id'), 'destType': "unit" } );
+
+//       var member = this.get('memberid')
+
     }
   }
+*/
 });

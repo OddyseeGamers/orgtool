@@ -7,11 +7,13 @@
       {{#if unit.units}}
         <a class="toggle" {{action 'toggleUnits'}}>
           <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-          [{{unit.id}}] {{unit.name}}
+<!--           [{{unit.id}}] {{unit.name}} -->
+          {{unit.name}}
         </a>
       {{else}}
         <i class="fixedWidth fa fa-circle"></i>
-        [{{unit.id}}] {{unit.name}}
+<!--         [{{unit.id}}] {{unit.name}} -->
+        {{unit.name}}
       {{/if}}
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
@@ -47,17 +49,17 @@
   </div>
 
   <div class="unit-pilots-container" data-unitid={{unit.id}}>
-    {{#if unit.pilots}}
+    {{#if unit.members}}
       <a class="toggleElement" {{action 'togglePilots'}}>
         <i class="fixedWidth fa {{if showPilots "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-        Member: {{unit.pilots.length}}
+        Member: {{unit.members.length}}
       </a>
     {{else}}
       <i class="fixedWidth fa fa-circle"></i>
-      Member: {{unit.pilots.length}}
+      Member: {{unit.members.length}}
     {{/if}}
     <div class="unit-pilots {{unless showPilots "hide"}}">
-      {{#each unit.pilots as |pilot|}}
+      {{#each unit.members as |pilot|}}
           {{member-details member=pilot draggable=true unassign=true}}
       {{/each}}
     </div>

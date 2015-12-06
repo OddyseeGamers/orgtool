@@ -11,12 +11,16 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
   }),
 
-  filteredMembers: Ember.computed.filterBy('members', 'unit.id', undefined),
+  filteredMembers: Ember.computed.filterBy('members', 'units.length', 0),
 
   setDetails: function(unitId) {
     if (unitId !== undefined) {
-      var unit = this.get('store').find('unit', unitId);
-      this.set('currentUnit', unit);
+      var self = this;
+      this.get('store').findRecord('unit', unitId).then(function(unit) {
+        self.set('currentUnit', unit);
+      }).catch(function(err) {
+        self.set('currentUnit', null);
+      });
     } else {
       this.set('currentUnit', null);
     }
