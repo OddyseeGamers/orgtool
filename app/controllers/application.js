@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
+    this.get('eventManager').on('addUnit', this.addUnit.bind(this));
   }),
 
   assign: function(data) {
@@ -40,5 +41,16 @@ export default Ember.Controller.extend({
     });
   },
 
+  addUnit: function(data) {
+    Ember.$(".debug").empty();
+    Ember.$(".debug").append('add unit ' + data.id + " from " + data.type);
+
+    var self = this;
+    var unit = this.store.createRecord('unit');
+      this.store.findRecord('unit', data.id).then(function (punit) {
+        get(punit, 'units').pushObject(unit);
+        self.get('eventManager').trigger('rerender');
+      });
+  },
 
 });

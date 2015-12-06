@@ -20,7 +20,8 @@
           {{fa-icon "gear"}}
         {{/bs-dropdown-toggle}}
         {{#bs-dropdown-menu class="pull-right"}}
-          <li><a href="#">{{fa-icon "plus"}} Add Unit</a></li>
+<!--           <li><a href="#">{{fa-icon "plus"}} Add Unit</a></li> -->
+          <li><a {{action 'addUnit' }}>{{fa-icon "plus"}} Add Unit</a></li>
           <li><a href="#">{{fa-icon "pencil-square-o"}} Edit Unit</a></li>
           <li><a href="#">{{fa-icon "remove"}} Delete Unit</a></li>
         {{/bs-dropdown-menu}}

@@ -72,6 +72,8 @@ export default Ember.Component.extend({
         '</svg>');
     
     this.$().append($container);
+    this.get('eventManager').on('rerender', this._renderStruc.bind(this));
+
 //     Ember.run.next(this, this._renderStruc);
     this._renderStruc();
     $(window).bind('resize', this.get('_renderStruc').bind(this));

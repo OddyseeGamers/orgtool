@@ -69,16 +69,12 @@ export default Ember.Component.extend({
     togglePilots: function() {
       this.set('collapsePilots', ! this.get('collapsePilots'));
     },
-      unassignMember: function(member) {
-//         console.debug("uassing member", member.get('id'), 'from', this.get('unit.id'));
-        this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
-//         console.debug("EVENT", $(this)); //.closest( ".unit-pilots-container" ).data('unitid'));
-//         Ember.$(".debug").empty();
-//         Ember.$(".debug").append( "uassing member", this.get('memberid'), ' | units', this.get('member.units.length'));
-        //       this.get('eventManager').trigger('unassign', { 'id': this.get('memberid'), 'type': 'member', 'dest': this.get('member.units.id'), 'destType': "unit" } );
-
-        //       var member = this.get('memberid')
-
-      }
+    unassignMember: function(member) {
+      this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
+    },
+    addUnit: function() {
+//       console.debug("add unit here", this.get('unit.id'));
+      this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
+    }
   }
 });
