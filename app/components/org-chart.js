@@ -72,8 +72,8 @@ export default Ember.Component.extend({
         '</svg>');
     
     this.$().append($container);
-    Ember.run.next(this, this._renderStruc);
-//     this._renderStruc();
+//     Ember.run.next(this, this._renderStruc);
+    this._renderStruc();
     $(window).bind('resize', this.get('_renderStruc').bind(this));
   }),
 
@@ -151,18 +151,15 @@ export default Ember.Component.extend({
 
     var id = Ember.$(d.target).data('unitid');
     if (id !== undefined) {
-      console.debug(">>> id", id, get(this, 'currFilter'));
       var select = false;
       if (id == 1) {
         this.get('eventManager').trigger('setDetails', undefined);
       } else if (get(this, 'currFilter') === "game") {
         set(this, 'currFilter', id);
-        console.debug(">>> new filter", id, get(this, 'currFilter'));
         this._renderStruc();
         select = true;
       } else if (get(this, 'currFilter') == id) {
         set(this, 'currFilter', "game");
-        console.debug(">>> reset filter", id, get(this, 'currFilter'));
         this._renderStruc();
         this.get('eventManager').trigger('setDetails', undefined);
       } else {
@@ -241,17 +238,13 @@ export default Ember.Component.extend({
   _transformData: function() {
     var root = null;
     var data = get(this, 'units');
-//     console.debug(">>data>> ", get(data, 'length'), "||||||",  data);
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
         var filter = get(this, 'currFilter');
-//         console.debug("     test >> ", get(el, 'id'), filter, ' --- ',  (get(el, 'id') == filter));
         if (filter === "game" && get(el, 'type') === "org") {
-//           console.debug("     f game >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
           root = el;
         } else if (filter !== "game" && get(el, 'id') == filter) {
-//           console.debug("     f id >> ", get(el, 'type'), "||||||", filter, ' --- ',  el );
           root = el;
 //           get(el, 'type') === "org")
         }
@@ -262,45 +255,6 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
-    console.debug("search.........................");
-
-    var self = this;
-//   get(this, 'units').then(function(res) {
-//         console.debug("### res", get(res, 'length'), '|',  res);
-    self._renderStruc2();
-//   });
-
-  /*
-    set(this, 'units', );
-    get(this, 'units').then(function(stuff) {
-    console.debug("### then ", stuff);
-        console.debug("### unit", get(stuff, 'length'), '|',  get(self, 'units'));
-
-        self._renderStruc2();
-    });
-        console.debug(">>> unit", get(this, 'content'), '|',  get(this, 'units'));
-*/
-/*
-  var self = this;
-    if (self.currFilter == "game") {
-      get(this, 'store').filter('unit', function(unit) {
-        console.debug("   - ", unit.get("name"), " | ", (unit.get("type") == self.currFilter || unit.get("type") == "org") );
-        return unit.get('type') == "org" || unit.get('type') == self.currFilter;
-      }).then(function(units) {
-        console.debug("found.........................");
-        console.debug(">>> unit", get(units, 'length'), '|',  units);
-        self.set('units', units);
-        self._renderStruc2();
-      });
-    }
-*/
-  },
-  
-
-  _renderStruc2: function() {
-
-  console.debug("render.........................");
-
     var struc = this._transformData();
     if (!struc) {
       return;

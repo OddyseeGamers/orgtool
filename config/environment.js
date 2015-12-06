@@ -21,6 +21,12 @@ module.exports = function(environment) {
       // when it is created
     },
 
+/*
+    contentSecurityPolicy: {
+      'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
+    }
+*/
+
     contentSecurityPolicy: {
       'default-src': "http://www.oddysee.org",
       'script-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 'unsafe-eval'",
@@ -30,7 +36,6 @@ module.exports = function(environment) {
       'style-src': "'self'",
       'report-uri':"'self'"
     }
-
 
   };
 
