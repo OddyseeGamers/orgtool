@@ -33,7 +33,7 @@ module.exports = function(environment) {
       'font-src': "'self' http://fonts.gstatic.com http://www.oddysee.org:4200 http://fonts.googleapis.com",
       'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
       'img-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 robertsspaceindustries.com",
-      'style-src': "'self'",
+      'style-src': "'unsafe-inline'",
       'report-uri':"'self'"
     }
 
