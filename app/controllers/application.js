@@ -12,6 +12,7 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
     this.get('eventManager').on('addUnit', this.addUnit.bind(this));
+    this.get('eventManager').on('deleteUnit', this.deleteUnit.bind(this));
   }),
 
   assign: function(data) {
@@ -43,7 +44,7 @@ export default Ember.Controller.extend({
 
   addUnit: function(data) {
     Ember.$(".debug").empty();
-    Ember.$(".debug").append('add unit ' + data.id + " from " + data.type);
+    Ember.$(".debug").append('add new unit to ' + data.id);
 
     var self = this;
     var unit = this.store.createRecord('unit');
@@ -51,6 +52,30 @@ export default Ember.Controller.extend({
         get(punit, 'units').pushObject(unit);
         self.get('eventManager').trigger('rerender');
       });
+  },
+
+  deleteUnit: function(data) {
+    Ember.$(".debug").empty();
+    Ember.$(".debug").append('remove unit from ' + data.id + " from " + data.type);
+
+    var self = this;
+    this.store.findRecord('unit', data.id).then(function (unit) {
+      self.store.deleteRecord(unit); // 'unit', get(unit,data.dest).then(function (unit) {
+        self.get('eventManager').trigger('rerender');
+//       unit.parent
+//       self.store.findRecord('unit', get(unit,data.dest).then(function (unit) {
+//         get(unit, 'members').removeObject(member);
+//         get(member, 'units').removeObject(unit);
+//       });
+    });
+
+    /*
+    var unit = this.store.createRecord('unit');
+      this.store.findRecord('unit', data.id).then(function (punit) {
+        get(punit, 'units').pushObject(unit);
+        self.get('eventManager').trigger('rerender');
+      });
+      */
   },
 
 });

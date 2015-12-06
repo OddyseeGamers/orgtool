@@ -73,8 +73,10 @@ export default Ember.Component.extend({
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
     addUnit: function() {
-//       console.debug("add unit here", this.get('unit.id'));
       this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
+    },
+    deleteUnit: function() {
+      this.get('eventManager').trigger('deleteUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
     }
   }
 });
