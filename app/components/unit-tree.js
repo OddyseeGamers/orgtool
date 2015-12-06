@@ -76,7 +76,7 @@ export default Ember.Component.extend({
       this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
     },
     deleteUnit: function() {
-      this.get('eventManager').trigger('deleteUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
+      this.get('eventManager').trigger('deleteUnit', { 'id': this.get('unit.id'), 'type': "unit", 'unit': this.get('unit') } );
     }
   }
 });

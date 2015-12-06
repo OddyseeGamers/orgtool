@@ -58,6 +58,10 @@ export default Ember.Controller.extend({
     Ember.$(".debug").empty();
     Ember.$(".debug").append('remove unit from ' + data.id + " from " + data.type);
 
+
+    this.store.deleteRecord(data.unit);
+    self.get('eventManager').trigger('rerender');
+        /*
     var self = this;
     this.store.findRecord('unit', data.id).then(function (unit) {
       self.store.deleteRecord(unit); // 'unit', get(unit,data.dest).then(function (unit) {
@@ -68,7 +72,7 @@ export default Ember.Controller.extend({
 //         get(member, 'units').removeObject(unit);
 //       });
     });
-
+*/
     /*
     var unit = this.store.createRecord('unit');
       this.store.findRecord('unit', data.id).then(function (punit) {
