@@ -4,15 +4,27 @@
   <div class="unit-header">
     <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
 
+
       {{#if unit.units}}
         <a class="toggle" {{action 'toggleUnits'}}>
           <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-<!--           [{{unit.id}}] {{unit.name}} -->
+      {{#if unit.img}}
+        <img style="width:34px;" class="member-avatar" src={{unit.img}}>
+      {{else}}
+        <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/organization/defaults/logo/generic.jpg">
+      {{/if}}
+
+
           {{unit.name}}
         </a>
       {{else}}
         <i class="fixedWidth fa fa-circle"></i>
-<!--         [{{unit.id}}] {{unit.name}} -->
+      {{#if unit.img}}
+        <img style="width:34px;" class="member-avatar" src={{unit.img}}>
+      {{else}}
+        <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/organization/defaults/logo/generic.jpg">
+      {{/if}}
+
         {{unit.name}}
       {{/if}}
       {{#bs-dropdown class="unit-menu"}}
