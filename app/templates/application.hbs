@@ -3,3 +3,25 @@
     {{partial 'application/content'}}
 </div>
 
+{{#bs-modal open=dialog header=false body=false footer=false}}
+{{#bs-modal-header}}
+  <h4 class="modal-title">
+    {{#if unit.isNew}} Create {{else}} Edit {{/if}}
+    Unit
+  </h4>
+{{/bs-modal-header}}
+  {{#bs-modal-body}}
+    {{#bs-form action=(action "submit") model=unit}}
+      {{bs-form-element controlType="text" label="Name" property="name"}}
+      {{bs-form-element controlType="text" label="Description" property="description"}}
+      {{bs-form-element controlType="text" label="Color" property="color"}}
+      {{bs-form-element controlType="text" label="Image" property="img"}}
+      {{bs-form-element controlType="text" label="Type" property="type"}}
+    {{/bs-form}}
+    {{/bs-modal-body}}
+    {{#bs-modal-footer}}
+        <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+        <button type="submit" class="btn btn-primary"> {{#if unit.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    {{/bs-modal-footer}}
+{{/bs-modal}}
+

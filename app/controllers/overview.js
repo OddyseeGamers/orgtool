@@ -25,8 +25,8 @@ export default Ember.Controller.extend({
       this.set('currentUnit', null);
     }
 
-    if (!this.get('members')) {
-      this.set('members', this.store.findAll('member'));
-    }
+//     if (!this.get('members')) {
+//       this.set('members', this.store.findAll('member'));
+//     }
   }
 });

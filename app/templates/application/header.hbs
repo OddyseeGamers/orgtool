@@ -5,9 +5,15 @@
     <li>{{#link-to 'members'}}<i class="fa fa-users"></i> Members{{/link-to}}</li>
 
 
-    <li class="pull-right">{{#link-to 'settings'}}<i class="fa fa-gear"></i>{{/link-to}}</li>
-  <li class="pull-right debug">
-  </li>
+    <li class="pull-right">
+      {{#link-to 'settings'}}<i class="fa fa-gear"></i>{{/link-to}}
+      {{#if loading}}
+        <i class="fa fa-gear fa-spin text-success" style="width:32px;height:32px;position:absolute;top:8px;right:8px;"></i>
+      {{/if}}
+    </li>
+    <li class="pull-right debug">
+    
+    </li>
       {{!--
     <li role="presentation" class="pull-right dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
