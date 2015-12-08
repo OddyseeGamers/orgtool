@@ -347,11 +347,11 @@ export default Ember.Component.extend({
 
     textEnter.append("tspan")
         .attr("x", 0)
-        .text(function(d) { return d.depth ? d.name.split(" ")[0] : ""; });
+        .text(function(d) { return d.depth && d.name ? d.name.split(" ")[0] : ""; });
 
     textEnter.append("tspan")
         .attr("x", 0)
         .attr("dy", "1em")
-        .text(function(d) { return d.depth ? d.name.split(" ")[1] || "" : ""; });
+        .text(function(d) { return d.depth && d.name ? d.name.split(" ")[1] || "" : ""; });
   }
 });
