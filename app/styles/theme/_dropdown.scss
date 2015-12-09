@@ -24,3 +24,23 @@
     background-color: #204d74;
   }
 }
+
+.dropdown-menu {}
+
+.dropdown-menu {
+/*     color: #fff; */
+/*     background-color: #111 !important; */
+
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+.dropdown-menu>li>a {
+    color: #fff;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #000;
+    background-color: #219ab3;
+}

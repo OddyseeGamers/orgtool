@@ -75,7 +75,7 @@ export default Ember.Component.extend({
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
 
 //     Ember.run.next(this, this._renderStruc);
-    this._renderStruc();
+//     this._renderStruc();
     $(window).bind('resize', this.get('_renderStruc').bind(this));
   }),
 
@@ -209,7 +209,7 @@ export default Ember.Component.extend({
       ret.id = get(obj, 'id');
       get(obj, 'units').forEach(function(unit) {
         var add = false;
-        if (self.currFilter === "game" && unit.get('type') == "game") {
+        if (self.currFilter === "game" && unit.get('type.name') == "game") {
           add = true;
         } else if (self.currFilter !== "game") {
           add = true;
@@ -244,11 +244,10 @@ export default Ember.Component.extend({
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
         var filter = get(this, 'currFilter');
-        if (filter === "game" && get(el, 'type') === "org") {
+        if (filter === "game" && get(el, 'type.name') === "org") {
           root = el;
-        } else if (filter !== "game" && get(el, 'id') == filter) {
+        } else if (filter !== "game" && get(el, 'type.id') == filter) {
           root = el;
-//           get(el, 'type') === "org")
         }
       };
     }
@@ -262,7 +261,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    console.debug(">>>> ", struc);
+//     console.debug(">>>> ", struc);
     var div = Ember.$(".org-tree");
     var width = div.width();
     var height = div.height();

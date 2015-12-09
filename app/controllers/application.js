@@ -15,8 +15,28 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('addUnit', this.addUnit.bind(this));
     this.get('eventManager').on('editUnit', this.editUnit.bind(this));
     this.get('eventManager').on('deleteUnit', this.deleteUnit.bind(this));
+
+    this.get('eventManager').on('log', this.log.bind(this));
+    this.get('eventManager').on('success', this.success.bind(this));
+    this.get('eventManager').on('failure', this.failure.bind(this));
+
+    this.get('eventManager').on('setLoading', this.setLoading.bind(this));
+
+    var self = this;
+    this.set('loading', true);
+    this.store.findAll('unitType').then(function(unitTypes) {
+      console.debug("found units")
+        self.set('loading', false);
+        self.set('unitTypes', unitTypes);
+        self.get('eventManager').trigger('rerender');
+    });
   }),
 
+
+  setLoading: function(set) {
+    console.debug(">>>> set loading", set);
+    this.set('loading', set);
+  },
 
   success: function(text) {
     this.set('unit', null);
@@ -161,6 +181,10 @@ export default Ember.Controller.extend({
       } else {
         self.log("done unit " + get(unit, 'id'));
       }
+    },
+
+    setType: function(type) {
+      set(this, 'unit.type', type);
     },
   }
 
