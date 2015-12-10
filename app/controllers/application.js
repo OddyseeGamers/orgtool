@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
-  loading: false,
+  loading: true,
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
@@ -23,12 +23,20 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('setLoading', this.setLoading.bind(this));
 
     var self = this;
-    this.set('loading', true);
+//     this.set('loading', true);
+//     self.log("loading units")
     this.store.findAll('unitType').then(function(unitTypes) {
       console.debug("found units")
-        self.set('loading', false);
-        self.set('unitTypes', unitTypes);
-        self.get('eventManager').trigger('rerender');
+      self.log("loading members")
+      self.set('unitTypes', unitTypes);
+      self.get('eventManager').trigger('rerender');
+
+      self.store.findAll('member').then(function(members) {
+        console.debug("found member")
+        self.success("loading done")
+          self.set('loading', false);
+          self.set('members', members);
+      });
     });
   }),
 

@@ -1,7 +1,7 @@
 <div id="info">
   <div class="panel panel-default impart-panel">
     {{#if currentUnit}}
-      Unassigned Members: {{filteredMembers.length}}
+    Unassigned Members: {{filteredMembers.length}} from {{members.length}}
       {{#each filteredMembers as |member|}}
         {{member-details member=member draggable=true  details=false}}
       {{/each}}
