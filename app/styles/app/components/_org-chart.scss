@@ -1,58 +1,28 @@
-.item {
-  fill: "#00ff00";
-}
-
-.myhover {
-  fill: "#ff0000";
-}
-
-.selected {
-//    fill: "#ff0000" !important;
-  stroke: #bbbbbb;
-  stroke-width: 5.5;
-}
-
-.node {
-  /*   cursor: pointer; */
-}
-
-.node circle {
-  fill: #fff;
-  /*   stroke: steelblue; */
-  stroke-width: 1px;
-}
-
-//  .node text {
-//    font: 10px sans-serif;
-//  }
-
-/* .link { */
-/*   fill: #f00; */
-/*   stroke: #ccc; */
-/*   stroke-width: 1.5px; */
-/* } */
 
 path {
   /*  stroke: #000; */
-//    stroke: #3e3e3e;
-  stroke-width: 0;
+  stroke: #0A0C11;
+  stroke-width: 6;
   /*   cursor: pointer; */
 }
 
 path:hover {
   //    stroke: #999;
-  stroke: #1a80b6;
-//    stroke-width: 20.5;
+  stroke: #bbbbbb;
+  stroke-width: 4;
   cursor: pointer;
 }
 
-/* #path-0 { */
-/*     fill: #000; */
-/*     opacity: 0; */
-/* } */
+.selected {
+//    fill: "#ff0000" !important;
+  stroke: #ffffff;
+//    stroke-width: 5.5;
+  stroke-width: 8;
+}
+
 
 text {
-//    font: 18px Lato;
+  font: 18px Lato;
 //    font: 14px sans-serif;
   font-weight: 300;
   /*   cursor: pointer; */
