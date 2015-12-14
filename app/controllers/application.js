@@ -156,17 +156,25 @@ export default Ember.Controller.extend({
       var self = this;
 
       self.set('dialog', false);
-      if (!unit.get('hasDirtyAttributes')) {
-        self.log("done unit " + get(unit, 'id'));
-        self.set('unit', null);
-        self.set('loading', false);
-        return;
-      }
+//       if (!unit.get('hasDirtyAttributes')) {
+//         self.log("done unit " + get(unit, 'id'));
+//         self.set('unit', null);
+//         self.set('loading', false);
+//         return;
+//       }
 
+      console.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       self.set('loading', true);
       unit.save().then(function(nunit) {
         self.success("unit saved " + get(nunit, 'id'));
         console.debug("save ok", nunit);
+        self.set('unit', null);
+        self.set('loading', false);
+        self.set('dialog',false);
+        self.get('eventManager').trigger('rerender');
+        self.store.findAll('unitType').then(function(unitTypes) {
+          self.set('unitTypes', unitTypes);
+        });
       }).catch(function(err) {
         self.failure("saving " + get(unit, 'id'));
         console.debug("save err", err);
@@ -192,7 +200,8 @@ export default Ember.Controller.extend({
     },
 
     setType: function(type) {
-      set(this, 'unit.type', type);
+      var unit = get(this, 'unit');
+      unit.set('type', type);
     },
   }
 
