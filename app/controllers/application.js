@@ -68,28 +68,23 @@ export default Ember.Controller.extend({
   },
 
   assign: function(data) {
-    log('assign member:' + data.id + ' to unit: ' + data.dest + " as " + data.destType);
+    this.log('assign member:' + data.id + ' to unit: ' + data.dest);
 
-    var self = this;
-    this.store.findRecord('member', data.id).then(function (member) {
-      self.store.findRecord('unit', data.dest).then(function (unit) {
-        get(unit, 'members').pushObject(member);
-        get(member, 'units').pushObject(unit);
-      });
-    });
+    var member = this.store.peekRecord('member', data.id);
+    var unit = this.store.peekRecord('unit', data.dest);
+    get(unit, 'members').pushObject(member);
+    get(member, 'units').pushObject(unit);
+
   },
 
 
   unassign: function(data) {
-    log('unassign member:' + data.id + ' to unit: ' + data.dest + " from " + data.destType);
+    this.log('unassign member:' + data.id + ' from unit: ' + data.dest);
 
-    var self = this;
-    this.store.findRecord('member', data.id).then(function (member) {
-      self.store.findRecord('unit', data.dest).then(function (unit) {
-        get(unit, 'members').removeObject(member);
-        get(member, 'units').removeObject(unit);
-      });
-    });
+    var member = this.store.peekRecord('member', data.id);
+    var unit = this.store.peekRecord('unit', data.dest);
+    get(unit, 'members').removeObject(member);
+    get(member, 'units').removeObject(unit);
   },
 
   addUnit: function(data) {
