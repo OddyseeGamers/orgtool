@@ -41,6 +41,7 @@ export default Ember.Controller.extend({
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
+    
   }),
 
 //   filteredMembers: Ember.computed.filterBy('members', 'units.length', 0),

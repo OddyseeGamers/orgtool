@@ -4,9 +4,6 @@ import d3 from 'd3';
 var get = Ember.get;
 var set = Ember.set;
 
-var radius = 0;
-var padding = 5;
-var duration = 500;
 var x = 0;
 var y = 0;
 
@@ -30,6 +27,8 @@ export default Ember.Component.extend({
 //   content: null,
 //   width: 0,
 //   height = 0;
+  radius: 0,
+  padding: 6,
   path: null,
   text: null,
   currPath: null,
@@ -74,6 +73,7 @@ export default Ember.Component.extend({
     this.$().append($container);
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     $(window).bind('resize', this.get('_renderStruc').bind(this));
+    this._renderStruc();
   }),
 
   willDestroy: function() {
@@ -261,13 +261,14 @@ export default Ember.Component.extend({
     }
 
 
-//     console.debug(">>>> ", struc);
+    console.debug(">>>> ", struc);
     var div = Ember.$(".org-tree");
     var width = div.width();
     var height = div.height();
 
     var center = [ width / 2, height / 2 ];
-    radius = (Math.min(width, height) * 0.95) / 2;
+    var radius = (Math.min(width, height) * 0.95) / 2;
+    set(this, 'radius', radius);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -312,7 +313,7 @@ export default Ember.Component.extend({
     var textEnter = this.text.enter().append("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
-                return self.brightness(d3.rgb(Ember.$.proxy(this.color, this))) < 125 ? "#bbb" : "#000";
+                return self.brightness(d3.rgb(self.color(d))) < 125 ? "#bbb" : "#000";
             })
             .attr("text-anchor", function(d) {
                 return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
@@ -322,7 +323,7 @@ export default Ember.Component.extend({
                 var multiline = (d.name || "").split(" ").length > 1,
                 angle = x(d.x + d.dx / 2) * 180 / Math.PI - 90,
                 rotate = angle + (multiline ? - 0.5 : 0);
-                return "rotate(" + rotate + ")translate(" + (y(d.y) + padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
+                return "rotate(" + rotate + ")translate(" + (y(d.y) + self.padding) + ")rotate(" + (angle > 90 ? -180 : 0) + ")";
             });
 //             .on("click", self.click.bind(self));
 
