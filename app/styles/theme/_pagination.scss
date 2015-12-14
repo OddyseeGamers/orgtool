@@ -1,3 +1,7 @@
+.pagination {
+    margin: 0px;
+}
+
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus, .pagination > li > a, .pagination > li > span {
     background-color: inherit;
     border: 0px;

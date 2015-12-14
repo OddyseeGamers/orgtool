@@ -149,6 +149,7 @@ export default Ember.Component.extend({
 //     }
 
     var id = Ember.$(d.target).data('unitid');
+//     console.debug("clicked", id);
     if (id !== undefined) {
       var select = false;
       if (id == 1) {
@@ -243,7 +244,8 @@ export default Ember.Component.extend({
         var filter = get(this, 'currFilter');
         if (filter === "game" && get(el, 'type.name') === "org") {
           root = el;
-        } else if (filter !== "game" && get(el, 'type.id') == filter) {
+        } else if (filter !== "game" && get(el, 'id') == filter) {
+          console.debug("foubnd filter", )
           root = el;
         }
       };
@@ -257,6 +259,7 @@ export default Ember.Component.extend({
     if (!struc) {
       return;
     }
+
 
 //     console.debug(">>>> ", struc);
     var div = Ember.$(".org-tree");
