@@ -216,7 +216,9 @@ export default Ember.Controller.extend({
     login: function() {
       var pwd = get(this, 'pwd');
       var session = this.get('session');
-      session.authenticate(pwd);
+      if (session.authenticate(pwd)) {
+        this.success('login as admin');
+      }
     }
   }
 
