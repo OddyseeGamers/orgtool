@@ -34,15 +34,14 @@ export default Ember.Controller.extend({
       self.store.findAll('member').then(function(members) {
         console.debug("found member")
         self.success("loading done")
-          self.set('loading', false);
-          self.set('members', members);
+        self.set('loading', false);
+        self.set('members', members);
       });
     });
   }),
 
 
   setLoading: function(set) {
-    console.debug(">>>> set loading", set);
     this.set('loading', set);
   },
 

@@ -4,7 +4,10 @@
 
   .unit-info {
 //      background-color: #223248;
-    background-color: #242424;
+	background-color: #242424;
+//      background-color: #223248;
+//      background-color: #23527c;
+//      background-color: rgb(26, 128, 182);
     border-radius: 4px;
 	}
 
@@ -19,12 +22,12 @@
 
     .unit-name {
       color: #1a80b6;
-      font-size: 16px;
+	  font-size: 16px;
 		min-height: 40px;
 		vertical-align: middle;
 		line-height:40px;
       border-bottom: 1px solid #444;
-      font-weight: bold;
+	  font-weight: bold;
 
       a.toggle {
         cursor: pointer;

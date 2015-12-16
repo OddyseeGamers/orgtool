@@ -238,10 +238,11 @@ export default Ember.Component.extend({
   _transformData: function() {
     var root = null;
     var data = get(this, 'units');
+    var filter = get(this, 'currFilter');
+
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
-        var filter = get(this, 'currFilter');
         if (filter === "game" && get(el, 'type.name') === "org") {
           root = el;
         } else if (filter !== "game" && get(el, 'id') == filter) {
@@ -259,7 +260,6 @@ export default Ember.Component.extend({
     if (!struc) {
       return;
     }
-
 
     console.debug(">>>> ", struc);
     var div = Ember.$(".org-tree");

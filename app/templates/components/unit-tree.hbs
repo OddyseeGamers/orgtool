@@ -4,29 +4,22 @@
   <div class="unit-header">
     <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
 
-
       {{#if unit.units}}
         <a class="toggle" {{action 'toggleUnits'}}>
           <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-      {{#if unit.img}}
-        <img style="width:34px;" class="member-avatar" src={{unit.img}}>
-      {{else}}
-        <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/organization/defaults/logo/generic.jpg">
-      {{/if}}
-
-
+          {{#if unit.img}}
+            <img style="width:24px;" class="member-avatar" src={{unit.img}}>
+          {{/if}}
           {{unit.name}}
         </a>
       {{else}}
         <i class="fixedWidth fa fa-circle"></i>
-      {{#if unit.img}}
-        <img style="width:34px;" class="member-avatar" src={{unit.img}}>
-      {{else}}
-        <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/organization/defaults/logo/generic.jpg">
-      {{/if}}
-
+        {{#if unit.img}}
+          <img style="width:24px;" class="member-avatar" src={{unit.img}}>
+        {{/if}}
         {{unit.name}}
       {{/if}}
+
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
