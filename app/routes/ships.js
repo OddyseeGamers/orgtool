@@ -3,7 +3,16 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function() {
+    var self = this;
+
+      self.store.findAll('shipManufacturer');
     return this.store.findAll('shipModel');
+
+//     return this.store.findAll('shipModel').then(function(ships) {
+//       self.store.findAll('shipManufacturer');
+//       return ships;
+//     });
+
 //     return this.store.findAll('shipCollection');
 //     return this.store.findAll('shipManufacturer');
 //     return this.store.findAll('shipManufacturer');
