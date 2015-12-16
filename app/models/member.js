@@ -7,7 +7,7 @@ export default DS.Model.extend({
   avatar: DS.attr(),
   timezone: DS.attr(),
   updated_at: DS.attr(),
-  ships: DS.hasMany('shipCollection', { async: true}),
+  ships: DS.hasMany('ship', { async: true}),
   units: DS.hasMany('unit', { async: true }),
   rewards: DS.attr(),
   logs: DS.attr(),

@@ -35,9 +35,15 @@ export default Ember.Controller.extend({
 
       self.store.findAll('member').then(function(members) {
         console.debug("found member")
-        self.success("loading done")
-        self.set('loading', false);
+        self.log("loading ship collections");
         self.set('members', members);
+
+        self.store.findAll('ship').then(function(ships) {
+          console.debug("found member")
+          self.success("loading done")
+          self.set('loading', false);
+          self.set('ships', ships);
+        });
       });
     });
 
@@ -217,7 +223,7 @@ export default Ember.Controller.extend({
       var pwd = get(this, 'pwd');
       var session = this.get('session');
       if (session.authenticate(pwd)) {
-        this.success('logged as admin');
+        this.success('logged in as admin');
       }
     }
   }
