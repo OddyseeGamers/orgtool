@@ -1,9 +1,11 @@
+/*
 .dropdown {
 
   .dropdown-menu {
     color: #bbb;
 //      color: #aaa9a9;
-    background-color: #286090;
+//      background-color: #286090;
+    background-color: #101215;
     border-color: #204d74;
 
   }
@@ -24,16 +26,19 @@
     background-color: #204d74;
   }
 }
+*/
 
-.dropdown-menu {}
+//  .dropdown-menu {}
 
 .dropdown-menu {
 /*     color: #fff; */
 /*     background-color: #111 !important; */
 
     color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
+//      background-color: #286090;
+    background-color: #101215;
+    border: 0px;
+//      border-color: #204d74;
 }
 
 .dropdown-menu>li>a {

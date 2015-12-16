@@ -4,10 +4,12 @@ var get = Ember.get;
 var set = Ember.set;
 
 export default Ember.Controller.extend({
+  session: Ember.inject.service(),
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
   loading: true,
+  pwd: "",
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
@@ -38,6 +40,7 @@ export default Ember.Controller.extend({
         self.set('members', members);
       });
     });
+
   }),
 
 
@@ -144,6 +147,18 @@ export default Ember.Controller.extend({
       */
   },
 
+  hashCode: function(str) {
+    var hash = 0, i, chr, len;
+    if (str.length === 0) return hash;
+    for (i = 0, len = str.length; i < len; i++) {
+      chr   = str.charCodeAt(i);
+      hash  = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  },
+
+
   actions: {
     submit: function() {
       var unit = get(this, 'unit');
@@ -197,6 +212,12 @@ export default Ember.Controller.extend({
       var unit = get(this, 'unit');
       unit.set('type', type);
     },
+
+    login: function() {
+      var pwd = get(this, 'pwd');
+      var session = this.get('session');
+      session.authenticate(pwd);
+    }
   }
 
 });

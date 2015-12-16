@@ -112,3 +112,19 @@
     border: 0px;
     /*     border-color: #337ab7; */
 }
+
+
+ul#set-menu {
+	font-size: 16px;
+	min-width: 370px;
+}
+ul#set-menu li {
+	display:inline;
+//      margin-left: 6px;
+//      margin-right: 6px;
+}
+
+ul#set-menu li > a {
+	padding: 3px 8px;
+	display:inline;
+}

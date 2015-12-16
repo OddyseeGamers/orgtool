@@ -20,6 +20,7 @@
         {{unit.name}}
       {{/if}}
 
+      {{#if session.isAdmin}}
       {{#bs-dropdown class="unit-menu"}}
         {{#bs-dropdown-toggle}}
           {{fa-icon "gear"}}
@@ -29,7 +30,8 @@
           <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit Unit</a></li>
           <li><a {{action 'deleteUnit'}} href="#">{{fa-icon "remove"}} Delete Unit</a></li>
         {{/bs-dropdown-menu}}
-      {{/bs-dropdown}}
+        {{/bs-dropdown}}
+        {{/if}}
     </div>
   </div>
 

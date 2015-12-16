@@ -1,0 +1,11 @@
+{{#bs-dropdown closeOnMenuClick=false}}
+  {{#bs-dropdown-button type="trans"}}<i class="fa fa-sign-in"></i>{{/bs-dropdown-button}}
+  {{#bs-dropdown-menu align="right"}}
+    <li>
+
+    {{#bs-form action="login" model=this}}
+      {{bs-form-element controlType="password" property="pwd"}}
+    {{/bs-form}}
+  </li>
+  {{/bs-dropdown-menu}}
+{{/bs-dropdown}}

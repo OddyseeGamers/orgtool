@@ -1,0 +1,35 @@
+{{#bs-modal open=dialog header=false body=false footer=false}}
+{{#bs-modal-header}}
+  <h4 class="modal-title">
+    {{#if unit.isNew}} Create {{else}} Edit {{/if}}
+    Unit
+  </h4>
+{{/bs-modal-header}}
+  {{#bs-modal-body}}
+    {{#bs-form action=(action "submit") model=unit}}
+      {{bs-form-element controlType="text" label="Name" property="name"}}
+      {{bs-form-element controlType="text" label="Description" property="description"}}
+      {{bs-form-element controlType="text" label="Color" property="color"}}
+      {{bs-form-element controlType="text" label="Image" property="img"}}
+
+      <label class="control-label">Type</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="dropname" value={{unit.type.name}} readonly>
+        <div class="input-group-btn">
+          {{#bs-dropdown}}
+            {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+            {{#bs-dropdown-menu  align="right"}}
+              {{#each unitTypes as |ut|}}
+              <li {{action "setType" ut}}><a href="#">{{ut.name}}</a></li>
+              {{/each}}
+            {{/bs-dropdown-menu}}
+          {{/bs-dropdown}}
+        </div>
+      </div>
+    {{/bs-form}}
+    {{/bs-modal-body}}
+    {{#bs-modal-footer}}
+        <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+        <button type="submit" class="btn btn-primary"> {{#if unit.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    {{/bs-modal-footer}}
+{{/bs-modal}}

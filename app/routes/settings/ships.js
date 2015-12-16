@@ -3,7 +3,11 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   model: function() {
-    return this.store.findAll('ship');
+      var self = this;
+
+      self.store.findAll('shipManufacturer');
+    return this.store.findAll('shipModel');
+//     return this.store.findAll('ship');
 //     return this.store.findAll('shipManufacturer');
 
 //     return this.store.findAll('ship').then(function(ship){
@@ -12,9 +16,9 @@ export default Ember.Route.extend({
 //     });
   },
 
-  afterModel: function(model, controller) {
+//   afterModel: function(model, controller) {
     // belongsTo is broken?
-    this.store.findAll('shipManufacturer');
-  }
+//     this.store.findAll('shipManufacturer');
+//   }
 
 });
