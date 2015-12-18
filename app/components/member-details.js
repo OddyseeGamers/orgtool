@@ -23,6 +23,8 @@ export default Ember.Component.extend({
       cursorAt: { left: -5, top: -5 }, 
       zIndex: 10,
       revert: true,
+      scroll: false,
+      containment: '#mycontent',
       drag: Ember.$.proxy(this.onDrag, this),
       stop: Ember.$.proxy(this.onDropped, this),
     });

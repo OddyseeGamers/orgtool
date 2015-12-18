@@ -200,7 +200,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    console.debug(">>>> ", struc);
+    console.debug("render ", struc);
     var div = Ember.$(".chart-pane");
     var width = div.width();
     var height = div.height();

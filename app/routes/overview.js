@@ -8,17 +8,17 @@ export default Ember.Route.extend({
   model: function(params) {
     return this.store.findAll('unit');
   },
-  afterModel: function(model, controller) {
-    console.debug("==== after model");
+//   afterModel: function(model, controller) {
+//     console.debug("==== after model");
     // belongsTo is broken?
 //     var self =  this;
-  },
-  activate: function() {
+//   },
+//   activate: function() {
 //     console.debug("==== activate");
 //     this.controllerFor('org-chart')._renderStruc();
 
-    console.debug("rerender");
+//     console.debug("rerender");
 //     this.get('eventManager').trigger('rerender');
 
-  }
+//   }
 });
