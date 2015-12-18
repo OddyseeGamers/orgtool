@@ -9,7 +9,8 @@ export default DS.ActiveModelAdapter.extend({
   namespace: 'wp-json/orgtool',
 
   headers: { 
-        'Accept': '*'
+        'Accept': '*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 //     "Accept": "application/json, text/javascript; q=0.01"
 //     "Access-Control-Request-Headers": "content-type"
 //     'Access-Control-Expose-Headers':'x-json'
@@ -17,6 +18,7 @@ export default DS.ActiveModelAdapter.extend({
 
     updateRecord: function(store, type, snapshot) {
       var url = this.urlForUpdateRecord(Ember.get(snapshot, 'id'), type.modelName, snapshot);
+      console.debug(">>> send", snapshot.serialize());
       return this.ajax(url, 'POST', {data: snapshot.serialize()});
     },
     

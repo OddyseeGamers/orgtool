@@ -31,18 +31,19 @@ export default Ember.Controller.extend({
       console.debug("found units")
       self.log("loading members")
       self.set('unitTypes', unitTypes);
-      self.get('eventManager').trigger('rerender');
 
       self.store.findAll('member').then(function(members) {
         console.debug("found member")
         self.log("loading ship collections");
         self.set('members', members);
+          self.get('eventManager').trigger('rerender');
 
         self.store.findAll('ship').then(function(ships) {
-          console.debug("found member")
+          console.debug("found ships")
+//           self.log("loading done")
           self.success("loading done")
-          self.set('loading', false);
           self.set('ships', ships);
+//           self.get('eventManager').trigger('rerender');
         });
       });
     });
@@ -184,8 +185,8 @@ export default Ember.Controller.extend({
         self.success("unit saved " + get(nunit, 'id'));
         console.debug("save ok", nunit);
         self.set('unit', null);
-        self.set('loading', false);
-        self.set('dialog',false);
+//         self.set('loading', false);
+//         self.set('dialog',false);
         self.get('eventManager').trigger('rerender');
         self.store.findAll('unitType').then(function(unitTypes) {
           self.set('unitTypes', unitTypes);

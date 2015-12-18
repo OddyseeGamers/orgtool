@@ -19,7 +19,23 @@
   color: #fff;
   line-height: 30px;
   font-weight: 300;
+  padding: 0px;
+//    padding: 6px 25px;
   font-size: 18px;
   background: none !important;
   border: 0px;
+  margin-top: 6px;
+//    padding-left: 6px;
+  outline:none;
+      -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
+//  .btn-trans:focus, .btn-trans:active {
+//    outline: none;
+//    border: 0px;
+//  }

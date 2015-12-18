@@ -7,26 +7,11 @@ var set = Ember.set;
 var x = 0;
 var y = 0;
 
-        function makeSVG(tag, attrs) {
-            var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
-//             ["id", "data-unitid", "d", "fill-rule", "width", "height", "style"].forEach(function(prop) {
-//                 console.debug(">>>>", prop, Ember.$(attrs));
-//                 console.debug(">",  Ember.$(attrs).);
-//             });
-//                 el.setAttribute(k, attrs[k]);
-//             for (var k in attrs)
-//                 el.setAttribute(k, attrs[k]);
-            return el;
-        }
-
 export default Ember.Component.extend({
   classNames: ['org-tree'],
   eventManager: Ember.inject.service('events'),
   store: Ember.inject.service(),
 
-//   content: null,
-//   width: 0,
-//   height = 0;
   radius: 0,
   padding: 6,
   path: null,
@@ -34,22 +19,8 @@ export default Ember.Component.extend({
   currPath: null,
   currSelection: null,
   currFilter: "game",
+  lastSelection: null,
 
-/*
-//   filteredUnits: Ember.computed.filterBy('units', 'unit.type', "org"),
-  filteredUnits: function() {
-        console.debug("filter.........................");
-      return get(this, 'store').filter('unit', function(unit) {
-        console.debug("    comp", unit.get('type'));
-        return unit.get('type') == "org" || unit.get('type') == self.currFilter;
-//       }).then(function(units) {
-//         console.debug("found.........................");
-//         console.debug(">>> unit", units.get("length"), '|',  units);
-//         return units;
-      });
-//     return this.get("productsShown").filterBy('is_premium', true);
-  }.property("content.[]"),
-*/
   partition: d3.layout.partition()
       .sort(null)
       .value(function(d) { return 18 - d.depth; }),
@@ -65,7 +36,7 @@ export default Ember.Component.extend({
         '<svg id="svg" preserveAspectRatio="xMinYMin" width="100%" height="99%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
         '<defs>' +
         '<pattern id="img1" patternUnits="userSpaceOnUse">' +
-        '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="100px" height="100px" x="0px" y="0px"></image>' +
+        '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="75px" height="75px" x="0px" y="0px"></image>' +
         '</pattern>' +
         '</defs>' +
         '</svg>');
@@ -138,18 +109,8 @@ export default Ember.Component.extend({
   },
 
 
-
   click: function(d) {
-//     this.currPath = [ d ];
-
-//     var temp = d;
-//     while (temp.parent) {
-//       this.currPath.push(temp.parent);
-//       temp = temp.parent;
-//     }
-
     var id = Ember.$(d.target).data('unitid');
-//     console.debug("clicked", id);
     if (id !== undefined) {
       var select = false;
       if (id == 1) {
@@ -167,12 +128,14 @@ export default Ember.Component.extend({
       }
 
       if (select) {
+        console.debug("reset last");
+
         var $sel = this.get('currSelection');
         if ($sel) {
-          $sel.attr("class", "");
+          $sel.attr("class", "unit-pilots-path");
         }
         var $path = Ember.$(d.target);
-        $path.attr("class", "selected");
+        $path.attr("class", "unit-pilots-path selected");
         this.set('currSelection', $path);
 
         this.get('eventManager').trigger('setDetails', id);
@@ -182,23 +145,10 @@ export default Ember.Component.extend({
 
   
   mouseover: function(d) {
-  /*
-//       var $path = Ember.$(d.target);
-//     var id = Ember.$(d.target).data('unitid');
-
-    var g = d3.select("#org_group");
-    var marker = makeSVG('path', this);
-//     var r = '' + this; // g.append( Ember.$(this));
-    console.debug("copy", d, '-', g, '-',   Ember.$(this), '-', marker);
-    */
   },
 
   mouseout: function(d) {
-  /*
-    console.debug("remove copy", d);
-    */
   },
-
 
   _serializeChildren: function(obj) {
     var self = this;
@@ -299,7 +249,7 @@ export default Ember.Component.extend({
 //             .on("click", self.click.bind(self));
 
 
-    var iw = 100;
+    var iw = 75;
     var box = document.getElementById("org_group").firstChild.getBBox();
     var ipos = [ center[0] - (box.width / 2), center[1] - (box.height / 2)];
     Ember.$("#img1")
