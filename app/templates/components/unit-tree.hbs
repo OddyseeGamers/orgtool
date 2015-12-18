@@ -56,18 +56,18 @@
   </div>
 
   <div class="unit-pilots-container" data-unitid={{unit.id}}>
-    {{#if unit.members}}
+    {{#if unit.memberUnits}}
       <a class="toggleElement" {{action 'togglePilots'}}>
         <i class="fixedWidth fa {{if showPilots "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-        Member: {{unit.members.length}}
+        Member: {{unit.memberUnits.length}}
       </a>
     {{else}}
       <i class="fixedWidth fa fa-circle"></i>
-      Member: {{unit.members.length}}
+      Member: {{unit.memberUnits.length}}
     {{/if}}
     <div class="unit-pilots {{unless showPilots "hide"}}">
-      {{#each unit.members as |pilot|}}
-          {{member-details member=pilot draggable=true unassign=true}}
+      {{#each unit.memberUnits as |memUn|}}
+          {{member-details member=memUn.member draggable=true unassign=true}}
       {{/each}}
     </div>
   </div>

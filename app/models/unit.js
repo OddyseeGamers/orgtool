@@ -10,6 +10,6 @@ export default DS.Model.extend({
   parent: DS.belongsTo('unit', { inverse: 'units', async: false }),
 
   units: DS.hasMany('unit', { inverse: 'parent', async: false }),
-  members: DS.hasMany('member', { async: true })
+  memberUnits: DS.hasMany('memberUnit', { async: true })
 });
 

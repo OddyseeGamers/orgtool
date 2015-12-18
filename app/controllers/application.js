@@ -26,29 +26,26 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('setLoading', this.setLoading.bind(this));
 
     var self = this;
-//     this.set('loading', true);
-//     self.log("loading units")
     this.store.findAll('unitType').then(function(unitTypes) {
-      console.debug("found units")
-      self.log("loading members")
+      console.debug("found units");
+      self.log("loading members");
       self.set('unitTypes', unitTypes);
 
       self.store.findAll('member').then(function(members) {
         console.debug("found member")
-        self.log("loading ship collections");
+        self.log("loading member units");
         self.set('members', members);
-          self.get('eventManager').trigger('rerender');
-
-        self.store.findAll('ship').then(function(ships) {
-          console.debug("found ships")
-//           self.log("loading done")
-          self.success("loading done")
-          self.set('ships', ships);
-//           self.get('eventManager').trigger('rerender');
+        self.get('eventManager').trigger('rerender');
+        self.store.findAll('memberUnit').then(function(memberUnit) {
+          self.log("loading ship collections");
+          self.store.findAll('ship').then(function(ships) {
+            console.debug("found ships");
+            self.success("loading done");
+            self.set('ships', ships);
+          });
         });
       });
     });
-
   }),
 
 
@@ -78,23 +75,66 @@ export default Ember.Controller.extend({
   },
 
   assign: function(data) {
-    this.log('assign member:' + data.id + ' to unit: ' + data.dest);
-
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
-    get(unit, 'members').pushObject(member);
-    get(member, 'units').pushObject(unit);
 
+    var cu = get(member, 'memberUnits');
+    var found = false;
+    for (var i = 0; i < get(cu, 'length') && !found; i++) {
+      var c = cu.objectAt(i);
+      if (get(c, 'unit.id') == get(unit, 'id')) {
+        found = true;
+      }
+    }
+
+    if (found) {
+      this.log('member:' + data.id + ' is already assinged to unit: ' + data.dest);
+    } else {
+      var memUn = this.store.createRecord('memberUnit');
+      memUn.set('member', member);
+      memUn.set('unit', unit);
+
+      this.log('assign member:' + data.id + ' to unit: ' + data.dest);
+      var self = this;
+      self.set('loading', true);
+      memUn.save().then(function() {
+        self.success('member assigned ' + data.id);
+      }).catch(function(err) {
+        self.failure("assigning member " + data.get(member, 'id'));
+        console.debug("assign err", err);
+        memUn.rollback();
+      });
+    }
   },
 
 
   unassign: function(data) {
-    this.log('unassign member:' + data.id + ' from unit: ' + data.dest);
-
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
-    get(unit, 'members').removeObject(member);
-    get(member, 'units').removeObject(unit);
+
+    var cu = get(member, 'memberUnits');
+    var found = false;
+    var memUn;
+    for (var i = 0; i < get(cu, 'length') && !found; i++) {
+      var c = cu.objectAt(i);
+      if (get(c, 'unit.id') == get(unit, 'id')) {
+        found = true;
+        memUn = c;
+      }
+    }
+
+    if (found) {
+      var self = this;
+      this.log('unassign member:' + data.id + ' from unit: ' + data.dest);
+      self.set('loading', true);
+      memUn.destroyRecord().then(function() {
+        self.success('member unassigned ' + data.id);
+      }).catch(function(err) {
+        self.failure("unassigning member " + get(member, 'id'));
+        console.debug("unassign err", err);
+        memUn.rollback();
+      });
+    }
   },
 
   addUnit: function(data) {
@@ -186,14 +226,11 @@ export default Ember.Controller.extend({
 //         return;
 //       }
 
-      console.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
+//       console.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       self.set('loading', true);
       unit.save().then(function(nunit) {
         self.success("unit saved " + get(nunit, 'id'));
-        console.debug("save ok", nunit);
         self.set('unit', null);
-//         self.set('loading', false);
-//         self.set('dialog',false);
         self.get('eventManager').trigger('rerender');
         self.store.findAll('unitType').then(function(unitTypes) {
           self.set('unitTypes', unitTypes);

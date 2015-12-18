@@ -1,4 +1,4 @@
-<div class="member-details {{if draggable "member-details-draggable"}}">
+<div class="member-details {{if canDrag "member-details-draggable"}}">
 {{#if details}}
   <div class="member-box" style="height:42px;vertical-align: middle;">
   <div>
@@ -27,9 +27,9 @@
   </div>
 
   <div style="float:left; width:15%;">
-      {{#if member.units.length}}
-        {{#each member.units as |unit|}}
-          {{unit.name}}, 
+      {{#if member.memberUnits.length}}
+        {{#each member.memberUnits as |memUn|}}
+          {{memUn.unit.name}}, 
         {{/each}}
         {{else}}
           &nbsp;
@@ -81,10 +81,10 @@
         <div class="member-remove">
           <div class="member-stats">
             {{#if member.ships.length}}
-            ships: {{member.ships.length}}
+            s: {{member.ships.length}}
             {{/if}}
-            {{#if member.units.length}}
-            units: {{member.units.length}}
+            {{#if member.memberUnits.length}}
+            u: {{member.memberUnits.length}}
             {{/if}}
 
             {{#bs-dropdown class="member-options"}}
@@ -92,7 +92,7 @@
                 {{fa-icon "caret-down"}}
               {{/bs-dropdown-toggle}}
               {{#bs-dropdown-menu class="pull-right"}}
-                {{#if unassign}}
+                {{#if canUnassign}}
                   <li><a {{action 'unassignMember' member target=view.parentView}}>{{fa-icon "close"}} Remove</a></li>
                 {{/if}}
                 <li class="disabled"><a href="#">{{fa-icon "user"}} Profile</a></li>

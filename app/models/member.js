@@ -8,7 +8,7 @@ export default DS.Model.extend({
   timezone: DS.attr(),
   updated_at: DS.attr(),
   ships: DS.hasMany('ship', { async: true}),
-  units: DS.hasMany('unit', { async: true }),
+  memberUnits: DS.hasMany('memberUnit', { async: true }),
   rewards: DS.attr(),
   logs: DS.attr(),
 });
