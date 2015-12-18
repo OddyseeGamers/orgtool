@@ -5,6 +5,6 @@ export default DS.Model.extend({
   description: DS.attr(),
   img: DS.attr(),
   ordering: DS.attr(),
-  units: DS.hasMany('unit', { async: true })
+  units: DS.hasMany('units', { async: true })
 });
 

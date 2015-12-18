@@ -14,7 +14,11 @@
 
       <label class="control-label">Type</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="dropname" value={{unit.type.name}} readonly>
+        {{#if unit.type}}
+        <input type="text" class="form-control" id="unittype" value={{unit.type.name}} readonly>
+        {{else}}
+        <input type="text" class="form-control" id="unittype" value="" readonly>
+        {{/if}}
         <div class="input-group-btn">
           {{#bs-dropdown}}
             {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}

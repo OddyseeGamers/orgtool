@@ -101,20 +101,26 @@ export default Ember.Controller.extend({
     var self = this;
     self.set('loading', true);
     this.store.findRecord('unit', data.id).then(function (punit) {
-      var unit = self.store.createRecord('unit');
-      set(unit, 'parent', punit);
-      get(punit, 'units').pushObject(unit);
-      self.set('unit', unit);
-        self.set('dialog', true);
-//       self.get('eventManager').trigger('rerender');
-      self.set('loading', false);
+      self.store.findRecord('unitType', 6).then(function (unitType) {
+        var unit = self.store.createRecord('unit');
+        unit.set('type', unitType);
+        set(unit, 'parent', punit);
+        get(punit, 'units').pushObject(unit);
+        self.set('unit', unit);
+          self.set('dialog', true);
+  //       self.get('eventManager').trigger('rerender');
+        self.set('loading', false);
+      });
     });
   },
 
   editUnit: function(data) {
     this.log('edit unit ' + data.id);
-    this.set('unit', data.unit);
-    this.set('dialog', true);
+    var self = this;
+    this.store.findRecord('unit', data.id).then(function (unit) {
+      self.set('unit', unit);
+      self.set('dialog', true);
+    });
   },
 
   deleteUnit: function(data) {

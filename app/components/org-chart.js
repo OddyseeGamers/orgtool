@@ -8,7 +8,7 @@ var x = 0;
 var y = 0;
 
 export default Ember.Component.extend({
-  classNames: ['org-tree'],
+  classNames: ['org-chart'],
   eventManager: Ember.inject.service('events'),
   store: Ember.inject.service(),
 
@@ -20,6 +20,8 @@ export default Ember.Component.extend({
   currSelection: null,
   currFilter: "game",
   lastSelection: null,
+  showNav: Ember.computed.equal('currFilter', 'game'),
+  currIcon: null,
 
   partition: d3.layout.partition()
       .sort(null)
@@ -32,16 +34,6 @@ export default Ember.Component.extend({
       .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); }),
 
   setup: Ember.on('didInsertElement', function() {
-    var $container = Ember.$(
-        '<svg id="svg" preserveAspectRatio="xMinYMin" width="100%" height="99%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">' +
-        '<defs>' +
-        '<pattern id="img1" patternUnits="userSpaceOnUse">' +
-        '<image xlink:href="http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg" width="75px" height="75px" x="0px" y="0px"></image>' +
-        '</pattern>' +
-        '</defs>' +
-        '</svg>');
-    
-    this.$().append($container);
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     $(window).bind('resize', this.get('_renderStruc').bind(this));
     this._renderStruc();
@@ -90,8 +82,7 @@ export default Ember.Component.extend({
 
   color: function(d) {
     if (d && d.depth === 0) {
-//       return "";
-      return "url(#img1)";
+      return "";
     }
 
     if (d.children) {
@@ -119,17 +110,15 @@ export default Ember.Component.extend({
         set(this, 'currFilter', id);
         this._renderStruc();
         select = true;
-      } else if (get(this, 'currFilter') == id) {
-        set(this, 'currFilter', "game");
-        this._renderStruc();
-        this.get('eventManager').trigger('setDetails', undefined);
+//       } else if (get(this, 'currFilter') == id) {
+//         set(this, 'currFilter', "game");
+//         this._renderStruc();
+//         this.get('eventManager').trigger('setDetails', undefined);
       } else {
         select = true;
       }
 
       if (select) {
-        console.debug("reset last");
-
         var $sel = this.get('currSelection');
         if ($sel) {
           $sel.attr("class", "unit-pilots-path");
@@ -196,29 +185,30 @@ export default Ember.Component.extend({
         if (filter === "game" && get(el, 'type.name') === "org") {
           root = el;
         } else if (filter !== "game" && get(el, 'id') == filter) {
-          console.debug("foubnd filter", )
           root = el;
         }
       };
     }
 
-    return this._serializeChildren(root);
+    return root; //this._serializeChildren(root);
   },
 
   _renderStruc: function() {
-    var struc = this._transformData();
+    var root = this._transformData();
+    var struc = this._serializeChildren(root);
     if (!struc) {
       return;
     }
 
     console.debug(">>>> ", struc);
-    var div = Ember.$(".org-tree");
+    var div = Ember.$(".chart-pane");
     var width = div.width();
     var height = div.height();
 
     var center = [ width / 2, height / 2 ];
     var radius = (Math.min(width, height) * 0.95) / 2;
     set(this, 'radius', radius);
+    this.set('currIcon', false);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -226,11 +216,14 @@ export default Ember.Component.extend({
     var svg = d3.select("#svg");
     var nodes = this.partition.nodes(struc);
 
+
+
     Ember.$("#org_group").remove();
 
     var vis = svg.append("g")
             .attr("id", "org_group")
             .attr("transform", "translate(" + center + ")");
+
 
     this.path = vis.selectAll("path").data(nodes);
     this.path.enter().append("path")
@@ -241,6 +234,7 @@ export default Ember.Component.extend({
             .attr("width", 10)
             .attr("height", 10)
             .attr("class", "unit-pilots-path")
+            .attr("fill-opacity", function(d, i) { return (d && d.depth === 0) ? "0.0" : "1"; })
             .style("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))
             .on("mouseover", self.mouseover);
@@ -249,12 +243,19 @@ export default Ember.Component.extend({
 //             .on("click", self.click.bind(self));
 
 
-    var iw = 75;
     var box = document.getElementById("org_group").firstChild.getBBox();
     var ipos = [ center[0] - (box.width / 2), center[1] - (box.height / 2)];
-    Ember.$("#img1")
-        .attr('x', box.x + (box.width / 2) - iw / 2)
-        .attr('y', box.y + (box.height / 2) - iw / 2)
+    
+//     Ember.$(".img-pane").empty();
+
+//     var src = root.get('img');
+//     if (!src) {
+    var src = "http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg";
+//     }
+
+    $('.unit-logo')
+        .attr('src', src)
+        .attr('style', "left:" + ipos[0] + "px;top:" + ipos[1] + "px")
         .attr('width', box.width)
         .attr('height', box.height);
 
@@ -285,5 +286,13 @@ export default Ember.Component.extend({
         .attr("x", 0)
         .attr("dy", "1em")
         .text(function(d) { return d.depth && d.name ? d.name.split(" ")[1] || "" : ""; });
+  },
+
+  actions: {
+    goBack: function() {
+      set(this, 'currFilter', "game");
+      this._renderStruc();
+      this.get('eventManager').trigger('setDetails', undefined);
+    },
   }
 });
