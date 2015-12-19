@@ -71,6 +71,7 @@ export default Ember.Component.extend({
       this.set('collapsePilots', ! this.get('collapsePilots'));
     },
     unassignMember: function(member) {
+      console.debug(">>>> unassignMember");
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
     addUnit: function() {

@@ -48,7 +48,7 @@
     <div class="unit-leader {{unless showLeader "hide"}}">
       {{#each unit.leader as |lead|}}
         <div class="half-col">
-          {{member-details member=lead draggable=true unassign=true}}
+          {{member-details member=lead draggable=true unitid=unit.id}}
         </div>
       {{/each}}
     </div>
@@ -67,7 +67,7 @@
     {{/if}}
     <div class="unit-pilots {{unless showPilots "hide"}}">
       {{#each unit.memberUnits as |memUn|}}
-          {{member-details member=memUn.member draggable=true unassign=true}}
+          {{member-details member=memUn.member draggable=true unitid=unit.id}}
       {{/each}}
     </div>
   </div>

@@ -1,11 +1,19 @@
 <div id="ships" style="height:100%;overflow-y:auto">
-  {{#each content as |ship|}}
-  <div class="col-md-2">
-    {{ship.member.name}}
-  </div>
-  <div class="col-md-10">
-    {{ship-model-details ship=ship.model}}
-  </div>
+  {{#each model as |member|}}
+  {{#if member.ships.length}}
+    <div class="col-md-12 ship-owner">
+      {{member.name}}
+    </div>
+    <div class="col-md-12">
+
+      {{#each member.ships as |ship|}}
+        <div class="col-md-6">
+          {{ship-model-details ship=ship.model}}
+        </div>
+      {{/each}}
+    </div>
+      <div class="col-md-12"></div>
+    {{/if}}
   {{/each}}
 </div>
 

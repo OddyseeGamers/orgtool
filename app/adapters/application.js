@@ -4,9 +4,14 @@ import Ember from 'ember';
 // export default DS.ActiveModelAdapter.extend({
 
 //   export default DS.RESTAdapter.extend(DS.BuildURLMixin, {
-export default DS.ActiveModelAdapter.extend({
+export default DS.RESTAdapter.extend({
   host: 'http://www.oddysee.org',
   namespace: 'wp-json/orgtool',
+
+
+  pathForType: function(modelName) {
+    return Ember.String.pluralize(Ember.String.underscore(modelName));
+  },
 
   headers: { 
         'Accept': '*',

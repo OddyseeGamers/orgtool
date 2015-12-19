@@ -10,10 +10,12 @@ export default Ember.Controller.extend({
   currentUnit: null,
   units: null,
   members: [],
+  dialog: false,
+  orgType: null,
 
 
   // setup our query params
-  queryParams: ["page", "perPage"],
+//   queryParams: ["page", "perPage"],
 
   // set default values, can cause problems if left out
   // if value matches default, it won't display in the URL
@@ -41,14 +43,12 @@ export default Ember.Controller.extend({
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
-    
   }),
+
 
 //   filteredMembers: Ember.computed.filterBy('members', 'units.length', 0),
 
   setDetails: function(unitId) {
-
-//       console.debug(">> set detals");
     if (!this.get('members') || this.get('members.length') === 0) {
 //       var mems =  this.store.peekAll('member');
 //       console.debug(">> members", get(mems, 'length'));
@@ -79,5 +79,7 @@ export default Ember.Controller.extend({
 //       })
 //       );
 //     }
-  }
+  },
+
+
 });

@@ -24,6 +24,8 @@ module.exports = function(environment) {
 /*
     contentSecurityPolicy: {
       'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
+      'img-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 robertsspaceindustries.com",
+      'style-src': "'unsafe-inline'",
     }
 */
 
@@ -32,8 +34,8 @@ module.exports = function(environment) {
       'script-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 'unsafe-eval'",
       'font-src': "'self' http://fonts.gstatic.com http://www.oddysee.org:4200 http://fonts.googleapis.com",
       'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
-      'img-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 robertsspaceindustries.com",
-      'style-src': "'unsafe-inline'",
+      'img-src': "*",
+      'style-src': "'self' 'unsafe-inline'",
       'report-uri':"'self'"
     }
 

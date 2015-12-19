@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-var Router = Ember.Router.extend({
+const Router = Ember.Router.extend({
   location: config.locationType
 });
 
@@ -10,12 +10,9 @@ Router.map(function() {
     this.route('assignments');
     this.route('members');
     this.route('ships');
-//     this.route('settings');
-    this.resource('settings', function() {
+    this.route('settings', { resetNamespace: true }, function() {
       this.route('ships');
     });
-
-
 });
 
 export default Router;

@@ -93,7 +93,7 @@
               {{/bs-dropdown-toggle}}
               {{#bs-dropdown-menu class="pull-right"}}
                 {{#if canUnassign}}
-                  <li><a {{action 'unassignMember' member target=view.parentView}}>{{fa-icon "close"}} Remove</a></li>
+                  <li><a {{action 'unassignMember' member unitid}}>{{fa-icon "close"}} Remove</a></li>
                 {{/if}}
                 <li class="disabled"><a href="#">{{fa-icon "user"}} Profile</a></li>
               {{/bs-dropdown-menu}}

@@ -9,13 +9,15 @@ export default Ember.Controller.extend({
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
   loading: true,
-  dialog: false,
+  showDialog: false,
   pwd: "",
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
+
     this.get('eventManager').on('addUnit', this.addUnit.bind(this));
+
     this.get('eventManager').on('editUnit', this.editUnit.bind(this));
     this.get('eventManager').on('deleteUnit', this.deleteUnit.bind(this));
 
@@ -24,28 +26,6 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('failure', this.failure.bind(this));
 
     this.get('eventManager').on('setLoading', this.setLoading.bind(this));
-
-    var self = this;
-    this.store.findAll('unitType').then(function(unitTypes) {
-      console.debug("found units");
-      self.log("loading members");
-      self.set('unitTypes', unitTypes);
-
-      self.store.findAll('member').then(function(members) {
-        console.debug("found member")
-        self.log("loading member units");
-        self.set('members', members);
-        self.get('eventManager').trigger('rerender');
-        self.store.findAll('memberUnit').then(function(memberUnit) {
-          self.log("loading ship collections");
-          self.store.findAll('ship').then(function(ships) {
-            console.debug("found ships");
-            self.success("loading done");
-            self.set('ships', ships);
-          });
-        });
-      });
-    });
   }),
 
 
@@ -55,7 +35,7 @@ export default Ember.Controller.extend({
 
   success: function(text) {
     this.set('unit', null);
-    this.set('dialog', false);
+    this.set('showDialog', false);
     this.set('loading', false);
 
     Ember.$(".debug").empty();
@@ -148,7 +128,7 @@ export default Ember.Controller.extend({
         set(unit, 'parent', punit);
         get(punit, 'units').pushObject(unit);
         self.set('unit', unit);
-          self.set('dialog', true);
+          self.set('showDialog', true);
   //       self.get('eventManager').trigger('rerender');
         self.set('loading', false);
       });
@@ -158,10 +138,10 @@ export default Ember.Controller.extend({
   editUnit: function(data) {
     this.log('edit unit ' + data.id);
     var self = this;
-    this.store.findRecord('unit', data.id).then(function (unit) {
-      self.set('unit', unit);
-      self.set('dialog', true);
-    });
+//     this.store.findRecord('unit', data.id).then(function (unit) {
+      self.set('unit', data.unit);
+      self.set('showDialog', true);
+//     });
   },
 
   deleteUnit: function(data) {
@@ -179,37 +159,6 @@ export default Ember.Controller.extend({
       data.unit.rollback();
       self.get('eventManager').trigger('rerender');
     });
-//     self.get('eventManager').trigger('rerender');
-        /*
-    var self = this;
-    this.store.findRecord('unit', data.id).then(function (unit) {
-      self.store.deleteRecord(unit); // 'unit', get(unit,data.dest).then(function (unit) {
-        self.get('eventManager').trigger('rerender');
-//       unit.parent
-//       self.store.findRecord('unit', get(unit,data.dest).then(function (unit) {
-//         get(unit, 'members').removeObject(member);
-//         get(member, 'units').removeObject(unit);
-//       });
-    });
-*/
-    /*
-    var unit = this.store.createRecord('unit');
-      this.store.findRecord('unit', data.id).then(function (punit) {
-        get(punit, 'units').pushObject(unit);
-        self.get('eventManager').trigger('rerender');
-      });
-      */
-  },
-
-  hashCode: function(str) {
-    var hash = 0, i, chr, len;
-    if (str.length === 0) return hash;
-    for (i = 0, len = str.length; i < len; i++) {
-      chr   = str.charCodeAt(i);
-      hash  = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
   },
 
 
@@ -218,7 +167,7 @@ export default Ember.Controller.extend({
       var unit = get(this, 'unit');
       var self = this;
 
-      self.set('dialog', false);
+      self.set('showDialog', false);
 //       if (!unit.get('hasDirtyAttributes')) {
 //         self.log("done unit " + get(unit, 'id'));
 //         self.set('unit', null);
@@ -232,13 +181,13 @@ export default Ember.Controller.extend({
         self.success("unit saved " + get(nunit, 'id'));
         self.set('unit', null);
         self.get('eventManager').trigger('rerender');
-        self.store.findAll('unitType').then(function(unitTypes) {
-          self.set('unitTypes', unitTypes);
-        });
+//         self.store.findAll('unitType').then(function(unitTypes) {
+//           self.set('unitTypes', unitTypes);
+//         });
       }).catch(function(err) {
         self.failure("saving " + get(unit, 'id'));
         console.debug("save err", err);
-        self.set('dialog',true);
+        self.set('showDialog',true);
 //         unit.rollback();
         self.get('eventManager').trigger('rerender');
       });
@@ -247,7 +196,7 @@ export default Ember.Controller.extend({
     close: function() {
       var unit = get(this, 'unit');
       var self = this;
-      self.set('dialog', false);
+      self.set('showDialog', false);
       if (unit.get('hasDirtyAttributes')) {
         unit.rollback();
         self.log("discarded unit " + get(unit, 'id'));

@@ -14,14 +14,14 @@ export default Ember.Component.extend({
 
   radius: 0,
   padding: 6,
-  path: null,
-  text: null,
   currPath: null,
   currSelection: null,
   currFilter: "game",
   lastSelection: null,
   showNav: Ember.computed.equal('currFilter', 'game'),
-  currIcon: null,
+  units: null,
+  orgType: null,
+  unitTypes: null,
 
   partition: d3.layout.partition()
       .sort(null)
@@ -36,11 +36,11 @@ export default Ember.Component.extend({
   setup: Ember.on('didInsertElement', function() {
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     $(window).bind('resize', this.get('_renderStruc').bind(this));
-    this._renderStruc();
   }),
 
   willDestroy: function() {
     $(window).unbind('resize', this.get('_renderStruc'));
+    this.get('eventManager').off('rerender');
   },
 
   isParentOf: function (p, c) {
@@ -179,28 +179,38 @@ export default Ember.Component.extend({
     var data = get(this, 'units');
     var filter = get(this, 'currFilter');
 
+    var orgtype = get(this, 'orgType');
+    if (!orgtype) {
+      return root;
+    }
+
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
-        if (filter === "game" && get(el, 'type.name') === "org") {
-          root = el;
-        } else if (filter !== "game" && get(el, 'id') == filter) {
-          root = el;
+        if (get(el, 'type.isLoaded')) {
+          if (filter === "game" && get(el, 'type.name') === get(orgtype, 'name')) {
+            root = el;
+          } else if (filter !== "game" && get(el, 'id') == filter) {
+            root = el;
+          }
         }
-      };
+      }
     }
 
     return root; //this._serializeChildren(root);
   },
 
   _renderStruc: function() {
+//     $('.unit-logo').attr('src', '');
+
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
+      var data = get(this, 'units');
       return;
     }
 
-    console.debug("render ", struc);
+//     console.debug("render ", struc);
     var div = Ember.$(".chart-pane");
     var width = div.width();
     var height = div.height();
@@ -208,7 +218,6 @@ export default Ember.Component.extend({
     var center = [ width / 2, height / 2 ];
     var radius = (Math.min(width, height) * 0.95) / 2;
     set(this, 'radius', radius);
-    this.set('currIcon', false);
 
     x = d3.scale.linear().range([0, 2 * Math.PI]);
     y = d3.scale.pow().exponent(1.3).domain([0, 1]).range([0, radius]);
@@ -225,8 +234,8 @@ export default Ember.Component.extend({
             .attr("transform", "translate(" + center + ")");
 
 
-    this.path = vis.selectAll("path").data(nodes);
-    this.path.enter().append("path")
+    var path = vis.selectAll("path").data(nodes);
+    path.enter().append("path")
             .attr("id", function(d, i) { return "path-" + d.id; })
             .attr("data-unitid", function(d, i) { return d.id; })
             .attr("d", this.arc)
@@ -260,8 +269,8 @@ export default Ember.Component.extend({
         .attr('height', box.height);
 
     self = this;
-    this.text = vis.selectAll("text").data(nodes);
-    var textEnter = this.text.enter().append("text")
+    var text = vis.selectAll("text").data(nodes);
+    var textEnter = text.enter().append("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
                 return self.brightness(d3.rgb(self.color(d))) < 125 ? "#bbb" : "#000";

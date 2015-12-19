@@ -4,13 +4,13 @@ export default Ember.Component.extend({
   draggable: false,
   droppable: true,
   selectable: true,
-  unassign: false,
+  unitid: null,
   attributeBindings: ["memberid:data-memberid"],
   memberid: Ember.computed.alias('member.id'),
   lastElement: null,
   lastColor: null,
   canDrag: Ember.computed.and('draggable', 'session.isAdmin'),
-  canUnassign: Ember.computed.and('unassign', 'session.isAdmin'),
+  canUnassign: Ember.computed.and('unitid', 'session.isAdmin'),
 
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
@@ -152,19 +152,10 @@ export default Ember.Component.extend({
     return {unitid: id, dest: dest};
   },
 
-/*
-
   actions: {
-    unassignMember: function(event) {
-      console.debug("uassing member", this.get('memberid'), 'from', this.get('member.unit.id'));
-      console.debug("EVENT", $(this)); //.closest( ".unit-pilots-container" ).data('unitid'));
-      Ember.$(".debug").empty();
-      Ember.$(".debug").append( "--- uassing member", this.get('memberid'), ' | units', this.get('member.units.length'));
-//       this.get('eventManager').trigger('unassign', { 'id': this.get('memberid'), 'type': 'member', 'dest': this.get('member.units.id'), 'destType': "unit" } );
-
-//       var member = this.get('memberid')
-
-    }
+    unassignMember: function(member, unitid) {
+      this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': unitid, 'destType': "unit" } );
+    },
   }
-*/
+
 });
