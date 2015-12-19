@@ -1,3 +1,5 @@
 <div id="chart">
-    {{org-chart units=units orgType=orgType unitTypes=unitTypes}}
+  {{#if units}}
+  {{org-chart units=units orgType=orgType unitTypes=unitTypes}}
+  {{/if}}
 </div>

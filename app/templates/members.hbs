@@ -1,17 +1,52 @@
 <div id="members" class="panel panel-default impart-panel">
+
   <div class="member-filter">
     filter: {{model.length}}
   </div>
 
   <div class="member-pager">
-    {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3 perPage=perPage}}
+    {{page-numbers content=pagedContent showFL=true numPagesToShow=7}}
   </div>
 
-  <div class="member-result">
-    {{#each pagedContent as |member|}}
-    {{member-details member=member details=true}}
-    {{/each}}
+  <div class="member-list">
+    <div class="member-result">
+      <table class="table table-condensed table-hover table-striped">
+        <tbody>
+        {{#each pagedContent as |member|}}
+          {{#link-to 'members.member' member.id tagName="tr"}}
+            <td class="member-avatar">
+              {{#if member.avatar}}
+                <img  style="float:left; width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
+              {{else}}
+                <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+              {{/if}}
+            </td>
+            <td>
+              {{member.name}}
+            </td>
+            <td>
+              {{#if member.memberUnits.length}}
+                {{#each member.memberUnits as |memUn|}}
+                  {{memUn.unit.name}}, 
+                {{/each}}
+                {{else}}
+                  &nbsp;
+              {{/if}}
+            </td>
+            <td>
+              {{#if member.ships.length}}
+                  {{member.ships.length}}
+              {{else}}
+                  &nbsp;
+              {{/if}}
+            </td>
+            {{/link-to}}
+        {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
-
+  <div class="member-edit">
+    {{outlet}}
+  </div>
 </div>
-

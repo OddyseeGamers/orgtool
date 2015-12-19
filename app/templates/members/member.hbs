@@ -1,0 +1,94 @@
+<div class="panel panel-default member-edit-panel">
+  <div class="panel-heading">
+    <div class="member-avatar">
+      {{#if model.avatar}}
+        <img class="member-avatar-img" src={{concat-string "https://robertsspaceindustries.com" model.avatar}}>
+      {{else}}
+        <img class="member-avatar-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+      {{/if}}
+    </div>
+    <div class="member-name-hdr">
+      <h4>{{model.name}}</h4>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    {{#bs-form action=(action "saveMember") model=model}}
+
+    {{!--
+      <label class="control-label">Type</label>
+      <div class="input-group">
+        {{#if unit.type}}
+        <input type="text" class="form-control" id="unittype" value={{unit.type.name}} readonly>
+        {{else}}
+        <input type="text" class="form-control" id="unittype" value="" readonly>
+        {{/if}}
+        <div class="input-group-btn">
+          {{#bs-dropdown}}
+            {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+            {{#bs-dropdown-menu  align="right"}}
+              {{#each unitTypes as |ut|}}
+              <li {{action "setType" ut}}><a href="#">{{ut.name}}</a></li>
+              {{/each}}
+            {{/bs-dropdown-menu}}
+          {{/bs-dropdown}}
+        </div>
+      </div>
+      --}}
+
+
+        <div class="row">
+          <div class="col-md-6">
+            {{bs-form-element controlType="text" label="Name" property="name"}}
+          </div>
+          <div class="col-md-6">
+            {{bs-form-element controlType="text" label="Handle" property="handle"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            {{bs-form-element controlType="number" label="Timezone" property="timezone"}}
+          </div>
+          <div class="col-md-6">
+            {{bs-form-element controlType="text" label="Avatar (https://robertsspaceindustries.com)" property="avatar"}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <label class="control-label">Ships: {{model.ships.length}}</label>
+            <table class="table compact-table">
+              <tbody>
+                {{#each model.ships as |ship|}}
+                <tr>
+                  <td>{{ship.name}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6">
+            <label class="control-label">Units: {{model.memberUnits.length}}</label>
+            <table class="table compact-table">
+              <tbody>
+                {{#each model.memberUnits as |memUn|}}
+                <tr>
+                  <td>{{memUn.unit.name}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+      {{/bs-form}}
+  </div>
+
+  <div class="panel-footer">
+      <button type="submit" class="btn btn-default pull-right"> Save</button>
+  </div>
+
+</div>

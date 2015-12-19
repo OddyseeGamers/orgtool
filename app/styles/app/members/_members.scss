@@ -5,8 +5,20 @@ $result-height: calc(100% - #{$filter-height} - #{$pager-height});
 #members {
   height:100%;
 
+  .member-list {
+//      height:100%;
+    padding: 5px;
+    height: $result-height;
+    float: left;
+    width: 50%;
+  }
+
   .member-filter {
     height: $filter-height;
+  }
+
+  .member-avatar {
+    width: 47px;
   }
 
   .member-pager {
@@ -14,7 +26,14 @@ $result-height: calc(100% - #{$filter-height} - #{$pager-height});
   }
 
   .member-result {
+    height:100%;
+  }
+
+  .member-edit{
     height: $result-height;
+    width:50%;
+    float: right;
+    padding: 5px;
   }
 }
 

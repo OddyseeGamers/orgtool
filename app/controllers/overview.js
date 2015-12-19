@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   currentUnit: null,
-  units: null,
+  units: [],
   members: [],
   dialog: false,
   orgType: null,

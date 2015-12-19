@@ -1,0 +1,28 @@
+.table {
+  margin-bottom: 0px;
+}
+
+td, th {
+  height: 47px;
+//    vertical-align: middle;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #000000;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+//      padding: 8px;
+//      line-height: 1.42857143;
+  vertical-align: middle;
+  border: 0px;
+}
+
+.table > thead > tr > td.active, .table > tbody > tr > td.active, .table > tfoot > tr > td.active, .table > thead > tr > th.active, .table > tbody > tr > th.active, .table > tfoot > tr > th.active, .table > thead > tr.active > td, .table > tbody > tr.active > td, .table > tfoot > tr.active > td, .table > thead > tr.active > th, .table > tbody > tr.active > th, .table > tfoot > tr.active > th {
+    background-color: rgba(26,128,182,.6) !important;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(26,128,182,.2) !important;
+    cursor: pointer;
+}

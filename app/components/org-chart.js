@@ -207,6 +207,8 @@ export default Ember.Component.extend({
     var struc = this._serializeChildren(root);
     if (!struc) {
       var data = get(this, 'units');
+
+    console.debug("render return, struc empty");
       return;
     }
 

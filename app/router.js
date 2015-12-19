@@ -8,7 +8,12 @@ const Router = Ember.Router.extend({
 Router.map(function() {
     this.route('overview');
     this.route('assignments');
-    this.route('members');
+
+    this.route('members', { resetNamespace: true }, function() {
+      this.route('member', { path: '/:member_id' }, function() {
+      });
+    });
+
     this.route('ships');
     this.route('settings', { resetNamespace: true }, function() {
       this.route('ships');

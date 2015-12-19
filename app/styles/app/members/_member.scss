@@ -1,0 +1,34 @@
+.member-edit-panel {
+  background-color: #000000 !important;
+  height: 100%;
+}
+
+.member-avatar-img {
+   float: left;
+   width: 42px;
+}
+
+.member-name-hdr {
+  padding-left: 60px;
+  color: #1a80b6;
+}
+
+.compact-table {
+  max-height: 100px;
+}
+
+.compact-table tbody {
+  max-height: 100px;
+  overflow-y:auto;
+}
+
+.compact-table td, th {
+  height: 14px;
+}
+
+.compact-table > thead > tr > th, .compact-table > tbody > tr > th, .compact-table > tfoot > tr > th, .compact-table > thead > tr > td, .compact-table > tbody > tr > td, .compact-table > tfoot > tr > td {
+  padding: 2px;
+}
+
+//  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+//      padding: 8px;

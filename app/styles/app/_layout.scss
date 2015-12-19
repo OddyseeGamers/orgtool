@@ -95,6 +95,7 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 @import 'ships/ships';
 
 @import 'members/members';
+@import 'members/member';
 
 @import 'components/org-chart';
 @import 'components/unit-tree';
