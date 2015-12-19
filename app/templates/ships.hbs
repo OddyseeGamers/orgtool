@@ -1,18 +1,19 @@
 <div id="ships" style="height:100%;overflow-y:auto">
   {{#each model as |member|}}
-  {{#if member.ships.length}}
-    <div class="col-md-12 ship-owner">
-      {{member.name}}
-    </div>
-    <div class="col-md-12">
-
-      {{#each member.ships as |ship|}}
-        <div class="col-md-6">
-          {{ship-model-details ship=ship.model}}
-        </div>
-      {{/each}}
-    </div>
-      <div class="col-md-12"></div>
+    {{#if member.ships.length}}
+      <div class="col-md-12 ship-owner">
+        {{member.name}}: {{member.ships.length}}
+      </div>
+      <div class="col-md-12">
+        {{#each member.ships as |ship|}}
+          <div class="col-md-6">
+            {{ship-model-details ship=ship.model}}
+          </div>
+        {{/each}}
+      </div>
+      <div class="col-md-12">
+        &nbsp;
+      </div>
     {{/if}}
   {{/each}}
 </div>

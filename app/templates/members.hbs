@@ -1,41 +1,17 @@
-<div id="members" style="height:100%;overflow-y:auto">
-  <div class="panel panel-default impart-panel">
-  <div class="member-box" style="height:42px;vertical-align: middle;">
-  <div style="float:left; width:34px;">
-      &nbsp;
+<div id="members" class="panel panel-default impart-panel">
+  <div class="member-filter">
+    filter: {{model.length}}
   </div>
 
-  <div style="padding-left: 36px; float:left; width:15%;">
-      name
+  <div class="member-pager">
+    {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3 perPage=perPage}}
   </div>
 
-  <div style="float:left; width:15%;">
-    leader
-  </div>
-
-  <div style="float:left; width:15%;">
-    unit
-  </div>
-
-  <div style="float:left; width:15%;">
-    ships
-  </div>
-
-  <div style="float:left; width:15%;">
-    rank
-  </div>
-
-  <div style="float:left; width:15%;">
-    role
-  </div>
-
-  </div>
-
-<div style="height:100%;overflow-y:auto">
-    {{#each content as |member|}}
-      {{member-details member=member details=true}}
+  <div class="member-result">
+    {{#each pagedContent as |member|}}
+    {{member-details member=member details=true}}
     {{/each}}
   </div>
-  </div>
+
 </div>
 

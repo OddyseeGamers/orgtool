@@ -1,0 +1,20 @@
+$filter-height: 40px;
+$pager-height: 35px;
+$result-height: calc(100% - #{$filter-height} - #{$pager-height});
+
+#members {
+  height:100%;
+
+  .member-filter {
+    height: $filter-height;
+  }
+
+  .member-pager {
+    height: $pager-height;
+  }
+
+  .member-result {
+    height: $result-height;
+  }
+}
+
