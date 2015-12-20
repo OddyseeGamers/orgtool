@@ -5,14 +5,18 @@
 .member-details {
   padding-top: 4px;
   border-bottom: 1px solid #333;
+  z-index: 10;
 
   .member-avatar {
     width: 34px;
     float: left;
+    width: 34px;
   }
 
   .member-box {
 //      width: 160px;
+    height:34px;
+    vertical-align: middle;
     margin-left: 40px;
   }
 

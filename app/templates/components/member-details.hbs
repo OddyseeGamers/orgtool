@@ -1,77 +1,11 @@
 <div class="member-details {{if canDrag "member-details-draggable"}}">
-{{#if details}}
-  <div class="member-box" style="height:42px;vertical-align: middle;">
-  <div>
-    {{#if member.avatar}}
-      <img  style="float:left; width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
-    {{else}}
-      {{#if member.img}}
-        <img  style="float:left; width:116px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.img}}>
-      {{else}}
-        <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-      {{/if}}
-
-    {{/if}}
-  </div>
-
-  <div style="float:left; width:15%;">
-      [{{member.id}}] {{member.name}}
-  </div>
-
-  <div style="float:left; width:15%;">
-    {{#if member.leader}}
-      {{member.leader.name}}
-    {{else}}
-      &nbsp;
-    {{/if}}
-  </div>
-
-  <div style="float:left; width:15%;">
-      {{#if member.memberUnits.length}}
-        {{#each member.memberUnits as |memUn|}}
-          {{memUn.unit.name}}, 
-        {{/each}}
-        {{else}}
-          &nbsp;
-      {{/if}}
-  </div>
-
-  <div style="float:left; width:15%;">
-      {{#if member.ships.length}}
-          {{member.ships.length}}
-      {{else}}
-          &nbsp;
-      {{/if}}
-  </div>
-
-  <div style="float:left; width:15%;">
-    {{#if member.rank}}
-      {{member.rank}}
-    {{else}}
-      &nbsp;
-    {{/if}}
-  </div>
-
-  <div style="float:left; width:15%;">
-    {{#if member.role}}
-      {{member.role}}
-    {{else}}
-      &nbsp;
-    {{/if}}
-  </div>
-
-
-
-</div>
-
-{{else}}
   {{#if member.avatar}}
-    <img style="width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
+    <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
   {{else}}
-    <img style="width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+    <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
   {{/if}}
 <!--   <div class="member-box"> -->
-  <div class="member-box" style="height:42px;vertical-align: middle;">
+  <div class="member-box">
       <div class="member-info">
         <div class="member-name">
 <!--           [{{member.id}}] {{member.name}} -->
@@ -105,7 +39,6 @@
         {{member.rank}}
       </div>
   </div>
-  {{/if}}
 
   {{yield}}
 </div>

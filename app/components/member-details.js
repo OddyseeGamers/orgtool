@@ -19,6 +19,7 @@ export default Ember.Component.extend({
     if (!this.get('canDrag')) {
       return;
     }
+
     this.createDraggable();
   }),
 
@@ -37,7 +38,7 @@ export default Ember.Component.extend({
       helper: 'clone',
       cursorAt: { left: -5, top: -5 }, 
       zIndex: 10,
-      revert: 'invalid',
+      revert: true,
       scroll: false,
       containment: '#mycontent',
       drag: Ember.$.proxy(this.onDrag, this),

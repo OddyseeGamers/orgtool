@@ -270,10 +270,13 @@ export default Ember.Component.extend({
         .attr("x", 0)
         .text(function(d) { return d.depth && d.name ? d.name.split(" ")[0] : ""; });
 
-    textEnter.append("tspan")
-        .attr("x", 0)
-        .attr("dy", "1em")
-        .text(function(d) { return d.depth && d.name ? d.name.split(" ")[1] || "" : ""; });
+    for (var i = 1; i < 4; i++) {
+      textEnter.append("tspan")
+          .attr("x", 0)
+          .attr("dy", "1em")
+          .text(function(d) { return d.depth && d.name ? d.name.split(" ")[i] || "" : ""; });
+    }
+
   },
 
   actions: {

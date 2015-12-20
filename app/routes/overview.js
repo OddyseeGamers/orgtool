@@ -43,6 +43,7 @@ export default Ember.Route.extend({
       self.get('eventManager').trigger('success', 'loading done');
       Ember.run.next(self, function() {
         self.get('eventManager').trigger('rerender');
+//         self.get('eventManager').trigger('setDetails', { unitid: 2, extended: true, sync: true});
       });
     });
   },

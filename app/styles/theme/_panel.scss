@@ -1,5 +1,6 @@
 .panel {
-  position: relative;
+//    position: relative;
+//    z-index: 1;
 //    background-color: #2C3539;
 //    background-color: #29292a;
 //      background-color: #242424;
@@ -18,13 +19,9 @@
 .panel-footer {
     background-color: #000000;
     border-top: 1px solid #1a80b6;
-    position: absolute;
+    position: relative;
     bottom: 0px;
     left: 0px;
     right: 0px;
 //      padding: 10px 15px;
-//      background-color: #f5f5f5;
-//      border-top: 1px solid #ddd;
-//      border-bottom-right-radius: 3px;
-//      border-bottom-left-radius: 3px;
 }

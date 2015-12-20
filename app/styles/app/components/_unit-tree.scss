@@ -1,33 +1,24 @@
 .unit-tree {
-//    padding-bottom: 10px;
-  padding-top: 10px;
+  padding-top: 4px;
 
   .unit-info {
-//      background-color: #223248;
-	background-color: #242424;
-//      background-color: #223248;
-//      background-color: #23527c;
-//      background-color: rgb(26, 128, 182);
+    background-color: #101215;
     border-radius: 4px;
-	}
+    padding-bottom: 4px;
+  }
 
   .unit-header {
     padding-left: 10px;
-//      min-height: 60px;
     min-height: 35px;
-//      border: 1px solid #222;
-//      background-color: #29292a;
-//      background-color: #223248;
-
 
     .unit-name {
       color: #1a80b6;
-	  font-size: 16px;
-		min-height: 40px;
-		vertical-align: middle;
-		line-height:40px;
+      font-size: 16px;
+      min-height: 40px;
+      vertical-align: middle;
+      line-height:40px;
       border-bottom: 1px solid #444;
-	  font-weight: bold;
+      font-weight: bold;
 
       a.toggle {
         cursor: pointer;
@@ -49,70 +40,50 @@
   .unit-leader {
     padding-top: 4px;
     color: #fff;
-//      font-weight: bold;
   }
 
   .half-col {
     width: 50%;
     float: left;
   }
-//    .unit-leader > .ember-view {
-//      float: left;
-//    }
 
   a.toggleElement {
     color: #fff;
     cursor: pointer;
     text-decoration: none;
-	  font-weight: bold;
+    font-weight: bold;
   }
 
   .unit-leader-container {
     padding-top: 10px;
     padding-left: 10px;
     min-height: 30px;
-//      background-color: #29292a;
-//      background-color: #223248;
   }
 
   .unit-pilots-container {
     padding-top: 10px;
     padding-left: 10px;
     min-height: 30px;
-//      background-color: #29292a;
-//      background-color: #223248;
   }
 
 
   .unit-pilots {
-//      border-top: 1px solid #222;
-//      background-color: #29292a;
-//      background-color: #223248;
-    padding-top: 10px;
+    padding-top: 4px;
     padding-left: 20px;
   }
 
   .child-units {
-	padding-left: 10px;
+    padding-left: 10px;
   }
 
   .unit-bg {
-//      background-color: transparent;
-//      padding-top: 10px;
     padding-left: 20px;
   }
 
-//    .hovered {
-//      cursor: copy !important;
-//      z-index: 11;
-//      background: rgba(255,0,0,.7) !important;
-//    }
 
   .hovered, .hovered > div {
-//      background: rgba(0,0,0,.2);
     cursor: copy;
-//      background: #424242;
-	background-color: rgb(34, 50, 72);
+    background-color: rgb(34, 50, 72);
     border-radius: 4px;
   }
 
