@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   unit: null,
+  showChildren: true,
   collapseUnits: null,
   collapseLeader: null,
   collapsePilots: null,
@@ -71,11 +72,13 @@ export default Ember.Component.extend({
       this.set('collapsePilots', ! this.get('collapsePilots'));
     },
     unassignMember: function(member) {
-      console.debug(">>>> unassignMember");
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
     addUnit: function() {
       this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
+    },
+    addGame: function() {
+      this.get('eventManager').trigger('addGame', { 'id': this.get('unit.id'), 'type': "unit" } );
     },
     editUnit: function() {
       this.get('eventManager').trigger('editUnit', { 'id': this.get('unit.id'), 'type': "unit", 'unit': this.get('unit') } );

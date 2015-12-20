@@ -6,12 +6,16 @@ var set = Ember.set;
 
 export default Ember.Controller.extend({
   store: Ember.inject.service(),
+  session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   currentUnit: null,
   units: [],
   members: [],
+  extended: false,
   dialog: false,
   orgType: null,
+  temp: Ember.computed.not('extended'),
+  showGameEdit: Ember.computed.and('temp', 'session.isAdmin'),
 
 
   // setup our query params
@@ -48,10 +52,11 @@ export default Ember.Controller.extend({
 
 //   filteredMembers: Ember.computed.filterBy('members', 'units.length', 0),
 
-  setDetails: function(unitId) {
-    if (!this.get('members') || this.get('members.length') === 0) {
-//       var mems =  this.store.peekAll('member');
-//       console.debug(">> members", get(mems, 'length'));
+  setDetails: function(data) {
+    var unitId = data.unitid;
+    var extended = data.extended;
+
+    if (extended && (!this.get('members') || this.get('members.length') === 0)) {
       this.set('members', this.store.peekAll('member'));
     }
 
@@ -59,27 +64,12 @@ export default Ember.Controller.extend({
       var self = this;
       this.get('store').findRecord('unit', unitId).then(function(unit) {
         self.set('currentUnit', unit);
+        self.set('extended', extended);
       }).catch(function(err) {
         self.set('currentUnit', null);
       });
     } else {
       this.set('currentUnit', null);
     }
-
-//     if (!this.get('members')) {
-//       var self = this;
-//       var localPosts = store.peekAll('post');
-
-//       var mems =  this.store.peekAll('member');
-//       console.debug(">> members", get(mems, 'length'));
-//       this.set('members', this.store.peekAll('member'));
-//       this.set('members', this.store.findAll('member').then(function(members) {
-//         self.set('pagedContent', pagedArray('members', {pageBinding: "page", perPageBinding: "perPage"}));
-//         return members;
-//       })
-//       );
-//     }
   },
-
-
 });

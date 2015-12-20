@@ -5,6 +5,10 @@ $result-height: calc(100% - #{$filter-height} - #{$pager-height});
 #members {
   height:100%;
 
+  .name-filter {
+    width: 200px;
+  }
+
   .member-list {
 //      height:100%;
     padding: 5px;

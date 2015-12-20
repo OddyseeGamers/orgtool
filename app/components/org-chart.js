@@ -105,7 +105,8 @@ export default Ember.Component.extend({
     if (id !== undefined) {
       var select = false;
       if (id == 1) {
-        this.get('eventManager').trigger('setDetails', undefined);
+        console.debug("set details to 1");
+        this.get('eventManager').trigger('setDetails', { unitid: 1, extended: false});
       } else if (get(this, 'currFilter') === "game") {
         set(this, 'currFilter', id);
         this._renderStruc();
@@ -127,7 +128,7 @@ export default Ember.Component.extend({
         $path.attr("class", "unit-pilots-path selected");
         this.set('currSelection', $path);
 
-        this.get('eventManager').trigger('setDetails', id);
+        this.get('eventManager').trigger('setDetails', { unitid: id, extended: true});
       }
     }
   },
@@ -208,7 +209,7 @@ export default Ember.Component.extend({
     if (!struc) {
       var data = get(this, 'units');
 
-    console.debug("render return, struc empty");
+//     console.debug("render return, struc empty");
       return;
     }
 
@@ -303,7 +304,7 @@ export default Ember.Component.extend({
     goBack: function() {
       set(this, 'currFilter', "game");
       this._renderStruc();
-      this.get('eventManager').trigger('setDetails', undefined);
+      this.get('eventManager').trigger('setDetails', { unitid: 1, extended: false});
     },
   }
 });

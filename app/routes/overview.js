@@ -18,6 +18,8 @@ export default Ember.Route.extend({
     var prom = Ember.RSVP.hash({
       unit: this.store.findAll('unit').then(function(units) {
         self.controllerFor('overview').set('units', units);
+        var curr = self.store.peekRecord('unit', 1);
+        self.controllerFor('overview').set('currentUnit', curr);
         self.get('eventManager').trigger('log', "member fetched");
       }),
       unitType: this.store.findAll('unitType').then(function(unitTypes) {

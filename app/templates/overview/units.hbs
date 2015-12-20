@@ -1,7 +1,11 @@
 <div id="units">
   <div class="panel panel-default pilot-panel">
-    {{#if currentUnit}}
-      {{unit-tree unit=currentUnit}}
+    {{#if showGameEdit}}
+      {{unit-tree unit=currentUnit showChildren=false}}
+    {{else}}
+      {{#if extended}} 
+        {{unit-tree unit=currentUnit}}
+      {{/if}}
     {{/if}}
   </div>
 </div>

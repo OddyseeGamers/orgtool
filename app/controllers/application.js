@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 
     this.get('eventManager').on('addUnit', this.addUnit.bind(this));
+    this.get('eventManager').on('addGame', this.addGame.bind(this));
 
     this.get('eventManager').on('editUnit', this.editUnit.bind(this));
     this.get('eventManager').on('deleteUnit', this.deleteUnit.bind(this));
@@ -123,6 +124,24 @@ export default Ember.Controller.extend({
     self.set('loading', true);
     this.store.findRecord('unit', data.id).then(function (punit) {
       self.store.findRecord('unitType', 6).then(function (unitType) {
+        var unit = self.store.createRecord('unit');
+        unit.set('type', unitType);
+        set(unit, 'parent', punit);
+        get(punit, 'units').pushObject(unit);
+        self.set('unit', unit);
+          self.set('showDialog', true);
+  //       self.get('eventManager').trigger('rerender');
+        self.set('loading', false);
+      });
+    });
+  },
+
+  addGame: function(data) {
+    this.log('add game to ' + data.id);
+    var self = this;
+    self.set('loading', true);
+    this.store.findRecord('unit', data.id).then(function (punit) {
+      self.store.findRecord('unitType', 2).then(function (unitType) {
         var unit = self.store.createRecord('unit');
         unit.set('type', unitType);
         set(unit, 'parent', punit);

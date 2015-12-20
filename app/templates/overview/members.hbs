@@ -1,10 +1,10 @@
 <div id="info">
   <div class="panel panel-default impart-panel">
-    {{#if currentUnit}}
+    {{#if extended}}
       {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3}}
 
       {{#each pagedContent as |member|}}
-        {{member-details member=member draggable=true  details=false}}
+        {{member-details member=member draggable=true details=false}}
       {{/each}}
     {{/if}}
   </div>
