@@ -16,12 +16,10 @@ export default Ember.Component.extend({
   padding: 6,
   currPath: null,
   currSelection: null,
-  currFilter: "game",
+  currFilter: 1,
   lastSelection: null,
-  showNav: Ember.computed.equal('currFilter', 'game'),
+  hideNav: Ember.computed.equal('currFilter', "1"),
   units: null,
-  orgType: null,
-  unitTypes: null,
 
   partition: d3.layout.partition()
       .sort(null)
@@ -42,6 +40,10 @@ export default Ember.Component.extend({
     $(window).unbind('resize', this.get('_renderStruc'));
     this.get('eventManager').off('rerender');
   },
+
+  changed: function() {
+    this._renderStruc();
+  }.observes('currFilter'),
 
   isParentOf: function (p, c) {
     if (p === c) {
@@ -103,23 +105,9 @@ export default Ember.Component.extend({
   click: function(d) {
     var id = Ember.$(d.target).data('unitid');
     if (id !== undefined) {
-      var select = false;
-      if (id == 1) {
-        console.debug("set details to 1");
-        this.get('eventManager').trigger('setDetails', { unitid: 1, extended: false});
-      } else if (get(this, 'currFilter') === "game") {
-        set(this, 'currFilter', id);
-        this._renderStruc();
-        select = true;
-//       } else if (get(this, 'currFilter') == id) {
-//         set(this, 'currFilter', "game");
-//         this._renderStruc();
-//         this.get('eventManager').trigger('setDetails', undefined);
+      if (this.get('currFilter') == "1") {
+        this.get('eventManager').trigger('setDetails', { unitid: id, extended: true, sync: true});
       } else {
-        select = true;
-      }
-
-      if (select) {
         var $sel = this.get('currSelection');
         if ($sel) {
           $sel.attr("class", "unit-pilots-path");
@@ -128,7 +116,7 @@ export default Ember.Component.extend({
         $path.attr("class", "unit-pilots-path selected");
         this.set('currSelection', $path);
 
-        this.get('eventManager').trigger('setDetails', { unitid: id, extended: true});
+        this.get('eventManager').trigger('setDetails', { unitid: id, extended: true, sync: false});
       }
     }
   },
@@ -146,11 +134,9 @@ export default Ember.Component.extend({
       var ret = obj.serialize();
       ret.id = get(obj, 'id');
       get(obj, 'units').forEach(function(unit) {
-        var add = false;
-        if (self.currFilter === "game" && unit.get('type.name') == "game") {
-          add = true;
-        } else if (self.currFilter !== "game") {
-          add = true;
+        var add = true;
+        if (self.currFilter == 1 && self.currFilter != ret.id) {
+          add = false;
         }
 
         if (add) {
@@ -180,21 +166,12 @@ export default Ember.Component.extend({
     var data = get(this, 'units');
     var filter = get(this, 'currFilter');
 
-    var orgtype = get(this, 'orgType');
-    if (!orgtype) {
-      return root;
-    }
-
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
-        if (get(el, 'type.isLoaded')) {
-          if (filter === "game" && get(el, 'type.name') === get(orgtype, 'name')) {
-            root = el;
-          } else if (filter !== "game" && get(el, 'id') == filter) {
+          if (get(el, 'id') == filter) {
             root = el;
           }
-        }
       }
     }
 
@@ -207,9 +184,8 @@ export default Ember.Component.extend({
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
-      var data = get(this, 'units');
-
-//     console.debug("render return, struc empty");
+//       var data = get(this, 'units');
+//       console.debug("render return, struc empty");
       return;
     }
 
@@ -302,9 +278,9 @@ export default Ember.Component.extend({
 
   actions: {
     goBack: function() {
-      set(this, 'currFilter', "game");
-      this._renderStruc();
-      this.get('eventManager').trigger('setDetails', { unitid: 1, extended: false});
+//       set(this, 'currFilter', 1);
+//       this._renderStruc();
+      this.get('eventManager').trigger('setDetails', { unitid: 1, extended: false, sync: true});
     },
   }
 });

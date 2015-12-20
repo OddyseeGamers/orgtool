@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   currentUnit: null,
+  currentChart: null,
   units: [],
   members: [],
   extended: false,
@@ -55,6 +56,7 @@ export default Ember.Controller.extend({
   setDetails: function(data) {
     var unitId = data.unitid;
     var extended = data.extended;
+    var sync = data.sync;
 
     if (extended && (!this.get('members') || this.get('members.length') === 0)) {
       this.set('members', this.store.peekAll('member'));
@@ -65,11 +67,16 @@ export default Ember.Controller.extend({
       this.get('store').findRecord('unit', unitId).then(function(unit) {
         self.set('currentUnit', unit);
         self.set('extended', extended);
+        if (sync) {
+          self.set('currentChart', unit);
+        }
       }).catch(function(err) {
-        self.set('currentUnit', null);
+        self.set('currentUnit', 1);
+        this.set('currentChart', 1);
       });
     } else {
-      this.set('currentUnit', null);
+      this.set('currentUnit', 1);
+      this.set('currentChart', 1);
     }
   },
 });
