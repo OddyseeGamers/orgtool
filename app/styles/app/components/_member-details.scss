@@ -1,11 +1,14 @@
 .member-details-draggable {
     cursor: move;
+//      width: 200px;
 }
 
+
 .member-details {
-  padding-top: 4px;
+  padding: 2px;
+//    padding-top: 2px;
+//    padding-bottom: 2px;
   border-bottom: 1px solid #333;
-  z-index: 10;
 
   .member-avatar {
     width: 34px;
@@ -56,5 +59,14 @@
     font-size: 14px;
     color: #555;
   }
-
 }
+
+.ui-draggable-dragging > .member-details {
+//    width: 400px;
+//    padding-top: 4px;
+  border-bottom: 0px;
+
+  .member-remove {
+    display:none;
+  }
+} 

@@ -1,21 +1,29 @@
 <div class="ship-model-details">
 
-  <div class="ship-box">
     {{#if ship.img}}
       <img  class="ship-img" src={{concat-string "https://robertsspaceindustries.com" ship.img}}>
     {{/if}}
-  </div>
+
+  <div class="ship-details">
+    <div class="ship-name">
+      {{#if name}}
+        {{name}}
+      {{else}}
+        {{ship.name}}
+      {{/if}}
+    </div>
+
   <div class="ship-manu">
     {{#if ship.manufacturer.img}}
       <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" ship.manufacturer.img}}>
     {{/if}}
     {{ship.manufacturer.name}}
-    <div class="ship-name">
-      {{ship.name}}
-    </div>
+  </div>
+
     <div class="ship-specs">
       crew: {{ship.crew}} | length: {{ship.length}} | mass: {{ship.mass}}
     </div>
+
 
   </div>
 </div>

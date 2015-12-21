@@ -1,6 +1,47 @@
+/*
+.panel {
+//    position: relative;
+//    z-index: 1;
+//    background-color: #2C3539;
+//    background-color: #29292a;
+//      background-color: #242424;
+	margin-bottom: 0px;
+  background-color: #0A0C11;
+  border: 0px;
+}
+
+.panel-default > .panel-heading {
+//      color: #333;
+//      color: #1a80b6;
+    background-color: #000000;
+    border-color: #1a80b6;
+}
+
+.panel-footer {
+    background-color: #000000;
+    border-top: 1px solid #1a80b6;
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+//      padding: 10px 15px;
+}
+*/
+
 .member-edit-panel {
+  position: relative;
   background-color: #000000 !important;
   height: 100%;
+
+  .panel-footer {
+//      background-color: #000000;
+//      border-top: 1px solid #1a80b6;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+
 }
 
 .member-avatar-img {
@@ -13,13 +54,15 @@
   color: #1a80b6;
 }
 
-.compact-table {
-  max-height: 100px;
-}
+//  .compact-table {
+//    height: 100%;
+//  }
 
-.compact-table tbody {
-  max-height: 100px;
+
+.compact-table > tbody {
+  height: 200px;
   overflow-y:auto;
+  display:block;
 }
 
 .compact-table td, th {
@@ -29,6 +72,17 @@
 .compact-table > thead > tr > th, .compact-table > tbody > tr > th, .compact-table > tfoot > tr > th, .compact-table > thead > tr > td, .compact-table > tbody > tr > td, .compact-table > tfoot > tr > td {
   padding: 2px;
 }
+
+//  .remove-ship {
+//    text-align: right;
+//  }
+
+.dropdown-menu {
+  height: auto;
+  max-height: 300px;
+  overflow-x: hidden;
+}
+
 
 //  .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
 //      padding: 8px;

@@ -13,56 +13,47 @@
   </div>
 
   <div class="panel-body">
-    {{#bs-form action=(action "saveMember") model=model}}
 
     {{!--
-      <label class="control-label">Type</label>
-      <div class="input-group">
-        {{#if unit.type}}
-        <input type="text" class="form-control" id="unittype" value={{unit.type.name}} readonly>
-        {{else}}
-        <input type="text" class="form-control" id="unittype" value="" readonly>
-        {{/if}}
-        <div class="input-group-btn">
-          {{#bs-dropdown}}
-            {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-            {{#bs-dropdown-menu  align="right"}}
-              {{#each unitTypes as |ut|}}
-              <li {{action "setType" ut}}><a href="#">{{ut.name}}</a></li>
-              {{/each}}
-            {{/bs-dropdown-menu}}
-          {{/bs-dropdown}}
-        </div>
-      </div>
+    {{#bs-form action=(action "saveMember") model=model}}
       --}}
-
-
         <div class="row">
           <div class="col-md-6">
-            {{bs-form-element controlType="text" label="Name" property="name"}}
+            <label class="control-label">Name</label>
+            {{input type="text" class="form-control" value=model.name}}
           </div>
           <div class="col-md-6">
-            {{bs-form-element controlType="text" label="Handle" property="handle"}}
+            <label class="control-label">Handle</label>
+            {{input type="text" class="form-control"  value=model.handle}}
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6">
-            {{bs-form-element controlType="number" label="Timezone" property="timezone"}}
+            <label class="control-label">Time</label>
+            {{input type="number" class="form-control" value=model.timezone}}
           </div>
           <div class="col-md-6">
-            {{bs-form-element controlType="text" label="Avatar (https://robertsspaceindustries.com)" property="avatar"}}
+            <label class="control-label">Avatar (https://robertsspaceindustries.com)</label>
+            {{input type="text" class="form-control" value=model.avatar}}
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6">
             <label class="control-label">Ships: {{model.ships.length}}</label>
+            <button type="button" class="btn btn-default btn-sm pull-right" {{action "addShip" model}}> <i class="fa fa-plus"></i> Add Ship</button>
+  
             <table class="table compact-table">
               <tbody>
                 {{#each model.ships as |ship|}}
                 <tr>
                   <td>{{ship.name}}</td>
+                  {{#if session.isAdmin}}
+                  {{#unless ship.isNew}}
+                  <td class="remove-ship text-danger text-right"><a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a></td>
+                  {{/unless}}
+                  {{/if}}
                 </tr>
                 {{/each}}
               </tbody>
@@ -83,12 +74,50 @@
           </div>
         </div>
 
-
-      {{/bs-form}}
+        {{!--
+        {{/bs-form}}
+        --}}
   </div>
 
   <div class="panel-footer">
       <button type="submit" class="btn btn-default pull-right"> Save</button>
   </div>
+
+
+{{#bs-modal open=showDialog header=false body=false footer=false}}
+  {{#bs-modal-header}}
+    <h4 class="modal-title">
+      {{#if currShip.isNew}}
+        Add Ship to
+      {{else}}
+        Edit Ship of
+      {{/if}}
+      {{currShip.member.name}}
+    </h4>
+  {{/bs-modal-header}}
+  {{#bs-modal-body}}
+    <label class="control-label">Ship Name</label>
+    {{input type="text" class="form-control" id="shipName" value=currShip.name}}
+
+    <label class="control-label">Model</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="shipModel" value={{currShip.model.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+            {{#each shipModels as |sm|}}
+            <li {{action "setModel" sm}}><a href="#">{{sm.name}}</a></li>
+            {{/each}}
+          {{/bs-dropdown-menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    <button type="submit" class="btn btn-primary" {{action "saveShip"}}> {{#if currShip.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+  {{/bs-modal-footer}}
+{{/bs-modal}}
 
 </div>

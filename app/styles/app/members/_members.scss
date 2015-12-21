@@ -5,21 +5,37 @@ $result-height: calc(100% - #{$filter-height} - #{$pager-height});
 #members {
   height:100%;
 
+  .member-filter {
+    padding-top: 3px;
+    height: $filter-height;
+    vertical-align: middle;
+  }
+
+  .filter-stats {
+//      height: 100%;
+    vertical-align: middle;
+    padding-left: 10px;
+//      float: left;
+    display: inline;
+  }
+
   .name-filter {
+    padding-left: 10px;
+    vertical-align: middle;
+    display: inline;
     width: 200px;
   }
 
   .member-list {
 //      height:100%;
-    padding: 5px;
     height: $result-height;
+    padding: 5px;
     float: left;
     width: 50%;
+    overflow-y: auto;
   }
 
-  .member-filter {
-    height: $filter-height;
-  }
+
 
   .member-avatar {
     width: 47px;

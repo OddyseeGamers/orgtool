@@ -1,19 +1,26 @@
 <div id="members" class="panel panel-default impart-panel">
 
   <div class="member-filter">
-    <input type="text" class="ember-text-field form-control name-filter" value={{filterName}}>
-    filter: {{model.length}}
+    <div class="filter-stats">
+      filter:
+    </div>
+    <input type="text" class="ember-text-field form-control form-control name-filter" value={{searchFilter}}>
+    <div class="filter-stats">
+      members: {{model.length}} | filters: {{filteredContent.length}}
+    </div>
   </div>
 
   <div class="member-pager">
+    {{!--
     {{page-numbers content=pagedContent showFL=true numPagesToShow=7}}
+    --}}
   </div>
 
   <div class="member-list">
     <div class="member-result">
       <table class="table table-condensed table-hover table-striped">
         <tbody>
-        {{#each pagedContent as |member|}}
+        {{#each model as |member|}}
           {{#link-to 'members.member' member.id tagName="tr"}}
             <td class="member-avatar">
               {{#if member.avatar}}
