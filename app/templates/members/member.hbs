@@ -48,7 +48,13 @@
               <tbody>
                 {{#each model.ships as |ship|}}
                 <tr>
-                  <td>{{ship.name}}</td>
+                  <td>
+                    {{#if ship.name}}
+                      {{ship.name}}
+                    {{else}}
+                      {{ship.model.name}}
+                    {{/if}}
+                  </td>
                   {{#if session.isAdmin}}
                   {{#unless ship.isNew}}
                   <td class="remove-ship text-danger text-right"><a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a></td>
