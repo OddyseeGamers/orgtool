@@ -15,6 +15,7 @@ export default Ember.Route.extend({
     var prom = Ember.RSVP.hash({
       shipManufacturer: this.store.findAll('shipManufacturer').then(function(shipManufacturer) {
         self.get('eventManager').trigger('log', "shipManufacturer assignments fetched");
+        self.controllerFor('members.member').set('shipManufacturer', shipManufacturer);
       }),
       shipModel: this.store.findAll('shipModel').then(function(ships) {
         self.get('eventManager').trigger('log', "shipModel fetched");

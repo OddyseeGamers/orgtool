@@ -58,6 +58,12 @@ $menu-height: 43px;
 //      position: absolute;
 }
 
+hr {
+    border-top: 1px solid #333;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
 $pilot-width: 25%;
 $info-width: 25%;
 $overview-width: calc(100% - #{($pilot-width + $info-width)});

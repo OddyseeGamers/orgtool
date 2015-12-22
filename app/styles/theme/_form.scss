@@ -11,6 +11,13 @@
 /*     color: #219ab3; */
 }
 
+.form-control[disabled],
+//  .form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #ccc;
+    opacity: 0.1;
+}
+
 input[readonly].form-control {
     cursor: default;
     background-color: transparent;
@@ -30,3 +37,4 @@ label {
 .form-control-inline {
   display:inline;
 }
+

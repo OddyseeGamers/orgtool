@@ -10,6 +10,8 @@ export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
   showDialog: false,
   currShip: null,
+  sortProperties: ['name:asc'],
+  sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
 
   actions: {
     saveMember: function() {
