@@ -77,11 +77,19 @@
                   {{ship.model.name}}
                 {{/if}}
               </td>
+
               <td class="ship-edit text-danger text-right">
                 {{#if session.isAdmin}}
-                {{#unless ship.isNew}}
-                <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
-                {{/unless}}
+                  {{#unless ship.isNew}}
+                  <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a>
+                  {{/unless}}
+                {{/if}}
+              </td>
+              <td class="ship-edit text-danger text-right">
+                {{#if session.isAdmin}}
+                  {{#unless ship.isNew}}
+                  <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+                  {{/unless}}
                 {{/if}}
               </td>
             </tr>

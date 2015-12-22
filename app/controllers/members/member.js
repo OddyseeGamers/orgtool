@@ -22,6 +22,13 @@ export default Ember.Controller.extend({
       this.set('currShip', ship);
       this.set('showDialog', true);
     },
+    editShip: function(ship) {
+      if (ship) {
+        var self = this;
+        this.set('currShip', ship);
+        this.set('showDialog', true);
+      }
+    },
     setModel: function(shipModel) {
       var ship = get(this, 'currShip');
       ship.set('model', shipModel);
