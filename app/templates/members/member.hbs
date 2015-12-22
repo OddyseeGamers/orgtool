@@ -13,106 +13,98 @@
   </div>
 
   <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Name</label>
+        {{input type="text" class="form-control" value=model.name}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Handle</label>
+        {{input type="text" class="form-control"  value=model.handle}}
+      </div>
+    </div>
 
-    {{!--
-    {{#bs-form action=(action "saveMember") model=model}}
-      --}}
-        <div class="row">
-          <div class="col-md-6">
-            <label class="control-label">Name</label>
-            {{input type="text" class="form-control" value=model.name}}
-          </div>
-          <div class="col-md-6">
-            <label class="control-label">Handle</label>
-            {{input type="text" class="form-control"  value=model.handle}}
-          </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Time</label>
+        {{input type="number" class="form-control" value=model.timezone}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Avatar (https://robertsspaceindustries.com)</label>
+        {{input type="text" class="form-control" value=model.avatar}}
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Rank</label>
+        {{input type="text" class="form-control" disabled=true}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Roles</label>
+        {{input type="text" class="form-control" disabled=true}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label">Units: {{model.memberUnits.length}}</label>
+        <div>
+          {{#each model.memberUnits as |memUn|}}
+            {{memUn.unit.name}},
+          {{/each}}
         </div>
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <label class="control-label">Time</label>
-            {{input type="number" class="form-control" value=model.timezone}}
-          </div>
-          <div class="col-md-6">
-            <label class="control-label">Avatar (https://robertsspaceindustries.com)</label>
-            {{input type="text" class="form-control" value=model.avatar}}
-          </div>
-        </div>
+    <hr>
 
-        <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Ships: {{model.ships.length}}</label>
+        <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}}> <i class="fa fa-plus"></i> Add Ship</button>
 
-        <div class="row">
-          <div class="col-md-6">
-            <label class="control-label">Rank</label>
-            {{input type="text" class="form-control" disabled=true}}
-          </div>
-          <div class="col-md-6">
-            <label class="control-label">Roles</label>
-            {{input type="text" class="form-control" disabled=true}}
-          </div>
-        </div>
+        <table class="table compact-table">
+          <tbody>
+            {{#each model.ships as |ship|}}
+            <tr>
+              <td class="ship-name">
+                {{#if ship.name}}
+                  {{ship.name}}
+                {{else}}
+                  {{ship.model.name}}
+                {{/if}}
+              </td>
+              <td class="ship-edit text-danger text-right">
+                {{#if session.isAdmin}}
+                {{#unless ship.isNew}}
+                <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+                {{/unless}}
+                {{/if}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <label class="control-label">Units: {{model.memberUnits.length}}</label>
-            <div>
-              {{#each model.memberUnits as |memUn|}}
-                {{memUn.unit.name}},
-              {{/each}}
-            </div>
-          </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-          <div class="col-md-6">
-            <label class="control-label">Ships: {{model.ships.length}}</label>
-            <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}}> <i class="fa fa-plus"></i> Add Ship</button>
-  
-            <table class="table compact-table">
-              <tbody>
-                {{#each model.ships as |ship|}}
-                <tr>
-                  <td class="ship-name">
-                    {{#if ship.name}}
-                      {{ship.name}}
-                    {{else}}
-                      {{ship.model.name}}
-                    {{/if}}
-                  </td>
-                  <td class="ship-edit text-danger text-right">
-                    {{#if session.isAdmin}}
-                    {{#unless ship.isNew}}
-                    <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
-                    {{/unless}}
-                    {{/if}}
-                  </td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-
-          <div class="col-md-6">
-            <label class="control-label">Rewards: {{model.rewards.length}}</label>
-            <button type="button" class="btn btn-default btn-xs pull-right add-ship-button disabled" {{action "addReward" model}}> <i class="fa fa-plus"></i> Add Reward</button>
-            <table class="table compact-table">
-              <tbody>
-                {{#each model.rewards as |rew|}}
-                <tr>
-                  <td class="ship-name">{{rew.name}}</td>
-                  <td class="ship-edit"></td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {{!--
-        {{/bs-form}}
-        --}}
+      <div class="col-md-6">
+        <label class="control-label">Rewards: {{model.rewards.length}}</label>
+        <button type="button" class="btn btn-default btn-xs pull-right add-ship-button disabled" {{action "addReward" model}}> <i class="fa fa-plus"></i> Add Reward</button>
+        <table class="table compact-table">
+          <tbody>
+            {{#each model.rewards as |rew|}}
+            <tr>
+              <td class="ship-name">{{rew.name}}</td>
+              <td class="ship-edit"></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <div class="panel-footer">
@@ -120,7 +112,7 @@
   </div>
 
 
-{{#bs-modal open=showDialog header=false body=false footer=false}}
+{{#bs-modal open=showDialog header=false body=false footer=false autoClose=false closeAction='close'}}
   {{#bs-modal-header}}
     <h4 class="modal-title">
       {{#if currShip.isNew}}
@@ -135,7 +127,12 @@
     <label class="control-label">Ship Name</label>
     {{input type="text" class="form-control" id="shipName" value=currShip.name}}
 
-    <label class="control-label">Model</label>
+    <label class="control-label">
+      Model
+      {{#unless currShip.model}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
     <div class="input-group ship-model-modal">
       <input type="text" class="form-control" id="shipModel" value={{currShip.model.name}} readonly>
       <div class="input-group-btn">
@@ -165,7 +162,11 @@
   {{/bs-modal-body}}
   {{#bs-modal-footer}}
     <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-    <button type="submit" class="btn btn-primary" {{action "saveShip"}}> {{#if currShip.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    {{#if currShip.model}}
+      <button type="submit" class="btn btn-primary" {{action "saveShip"}}> {{#if currShip.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    {{else}}
+      <button type="submit" class="btn btn-primary" disabled=true> {{if currShip.hasDirtyAttributes 'Save' 'Ok'}} </button>
+    {{/if}}
   {{/bs-modal-footer}}
 {{/bs-modal}}
 
