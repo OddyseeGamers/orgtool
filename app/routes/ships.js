@@ -18,6 +18,7 @@ export default Ember.Route.extend({
     var prom = Ember.RSVP.hash({
       ship: this.store.findAll('ship').then(function(ships) {
         self.get('eventManager').trigger('log', "ship fetched");
+        self.controllerFor('ships').set('ships', ships);
         return ships;
       }),
       shipManufacturer: this.store.findAll('shipManufacturer').then(function(shipManufacturer) {
