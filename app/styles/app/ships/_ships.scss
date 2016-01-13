@@ -27,6 +27,10 @@ $ship-height: calc(100% - #{$mod-height});
     overflow-y:auto;
   }
 
+  .member-avatar {
+    width: 29px;
+    float: left;
+  }
 
 //    .ship-details {
 //      float:left;
@@ -42,7 +46,7 @@ $ship-height: calc(100% - #{$mod-height});
 //      border-bottom: 1px solid #222;
 
 //      height: 100%;
-    padding-left: 16px;
+    padding-left: 8px;
     padding-right: 16px;
     border-radius: 0 0 10px 0px;
     background-color: rgba(255, 255, 255, .1); //#0A0C11;
