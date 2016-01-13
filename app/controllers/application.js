@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
   pwd: "",
 
   setup: Ember.on('init', function() {
+    console.debug(">>> setup ...");
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 

@@ -9,10 +9,10 @@ export default DS.Model.extend({
   updated_at:  DS.attr('date'),
   manufacturer: DS.belongsTo('shipManufacturer', { async: true }),
 
-  class: DS.attr(),
   type: DS.attr(),
   roles: DS.attr(),
   ships: DS.hasMany('ships', { async: true}),
+  class: DS.belongsTo('shipClass', { async: true}),
 //   type: DS.belongsTo('shipType', { async: true }),
 //   roles: DS.hasMany('shipRole', { async: true })
 });

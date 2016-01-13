@@ -26,6 +26,30 @@
   background: rgba(36,36,36,0.4);
 } 
 
+.bootstrap-switch .bootstrap-switch-label {
+//     background: #333;
+   background: #0A0C11;
+//     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.bootstrap-switch {
+  border: 1px solid #219ab3;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+//      color: #000;
+    background: #888;
+//    color: #000;
+//    background: #333;
+}
+
+.stretch {
+  width: 100%;
+}
+
+//  .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+//     color: #444;
+//     background: #000;
+//  }
 
 @import 'theme/button';
 @import 'theme/nav';

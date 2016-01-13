@@ -2,18 +2,20 @@
   <div class="ship-list">
     {{#each model as |member|}}
       {{#if member.ships.length}}
-        <div class="col-md-12 ship-owner">
-          {{member.name}}: {{member.ships.length}}
-        </div>
-        <div class="col-md-12">
-          {{#each member.ships as |ship|}}
-            <div class="col-md-6">
-              {{ship-model-details ship=ship.model name=ship.name}}
-            </div>
-          {{/each}}
-        </div>
-        <div class="col-md-12">
-          &nbsp;
+        <div class="ships">
+          <span class="ship-owner">
+            {{member.name}} [{{member.ships.length}}]
+          </span>
+          <div class="col-md-12 member-ships">
+            {{#each member.ships as |ship|}}
+              {{#unless ship.hidden}}
+              <div class="col-md-2 shipfix">
+                {{ship-model-details ship=ship.model name=ship.name}}
+              </div>
+              {{/unless}}
+            {{/each}}
+          </div>
+          <div class="clearfix" style="clear: both;"></div>
         </div>
       {{/if}}
     {{/each}}

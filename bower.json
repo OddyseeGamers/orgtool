@@ -12,7 +12,8 @@
     "qunit": "~1.20.0",
     "bootstrap": "~3.3.2",
     "font-awesome": "~4.4.0",
-    "jquery-ui": "1.11.4"
+    "jquery-ui": "1.11.4",
+    "bootstrap-switch": "^3.3.2"
   },
   "resolutions": {
     "ember": "2.2.0"

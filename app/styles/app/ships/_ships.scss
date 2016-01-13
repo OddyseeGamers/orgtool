@@ -28,14 +28,42 @@ $ship-height: calc(100% - #{$mod-height});
   }
 
 
-  .ship-details {
-    float:left;
+//    .ship-details {
+//      float:left;
     //    width: 100%;
-  }
+//    }
 
   .ship-owner {
-    margin-top: 10px;
-    color: #1a80b6;
+//      width: 100%;
+//      margin-top: 10px;
+//      color: #fff;
+//      color: #1a80b6;
+//      font-size: 18px;
+//      border-bottom: 1px solid #222;
+
+//      height: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 0 0 10px 0px;
+    background-color: rgba(255, 255, 255, .1); //#0A0C11;
+    color: #fff;
     font-size: 18px;
+    vertical-align: middle;
+
+    padding-bottom: 6px;
+    padding-top: 2px;
+  }
+
+//    .ship-owner-name {
+
+//    }
+
+  .ships {
+//      background-color: #222;
+//      height: 100%;
+    border-top: 1px solid #222;
+//      border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+//      margin-bottom: -1px;
   }
 }

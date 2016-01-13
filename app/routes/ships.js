@@ -17,17 +17,21 @@ export default Ember.Route.extend({
     var self = this;
     var prom = Ember.RSVP.hash({
       ship: this.store.findAll('ship').then(function(ships) {
-        self.get('eventManager').trigger('log', "ship fetched");
+        self.get('eventManager').trigger('log', "ships fetched");
         self.controllerFor('ships').set('ships', ships);
         return ships;
       }),
+      shipModel: this.store.findAll('shipModel').then(function(ships) {
+        self.get('eventManager').trigger('log', "ship models fetched");
+        return ships;
+      }),
       shipManufacturer: this.store.findAll('shipManufacturer').then(function(shipManufacturer) {
-        self.get('eventManager').trigger('log', "shipManufacturer assignments fetched");
+        self.get('eventManager').trigger('log', "ship manufacturers fetched");
         return shipManufacturer;
       }),
-      shipModel: this.store.findAll('shipModel').then(function(ships) {
-        self.get('eventManager').trigger('log', "shipModel fetched");
-        return ships;
+      shipClass: this.store.findAll('shipClass').then(function(classes) {
+        self.get('eventManager').trigger('log', "ship classes fetched");
+        return classes;
       }),
     });
 

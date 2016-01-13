@@ -1,30 +1,47 @@
-<div class="ship-model-details">
-
-    {{#if ship.img}}
-      <img  class="ship-img" src={{concat-string "https://robertsspaceindustries.com" ship.img}}>
-    {{/if}}
-
-  <div class="ship-details">
-    <div class="ship-name">
-      {{#if name}}
-        {{name}}
-      {{else}}
-        {{ship.name}}
-      {{/if}}
-    </div>
-
+<div class="ship-name">
+  {{#if name}}
+  {{name}}
+  {{else}}
+  {{ship.name}}
+  {{/if}}
+</div>
+<div class="ship">
   <div class="ship-manu">
     {{#if ship.manufacturer.img}}
-      <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" ship.manufacturer.img}}>
+    <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" ship.manufacturer.img}}>
     {{/if}}
-    {{ship.manufacturer.name}}
+    <span class="ship-manu-name">
+      {{ship.manufacturer.name}}
+    </span>
   </div>
 
-    <div class="ship-specs">
-      crew: {{ship.crew}} | length: {{ship.length}} | mass: {{ship.mass}}
+
+  {{#if ship.img}}
+  <img class="ship-img" src={{concat-string "https://robertsspaceindustries.com" ship.img}}>
+  {{/if}}
+
+
+  <div class="ship-model">
+    <div class="ship-model-name">
+      {{ship.name}}
     </div>
-
-
   </div>
+
+    <div class="ship-class">
+      {{ship.class.name}}
+    </div>
 </div>
+
+
+      {{!--
+    <div class="ship-details">
+      <div class="ship-model">
+        {{compare-string name ship.name}}
+      </div>
+
+      <div class="ship-specs">
+        crew: {{ship.crew}} <span class="ship-sep">|</span> length: {{ship.length}} <span class="ship-sep">|</span> mass: {{ship.mass}}
+      </div>
+    </div>
+      --}}
 

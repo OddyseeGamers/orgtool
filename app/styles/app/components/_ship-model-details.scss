@@ -1,45 +1,125 @@
 .ship-model-details {
-  width: 100%;
-  height: 74px;
+//    width: 300px;
+//    height: 400px;
 
 //    padding: 10px;
 
   padding-top: 10px;
   padding-bottom: 10px;
 
+  position: relative;
+
+
+  .manu-img {
+    width: 20px;
+  }
+
+  .ship-manu {
+//      float: left;
+    position: absolute;
+    left: 0px;
+    padding-right: 10px;
+    border-radius: 0 0 10px 0px;
+    background-color: rgba(10, 12, 17, .7); //#0A0C11;
+    color: #fff;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+
+  .ship-manu-name {
+    height: 20px;
+    margin-left: -2px;
+    vertical-align: middle;
+  }
 
   .ship-img {
+    width: 100%;
 //      width: 200px;
-    height: 74px;
-    float: left;
+//      height: 74px;
+//      height: 66px;
+//      float: left;
+  }
+
+  .shipfix {
+//      height: 100%;
   }
 
 
+  .ship {
+//      margin-bottom: 10px;
+  }
 
-  .ship-details {
+
+//    .ship-details {
 //      position: relative;
 //      width: 100%;
-//      height: 100%;
-    padding-left: 8px;
-    float: left;
-    font-size: 12px;
-  }
+//      height: 100px;
+//      padding-bottom: 100px;
+//      float: left;
+//      font-size: 12px;
+//    }
 
 
   .ship-name {
     color: #1a80b6;
     font-size: 16px;
+//      font-weight: bold;
   }
 
-  .manu-img {
-    width: 24px;
+
+//    .ship-model {
+//      color: #1a80b6;
+//      color: #555;
+//      height: 12px;
+//      font-size: 12px;
+//    }
+
+
+  .ship-sep {
+    color: #1a80b6;
+//      color: #555;
+//      font-weight: 900;
   }
-  .ship-manu {
+
+  .ship-model {
+    position: absolute;
+    height: 20px;
+    bottom: 27px;
+//      float: right;
+//      bottom: 100px;
+    right: 0px;
+    color: #fff;
+    padding-left: 10px;
+    border-radius: 10px 0px 0px 0px;
+    background-color: rgba(10, 12, 17, .7); //#0A0C11;
+    color: #fff;
+    font-size: 10px;
+//      vertical-align: middle;
+
+//      color: #555;
+  }
+  .ship-model-name {
+//      height: 20px;
+//      bottom: 20px;
+    margin-top: 4px;
+    margin-right: 4px;
+//      vertical-align: middle;
+  }
+
+  .ship-class {
+    bottom: 27px;
+//      display: inline;
+//      float: left;
+    color: #555;
+    font-size: 12px;
   }
 
   .ship-specs {
-    position: absolute;
+    display: inline;
+    float: right;
     bottom: 0px;
+    color: #555;
+    font-size: 10px;
 //      margin-top: 6px;
 //      font-size: 12px;
   }
