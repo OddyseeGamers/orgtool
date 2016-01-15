@@ -104,7 +104,9 @@
 
       <div class="col-md-6">
         <label class="control-label">Rewards: {{model.rewards.length}}</label>
-        <button type="button" class="btn btn-default btn-xs pull-right add-ship-button disabled" {{action "addReward" model}}> <i class="fa fa-plus"></i> Add Reward</button>
+        {{#if session.isAdmin}}
+          <button type="button" class="btn btn-default btn-xs pull-right add-ship-button disabled" {{action "addReward" model}}> <i class="fa fa-plus"></i> Add Reward</button>
+        {{/if}}
         <table class="table compact-table">
           <tbody>
             {{#each model.rewards as |rew|}}
@@ -119,9 +121,11 @@
     </div>
   </div>
 
-  <div class="panel-footer">
-      <button type="submit" class="btn btn-default pull-right"> Save</button>
-  </div>
+  {{#if session.isUser}}
+    <div class="panel-footer">
+      <button type="submit" class="btn btn-default pull-right disabled"> Save</button>
+    </div>
+  {{/if}}
 
 
 {{#bs-modal open=showDialog header=false body=false footer=false autoClose=false closeAction='close'}}
@@ -192,7 +196,7 @@
     {{#if currShip.model}}
       <button type="submit" class="btn btn-primary" {{action "saveShip"}}> {{#if currShip.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
     {{else}}
-      <button type="submit" class="btn btn-primary" disabled=true> {{if currShip.hasDirtyAttributes 'Save' 'Ok'}} </button>
+      <button type="submit" class="btn btn-primary"> {{if currShip.hasDirtyAttributes 'Save' 'Ok'}} </button>
     {{/if}}
   {{/bs-modal-footer}}
 {{/bs-modal}}
