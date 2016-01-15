@@ -29,7 +29,7 @@ export default Ember.Route.extend({
 
     prom.then(function(done) {
       self.get('eventManager').trigger('success', 'loading done');
-      self.get('eventManager').trigger('resizeMembers');
+//       self.get('eventManager').trigger('resizeMembers');
     });
   },
 

@@ -238,6 +238,10 @@ export default Ember.Controller.extend({
       var session = this.get('session');
       if (session.authenticate(pwd)) {
         this.success('logged in as ' + (session.isAdmin?"admin":"member"));
+        return true;
+      } else {
+        this.failure('login failed');
+        return false;
       }
     }
   }

@@ -64,9 +64,13 @@
     <div class="row">
       <div class="col-md-6">
         <label class="control-label">Ships: {{model.ships.length}}</label>
+        {{!--
         {{#if session.isUser}}
+        --}}
           <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}} disabled={{if currShip "disabled"}}> <i class="fa fa-plus" ></i> Add Ship</button>
+        {{!--
         {{/if}}
+        --}}
 
         <table class="table compact-table">
           <tbody>

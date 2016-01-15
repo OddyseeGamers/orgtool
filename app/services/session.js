@@ -7,7 +7,8 @@ export default Ember.Service.extend({
     if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "7638a389813dd18806ec1954d3198b21") {
       this.set('isAdmin', true);
       this.set('isUser', true);
-    } else if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "00e42a0c1aeba007c5dfb09da0f8049b") {
+    } else if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "ce4e33ba73789027a1b9937e7d0025c0") {
+      this.set('isAdmin', false);
       this.set('isUser', true);
     } else {
       this.set('isAdmin', false);
