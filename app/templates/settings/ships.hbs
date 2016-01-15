@@ -1,8 +1,24 @@
 <div id="shipsettingss" style="height:100%;overflow-y:auto">
-  {{#each content as |ship|}}
-    <div class="col-md-6">
-      {{ship-model-details ship=ship}}
-  </div>
+  {{#each content as |manu|}}
+    <div class="ship-manu">
+      <span class="ship-manu">
+        <h3>
+          {{#if manu.img}}
+            <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" manu.img}}>
+          {{/if}}
+          {{manu.name}} [{{manu.ships.length}}]
+        </h3>
+      </span>
+
+      <div class="col-md-12">
+        {{#each manu.ships as |ship|}}
+        <div class="col-md-3">
+          {{ship-model-details ship=ship details=true}}
+        </div>
+        {{/each}}
+        <div class="clearfix" style="clear: both;"></div>
+      </div>
+    </div>
   {{/each}}
 </div>
 

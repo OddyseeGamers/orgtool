@@ -4,11 +4,11 @@
       {{#if member.ships.length}}
         <div class="ships">
           <span class="ship-owner">
-  {{#if member.avatar}}
-    <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
-  {{else}}
-    <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-  {{/if}}
+            {{#if member.avatar}}
+              <img class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
+            {{else}}
+              <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+            {{/if}}
 
             {{member.name}} [{{member.ships.length}}]
           </span>

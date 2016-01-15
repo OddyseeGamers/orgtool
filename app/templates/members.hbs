@@ -48,10 +48,11 @@
               TZ
               <div>TZ</div>
             </th>
+            {{#if session.isAdmin}}
             <th>
-              
               <div></div>
             </th>
+            {{/if}}
           </tr>
         </thead>
         <tbody>
@@ -82,12 +83,13 @@
             <td>
               {{member.timezone}}
             </td>
+            {{#if session.isAdmin}}
             <td>
               {{#if member.wp_id}}
                 <i class="fa fa-check text-success"></i> 
               {{/if}}
             </td>
-
+            {{/if}}
             {{/link-to}}
         {{/each}}
         </tbody>

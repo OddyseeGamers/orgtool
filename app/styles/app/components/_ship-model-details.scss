@@ -76,6 +76,14 @@
 
 
   .ship-sep {
+    color: #660000;
+//      color: #1a80b6;
+//      color: #555;
+//      font-weight: 900;
+  }
+
+  .ship-stat {
+//      color: #ff3333;
     color: #1a80b6;
 //      color: #555;
 //      font-weight: 900;
@@ -91,9 +99,9 @@
     color: #fff;
     padding-left: 10px;
     border-radius: 10px 0px 0px 0px;
-    background-color: rgba(10, 12, 17, .7); //#0A0C11;
+    background-color: rgba(10, 12, 17, .75); //#0A0C11;
     color: #fff;
-    font-size: 10px;
+//      font-size: 10px;
 //      vertical-align: middle;
 
 //      color: #555;
@@ -107,13 +115,27 @@
   }
 
   .ship-class {
-    bottom: 27px;
+//      bottom: 27px;
 //      display: inline;
 //      float: left;
     color: #555;
     font-size: 12px;
   }
 
+  .ship-class-top {
+//      height: 20px;
+    padding-left: 6px;
+//      margin-left: 2px;
+    vertical-align: middle;
+    font-size: 12px;
+
+    height: 20px;
+    margin-left: -2px;
+    vertical-align: middle;
+  }
+
+
+/*
   .ship-specs {
     display: inline;
     float: right;
@@ -123,4 +145,15 @@
 //      margin-top: 6px;
 //      font-size: 12px;
   }
+  */
+  .ship-specs {
+//      height: 26px;
+//      padding-left: 6px;
+//      margin-left: 2px;
+//      margin-bottom: -10px;
+//      vertical-align: middle;
+//      font-size: 13px;
+  }
+
+
 }

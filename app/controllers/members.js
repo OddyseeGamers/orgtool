@@ -6,6 +6,7 @@ var set = Ember.set;
 
 export default Ember.Controller.extend({
   store: Ember.inject.service(),
+  session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   model: [],
   searchFilter: '',

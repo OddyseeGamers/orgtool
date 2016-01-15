@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
   pwd: "",
 
   setup: Ember.on('init', function() {
-    console.debug(">>> setup ...");
+//     console.debug(">>> setup ...");
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 
@@ -237,7 +237,7 @@ export default Ember.Controller.extend({
       var pwd = get(this, 'pwd');
       var session = this.get('session');
       if (session.authenticate(pwd)) {
-        this.success('logged in as admin');
+        this.success('logged in as ' + (session.isAdmin?"admin":"member"));
       }
     }
   }

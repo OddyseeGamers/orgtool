@@ -1,35 +1,50 @@
 <div class="ship-name">
   {{#if name}}
-  {{name}}
+    {{name}}
   {{else}}
-  {{ship.name}}
+    {{ship.name}}
   {{/if}}
 </div>
 <div class="ship">
   <div class="ship-manu">
-    {{#if ship.manufacturer.img}}
-    <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" ship.manufacturer.img}}>
+
+    {{#if details}}
+      <div class="ship-class-top">
+        {{ship.class.name}}
+      </div>
+    {{else}}
+      {{#if ship.manufacturer.img}}
+        <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" ship.manufacturer.img}}>
+      {{/if}}
+      <span class="ship-manu-name">
+        {{ship.manufacturer.name}}
+      </span>
     {{/if}}
-    <span class="ship-manu-name">
-      {{ship.manufacturer.name}}
-    </span>
   </div>
 
 
   {{#if ship.img}}
-  <img class="ship-img" src={{concat-string "https://robertsspaceindustries.com" ship.img}}>
+    <img class="ship-img" src={{concat-string "https://robertsspaceindustries.com" ship.img}}>
   {{/if}}
 
 
-  <div class="ship-model">
-    <div class="ship-model-name">
-      {{ship.name}}
+    <div class="ship-model">
+      <div class="ship-model-name">
+        {{#if details}}
+            crew: <span class="ship-stat">{{ship.crew}}</span>  <span class="ship-sep">|</span> length: <span class="ship-stat">{{ship.length}}</span>  <span class="ship-sep">|</span> mass: <span class="ship-stat">{{ship.mass}}</span>
+        {{else}}
+            {{ship.name}}
+        {{/if}}
+      </div>
     </div>
-  </div>
 
-    <div class="ship-class">
+  <div class="ship-class">
+    {{#if details}}
+      &nbsp;
+    {{else}}
       {{ship.class.name}}
-    </div>
+    {{/if}}
+  </div>
 </div>
 
 

@@ -8,7 +8,7 @@
       {{#if loading}}
         <button class="btn btn-trans fa fa-gear fa-spin text-danger"></button>
       {{else}}
-        {{#if session.isAdmin}}
+        {{#if session.isUser}}
           {{partial 'application/settings-menu'}}
         {{else}}
           {{partial 'application/login-menu'}}
