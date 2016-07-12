@@ -1,11 +1,44 @@
 <div id="info">
   <div class="panel panel-default impart-panel">
-    {{#if extended}}
-      {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3}}
 
+    {{#if extended}}
+      <div class="member-filter">
+        <div class="filter-stats">
+          Name/Handle:
+        </div>
+        {{input type="text" class="ember-text-field form-control form-control name-filter" value=searchFilter}}
+        {{#if searchFilter}}
+        <button type="button" class="btn btn-default" {{action 'clearFilter'}}><i class="fa fa-eraser"></i></button>
+        {{/if}}
+        <div class="filter-stats">
+          {{#if searchFilter.length}}
+            {{#if filteredContent.length}}
+              found: {{filteredContent.length}} of {{members.length}}
+            {{else}}
+              nothing found
+            {{/if}}
+          {{else}}
+            Members: {{models.members.length}}
+          {{/if}}
+        </div>
+      </div>
+
+
+      <div class="member-list">
+        {{#if members}}
+          {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
+            {{member-details member=member draggable=true details=false}}
+          {{/ember-collection}}
+        {{/if}}
+      </div>
+
+
+      {{!--
+      {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3}}
       {{#each pagedContent as |member|}}
         {{member-details member=member draggable=true details=false}}
-      {{/each}}
+        {{/each}}
+        --}}
     {{/if}}
   </div>
 </div>

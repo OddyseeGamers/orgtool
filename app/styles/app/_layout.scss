@@ -58,6 +58,32 @@ $menu-height: 43px;
 //      position: absolute;
 }
 
+.loader-screen {
+  width: 100%;
+  height: 100%;
+  display: table;
+//       margin: auto;
+//    position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.loader-box {
+//    width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+   text-align: center;
+}
+
+.loader-text {
+  color: #333;
+  font-size: 42px;
+}
+
+.loader-spinner {
+  font-size: 80px;
+}
+
+
 hr {
     border-top: 1px solid #333;
     margin-top: 20px;

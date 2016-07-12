@@ -1,5 +1,4 @@
 <div id="members" class="panel panel-default impart-panel">
-
   <div class="member-filter">
     <div class="filter-stats">
       Name/Handle:
@@ -11,12 +10,12 @@
     <div class="filter-stats">
       {{#if searchFilter.length}}
         {{#if filteredContent.length}}
-          found: {{filteredContent.length}} of {{model.length}}
+          found: {{filteredContent.length}} of {{models.members.length}}
         {{else}}
           nothing found
         {{/if}}
       {{else}}
-        Members: {{model.length}}
+        Members: {{models.members.length}}
       {{/if}}
     </div>
   </div>
@@ -27,8 +26,51 @@
   </div>
     --}}
 
+
   <div class="member-list">
     <div class="member-result">
+
+    {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
+      {{#link-to 'members.member' member.id tagName="div" class="member-detail"}}
+      <div class="col-md-1">
+            {{#if member.avatar}}
+<!--               <img  style="float:left; width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}> -->
+              <img  style="float:left; width:34px;" class="member-avatar" src={{member.avatar}}>
+            {{else}}
+              <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+            {{/if}}
+      </div>
+
+      <div class="col-md-3">
+            {{member.name}}
+      </div>
+
+      <div class="col-md-3">
+            {{member.handle}}
+      </div>
+
+      <div class="col-md-3">
+            {{#if member.memberUnits.length}}
+              {{#each member.memberUnits as |memUn|}}
+                {{memUn.unit.name}}, 
+              {{/each}}
+            {{/if}}
+      </div>
+
+      <div class="col-md-2">
+            s: {{member.ships.length}} tz: {{member.timezone}}
+
+            {{#if session.isAdmin}}
+              {{#if member.wp_id}}
+                <i class="fa fa-check text-success"></i> 
+              {{/if}}
+            {{/if}}
+      </div>
+
+        {{/link-to}}
+    {{/ember-collection}}
+
+          {{!--
       <table class="table table-condensed table-hover table-striped">
         <thead>
           <tr class="table-header">
@@ -91,12 +133,15 @@
             </td>
             {{/if}}
             {{/link-to}}
-        {{/each}}
+            {{/each}}
         </tbody>
       </table>
+--}}
     </div>
   </div>
   <div class="member-edit">
     {{outlet}}
   </div>
+
+
 </div>

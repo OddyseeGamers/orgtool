@@ -8,12 +8,11 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
-  loading: true,
+  loader: Ember.inject.service(),
   showDialog: false,
   pwd: "",
 
   setup: Ember.on('init', function() {
-//     console.debug(">>> setup ...");
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 
@@ -26,14 +25,7 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('log', this.log.bind(this));
     this.get('eventManager').on('success', this.success.bind(this));
     this.get('eventManager').on('failure', this.failure.bind(this));
-
-    this.get('eventManager').on('setLoading', this.setLoading.bind(this));
   }),
-
-
-  setLoading: function(set) {
-    this.set('loading', set);
-  },
 
   success: function(text) {
     this.set('unit', null);
@@ -233,15 +225,18 @@ export default Ember.Controller.extend({
       unit.set('type', type);
     },
 
+//     login: function(arg1, arg2) {
+//       var pwd = get(this, 'pwd');
+//       console.debug("login new", arg1, arg2, pwd);
+//     },
+
     login: function() {
       var pwd = get(this, 'pwd');
       var session = this.get('session');
       if (session.authenticate(pwd)) {
         this.success('logged in as ' + (session.isAdmin?"admin":"member"));
-        return true;
       } else {
         this.failure('login failed');
-        return false;
       }
     }
   }

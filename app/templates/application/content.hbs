@@ -1,3 +1,7 @@
 <div id="mycontent">
-{{outlet}}
+  {{#if loader.loading}}
+    {{partial "application/loader"}}
+  {{else}}
+    {{outlet}}
+  {{/if}}
 </div>

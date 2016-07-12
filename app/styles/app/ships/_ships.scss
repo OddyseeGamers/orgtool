@@ -58,6 +58,12 @@ $ship-height: calc(100% - #{$mod-height});
     padding-top: 2px;
   }
 
+  .member-ships {
+//      height: 100px;
+    overflow: auto;
+//      position: relative;
+  }
+
 //    .ship-owner-name {
 
 //    }

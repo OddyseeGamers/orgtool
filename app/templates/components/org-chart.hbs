@@ -8,13 +8,17 @@
 </div>
 
 <div class="overlay-pane">
-  {{#unless hideNav}}
+  {{!-- {{#unless hideNav}} --}}
+
+  {{#if (gt currFilter 1)}}
   <div class="unit-nav-box">
     <div class="unit-nav-content">
       <button class="btn btn-trans-nav" {{action "goBack"}}><i class="fa fa-arrow-left"></i> back</button>
     </div>
   </div>
-  {{/unless}}
+  {{/if}}
+
+  {{!--  {{/unless}} --}}
 <!--   <div class="unit-info-box"> -->
 <!--     <div class="unit-info-content"> -->
 <!--       <h4>TODO</h4>Hover over a unit -->

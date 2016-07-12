@@ -10,7 +10,7 @@ var y = 0;
 export default Ember.Component.extend({
   classNames: ['org-chart'],
   eventManager: Ember.inject.service('events'),
-  store: Ember.inject.service(),
+  loader: Ember.inject.service(),
 
   radius: 0,
   padding: 6,
@@ -19,7 +19,7 @@ export default Ember.Component.extend({
   currFilter: 1,
   lastSelection: null,
   hideNav: Ember.computed.equal('currFilter', "1"),
-  units: null,
+//   units: null,
 
   partition: d3.layout.partition()
       .sort(null)
@@ -31,9 +31,13 @@ export default Ember.Component.extend({
       .innerRadius(function(d) { return Math.max(0, d.y ? y(d.y) : d.y); })
       .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); }),
 
+
   setup: Ember.on('didInsertElement', function() {
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     $(window).bind('resize', this.get('_renderStruc').bind(this));
+//     set(this, 'currFilter', "1");
+    console.debug("setup chart");
+    this._renderStruc();
   }),
 
   willDestroy: function() {
@@ -42,8 +46,14 @@ export default Ember.Component.extend({
   },
 
   changed: function() {
+    console.debug("filter changed");
     this._renderStruc();
   }.observes('currFilter'),
+
+  unitsChanged: function() {
+    console.debug("unitts changed");
+//     this._renderStruc();
+  }.observes('units.length'),
 
   isParentOf: function (p, c) {
     if (p === c) {
@@ -165,15 +175,35 @@ export default Ember.Component.extend({
     var root = null;
     var data = get(this, 'units');
     var filter = get(this, 'currFilter');
+    this.set("hideNav", filter <= 1);
 
+//     console.debug(" >>> search ", filter, " in ",get(data, 'length'), ' --- ',  get(data, 'isLoaded'));
+
+    var self = this;
     if (data) {
+      var temp = root;
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
+
+
+          if(!el || !get(el, 'isLoaded')) {
+            console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
+
+//             Ember.run.next(self, function() {
+//               console.debug("  retrigger rerender, possible inf loop?!");
+//               self.get('eventManager').trigger('rerender');
+//             });
+            return null;
+          }
           if (get(el, 'id') == filter) {
-            root = el;
+            temp = el;
+//             root = el;
           }
       }
     }
+
+//     console.debug(" >> RETURN ", filter, " in ", get(temp, 'id'));
+    return temp;
 
     return root; //this._serializeChildren(root);
   },
@@ -181,11 +211,19 @@ export default Ember.Component.extend({
   _renderStruc: function() {
 //     $('.unit-logo').attr('src', '');
 
+    var units = get(this, 'units');
+//         console.debug("units", units);
+    if (!units) {
+        console.debug("no data no render");
+        return;
+    }
+    console.debug("render");
+
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
 //       var data = get(this, 'units');
-//       console.debug("render return, struc empty");
+      console.debug("render return, struc empty");
       return;
     }
 

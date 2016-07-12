@@ -2,7 +2,8 @@
   <div class="panel-heading">
     <div class="member-avatar">
       {{#if model.avatar}}
-        <img class="member-avatar-img" src={{concat-string "https://robertsspaceindustries.com" model.avatar}}>
+<!--         <img class="member-avatar-img" src={{concat-string "https://robertsspaceindustries.com" model.avatar}}> -->
+        <img class="member-avatar-img" src={{model.avatar}}>
       {{else}}
         <img class="member-avatar-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
       {{/if}}
@@ -30,7 +31,7 @@
         {{input type="number" class="form-control" value=model.timezone}}
       </div>
       <div class="col-md-6">
-        <label class="control-label">Avatar (https://robertsspaceindustries.com)</label>
+        <label class="control-label">Avatar</label>
         {{input type="text" class="form-control" value=model.avatar}}
       </div>
     </div>

@@ -10,50 +10,38 @@ export default Ember.Controller.extend({
   eventManager: Ember.inject.service('events'),
   currentUnit: null,
   currentChart: null,
-  units: [],
-  members: [],
+//   units: [],
+//   model: [],
+//   members: [],
   extended: false,
   dialog: false,
   orgType: null,
   temp: Ember.computed.not('extended'),
   showGameEdit: Ember.computed.and('temp', 'session.isAdmin'),
+  searchFilter: '',
+   
 
+  filteredContent: Ember.computed.filter('models.members', function(member, index, array) {
+    var searchFilter = this.get('searchFilter');
+    var res = []
+    if (!Ember.isEmpty(searchFilter)) {
+      var regex = new RegExp(searchFilter, 'i');
+      var handle = get(member, 'handle') ? get(member, 'handle') : get(member, 'name');
+      res = get(member, 'name').match(regex) || handle.match(regex);
+    }
+    return res;
+  }).property('searchFilter'),
 
-  // setup our query params
-//   queryParams: ["page", "perPage"],
-
-  // set default values, can cause problems if left out
-  // if value matches default, it won't display in the URL
-  page: 1,
-  perPage: 15,
-  currentPage: 1,
-
-  // only want records that are not completed
-//   filteredContent: Ember.computed.filterBy('content', 'isCompleted', false),
-//   filteredContent: Ember.computed.filterBy('members', 'units.length', 0),
-
-  // can be called anything, I've called it pagedContent
-  // remember to iterate over pagedContent in your template
-//   pagedContent: pagedArray('filteredContent'),
-//   pagedContent: membersEmber.computed.filterBy('members', 'units.length', 0),
-  pagedContent: pagedArray('members'), //, {pageBinding: "page", perPageBinding: "perPage"}),
-
-  // binding the property on the paged array
-  // to the query params on the controller
-  pageBinding: "pagedContent.page",
-  perPageBinding: "pagedContent.perPage",
-  totalPagesBinding: "pagedContent.totalPages",
-//   currentPageBinding: "pagedContent.currentPage",
-
+  columns: [100],
+  itemHeight: 40,
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
   }),
 
 
-//   filteredMembers: Ember.computed.filterBy('members', 'units.length', 0),
-
   setDetails: function(data) {
+    console.debug("---- set details");
     var unitId = data.unitid;
     var extended = data.extended;
     var sync = data.sync;
@@ -79,4 +67,9 @@ export default Ember.Controller.extend({
       this.set('currentChart', 1);
     }
   },
+  actions: {
+    clearFilter: function() {
+      this.set('searchFilter', '');
+    }
+  }
 });

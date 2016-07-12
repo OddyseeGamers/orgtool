@@ -1,8 +1,32 @@
+$filter-height: 80px;
+$pager-height: 35px;
+//  $result-height: calc(100% - #{$filter-height} - #{$pager-height});
+$result-height: calc(100% - #{$filter-height});
+
 #info {
   width: $info-width;
   height: 100%;
   float: left;
 //    border: 1px solid #f00;
+
+  .member-filter {
+    padding-top: 3px;
+    height: $filter-height;
+//      vertical-align: middle;
+//      line-height: 1.42857143;
+  }
+
+  .name-filter {
+    padding-left: 10px;
+    vertical-align: middle;
+    display: inline;
+    width:  calc(100% - 46px);
+  }
+
+  .member-list {
+    position: relative;
+    height: $result-height;
+  }
 
   .member-list > div {
     padding: 4px 2px;

@@ -8,40 +8,23 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
-  model: [],
+//   model: [],
   searchFilter: '',
+   
 
-  filteredContent: Ember.computed.filter('model', function(member, index, array) {
+  filteredContent: Ember.computed.filter('models.members', function(member, index, array) {
     var searchFilter = this.get('searchFilter');
-    if (Ember.isEmpty(searchFilter)) {
-      return [];
-    } else {
+    var res = []
+    if (!Ember.isEmpty(searchFilter)) {
       var regex = new RegExp(searchFilter, 'i');
-      return get(member, 'name').match(regex) || get(member, 'handle').match(regex);
+      var handle = get(member, 'handle') ? get(member, 'handle') : get(member, 'name');
+      res = get(member, 'name').match(regex) || handle.match(regex);
     }
+    return res;
   }).property('searchFilter'),
 
-
-  setup: Ember.on('init', function() {
-//     this.get('eventManager').on('resizeMembers', this.resizeMembers.bind(this));
-//     $(window).bind('resize', this.resizeMembers.bind(this));
-    this.set('searchFilter', '');
-  }),
-
-//   willDestroy: function() {
-//     $(window).unbind('resize', this.get('resizeMembers'));
-//     this.get('eventManager').off('resizeMembers');
-//   },
-
-/*
-  resizeMembers: function() {
-    var div = Ember.$(".member-result");
-    var width = div.width();
-    var height = div.height();
-    var c = height / 47;
-    this.set('perPage', Math.floor(c));
-  },
-*/
+  columns: [100],
+  itemHeight: 50,
 
   actions: {
     clearFilter: function() {
