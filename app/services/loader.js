@@ -4,7 +4,7 @@ export default Ember.Service.extend(Ember.Evented, {
   after: "store",
   store: Ember.inject.service(),
   loading: true,
-  state: "",
+  state: null,
   models: null,
   units: null,
   members: null,
@@ -22,14 +22,13 @@ export default Ember.Service.extend(Ember.Evented, {
   loadThemAll: function() {
     var self = this;
     this.set('loading', true);
-    self.set("state", "core");
+    self.set("state", null);
 
     this.models = Ember.RSVP.hash({
       units: this.createRequest("units", "unit"),
-      unitTypes: this.createRequest("unitTypes", "unitType"),
       members: this.createRequest("members", "member"),
       memberUnits: this.createRequest("memberUnits", "memberUnit"),
-      ships: this.createRequest("ships", "ship")
+//       ships: this.createRequest("ships", "ship")
     });
 
     return this.models.then(function(done) {
@@ -37,7 +36,8 @@ export default Ember.Service.extend(Ember.Evented, {
       self.set("state", "done");
       self.set('loading', false);
       self.models = Ember.RSVP.hash({
-//         ships: self.createRequest("ships", "ship"),
+        unitTypes: self.createRequest("unitTypes", "unitType"),
+        ships: self.createRequest("ships", "ship"),
         shipModels: self.createRequest("shipModels", "shipModel"),
         shipManufacturers: self.createRequest("shipManufacturers", "shipManufacturer"),
         shipClass: self.createRequest("shipClass", "shipClass")

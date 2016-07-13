@@ -12,9 +12,14 @@ export default Ember.Controller.extend({
   currShip: null,
   sortProperties: ['name:asc'],
   sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
+//   member: 
 
   actions: {
-    saveMember: function() {
+    addMember: function() {
+      var member = this.store.createRecord('member');
+      console.debug(">>>> add member", member);
+      this.set('model', member);
+//       this.set('showDialog', true);
     },
     addShip: function(member) {
       var ship = this.store.createRecord('ship');

@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
   temp: Ember.computed.not('extended'),
   showGameEdit: Ember.computed.and('temp', 'session.isAdmin'),
   searchFilter: '',
-   
+//    
 
   filteredContent: Ember.computed.filter('models.members', function(member, index, array) {
     var searchFilter = this.get('searchFilter');
@@ -67,9 +67,9 @@ export default Ember.Controller.extend({
       this.set('currentChart', 1);
     }
   },
-  actions: {
-    clearFilter: function() {
-      this.set('searchFilter', '');
-    }
-  }
+//   actions: {
+//     clearFilter: function() {
+//       this.set('searchFilter', '');
+//     }
+//   }
 });

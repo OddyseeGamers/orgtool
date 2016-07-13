@@ -1,40 +1,46 @@
-<div id="members" class="panel panel-default impart-panel">
-  <div class="member-filter">
-    <div class="filter-stats">
-      Name/Handle:
-    </div>
-    {{input type="text" class="ember-text-field form-control form-control name-filter" value=searchFilter}}
-    {{#if searchFilter}}
-    <button type="button" class="btn btn-default" {{action 'clearFilter'}}><i class="fa fa-eraser"></i></button>
-    {{/if}}
-    <div class="filter-stats">
-      {{#if searchFilter.length}}
-        {{#if filteredContent.length}}
-          found: {{filteredContent.length}} of {{models.members.length}}
-        {{else}}
-          nothing found
-        {{/if}}
-      {{else}}
-        Members: {{models.members.length}}
+
+
+<!--   {{partial 'overview/members'}} -->
+
+
+<div class="pull-left">
+    {{member-list members=models.members details=true}}
+</div>
+
+{{!--
+  <div id="members-list" class="panel panel-default impart-panel">
+  <div class="panel-heading">
+    <div class="member-filter">
+      <div class="filter-stats">
+        Name/Handle:
+      </div>
+      {{input type="text" class="ember-text-field form-control form-control name-filter" value=searchFilter}}
+      {{#if searchFilter}}
+      <button type="button" class="btn btn-default" {{action 'clearFilter'}}><i class="fa fa-eraser"></i></button>
       {{/if}}
+      <div class="filter-stats">
+        {{#if searchFilter.length}}
+          {{#if filteredContent.length}}
+            found: {{filteredContent.length}} of {{models.members.length}}
+          {{else}}
+            nothing found
+          {{/if}}
+        {{else}}
+          Members: {{models.members.length}}
+        {{/if}}
+      </div>
+
     </div>
+
   </div>
 
-    {{!--
-  <div class="member-pager">
-    {{page-numbers content=pagedContent showFL=true numPagesToShow=7}}
-  </div>
-    --}}
-
-
-  <div class="member-list">
+  <div class="panel-body">
     <div class="member-result">
 
     {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
       {{#link-to 'members.member' member.id tagName="div" class="member-detail"}}
       <div class="col-md-1">
             {{#if member.avatar}}
-<!--               <img  style="float:left; width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}> -->
               <img  style="float:left; width:34px;" class="member-avatar" src={{member.avatar}}>
             {{else}}
               <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
@@ -70,78 +76,18 @@
         {{/link-to}}
     {{/ember-collection}}
 
-          {{!--
-      <table class="table table-condensed table-hover table-striped">
-        <thead>
-          <tr class="table-header">
-            <th colspan=2>
-              Name
-              <div>Name</div>
-            </th>
-            <th>
-              Units
-              <div>Units</div>
-            </th>
-            <th>
-              Ships
-              <div>Ships</div>
-            </th>
-            <th>
-              TZ
-              <div>TZ</div>
-            </th>
-            {{#if session.isAdmin}}
-            <th>
-              <div></div>
-            </th>
-            {{/if}}
-          </tr>
-        </thead>
-        <tbody>
-        {{#each filteredContent as |member|}}
-          {{#link-to 'members.member' member.id tagName="tr"}}
-            <td class="member-avatar">
-              {{#if member.avatar}}
-                <img  style="float:left; width:34px;" class="member-avatar" src={{concat-string "https://robertsspaceindustries.com" member.avatar}}>
-              {{else}}
-                <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-              {{/if}}
-            </td>
-            <td>
-              {{member.name}}
-            </td>
-            <td>
-              {{#if member.memberUnits.length}}
-                {{#each member.memberUnits as |memUn|}}
-                  {{memUn.unit.name}}, 
-                {{/each}}
-              {{/if}}
-            </td>
-            <td>
-              {{#if member.ships.length}}
-                  {{member.ships.length}}
-              {{/if}}
-            </td>
-            <td>
-              {{member.timezone}}
-            </td>
-            {{#if session.isAdmin}}
-            <td>
-              {{#if member.wp_id}}
-                <i class="fa fa-check text-success"></i> 
-              {{/if}}
-            </td>
-            {{/if}}
-            {{/link-to}}
-            {{/each}}
-        </tbody>
-      </table>
---}}
+      </div>
     </div>
   </div>
-  <div class="member-edit">
-    {{outlet}}
+
+  <!--
+  <div id="members-edit" class="panel panel-default impart-panel">
+    <div class="member-edit">
+        <div class="members-edit">
+          <button type="button" class="btn btn-default" {{action 'addMember'}}><i class="fa fa-plus"></i></button>
+        </div>
+      {{outlet}}
+    </div>
   </div>
-
-
-</div>
+  -->
+  --}}

@@ -1,7 +1,14 @@
 <div class="loader-screen">
   <div class="loader-box">
     <div class="loader-text">
-      <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin "></button> loading {{loader.state}} ...
+      <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin "></button>
+      <br>
+      {{#if loader.state}}
+        loading {{loader.state}} ...
+        {{else}}
+          &nbsp;
+      {{/if}}
+
     </div>
   </div>
 </div>

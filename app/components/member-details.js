@@ -24,6 +24,7 @@ export default Ember.Component.extend({
   }),
 
   reinit: function() {
+    console.debug(">>> reinit" );
     if (!this.get('canDrag')) {
       return;
     }
@@ -37,10 +38,12 @@ export default Ember.Component.extend({
       tolerance: 'pointer',
       helper: 'clone',
       cursorAt: { left: -5, top: -5 }, 
-      zIndex: 10,
+      zIndex: 1,
       revert: true,
       scroll: false,
-      containment: '#mycontent',
+      appendTo: "body",
+      cursor: "move",
+      containment: "#mycontent",
       drag: Ember.$.proxy(this.onDrag, this),
       stop: Ember.$.proxy(this.onDropped, this),
     });

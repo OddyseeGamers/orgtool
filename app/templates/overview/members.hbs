@@ -1,7 +1,14 @@
 <div id="info">
+  {{#if extended}}
+    {{member-list members=models.members draggable=true details=false}}
+  {{/if}}
+</div>
+
+    {{!--
   <div class="panel panel-default impart-panel">
 
-    {{#if extended}}
+        {{#if extended}}
+
       <div class="member-filter">
         <div class="filter-stats">
           Name/Handle:
@@ -13,7 +20,7 @@
         <div class="filter-stats">
           {{#if searchFilter.length}}
             {{#if filteredContent.length}}
-              found: {{filteredContent.length}} of {{members.length}}
+              found: {{filteredContent.length}} of {{models.members.length}}
             {{else}}
               nothing found
             {{/if}}
@@ -25,20 +32,14 @@
 
 
       <div class="member-list">
-        {{#if members}}
-          {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
+        {{#if models.members}}
             {{member-details member=member draggable=true details=false}}
           {{/ember-collection}}
         {{/if}}
       </div>
 
 
-      {{!--
-      {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3}}
-      {{#each pagedContent as |member|}}
-        {{member-details member=member draggable=true details=false}}
-        {{/each}}
-        --}}
-    {{/if}}
   </div>
 </div>
+
+    --}}

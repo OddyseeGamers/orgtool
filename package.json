@@ -19,6 +19,9 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "glob": "^7.0.5",
+    "morgan": "^1.7.0",
+    "express": "^4.14.0",
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
     "ember-bootstrap": "^0.7.1",
