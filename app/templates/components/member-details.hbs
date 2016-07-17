@@ -1,47 +1,86 @@
-<div class="member-details {{if canDrag "member-details-draggable"}}">
-  {{#if member.avatar}}
-    <img class="member-avatar" src={{member.avatar}}>
-  {{else}}
-    <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-  {{/if}}
-  <div class="member-box">
-      <div class="member-info">
-        <div class="member-name">
-          {{member.name}}
-        </div>
+{{#if details}}
+  {{#link-to 'members.member' member.id tagName="div" class="member-detail select"}}
+<!--     <div class="col-md-1"> -->
+<!--     </div> -->
 
-        <div class="member-remove">
-          <div class="member-stats">
-            {{#if member.ships.length}}
-            s: {{member.ships.length}}
-            {{/if}}
-            {{#if member.memberUnits.length}}
-            u: {{member.memberUnits.length}}
-            {{/if}}
+    <div class="col-md-3">
+      {{#if member.avatar}}
+      <img class="member-avatar" src={{member.avatar}}>
+      {{else}}
+      <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+      {{/if}}
 
-            {{#bs-dropdown class="member-options"}}
-              {{#bs-dropdown-toggle}}
-                {{fa-icon "caret-down"}}
-              {{/bs-dropdown-toggle}}
-              {{#bs-dropdown-menu class="pull-right"}}
-                {{#if canUnassign}}
-                  <li><a href="#" class="text-danger" {{action 'unassignMember' member unitid}}>{{fa-icon "close"}} Unassign</a></li>
-                {{/if}}
-                <li>
-                  {{#link-to 'members.member' member.id}}
-                  {{fa-icon "user"}} Profile
-                  {{/link-to}}
-                </li>
-              {{/bs-dropdown-menu}}
-            {{/bs-dropdown}}
+      <div class="member-name">
+        {{member.name}}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      {{member.handle}}
+    </div>
+
+    <div class="col-md-4">
+      {{#if member.memberUnits.length}}
+        {{#each member.memberUnits as |memUn|}}
+          {{memUn.unit.name}}, 
+        {{/each}}
+      {{/if}}
+    </div>
+
+    <div class="col-md-2">
+      s: {{member.ships.length}} tz: {{member.timezone}}
+
+      {{#if session.isAdmin}}
+        {{#if member.wp_id}}
+          <i class="fa fa-check text-success"></i> 
+        {{/if}}
+      {{/if}}
+    </div>
+  {{/link-to}}
+{{else}}
+  <div class="member-detail">
+    {{#if member.avatar}}
+      <img class="member-avatar" src={{member.avatar}}>
+    {{else}}
+      <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+    {{/if}}
+    <div class="member-box">
+        <div class="member-info">
+          <div class="member-name">
+            {{member.name}}
+          </div>
+
+          <div class="member-remove">
+            <div class="member-stats">
+              {{#if member.ships.length}}
+              s: {{member.ships.length}}
+              {{/if}}
+              {{#if member.memberUnits.length}}
+              u: {{member.memberUnits.length}}
+              {{/if}}
+
+              {{#bs-dropdown class="member-options"}}
+                {{#bs-dropdown-toggle}}
+                  {{fa-icon "caret-down"}}
+                {{/bs-dropdown-toggle}}
+                {{#bs-dropdown-menu class="pull-right"}}
+                  {{#if canUnassign}}
+                    <li><a href="#" class="text-danger" {{action 'unassignMember' member unitid}}>{{fa-icon "close"}} Unassign</a></li>
+                  {{/if}}
+                  <li>
+                    {{#link-to 'members.member' member.id}}
+                    {{fa-icon "user"}} Profile
+                    {{/link-to}}
+                  </li>
+                {{/bs-dropdown-menu}}
+              {{/bs-dropdown}}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="member-rank">
-        {{member.rank}}
-      </div>
+        <div class="member-rank">
+          {{member.rank}}
+        </div>
+    </div>
   </div>
-
-  {{yield}}
-</div>
+{{/if}}
 

@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
+  numericID: Ember.computed('id', function() { return Number(this.get('id')) }),
   wp_id: DS.attr(),
   name: DS.attr(),
   handle: DS.attr(),

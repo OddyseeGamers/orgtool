@@ -9,11 +9,26 @@
   border: 0px;
 }
 
+.panel-body {
+	margin-left: 6px;
+	margin-right: 6px;
+}
+
 .panel-default > .panel-heading {
 //      color: #333;
 //      color: #1a80b6;
     background-color: #000000;
     border-color: #1a80b6;
+}
+
+.panel-default > .panel-heading-filter {
+//      color: #333;
+//      color: #1a80b6;
+
+	padding-left: 6px;
+	padding-right: 6px;
+  background-color: #000000;
+  border: 0px;
 }
 
 .panel-footer {

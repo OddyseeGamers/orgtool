@@ -12,7 +12,7 @@ export default Ember.Service.extend(Ember.Evented, {
   createRequest: function(name, modelName) {
       var self = this;
       return self.get('store').findAll(modelName).then(function(data) {
-        console.debug(" load ", modelName);
+        console.debug(" loaded ", name, Ember.get(data, 'length'));
         self.set(name, data);
         self.set("state", name);
         return data;
@@ -47,6 +47,13 @@ export default Ember.Service.extend(Ember.Evented, {
     });
   },
 
+  getById(model, id) {
+      var self = this;
+      return this.get('models').then(function(done) {
+        var rec = self.get('store').peekRecord(model, id);
+        return rec;
+      });
+  },
 
   loadAssets: function() {
     console.debug("-------- load them all 2");

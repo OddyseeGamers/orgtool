@@ -5,7 +5,8 @@ var set = Ember.set;
 
 export default Ember.Component.extend({
   classNames: ['member-filtered-list'],
-  details: true,
+  sortProperties: ['numericID'],
+  details: false,
 
   filteredContent: Ember.computed.filter('members', function(member, index, array) {
     var searchFilter = this.get('searchFilter');
@@ -18,16 +19,12 @@ export default Ember.Component.extend({
     return res;
   }).property('searchFilter'),
 
+  sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),
+
   columns: [100],
-  itemHeight: 50,
-
-
-//   setup: Ember.on('didInsertElement', function() {
-//     console.debug("setup member list", this.get("members"));
-//   }),
+  itemHeight: 39,
 
   actions: {
-
     clearFilter: function() {
       this.set('searchFilter', '');
     }

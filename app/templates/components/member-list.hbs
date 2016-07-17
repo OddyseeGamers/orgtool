@@ -3,7 +3,7 @@
     {{!--
         {{#if extended}}
     --}}
-      <div class="panel-heading">
+      <div class="panel-heading-filter">
 
         <div class="filter-stats">
           Name/Handle:
@@ -27,60 +27,8 @@
 
 
       <div class="panel-body result-list">
-        {{#if details}}
-        {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
-        {{#link-to 'members.member' member.id tagName="div" class="member-detail"}}
-        <div class="col-md-1">
-          {{#if member.avatar}}
-          <img  style="float:left; width:34px;" class="member-avatar" src={{member.avatar}}>
-          {{else}}
-          <img  style="float:left; width:34px;" class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-          {{/if}}
-        </div>
-
-        <div class="col-md-3">
-          {{member.name}}
-        </div>
-
-        <div class="col-md-3">
-          {{member.handle}}
-        </div>
-
-        <div class="col-md-3">
-          {{#if member.memberUnits.length}}
-          {{#each member.memberUnits as |memUn|}}
-          {{memUn.unit.name}}, 
-          {{/each}}
-          {{/if}}
-        </div>
-
-        <div class="col-md-2">
-          s: {{member.ships.length}} tz: {{member.timezone}}
-
-          {{#if session.isAdmin}}
-          {{#if member.wp_id}}
-          <i class="fa fa-check text-success"></i> 
-          {{/if}}
-          {{/if}}
-        </div>
-
-        {{/link-to}}
+        {{#ember-collection items=sortedContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
+          {{member-details member=member draggable=draggable details=details}}
         {{/ember-collection}}
-          {{else}}
-          {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |member index|}}
-            {{member-details member=member draggable=draggable details=true}}
-          {{/ember-collection}}
-        {{/if}}
       </div>
-
-
-      {{!--
-      {{page-numbers currentPage=currentPage content=pagedContent showFL=true totalPages=totalPages numPagesToShow=3}}
-      {{#each pagedContent as |member|}}
-        {{member-details member=member draggable=true details=false}}
-        {{/each}}
-        --}}
-    {{!--
-    {{/if}}
-    --}}
   </div>

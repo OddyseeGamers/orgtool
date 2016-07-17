@@ -2,7 +2,6 @@
   <div class="panel-heading">
     <div class="member-avatar">
       {{#if model.avatar}}
-<!--         <img class="member-avatar-img" src={{concat-string "https://robertsspaceindustries.com" model.avatar}}> -->
         <img class="member-avatar-img" src={{model.avatar}}>
       {{else}}
         <img class="member-avatar-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
@@ -142,8 +141,6 @@
     </h4>
   {{/bs-modal-header}}
   {{#bs-modal-body}}
-    <label class="control-label">Ship Name</label>
-    {{input type="text" class="form-control" id="shipName" value=currShip.name placeholder=currShip.model.name}}
 
     <label class="control-label">
       Model
@@ -177,6 +174,9 @@
         {{/bs-dropdown}}
       </div>
     </div>
+
+    <label class="control-label">Ship Name</label>
+    {{input type="text" class="form-control" id="shipName" value=currShip.name placeholder=currShip.model.name}}
 
     <br>
 

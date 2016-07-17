@@ -1,6 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  classNames: ['member-details'],
+  classNameBindings: ['canDrag:member-details-draggable'],
+//   classNameBindings: ['isUrgent:urgent'],
+
   draggable: false,
   droppable: true,
   selectable: true,

@@ -7,4 +7,8 @@ export default Ember.Route.extend({
     console.debug("app route load all");
     this.get('loader').loadThemAll();
   },
+
+//   afterModel: function(model, transition) {
+//     console.debug("APP AFTER MODEL", transition.targetName);
+//   },
 });

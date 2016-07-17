@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   currShip: null,
   sortProperties: ['name:asc'],
   sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
-//   member: 
+  member: null,
 
   actions: {
     addMember: function() {
