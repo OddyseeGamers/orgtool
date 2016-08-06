@@ -23,7 +23,10 @@ export default DS.RESTAdapter.extend({
 
   updateRecord: function(store, type, snapshot) {
     var url = this.urlForUpdateRecord(Ember.get(snapshot, 'id'), type.modelName, snapshot);
-    return this.ajax(url, 'POST', {data: snapshot.serialize()});
+    var data = snapshot.serialize();
+//     data["id"] = Ember.get(snapshot, 'id');
+//     console.debug(">> where is the id", data);
+    return this.ajax(url, 'POST', {data: data});
   },
 
 //   shouldBackgroundReloadRecord: function() {

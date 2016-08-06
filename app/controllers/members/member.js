@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
+  loader: Ember.inject.service('loader'),
   showDialog: false,
   currShip: null,
   sortProperties: ['name:asc'],
@@ -15,12 +16,31 @@ export default Ember.Controller.extend({
   member: null,
 
   actions: {
+    /*
     addMember: function() {
       var member = this.store.createRecord('member');
       console.debug(">>>> add member", member);
       this.set('model', member);
+//
 //       this.set('showDialog', true);
+    },*/
+
+    saveMember: function(member) {
+      this.get('eventManager').trigger('saveMember', member);
+
+//         console.debug("save member", member.get('id'));
+
+//       member.save().then(function(mem) {
+//         console.debug("save ok", mem);
+//       }).catch(function(err) {
+//         console.debug("save not ok", err);
+//       });
     },
+
+    deleteMember: function(member) {
+      this.get('eventManager').trigger('deleteMember', member);
+    },
+
     addShip: function(member) {
       var ship = this.store.createRecord('ship');
       ship.set('member', member);

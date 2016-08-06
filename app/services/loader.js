@@ -8,6 +8,7 @@ export default Ember.Service.extend(Ember.Evented, {
   models: null,
   units: null,
   members: null,
+  shipManufacturers: null,
 
   createRequest: function(name, modelName) {
       var self = this;
@@ -28,6 +29,7 @@ export default Ember.Service.extend(Ember.Evented, {
       units: this.createRequest("units", "unit"),
       members: this.createRequest("members", "member"),
       memberUnits: this.createRequest("memberUnits", "memberUnit"),
+      unitTypes: self.createRequest("unitTypes", "unitType"),
 //       ships: this.createRequest("ships", "ship")
     });
 
@@ -36,7 +38,6 @@ export default Ember.Service.extend(Ember.Evented, {
       self.set("state", "done");
       self.set('loading', false);
       self.models = Ember.RSVP.hash({
-        unitTypes: self.createRequest("unitTypes", "unitType"),
         ships: self.createRequest("ships", "ship"),
         shipModels: self.createRequest("shipModels", "shipModel"),
         shipManufacturers: self.createRequest("shipManufacturers", "shipManufacturer"),

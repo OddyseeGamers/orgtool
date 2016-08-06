@@ -7,23 +7,16 @@
     <div class="unit-header">
       <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
 
-        {{#if showChildren}}
-          {{#if unit.units}}
-            <a class="toggle" {{action 'toggleUnits'}}>
-              <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-              {{#if unit.img}}
-                <img style="width:24px;" class="member-avatar" src={{unit.img}}>
-              {{/if}}
-              {{unit.name}}
-            </a>
-          {{else}}
-            <i class="fixedWidth fa fa-circle"></i>
+        {{#if unit.units}}
+          <a class="toggle" {{action 'toggleUnits'}}>
+            <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
             {{#if unit.img}}
               <img style="width:24px;" class="member-avatar" src={{unit.img}}>
             {{/if}}
             {{unit.name}}
-            {{/if}}
+          </a>
         {{else}}
+          <i class="fixedWidth fa fa-circle"></i>
           {{#if unit.img}}
             <img style="width:24px;" class="member-avatar" src={{unit.img}}>
           {{/if}}
@@ -36,14 +29,21 @@
             {{fa-icon "gear"}}
           {{/bs-dropdown-toggle}}
           {{#bs-dropdown-menu class="pull-right"}}
+              <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add</a></li>
+              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit</a></li>
+              <li><a {{action 'deleteUnit'}} href="#">{{fa-icon "remove"}} Delete</a></li>
+
+              {{!--
             {{#if showChildren}}
-              <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add Unit</a></li>
-              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit Unit</a></li>
-              <li><a {{action 'deleteUnit'}} href="#">{{fa-icon "remove"}} Delete Unit</a></li>
+
+              <li>{{#link-to 'overview.unit' unit.id activeClass=""}}{{fa-icon "pencil-square-o"}} Edit Unit{{/link-to}}</li>
+
             {{else}}
               <li><a {{action 'addGame'}} href="#">{{fa-icon "plus"}} Add Game</a></li>
               <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit {{unit.name}}</a></li>
             {{/if}}
+              --}}
+
           {{/bs-dropdown-menu}}
           {{/bs-dropdown}}
           {{/if}}
@@ -88,15 +88,13 @@
     </div>
   </div>
 
-  {{#if showChildren}}
     <div class="unit-bg {{unless showUnits "hide"}}">
       <div class="child-units">
         {{#each unit.units as |child|}}
-          {{unit-tree unit=child}}
+          {{unit-tree unit=child level=level}}
         {{/each}}
       </div>
     </div>
-  {{/if}}
 
   {{yield}}
 </div>

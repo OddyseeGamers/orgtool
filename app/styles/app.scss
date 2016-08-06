@@ -3,6 +3,59 @@ $header-height: 93px;
 $panel-margin:10px;
 
 $oddblue: #337ab7;
+$bgcolor: #0A0C11;
+//  $bgcolor: #00283c;
+$brigtblue: #219ab3;
+$blue: #1a80b6;
+
+
+//  $gray: #101215;
+$gray: #24282d;
+$gray2: #313131;
+//  #0A0C11;
+
+//  #1a80b6
+//  $ember-power-select-border-color: $brigtblue;
+$ember-power-select-border-radius: 0;
+//  $ember-power-select-background-color: #0A0C11;
+
+// Backgrounds
+$ember-power-select-background-color: $gray;
+$ember-power-select-disabled-background-color: #0f0;
+
+//  $ember-power-select-highlighted-background: hsla(40,10%,10%,.8);
+$ember-power-select-highlighted-background: #000;
+$ember-power-select-selected-background: rgba(0, 0, 0, .6);
+
+$ember-power-select-multiple-selection-background-color: $blue;
+
+// Texts
+$ember-power-select-text-color: #fff;
+$ember-power-select-placeholder-color: #999999 !default;
+$ember-power-select-highlighted-color: $brigtblue;
+$ember-power-select-disabled-option-color: #999999 !default;
+$ember-power-select-multiple-selection-color: #fff;
+
+// Borders
+$ember-power-select-border-color: $brigtblue;
+
+//  $ember-power-select-multiple-option-border-color: $brigtblue;
+//  $ember-power-select-multiple-option-border-color: #f00; // $brigtblue;
+$ember-power-select-multiple-option-border: 1px;
+
+$ember-power-select-multiple-option-padding: 4px 12px;
+$ember-power-select-option-padding: 14px;
+//  $ember-power-select-clear-btn-margin: 25px !default;
+
+//    border: 1px solid #219ab3;
+//   color: #fff;
+
+//  @import 'ember-basic-dropdown';
+@import "ember-power-select";
+
+
+
 
 @import 'app/layout';
 @import 'theme';
+

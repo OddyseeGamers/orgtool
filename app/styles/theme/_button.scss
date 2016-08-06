@@ -4,7 +4,7 @@
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
     color: #004;
 //      color: rgb(26, 128, 182); //rgba(0,0,0,.5);
-    background-color: rgb(26, 128, 182);
+    background-color: rgb(26, 128, 182) !important;
     //      background-color: #2991D6;
 //      color: #223248;
 //      background-color: #223248;
@@ -16,6 +16,18 @@
     color: #fff;
     background-color: #286090;
     border-color: #204d74;
+}
+
+.btn-success {
+    background-color: #093109;
+    border-color: #204d74;
+//      border-color: #4cae4c;
+}
+
+.btn-success:hover {
+//      color: #fff;
+    background-color: #64d064;
+//      border-color: #398439;
 }
 
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn {

@@ -7,26 +7,76 @@ export default Ember.Component.extend({
   classNames: ['member-filtered-list'],
   sortProperties: ['numericID'],
   details: false,
+  showEdit: false,
+  session: Ember.inject.service('session'),
+  store: Ember.inject.service(),
+  eventManager: Ember.inject.service('events'),
+  loader: Ember.inject.service('loader'),
+  unitFilter: null,
+  columns: [100],
+  itemHeight: 39,
+
+  hasParent: function(id, unit) {
+      return unit.get("id") == id || (unit.get('parent') && this.hasParent(id, unit.get('parent')));
+  },
 
   filteredContent: Ember.computed.filter('members', function(member, index, array) {
     var searchFilter = this.get('searchFilter');
+    var unitFilter = this.get('unitFilter');
     var res = []
+
+    if (Ember.isEmpty(searchFilter) && Ember.isEmpty(unitFilter)) {
+      return true;
+    }
+
     if (!Ember.isEmpty(searchFilter)) {
       var regex = new RegExp(searchFilter, 'i');
       var handle = get(member, 'handle') ? get(member, 'handle') : get(member, 'name');
       res = get(member, 'name').match(regex) || handle.match(regex);
+
+      if (Ember.isEmpty(res)) {
+        return false;
+      }
     }
+
+    if (!Ember.isEmpty(unitFilter)) {
+      var self = this;
+      res = member.get('memberUnits').filter(function(item, index, enumerable){
+        return self.hasParent(unitFilter.get("id"), item.get('unit'));
+      });
+      if (Ember.isEmpty(res)) {
+        return false;
+      }
+    }
+
     return res;
-  }).property('searchFilter'),
+  }).property('searchFilter', 'members.length', 'unitFilter'),
 
   sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),
 
-  columns: [100],
-  itemHeight: 39,
+  setup: Ember.on('didInsertElement', function() {
+//     this.set("rootUnit", this.get('store').find);
+  var self = this;
+  get(this, 'store').findRecord('unit', 1).then(function(unit) {
+
+    self.set('rootUnit', unit);
+//     console.debug(">> ---- set", unit);
+  });
+//     set(this, 'rootUnit', get(this, 'store').findRecord('unit', 1));
+//     console.debug(">> ----", get(this, 'rootUnit'));
+  }),
+
 
   actions: {
+    setUnitFilter: function(data) {
+//       console.debug("set ", data);
+      set(this, 'unitFilter', data);
+    },
+
     clearFilter: function() {
+//       console.debug("clear");
       this.set('searchFilter', '');
-    }
+    },
+
   }
 });

@@ -1,4 +1,4 @@
-$filter-height: 78px;
+$filter-height: 82px;
 $pager-height: 35px;
 //  $result-height: calc(100% - #{$filter-height} - #{$pager-height});
 $result-height: calc(100% - #{$filter-height});
@@ -39,7 +39,7 @@ $result-height: calc(100% - #{$filter-height});
       padding-left: 10px;
       vertical-align: middle;
       display: inline;
-      width:  calc(100% - 46px);
+//        width:  calc(100% - 94px);
     }
 
     .result-list {
@@ -53,6 +53,13 @@ $result-height: calc(100% - #{$filter-height});
       border: 0px;
     }
 
+
+    .root-item {
+      background: #f00;
+    }
+    .root-item-img {
+      width: 16px;
+    }
 
   }
 

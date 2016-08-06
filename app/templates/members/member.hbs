@@ -8,7 +8,9 @@
       {{/if}}
     </div>
     <div class="member-name-hdr">
-      <h4>{{model.name}}</h4>
+      <h4>
+        {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
+      </h4>
     </div>
   </div>
 
@@ -63,9 +65,9 @@
 
     <div class="row">
       <div class="col-md-6">
-        <label class="control-label">Ships: {{model.ships.length}}</label>
+        <label class="control-label">Items: {{model.ships.length}}</label>
         {{#if session.isUser}}
-          <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}} disabled={{if currShip "disabled"}}> <i class="fa fa-plus" ></i> Add Ship</button>
+          <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}} disabled={{if currShip "disabled"}}> <i class="fa fa-plus" ></i> Add Item</button>
         {{/if}}
 
         <table class="table compact-table">
@@ -123,13 +125,17 @@
 
   {{#if session.isUser}}
     <div class="panel-footer">
-      <button type="submit" class="btn btn-default pull-right disabled"> Save</button>
+      <button type="submit" class="btn btn-default pull-right" {{action "saveMember" model}}> Save</button>
+
+      {{#if session.isAdmin}}
+          <button type="submit" class="btn btn-danger pull-right" {{action "deleteMember" model}}> {{fa-icon "remove"}} Delete</button>
+      {{/if}}
     </div>
   {{/if}}
 
 
 {{#if session.isUser}}
-{{#bs-modal open=showDialog header=false body=false footer=false autoClose=false closeAction='close'}}
+{{#bs-modal open=showDialog header=false body=false footer=false autoClose=false closeAction='close class="myfade"'}}
   {{#bs-modal-header}}
     <h4 class="modal-title">
       {{#if currShip.isNew}}
@@ -154,7 +160,7 @@
         {{#bs-dropdown}}
           {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
           {{#bs-dropdown-menu align="right"}}
-            {{#each shipManufacturer as |sm|}}
+            {{#each loader.shipManufacturers as |sm|}}
               <li class="ship-manu">
                {{#if sm.img}}
                   <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" sm.img}}>
@@ -162,7 +168,7 @@
                 {{sm.name}}
               </li>
               {{#each sm.ships as |s|}}
-                <li {{action "setModel" s}}><a href="#">{{s.name}}</a></li>
+                <li {{action "setModel" s}}><a href="#" class={{if (eq s.id currShip.model.id) "active"}} >{{s.name}}</a></li>
               {{/each}}
             {{/each}}
             {{!--

@@ -13,8 +13,9 @@ html, body {
 #orgtool-container {
   height: 100%;
 //    background-color: #29292a;
-  background-color: #0A0C11;
-  color: #aaa9a9;
+//    background-color: #0A0C11;
+//    color: #aaa9a9;
+  color: #fff;
 }
 
 #orgtool-container > .ember-view {
@@ -28,7 +29,7 @@ html, body {
 }
 
 
-$menu-height: 43px;
+$menu-height: 42px;
 
 #header {
 //    position: absolute;
@@ -45,7 +46,7 @@ $menu-height: 43px;
 //    left: 0px;
 //    right: 0px;
 //    bottom: 0px;
-  background-color: #0A0C11;
+  background-color: $bgcolor;
 }
 
 .debug {
@@ -54,7 +55,7 @@ $menu-height: 43px;
 	padding-right: 6px;
 	vertical-align: middle;
 	line-height:42px;
-	color: #555;
+	color: #aaa;
 //      position: absolute;
 }
 
@@ -107,6 +108,13 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
   background: rgba(0,0,0,.7);
 //    border-radius: 4px;
 //    border: 1px solid #000;
+}
+
+.context-toolbar {
+  position:absolute;
+  top:2px;
+  right:2px;
+  z-index:5;
 }
 
 

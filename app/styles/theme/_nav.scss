@@ -23,10 +23,10 @@
     color: #1a80b6;
     /*    background-color: rgba(255,255,255,.3);*/
 //      background-color: #242424;
-    background-color: #101215;
+    background-color: $gray;
     border: 1px solid transparent; 
 //      border-color: #1A80B6;
-    border-color: #101215;
+    border-color: $gray;
     border-width: 3px medium medium;
     border-style: solid none none;
     /* border-color: #A0CE4E -moz-use-text-color -moz-use-text-color; */
@@ -57,7 +57,7 @@
     /*border-bottom: 1px solid rgba(255,255,255,.3);*/
     border-bottom: 0px;
 //      background-color: #29292a;
-    background-color: #101215;
+    background-color: $gray;
 }
 
 .nav-pills {

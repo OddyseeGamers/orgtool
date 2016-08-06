@@ -6,7 +6,7 @@
 /* Track */
 ::-webkit-scrollbar-track {
 //    background: rgba(41,41,42,1.0);
-    background: #0A0C11;
+    background: transparent; //#0A0C11;
 //    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,1.0);
   -webkit-border-radius: 0px;
   border-radius: 0px;
@@ -50,6 +50,56 @@
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   padding: 2px;
 }
+
+//  .row {
+//    margin-right: 0px;
+//    margin-left: 0px;
+//  }
+
+.ember-power-select-trigger-multiple-input {
+  display: block;
+  height: 30px;
+//    padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+//    color: #555;
+//    background-color: transparent !important;
+//    border: 1px solid #ccc;
+//    border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+ -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.ember-power-select-option {
+    cursor: pointer;
+    padding: 1px 20px;
+    font-size: 14px;
+}
+
+.ember-power-select-multiple-options {
+    padding: 2px;
+}
+
+/*
+ember-power-select-option {
+//      cursor: pointer;
+//      padding: 0 8px;
+   display: block;
+   padding: 3px 20px !important;
+   clear: both;
+   font-weight: normal;
+   line-height: 1.42857143;
+   color: #333;
+   white-space: nowrap;
+}
+.ember-basic-dropdown-wormhole {
+  font-size: 14px;
+}
+ */
+
 
 //  .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary, .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
 //     color: #444;

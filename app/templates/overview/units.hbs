@@ -1,5 +1,12 @@
 <div id="units">
   <div class="panel panel-default pilot-panel">
+    {{#if (eq currentUnit.id '1')}}
+      {{unit-tree unit=currentUnit level=1}}
+    {{else}}
+      {{unit-tree unit=currentUnit}}
+    {{/if}}
+
+      {{!--
     {{#if showGameEdit}}
       {{unit-tree unit=currentUnit showChildren=false}}
     {{else}}
@@ -7,6 +14,7 @@
         {{unit-tree unit=currentUnit}}
       {{/if}}
       {{/if}}
+      --}}
   </div>
 </div>
 

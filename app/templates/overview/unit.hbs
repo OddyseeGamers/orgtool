@@ -1,6 +1,13 @@
-{{#bs-modal open=showDialog header=false body=false footer=false}}
+{{#bs-modal fade=false open=showDialog header=false body=false footer=false closeAction='close' }}
 {{#bs-modal-header}}
+<!--     <div class="member-avatar"> -->
   <h4 class="modal-title">
+      {{#if unit.img}}
+        <img class="member-avatar-img" style="width:42px;" src={{unit.img}}>
+      {{/if}}
+<!--     </div> -->
+<!--     <div class="member-name-hdr"> -->
+<!--     </div> -->
     {{#if unit.isNew}} Create {{else}} Edit {{/if}}
     Unit
   </h4>
@@ -14,17 +21,14 @@
 
       <label class="control-label">Type</label>
       <div class="input-group">
-        {{#if unit.type}}
+
         <input type="text" class="form-control" id="unittype" value={{unit.type.name}} readonly>
-        {{else}}
-        <input type="text" class="form-control" id="unittype" value="" readonly>
-        {{/if}}
         <div class="input-group-btn">
           {{#bs-dropdown}}
             {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
             {{#bs-dropdown-menu  align="right"}}
-              {{#each models.unitTypes as |ut|}}
-              <li {{action "setType" ut}}><a href="#">{{ut.name}}</a></li>
+              {{#each loader.unitTypes as |ut|}}
+              <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id unit.type.id) "active"}} >{{ut.name}}</a></li>
               {{/each}}
             {{/bs-dropdown-menu}}
           {{/bs-dropdown}}
@@ -34,6 +38,8 @@
     {{/bs-modal-body}}
     {{#bs-modal-footer}}
         <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-        <button type="submit" class="btn btn-primary"> {{#if unit.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+        {{#if (and unit.hasDirtyAttributes session.isAdmin)}}
+          <button type="submit" class="btn btn-primary">Save</button>
+        {{/if}}
     {{/bs-modal-footer}}
 {{/bs-modal}}

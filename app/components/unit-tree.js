@@ -1,19 +1,31 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  store: Ember.inject.service(),
+//   store: Ember.inject.service(),
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   unit: null,
-  showChildren: true,
-  collapseUnits: null,
-  collapseLeader: null,
-  collapsePilots: null,
+
+  collapseUnits: true,
+  collapseLeader: true,
+  collapsePilots: true,
+
+  level: null,
+
+  showUnits: Ember.computed.bool('collapseUnits'),
+  showLeader: Ember.computed.bool('collapseLeader'),
+  showPilots: Ember.computed.bool('collapsePilots'),
 
   setup: Ember.on('init', function() {
-    this.set('collapseUnits', true);
-    this.set('collapseLeader', true);
-    this.set('collapsePilots', true);
+    var level = this.get('level');
+    if (level !== null) {
+      level -= 1;
+    }
+    this.set('level', level);
+    
+    this.set('collapseUnits', level >= 0);
+    this.set('collapseLeader', level >= 0);
+    this.set('collapsePilots', level >= 0);
   }),
 
   setupDrops: Ember.on('didInsertElement', function() {
@@ -51,10 +63,6 @@ export default Ember.Component.extend({
     }
   }),
 
-  showUnits: Ember.computed.bool('collapseUnits'),
-  showLeader: Ember.computed.bool('collapseLeader'),
-  showPilots: Ember.computed.bool('collapsePilots'),
-
   onNodeDropped: function(event, ui) {
     var id = parseInt(ui.draggable.data('memberid'));
     var unitid = $(event.target).data('unitid');
@@ -64,6 +72,7 @@ export default Ember.Component.extend({
   actions: {
     toggleUnits: function() {
       this.set('collapseUnits', ! this.get('collapseUnits'));
+      console.debug("collapse", this.get('collapseUnits'));
     },
     toggleLeader: function() {
       this.set('collapseLeader', ! this.get('collapseLeader'));
@@ -71,14 +80,18 @@ export default Ember.Component.extend({
     togglePilots: function() {
       this.set('collapsePilots', ! this.get('collapsePilots'));
     },
+
+    
     unassignMember: function(member) {
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
+
+
     addUnit: function() {
-      this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': "unit" } );
+      this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': 'unit', 'unitType': 6 } );
     },
     addGame: function() {
-      this.get('eventManager').trigger('addGame', { 'id': this.get('unit.id'), 'type': "unit" } );
+      this.get('eventManager').trigger('addGame', { 'id': this.get('unit.id'), 'type': 'game', 'unitType': 2 } );
     },
     editUnit: function() {
       this.get('eventManager').trigger('editUnit', { 'id': this.get('unit.id'), 'type': "unit", 'unit': this.get('unit') } );
