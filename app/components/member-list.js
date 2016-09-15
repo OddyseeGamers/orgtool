@@ -17,7 +17,12 @@ export default Ember.Component.extend({
   itemHeight: 39,
 
   hasParent: function(id, unit) {
-      return unit.get("id") == id || (unit.get('parent') && this.hasParent(id, unit.get('parent')));
+    try {
+      return unit.get("id") == id || unit.get('parent') && this.hasParent(id, unit.get('parent'));
+    } catch(err) {
+        console.debug("error", err);
+    }
+    return false;
   },
 
   filteredContent: Ember.computed.filter('members', function(member, index, array) {
@@ -55,15 +60,10 @@ export default Ember.Component.extend({
   sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),
 
   setup: Ember.on('didInsertElement', function() {
-//     this.set("rootUnit", this.get('store').find);
-  var self = this;
-  get(this, 'store').findRecord('unit', 1).then(function(unit) {
-
-    self.set('rootUnit', unit);
-//     console.debug(">> ---- set", unit);
-  });
-//     set(this, 'rootUnit', get(this, 'store').findRecord('unit', 1));
-//     console.debug(">> ----", get(this, 'rootUnit'));
+    var self = this;
+    get(this, 'store').findRecord('unit', 1).then(function(unit) {
+      self.set('rootUnit', unit);
+    });
   }),
 
 
