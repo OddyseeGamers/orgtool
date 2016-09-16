@@ -135,9 +135,9 @@
 }
 
 .btn-trans-nav {
-  color: #fff;
+  color: #23527c;
   line-height: 30px;
-  font-weight: 300;
+  font-weight: 30;
   padding: 0px;
 //    padding: 6px 25px;
   font-size: 14px;
@@ -152,6 +152,12 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+//  .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+.btn-trans-nav-trans-nav:focus, .btn-trans-nav:active:focus, .btn-trans-nav.active:focus, .btn-trans-nav.focus, .btn-trans-nav:active.focus, .btn-trans-nav.active.focus {
+    outline: 0px;
+    outline-offset: -2px;
 }
 
 .btn-trans {

@@ -112,8 +112,8 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 
 .context-toolbar {
   position:absolute;
-  top:2px;
-  right:2px;
+  bottom:14px;
+  left:20px;
   z-index:5;
 }
 
