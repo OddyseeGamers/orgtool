@@ -36,7 +36,7 @@ export default Ember.Component.extend({
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     $(window).bind('resize', this.get('_renderStruc').bind(this));
 //     set(this, 'currFilter', "1");
-    console.debug("setup chart");
+//     console.debug("setup chart");
     this._renderStruc();
   }),
 
@@ -46,14 +46,13 @@ export default Ember.Component.extend({
   },
 
   changed: function() {
-    console.debug("filter changed");
+//     console.debug("filter changed");
     this._renderStruc();
   }.observes('currFilter'),
 
-  unitsChanged: function() {
-    console.debug("unitts changed");
-//     this._renderStruc();
-  }.observes('units.length'),
+//   unitsChanged: function() {
+//     console.debug("unitts changed");
+//   }.observes('units.length'),
 
   isParentOf: function (p, c) {
     if (p === c) {
@@ -94,7 +93,14 @@ export default Ember.Component.extend({
 
   color: function(d) {
     if (d && d.depth === 0) {
+//       return `url(${window.location.href.replace(window.location.hash, "")}#img1)`;
+//       return "url(./" + window.location.pathname + "#img1)";
+//       return "url(#img1)";
       return "";
+    }
+
+    if (d.parent && d.parent.depth == 0) {
+      return d.color || "#fff";
     }
 
     if (d.children) {
@@ -103,8 +109,6 @@ export default Ember.Component.extend({
       var colors = d.children.map(Ember.$.proxy(this.color, this)),
                     a = d3.hsl(colors[0]),
                     b = d3.hsl(colors[idx]);
-
-      // L*a*b* might be better here...
       return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     }
 
@@ -150,11 +154,7 @@ export default Ember.Component.extend({
         }
 
         if (add) {
-          if (ret.color && unit.get('color') == "") {
-            unit.set('color', ret.color);
-          }
           var unit_ser = unit.serialize();
-
           if (!ret.children) {
             ret.children = [unit_ser];
           } else {
@@ -163,10 +163,6 @@ export default Ember.Component.extend({
           ret.children[ret.children.length - 1] = self._serializeChildren(unit);
         }
       });
-
-      if (ret.children) {
-        ret.color = "";
-      }
     }
     return ret;
   },
@@ -180,39 +176,25 @@ export default Ember.Component.extend({
 //     console.debug(" >>> search ", filter, " in ",get(data, 'length'), ' --- ',  get(data, 'isLoaded'));
 
     var self = this;
+    var temp = root;
     if (data) {
-      var temp = root;
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
-
-
           if(!el || !get(el, 'isLoaded')) {
             console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
-
-//             Ember.run.next(self, function() {
-//               console.debug("  retrigger rerender, possible inf loop?!");
-//               self.get('eventManager').trigger('rerender');
-//             });
             return null;
           }
           if (get(el, 'id') == filter) {
             temp = el;
-//             root = el;
           }
       }
     }
 
-//     console.debug(" >> RETURN ", filter, " in ", get(temp, 'id'));
     return temp;
-
-    return root; //this._serializeChildren(root);
   },
 
   _renderStruc: function() {
-//     $('.unit-logo').attr('src', '');
-
     var units = get(this, 'units');
-//         console.debug("units", units);
     if (!units) {
         console.debug("no data no render");
         return;
@@ -222,7 +204,6 @@ export default Ember.Component.extend({
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
-//       var data = get(this, 'units');
       console.debug("render return, struc empty");
       return;
     }
@@ -242,14 +223,31 @@ export default Ember.Component.extend({
     var svg = d3.select("#svg");
     var nodes = this.partition.nodes(struc);
 
-
-
     Ember.$("#org_group").remove();
+    Ember.$("filter").remove();
+    Ember.$("rect").remove();
+
+    var src = root.get('img') || "http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg";
+    var rootImg = svg.append("filter")
+                           .attr('id', 'img1')
+                           .attr('width', "100%")
+                           .attr('height', "100%")
+                           .attr('x', "0%")
+                           .attr('y', "0%")
+                           .append("feImage")
+                           .attr("xlink:href", src);
+      
+
+    var bg = svg.append("rect").attr("id", "bgimg")
+                               .attr('width', "100%")
+                               .attr('height', "100%")
+                               .attr('x', "1%")
+                               .attr('y', "1%")
+                               .attr('filter', 'url(#img1)');
 
     var vis = svg.append("g")
             .attr("id", "org_group")
             .attr("transform", "translate(" + center + ")");
-
 
     var path = vis.selectAll("path").data(nodes);
     path.enter().append("path")
@@ -260,8 +258,9 @@ export default Ember.Component.extend({
             .attr("width", 10)
             .attr("height", 10)
             .attr("class", "unit-pilots-path")
-            .attr("fill-opacity", function(d, i) { return (d && d.depth === 0) ? "0.0" : "1"; })
-            .style("fill", Ember.$.proxy(this.color, this))
+            .attr("fill-opacity", function(d, i) { return (d && d.depth === 0) ? "0" : "1"; })
+//             .attr("filter", function(d, i) { return (d && d.depth === 0) ? "url(#img1)" : ""; })
+            .attr("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))
             .on("mouseover", self.mouseover);
 //             .on("mouseover", Ember.$.proxy(this.mouseover, this))
@@ -271,26 +270,25 @@ export default Ember.Component.extend({
 
     var box = document.getElementById("org_group").firstChild.getBBox();
     var ipos = [ center[0] - (box.width / 2), center[1] - (box.height / 2)];
-    
-//     Ember.$(".img-pane").empty();
 
-//     var src = root.get('img');
-//     if (!src) {
-    var src = "http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg";
-//     }
+    var padding = 14;
+    if (!root.get('units').length) {
+        padding = box.width - box.width / 2;
+    }
 
-    $('.unit-logo')
-        .attr('src', src)
-        .attr('style', "left:" + ipos[0] + "px;top:" + ipos[1] + "px")
-        .attr('width', box.width)
-        .attr('height', box.height);
+//     console.debug(">> FIRST", box, ipos);
+    Ember.$("#bgimg").attr('x', ipos[0] + padding / 2)
+                      .attr('y', ipos[1] + padding / 2)
+                      .attr('width', box.width - padding)
+                      .attr('height', box.height - padding);
+
 
     self = this;
     var text = vis.selectAll("text").data(nodes);
     var textEnter = text.enter().append("text")
             .style("fill-opacity", 1)
             .style("fill", function(d) {
-                return self.brightness(d3.rgb(self.color(d))) < 125 ? "#bbb" : "#000";
+                return self.brightness(d3.rgb(self.color(d))) < 125 ? "#cccccc" : "#000000";
             })
             .attr("text-anchor", function(d) {
                 return x(d.x + d.dx / 2) > Math.PI ? "end" : "start";
