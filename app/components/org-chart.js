@@ -18,7 +18,6 @@ export default Ember.Component.extend({
   currSelection: null,
   currFilter: 1,
   lastSelection: null,
-  hideNav: Ember.computed.equal('currFilter', "1"),
 //   units: null,
 
   partition: d3.layout.partition()
