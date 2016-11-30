@@ -1,0 +1,136 @@
+$height: 4%;
+$filter-height: 82px;
+$menu-height: 26px;
+//  $pager-height: 35px;
+//  $result-height: calc(100% - #{$filter-height} - #{$pager-height});
+$result-height: calc(100% - #{$height});
+$result-height-filter: calc(100% - #{$menu-height});
+
+.item-filtered-list {
+  height: 100%;
+
+  .item-menu {
+    height: $menu-height;
+
+//      border: 1px solid #44f;
+    position: relative;
+
+//        display: inline;
+    text-align: center;
+
+    .item-stat-menu {
+//        position: relative;
+      width: 33%;
+      display: inline-block;
+      left: -10px;
+
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+
+      border-radius: 0px 0px 10px 10px;
+//        background-color: #1a80b6;
+      color: #fff;
+      font-size: 14px;
+      font-width: 300;
+      vertical-align: middle;
+    }
+
+
+    .item-type-menu {
+      display: inline-block;
+//        width: 33%;
+
+      padding-left: 12px;
+      padding-right: 12px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+
+      border-radius: 0px 0px 10px 10px;
+//        background-color: #1a80b6;
+      border: 1px solid #1a80b6;
+      border-top: 0;
+      color: #000;
+      font-size: 14px;
+      font-width: 300;
+      vertical-align: middle;
+    }
+
+    .item-type-menu-item > a {
+      padding-left: 6px;
+      padding-right: 6px;
+      color: #fff;
+    }
+//  , .item-type-menu-item > a:focus
+    .item-type-menu-item > a:hover {
+//        color: #fff;
+      color: #1a80b6;
+      text-decoration: none;
+    }
+
+    .item-type-menu-item > a:focus {
+      text-decoration: none;
+    }
+
+    .item-type-menu-item > a.active {
+      color: #1a80b6;
+    }
+  }
+
+  .item-list {
+//      height: 100%;
+      position: relative;
+    height: $result-height-filter;
+    width: 100%;
+
+
+    .panel-heading {
+      padding: 0px 0px;
+      background-color: #000000;
+      color: #aaa9a9;
+    }
+
+    .panel-body {
+      top: 10px;
+    }
+
+    .member-filter {
+      padding-top: 3px;
+    }
+
+    .name-filter {
+      padding-left: 10px;
+      vertical-align: middle;
+      display: inline;
+//        width:  calc(100% - 94px);
+    }
+
+    .result-list-filter {
+      position: relative;
+      height: $result-height-filter;
+//        height: 100%
+    }
+
+    .result-list {
+      position: relative;
+      height: $result-height;
+//        height: 100%
+    }
+
+    .result-list > div:nth-of-type(1) {
+      border: 0px;
+    }
+
+
+    .root-item {
+      background: #f00;
+    }
+    .root-item-img {
+      width: 16px;
+    }
+
+  }
+
+}
+

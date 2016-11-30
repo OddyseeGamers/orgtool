@@ -8,7 +8,9 @@ export default DS.Model.extend({
   avatar: DS.attr(),
   timezone: DS.attr(),
   updated_at: DS.attr(),
-  ships: DS.hasMany('ship', { inverse: 'member', async: true}),
+
+  items: DS.hasMany('item', { inverse: 'member', async: true}),
+//   ships: DS.hasMany('ship', { inverse: 'member', async: true}),
   memberUnits: DS.hasMany('memberUnit', { async: true }),
   rewards: DS.attr(),
   logs: DS.attr(),

@@ -1,3 +1,4 @@
+/*
 .member-edit-panel {
   position: relative;
   background-color: #000000 !important;
@@ -14,11 +15,60 @@
     left: 0px;
     right: 0px;
   }
+*/
+$member-width: 128px;
 
-  .member-avatar-img {
-     float: left;
-     width: 42px;
+  .member-details-img {
+//       float: left;
+
+     height: 100%;
+//       width: $member-width;
+     display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .member-time {
+//      width: 100%;
+    height: 85px;
+//      float: left;
+
+    margin: 10px;
+    padding:10px;
+
+    border: 1px solid #219ab3;
+    border-radius: 4px;
+  }
+
+  .member-handles  {
+    td, th {
+      height: 24px;
+    }
+  }
+
+
+  .verticalLine {
+    height: 100%;
+//      border-left: 1px solid #219ab3;
+    border-left: 1px solid #204d74 !important;
+//      border-right: 1px solid #219ab3;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
 
   .member-name-hdr {
     padding-left: 60px;
@@ -29,6 +79,13 @@
     margin-top: 14px;
     margin-bottom: 6px;
   }
+
+  .item-list {
+    height: 100%;
+//      height: calc(100vh - 428px);
+    overflow-y: auto;
+  }
+
 
   //  .compact-table {
   //    height: 100%;
@@ -71,7 +128,8 @@
     width: 20px;
     text-align: right;
   }
-}
+
+//  }
 
 .ship-model-modal {
   .dropdown-menu {
@@ -98,3 +156,4 @@
     border-bottom: 1px solid #1a80b6;
   }
 }
+

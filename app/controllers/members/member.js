@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import pagedArray from 'ember-cli-pagination/computed/paged-array';
 
 var get = Ember.get;
 var set = Ember.set;
@@ -10,12 +9,38 @@ export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
   loader: Ember.inject.service('loader'),
   showDialog: false,
-  currShip: null,
+
+  showItemDialog: false,
+  itemTypeFilter: ["3"],
+
   sortProperties: ['name:asc'],
   sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
   member: null,
+  columns: [25, 25, 25, 25],
+  itemHeight: 150,
+
+
+//   changed: function() {
+//     console.debug("dialog....");
+//   }.observes('showDialog'),
+
+//   changed: function() {
+//     console.debug("ITEM dialog....");
+//   }.observes('showItemDialog'),
 
   actions: {
+
+
+
+
+
+    submit: function() {
+//       var unit = get(this, 'unit');
+      var self = this;
+
+      self.set('showDialog', false);
+    },
+
     /*
     addMember: function() {
       var member = this.store.createRecord('member');
@@ -59,6 +84,12 @@ export default Ember.Controller.extend({
       ship.set('model', shipModel);
     },
     close: function() {
+//       console.debug("the other close...");
+      this.set('showDialog', false);
+      this.transitionToRoute('members');
+    },
+    /*
+    close: function() {
       var ship = get(this, 'currShip');
       if (ship) {
         ship.deleteRecord();
@@ -66,6 +97,7 @@ export default Ember.Controller.extend({
       }
       this.set('showDialog', false);
     },
+    */
     saveShip: function() {
       var ship = get(this, 'currShip');
       if (ship) {

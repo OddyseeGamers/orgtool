@@ -1,0 +1,61 @@
+<div class="item-name">
+  {{#if item.name}}
+    {{item.name}}
+<!--   {{else}} -->
+    [{{item.parent.name}}]
+  {{/if}}
+</div>
+
+
+
+<!-- <div class="item-parent"> -->
+<!--   {{#if details}} -->
+<!--     <div class="ship-class-top"> -->
+<!--       {{get-item-prop item "class"}} -->
+<!--     </div> -->
+<!--   {{else}} -->
+<!--     {{#if item.parent.img}} -->
+<!--       <img class="item-parent-img" src={{item.parent.img}}> -->
+<!--     {{/if}} -->
+<!--     <span class="item-parent-name"> -->
+<!--       {{item.parent.name}} -->
+<!--     </span> -->
+<!--   {{/if}} -->
+<!-- </div> -->
+
+
+<!-- <div class="item-type"> -->
+<!--   <div class="item-type-name"> -->
+<!--     {{item.type.name}} -->
+<!--   </div> -->
+<!-- </div> -->
+
+{{#if item.img}}
+  <img class="item-type-img" src={{item.img}}>
+{{else}}
+  {{#if item.parent.img}}
+    <img class="item-type-img" src={{item.parent.img}}>
+  {{/if}}
+{{/if}}
+
+<!--
+
+<div class="ship-model">
+  <div class="ship-model-name">
+    {{#if details}}
+        crew: <span class="ship-stat">{{get-item-prop item "crew"}}</span>  <span class="ship-sep">|</span> length: <span class="ship-stat">{{get-item-prop item "length"}}</span>  <span class="ship-sep">|</span> mass: <span class="ship-stat">{{get-item-prop item "mass"}}</span>
+    {{else}}
+        {{ship.name}}
+    {{/if}}
+  </div>
+</div>
+
+
+<div class="ship-class">
+  {{#if details}}
+    &nbsp;
+  {{else}}
+    {{get-item-prop item "class"}}
+  {{/if}}
+</div>
+-->

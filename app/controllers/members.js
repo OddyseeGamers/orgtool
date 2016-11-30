@@ -77,6 +77,7 @@ export default Ember.Controller.extend({
   //       this.set('searchFilter', '');
 
     },
+//
 //     clearFilter: function() {
 //       this.set('searchFilter', '');
 //     }

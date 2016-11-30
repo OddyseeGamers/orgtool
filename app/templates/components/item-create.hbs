@@ -1,0 +1,122 @@
+{{!--
+{{#if (and session.isUser showDialog)}}
+--}}
+{{#if showDialog}}
+
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close' class="item-create"}}
+  {{#bs-modal-header}}
+    <h4 class="modal-title">
+      {{#if item.isNew}}
+        Add {{item.type.name}} to
+      {{else}}
+      Edit {{item.type.name}} of
+      {{/if}}
+      {{item.member.name}}
+    </h4>
+  {{/bs-modal-header}}
+  {{#bs-modal-body}}
+
+  {{#if item.isNew}}
+    <label class="control-label">
+      Type
+      {{#unless item.type}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" value={{item.type.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+            {{#each types as |sm|}}
+              <li {{action "setType" sm}}><a href="#" class={{if (and (and (and s s.id) (and item.type item.type.id)) (eq s.id item.type.id)) "active"}} >{{sm.name}}</a></li>
+            {{/each}}
+          {{/bs-dropdown-menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+    {{/if}}
+
+    <label class="control-label">
+      {{#if item.type}} 
+        {{parentType.name}}
+        {{#unless item.parent}}
+        <span class="text-danger">(required)</span>
+        {{/unless}}
+      {{else}}
+        &nbsp;
+      {{/if}}
+    </label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" id="shipModel" value={{item.parent.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+
+          {{#unless itemParentRoot}}
+          {{#each parents as |pa|}}
+              <li {{action "setParent" pa}}><a href="#" class={{if (eq pa.id item.parent.id) "active"}} >{{pa.name}}</a></li>
+          {{/each}}
+          {{/unless}}
+
+            {{#each itemParentRoot as |sm|}}
+              <li class="ship-manu">
+               {{#if sm.img}}
+                  <img class="manu-img" src={{sm.img}}>
+                {{/if}}
+                {{sm.name}}
+              </li>
+              {{#each sm.items as |it|}}
+                <li {{action "setParent" it}}><a href="#" class={{if (eq it.id item.parent.id) "active"}} >{{it.name}}</a></li>
+              {{/each}}
+          {{/each}}
+
+          {{/bs-dropdown-menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+
+    <label class="control-label">Item Name</label>
+    {{input type="text" class="form-control" id="shipName" value=item.name placeholder=item.parent.name}}
+
+<!--     <div class="row"> -->
+      <div class="col-md-8" style="height: 50%;">
+        <br>
+        <div class="item-img-box">
+          {{#if item.parent}}
+            {{item-details item=item.parent details=false}}
+          {{else}}
+            {{#if parentType}}
+              {{item-details item=parentType details=false}}
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="col-md-4 row text-center disabled">
+        <label class="control-label stretch">Hidden</label>
+        {{bs-switch size='mini' checked=false indeterminate=false}}
+        <label class="control-label stretch">Available</label>
+        {{bs-switch size='mini' checked=false indeterminate=false}}
+      </div>
+<!--     </div> -->
+
+
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    {{#unless item.isSaving}}
+      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+      {{#if item.parent}}
+        <button type="submit" class="btn btn-primary" {{action "saveItem"}}> {{#if item.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+      {{else}}
+        <button type="submit" class="btn btn-primary"> {{if item.hasDirtyAttributes 'Save' 'Ok'}} </button>
+      {{/if}}
+    {{/unless}}
+
+  {{/bs-modal-footer}}
+{{/bs-modal}}
+
+
+{{/if}}
+

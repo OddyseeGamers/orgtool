@@ -1,0 +1,15 @@
+<div id="item" style="height:100%;overflow-y:auto">
+  items: {{models.items.length}} <br>
+  itemTpes: {{models.itemTypes.length}} <br>
+  {{#each models.itemTypes as |itemType|}}
+    {{#each itemType.items as |item|}}
+      {{#unless item.parent}}
+        <br> {{item.name}} | {{itemType.typeName}} | {{item.items.length}} <br>
+        {{#each item.items as |it|}}
+          &nbsp;&nbsp;&nbsp;&nbsp; - {{it.name}} <br>
+        {{/each}}
+      {{/unless}}
+    {{/each}}
+  {{/each}}
+</div>
+

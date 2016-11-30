@@ -31,13 +31,26 @@ export default Ember.Service.extend(Ember.Evented, {
       memberUnits: this.createRequest("memberUnits", "memberUnit"),
       unitTypes: self.createRequest("unitTypes", "unitType"),
 //       ships: this.createRequest("ships", "ship")
+//
+      items: self.createRequest("items", "item"),
+      itemTypes: self.createRequest("props", "prop"),
+      itemProps: self.createRequest("itemProps", "itemProp"),
+      itemTypes: self.createRequest("itemTypes", "itemType"),
+    });
+    return this.models.then(function(done) {
+          console.debug("loading all done");// , done.get('length'));
+          self.set("state", "done");
+          self.set('loading', false);
     });
 
+
+/*
     return this.models.then(function(done) {
       console.debug("loading all done");// , done.get('length'));
       self.set("state", "done");
       self.set('loading', false);
       self.models = Ember.RSVP.hash({
+
         ships: self.createRequest("ships", "ship"),
         shipModels: self.createRequest("shipModels", "shipModel"),
         shipManufacturers: self.createRequest("shipManufacturers", "shipManufacturer"),
@@ -46,6 +59,7 @@ export default Ember.Service.extend(Ember.Evented, {
 
 
     });
+    */
   },
 
   getById(model, id) {
@@ -56,30 +70,13 @@ export default Ember.Service.extend(Ember.Evented, {
       });
   },
 
-  loadAssets: function() {
-    console.debug("-------- load them all 2");
-    var self = this;
-    this.set('loading', true);
-    self.set("state", "start");
-    var self = this;
-
-    this.models = Ember.RSVP.hash({
-      units: this.createRequest("units", "unit"),
-      unitTypes: this.createRequest("unitTypes", "unitType"),
-      members: this.createRequest("members", "member"),
-      memberUnits: this.createRequest("memberUnits", "memberUnit"),
-      ships: this.createRequest("ships", "ship"),
-      shipModels: this.createRequest("shipModels", "shipModel"),
-      shipManufacturers: this.createRequest("shipManufacturers", "shipManufacturer"),
-      shipClass: this.createRequest("shipClass", "shipClass")
-    });
-
-    return this.models.then(function(done) {
-      console.debug(" all done" ,done);
-      self.set("state", "done");
-      self.set('loading', false);
-    });
+  hasParent: function(id, model, attr) {
+    try {
+      return model.get("id") == id || model.get(attr) && this.hasParent(id, model.get(attr));
+    } catch(err) {
+        console.debug("error", err);
+    }
+    return false;
   },
-
 
 });

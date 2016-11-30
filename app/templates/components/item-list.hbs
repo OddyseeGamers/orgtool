@@ -1,0 +1,160 @@
+<div class="item-menu">
+
+  
+  <div class="item-type-menu">
+
+      <span class="item-type-menu-item">
+        <a href="#" class={{unless typeFilter "active"}} {{action "setTypeFilter" null}}>
+          All
+        </a>
+      </span>
+      {{#each types as |it|}}
+      <span class="item-type-menu-item">
+        <a href="#" class={{if (eq it.id typeFilter.id) "active"}} {{action "setTypeFilter" it}}>
+          {{#if it.img}}
+            <img class="root-item-img" src={{it.img}}>
+          {{else}}
+<!--                       <img class="root-item-img" src={{rootUnit.img}}> -->
+          {{/if}}
+          {{it.name}}s
+        </a>
+      </span>
+      {{/each}}
+
+  </div>
+
+
+  <div class="item-stat-menu">
+      Items: {{filteredContent.length}} / {{items.length}}
+  </div>
+
+  {{#if (or (and adminMode session.isAdmin) (and (not adminMode) session.isUser)) }}
+    <div class="toolbar">
+      <button type="button" class="tb tb-default pull-right" {{action "addItem" member}}> <i class="fa fa-plus" ></i> Item</button>
+    </div>
+  {{/if}}
+</div>
+
+<div class="item-list">
+    {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |item index|}}
+      {{item-details item=item details=details onConfirm=(action "showConfirm") onEdit=(action "showEdit")}}
+    {{/ember-collection}}
+</div>
+
+{{#if showItemDialog}}
+  {{item-create item=currItem showDialog=showItemDialog itemTypeFilter=itemTypeFilter}}
+{{/if}}
+
+
+{{#if showConfirmDialog}}
+  {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+{{/if}}
+
+
+
+
+{{!--
+
+
+
+    {{#if showFilter}}
+    <div class="col-md-6">
+      Game
+      <div class="input-group">
+          {{#if (eq gameFilter "unset")}}
+            <input type="text" class="form-control" id="game" value="Unset" placeholder="All" readonly>
+          {{else}}
+            <input type="text" class="form-control" id="game" value={{gameFilter.name}} placeholder="All" readonly>
+          {{/if}}
+        <div class="input-group-btn">
+
+          {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+          <li {{action "setGameFilter" null}}>
+            <a href="#" class={{unless gameFilter "active"}}>
+              <img class="root-item-img" style="width:24px;" src={{games.img}}>
+              All
+            </a>
+          </li>
+
+          {{#each games.units as |g|}}
+          <li {{action "setGameFilter" g}}>
+          <a href="#" class={{if (eq g.id gameFilter.id) "active"}}>
+            {{#if g.img}}
+              <img class="root-item-img" style="width:24px;" src={{g.img}}>
+            {{else}}
+              <img class="root-item-img" style="width:24px;" src={{games.img}}>
+            {{/if}}
+            {{g.name}}
+          </a>
+          </li>
+          {{/each}}
+
+          <li {{action "setGameFilter" "unset"}}>
+          <a href="#" class={{if (eq gameFilter "unset") "active"}}>
+            <img class="root-item-img" style="width:24px;">
+            Unset
+          </a>
+          </li>
+
+          {{/bs-dropdown-menu}}
+          {{/bs-dropdown}}
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+        Type
+        <div class="input-group">
+          <input type="text" class="form-control" value={{typeFilter.name}} placeholder="All" readonly>
+          <div class="input-group-btn">
+
+            {{#bs-dropdown}}
+              {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+              {{#bs-dropdown-menu align="right"}}
+                <li {{action "setTypeFilter" null}}>
+                  <a href="#" class={{unless typeFilter "active"}}>
+<!--                     <img class="root-item-img" src={{rootUnit.img}}> -->
+                    All
+                  </a>
+                </li>
+
+                {{#each types as |it|}}
+                <li {{action "setTypeFilter" it}}>
+                  <a href="#" class={{if (eq it.id typeFilter.id) "active"}}>
+                    {{#if it.img}}
+                      <img class="root-item-img" src={{it.img}}>
+                    {{else}}
+<!--                       <img class="root-item-img" src={{rootUnit.img}}> -->
+                    {{/if}}
+                    {{it.name}}
+                  </a>
+                </li>
+                {{/each}}
+              {{/bs-dropdown-menu}}
+            {{/bs-dropdown}}
+
+          </div>
+        </div>
+      </div>
+
+    <div class="filter-stats">
+      {{#if (or typeFilter gameFilter)}}
+      {{#if filteredContent.length}}
+      found: {{filteredContent.length}} of {{items.length}}
+      {{else}}
+      nothing found
+      {{/if}}
+      {{else}}
+      Items: {{items.length}}
+      {{/if}}
+    </div>
+    {{/if}}
+<!--   </div> -->
+
+
+
+
+--}}

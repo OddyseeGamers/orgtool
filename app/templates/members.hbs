@@ -1,16 +1,18 @@
-<div class="pull-left">
+<!-- <div class="pull-left"> -->
     {{member-list members=models.members details=true showEdit=true}}
-</div>
+<!-- </div> -->
 
+  {{outlet}}
+
+
+{{!--
 <div class="pull-left" style="position: relative;">
   {{#if session.isAdmin}}
     <div class="context-toolbar">
       <button type="button" class="btn btn-success" style="" {{action 'createMember'}}>{{fa-icon "plus"}} Add Member</button>
     </div>
   {{/if}}
-  {{outlet}}
 </div>
 
-
-{{!--
+  {{outlet}}
  --}}

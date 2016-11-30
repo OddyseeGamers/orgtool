@@ -17,6 +17,8 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 
 
+    this.get("session").log("init", "");
+
 
     this.get('eventManager').on('log', this.log.bind(this));
     this.get('eventManager').on('success', this.success.bind(this));
@@ -58,19 +60,20 @@ export default Ember.Controller.extend({
     }
 
     if (found) {
-      this.log('member:' + data.id + ' is already assinged to unit: ' + data.dest);
+      this.log();
+      this.get("session").log("assign", 'member:' + data.id + ' is already assinged to unit: ' + data.dest);
     } else {
       var memUn = this.store.createRecord('memberUnit');
       memUn.set('member', member);
       memUn.set('unit', unit);
 
-      this.log('assign member:' + data.id + ' to unit: ' + data.dest);
+      this.get("session").log("assign", 'assign member:' + data.id + ' from unit: ' + data.dest);
       var self = this;
       self.set('loading', true);
       memUn.save().then(function() {
-        self.success('member assigned ' + data.id);
+        self.get("session").log("assign", "member assigned " + data.id);
       }).catch(function(err) {
-        self.failure("assigning member " + data.get(member, 'id'));
+        self.get("session").log("error", "assigning member " + data.get(member, 'id'));
         console.debug("assign err", err);
         memUn.rollback();
       });
@@ -95,12 +98,12 @@ export default Ember.Controller.extend({
 
     if (found) {
       var self = this;
-      this.log('unassign member:' + data.id + ' from unit: ' + data.dest);
-      self.set('loading', true);
+      this.get("session").log("unassign", 'unassign member:' + data.id + ' from unit: ' + data.dest);
+//       self.set('loading', true);
       memUn.destroyRecord().then(function() {
-        self.success('member unassigned ' + data.id);
+        self.get("session").log("unassign", "member unassigned " + data.id);
       }).catch(function(err) {
-        self.failure("unassigning member " + get(member, 'id'));
+        self.get("session").log("error", "unassigning member " + get(member, 'id'));
         console.debug("unassign err", err);
         memUn.rollback();
       });
@@ -111,12 +114,11 @@ export default Ember.Controller.extend({
 
   actions: {
     login: function() {
-      var pwd = get(this, 'pwd');
       var session = this.get('session');
-      if (session.authenticate(pwd)) {
-        this.success('logged in as ' + (session.isAdmin?"admin":"member"));
+      if (session.authenticate(get(this, 'pwd'))) {
+        this.get("session").log("login", 'logged in as ' + (session.isAdmin?"admin":"member"));
       } else {
-        this.failure('login failed');
+        this.get("session").log("error", "login failed");
       }
     }
   }

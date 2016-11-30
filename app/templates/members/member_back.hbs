@@ -1,0 +1,403 @@
+{{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false closeAction='close' }}
+  {{#bs-modal-header}}
+<!--     <div class="member-name-hdr"> -->
+      <h4>
+        {{#if member.name}} {{member.name}} {{else}} &nbsp; {{/if}}
+      </h4>
+<!--     </div> -->
+  {{/bs-modal-header}}
+
+  {{#bs-modal-body}}
+    <div class="row">
+
+      <div class="col-md-2">
+        <div class="member-avatar">
+          <button type="button" class="btn btn-default btn-xs add-ship-button" {{action "changeAvatar" member}} disabled=true> <i class="fa fa-edit" ></i> Edit</button>
+          {{#if member.avatar}}
+            <img class="member-avatar-img" src={{member.avatar}}>
+          {{else}}
+            <img class="member-avatar-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label class="control-label">Name</label>
+        {{input type="text" class="form-control" value=member.name readonly=(not session.isAdmin)}}
+        <label class="control-label">Timezone UTC</label>
+        {{input type="number" class="form-control" value=member.timezone readonly=(not session.isUser)}}
+      </div>
+
+      <div class="col-md-3 verticalLine">
+        <div class="row">
+          <table class="table member-handles">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="http://vignette3.wikia.nocookie.net/siivagunner/images/9/9f/Discord_icon.svg" style="width:20px;height:20px">
+                  <b>Discord</b></td>
+                <td>{{member.handle}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="https://robertsspaceindustries.com/media/tb6ui8j38wwscr/icon/RSI.png" style="width:20px;height:20px">
+                  <b>RSI Handle</b></td>
+                <td>{{member.handle}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="http://icons.iconarchive.com/icons/martz90/circle/24/steam-icon.png" style="width:20px;height:20px">
+                  <b>Steam</b></td>
+                <td>{{member.handle}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="col-md-2 verticalLine">
+        <div class="row">
+        <label class="control-label">Units: {{member.memberUnits.length}}</label>
+        <div>
+          {{#each member.memberUnits as |memUn|}}
+          {{memUn.unit.name}}<br>
+          {{/each}}
+        </div>
+        </div>
+      </div>
+      
+      <div class="col-md-2 verticalLine">
+        <div class="row">
+        <label class="control-label">Games: 1</label>
+<!--         <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addGame" member}} disabled={{if currShip "disabled"}}> <i class="fa fa-plus" ></i> Add Game</button> -->
+        <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addGame" member}} disabled=true> <i class="fa fa-plus" ></i> Add Game</button>
+        <div>
+          <img src="https://upload.wikimedia.org/wikipedia/en/9/91/Star_Citizen_logo.png" style="width:20px;height:20px">
+          Star Citizen
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <hr>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 verticalLine">
+        <label class="control-label">Items: {{member.ships.length}}</label>
+        <button type="button" class="btn btn-default btn-xs" > <i class="fa fa-gear" ></i> Ships</button>
+        <button type="button" class="btn btn-default btn-xs" disabled=true> <i class="fa fa-gear" ></i> Vehicels</button>
+        <button type="button" class="btn btn-default btn-xs" disabled=true> <i class="fa fa-gear" ></i> Weapons</button>
+        <button type="button" class="btn btn-default btn-xs" disabled=true> <i class="fa fa-gear" ></i> Dinos</button>
+        Show Hidden
+        {{bs-switch size='mini' checked=false indeterminate=false disabled=true}}
+
+        <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" member}} disabled=true> <i class="fa fa-plus" ></i> Add Item</button>
+        <div style=clear:both;></div>
+        <div class="item-list">
+          {{#each member.ships as |ship|}}
+            <div class="col-md-4">
+              {{ship-model-details ship=ship.model name=ship.name}}
+            </div>
+          {{/each}}
+
+        </div>
+      </div>
+
+
+        <div class="col-md-3 verticalLine">
+
+          <label class="control-label">Gametime Schedule:</label>
+          <button type="button" class="btn btn-default btn-xs add-ship-button" {{action "addTime" member}} disabled=true> <i class="fa fa-plus" ></i> Add Time</button>
+          <div style=clear:both;></div>
+          
+
+          <div class="member-time">
+            <div style="font-weight: bold;">Sunday</div><br>
+            18:00 - 20:00 <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a> <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+          </div>                                                                     
+          <!--
+          <div class="member-time">
+            <div style="font-weight: bold;">Wednesday</div><br>
+            22:00 - 00:00 <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a> <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+          </div>                                                                  
+          <div class="member-time">
+            <div style="font-weight: bold;">Friday</div><br>
+            22:00 - 00:00 <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a> <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+          </div>                                                                
+          <div class="member-time">
+            <div style="font-weight: bold;">Saturday</div><br>
+            12:00 - 15:00 <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a> <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a><br>
+            20:00 - 00:00 <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a> <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+          </div>
+          -->
+        </div>
+
+        <div class="col-md-3 verticalLine">
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Rank</label><br><br>
+<!--             </div> -->
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Positions</label><br><br>
+<!--             </div> -->
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Roles</label><br><br>
+<!--             </div> -->
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Certificates</label><br><br>
+<!--             </div> -->
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Badges</label><br><br>
+<!--             </div> -->
+<!--             <div class="col-md-6"> -->
+              <label class="control-label">Achievements</label><br><br>
+<!--             </div> -->
+        </div>
+
+    </div>
+
+
+  {{/bs-modal-body}}
+
+  {{#bs-modal-footer}}
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+
+    {{#if (and member.hasDirtyAttributes session.isAdmin)}}
+      <button type="submit" class="btn btn-primary">{{fa-icon "save"}} Save</button>
+    {{/if}}
+
+    {{#if session.isAdmin}}
+      <button type="submit" class="btn btn-danger pull-right" {{action "deleteMember" member}}>{{fa-icon "remove"}} Delete</button>
+    {{/if}}
+  {{/bs-modal-footer}}
+{{/bs-modal}}
+
+{{!--
+<div class="panel panel-default member-edit-panel">
+  <div class="panel-heading">
+    <div class="member-avatar">
+      {{#if model.avatar}}
+        <img class="member-avatar-img" src={{model.avatar}}>
+      {{else}}
+        <img class="member-avatar-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
+      {{/if}}
+    </div>
+    <div class="member-name-hdr">
+      <h4>
+        {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
+      </h4>
+    </div>
+  </div>
+
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Name</label>
+        {{input type="text" class="form-control" value=model.name}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Handle</label>
+        {{input type="text" class="form-control"  value=model.handle}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Timezone</label>
+        {{input type="number" class="form-control" value=model.timezone}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Avatar</label>
+        {{input type="text" class="form-control" value=model.avatar}}
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Rank</label>
+        {{input type="text" class="form-control" disabled=true}}
+      </div>
+      <div class="col-md-6">
+        <label class="control-label">Roles</label>
+        {{input type="text" class="form-control" disabled=true}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label">Units: {{model.memberUnits.length}}</label>
+        <div>
+          {{#each model.memberUnits as |memUn|}}
+            {{memUn.unit.name}},
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-6">
+        <label class="control-label">Items: {{model.ships.length}}</label>
+        {{#if session.isUser}}
+          <button type="button" class="btn btn-default btn-xs pull-right add-ship-button" {{action "addShip" model}} disabled={{if currShip "disabled"}}> <i class="fa fa-plus" ></i> Add Item</button>
+        {{/if}}
+
+        <table class="table compact-table">
+          <tbody>
+            {{#each model.ships as |ship|}}
+            {{#if ship.model}}
+            <tr>
+              <td class="ship-name">
+                {{#if ship.name}}
+                  {{ship.name}}
+                {{else}}
+                  {{ship.model.name}}
+                {{/if}}
+              </td>
+
+              <td class="ship-edit text-danger text-right">
+                {{#if session.isUser}}
+                  {{#unless ship.isNew}}
+                  <a href="#" class="text-info" {{action "editShip" ship}}>{{fa-icon "edit"}}</a>
+                  {{/unless}}
+                {{/if}}
+              </td>
+              <td class="ship-edit text-danger text-right">
+                {{#if session.isAdmin}}
+                  {{#unless ship.isNew}}
+                  <a href="#" class="text-danger" {{action "meldShip" ship}}>{{fa-icon "remove"}}</a>
+                  {{/unless}}
+                {{/if}}
+              </td>
+            </tr>
+            {{/if}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <label class="control-label">Rewards: {{model.rewards.length}}</label>
+        {{#if session.isAdmin}}
+          <button type="button" class="btn btn-default btn-xs pull-right add-ship-button disabled" {{action "addReward" model}}> <i class="fa fa-plus"></i> Add Reward</button>
+        {{/if}}
+        <table class="table compact-table">
+          <tbody>
+            {{#each model.rewards as |rew|}}
+            <tr>
+              <td class="ship-name">{{rew.name}}</td>
+              <td class="ship-edit"></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {{#if session.isUser}}
+  <div class="panel-footer">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-6">
+      </div>
+
+      <div class="col-md-3">
+        {{#if session.isAdmin}}
+        <button type="submit" class="btn btn-danger pull-right" {{action "deleteMember" model}}>{{fa-icon "remove"}} Delete</button>
+        {{/if}}
+      </div>
+
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-default pull-right" {{action "saveMember" model}}>{{fa-icon "save"}} Save</button>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+
+{{#if session.isUser}}
+{{#bs-modal open=showDialog header=false body=false footer=false autoClose=false closeAction='close' class="myfade"}}
+  {{#bs-modal-header}}
+    <h4 class="modal-title">
+      {{#if currShip.isNew}}
+        Add Ship to
+      {{else}}
+        Edit Ship of
+      {{/if}}
+      {{currShip.member.name}}
+    </h4>
+  {{/bs-modal-header}}
+  {{#bs-modal-body}}
+
+    <label class="control-label">
+      Model
+      {{#unless currShip.model}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" id="shipModel" value={{currShip.model.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+            {{#each loader.shipManufacturers as |sm|}}
+              <li class="ship-manu">
+               {{#if sm.img}}
+                  <img class="manu-img" src={{concat-string "https://robertsspaceindustries.com" sm.img}}>
+                {{/if}}
+                {{sm.name}}
+              </li>
+              {{#each sm.ships as |s|}}
+                <li {{action "setModel" s}}><a href="#" class={{if (eq s.id currShip.model.id) "active"}} >{{s.name}}</a></li>
+              {{/each}}
+            {{/each}}
+          {{/bs-dropdown-menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+
+    <label class="control-label">Ship Name</label>
+    {{input type="text" class="form-control" id="shipName" value=currShip.name placeholder=currShip.model.name}}
+
+    <br>
+
+    <div class="row text-center">
+      <div class="col-md-6">
+        <label class="control-label stretch">Hidden</label>
+        {{bs-switch size='mini' checked=currShip.hidden indeterminate=false}}
+      </div>
+
+      <div class="col-md-6">
+        <label class="control-label stretch">Available</label>
+        {{bs-switch size='mini' checked=currShip.available indeterminate=false}}
+      </div>
+    </div>
+
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    {{#if currShip.model}}
+      <button type="submit" class="btn btn-primary" {{action "saveShip"}}> {{#if currShip.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    {{else}}
+      <button type="submit" class="btn btn-primary"> {{if currShip.hasDirtyAttributes 'Save' 'Ok'}} </button>
+    {{/if}}
+  {{/bs-modal-footer}}
+{{/bs-modal}}
+{{/if}}
+
+</div>
+--}}

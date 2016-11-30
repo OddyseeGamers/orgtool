@@ -86,7 +86,8 @@ $menu-height: 42px;
 
 
 hr {
-    border-top: 1px solid #333;
+//      border-top: 1px solid #219ab3;
+    border-top: 1px solid #204d74 !important;
     margin-top: 20px;
     margin-bottom: 0px;
 }
@@ -110,12 +111,16 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 //    border: 1px solid #000;
 }
 
-.context-toolbar {
-  position:absolute;
-  bottom:14px;
-  left:20px;
-  z-index:5;
-}
+
+
+  .member-details-name {
+    position: relative;
+//      right: -5px;
+    width: 100%;
+    height: 100%;
+  }
+
+
 
 
 
@@ -124,6 +129,7 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 @import 'overview/members';
 
 @import 'ships/ships';
+@import 'items/items';
 
 @import 'members/members';
 @import 'members/member';
@@ -132,4 +138,8 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 @import 'components/unit-tree';
 @import 'components/member-list';
 @import 'components/member-details';
+@import 'components/item-list';
+@import 'components/item-details';
+@import 'components/item-create';
+
 @import 'components/ship-model-details';

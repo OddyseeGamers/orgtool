@@ -3,16 +3,33 @@ import Ember from 'ember';
 export default Ember.Service.extend({
   isAdmin: false,
   isUser: false,
+//   history: Ember.A(),
+  store: Ember.inject.service(),
+
+  log: function(comp, msg) {
+    var d = new Date();
+    var timestamp = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear() + " " + d.getHours() + " " + d.getMinutes() + ":" + d.getSeconds();
+    var log = Ember.get(this, "store").createRecord('log');
+    Ember.set(log, "timestamp", timestamp);
+    Ember.set(log, "comp", comp);
+    Ember.set(log, "msg", msg);
+
+//     console.debug("create log entry", Ember.get(Ember.get(this, 'store').peekAll('log'), "length"), " | ", log);
+  },
+
   authenticate: function(pwd) {
     if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "7638a389813dd18806ec1954d3198b21") {
       this.set('isAdmin', true);
       this.set('isUser', true);
-    } else if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "ce4e33ba73789027a1b9937e7d0025c0") {
+      this.log("session", "logged in as admin");
+    } else if (!Ember.isEmpty(pwd) && this.MD5(pwd) == "a2b6f2a6066ed8700d83335fc50a2b8e") {
       this.set('isAdmin', false);
       this.set('isUser', true);
+      this.log("session", "logged in as user");
     } else {
       this.set('isAdmin', false);
       this.set('isUser', false);
+      this.log("session", "login failed");
     }
 
     return this.get('isAdmin') || this.get('isUser');

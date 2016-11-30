@@ -1,0 +1,130 @@
+$item-margin: 6px;
+$item-font: 12px;
+//  $item-info-bg: rgba(10, 12, 17, .75);
+//  $item-info-bg: #0A0C11;
+$item-info-bg: #222;
+
+.item-details {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+  overflow: hidden;
+
+  border-top: 1px solid #222;
+
+  .top-left {
+//      color: #1a80b6;
+    color: #fff;
+    font-size: 14px;
+
+    position: absolute;
+    left: 0px;
+    padding-right: 10px;
+    border-radius: 0 0 10px 0px;
+    background-color: $item-info-bg;
+//      color: #fff;
+//      font-size: 10px;
+    vertical-align: middle;
+    z-index: 2;
+  }
+
+  .top-left-name {
+    color: #1a80b6;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 2;
+  }
+
+  .top-left-img {
+    width: 24px;
+  }
+
+
+
+
+  .item-parent {
+//      float: left;
+    position: absolute;
+    left: 0px;
+    padding-right: 10px;
+    border-radius: 0 0 10px 0px;
+    background-color: $item-info-bg;
+    color: #fff;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+
+  .item-type {
+//      float: left;
+    position: absolute;
+//      top: 0px;
+    right: 0px;
+    padding-left: 10px;
+    border-radius: 0px 0px 0px 10px;
+    background-color: $item-info-bg;
+    color: #fff;
+    font-size: 12px;
+//      margin-right: 2px;
+    vertical-align: middle;
+  }
+
+  .item-type-name {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 10px;
+  }
+
+
+
+  .item-img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    height: auto;
+    width:100%;
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+  }
+
+  .item-type-img {
+         height: 75%;
+     display: block;
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+
+
+  .bottom-right {
+    position: absolute;
+    height: 20px;
+    bottom: 19px;
+    right: 0px;
+    color: #fff;
+    padding-left: 10px;
+    border-radius: 10px 0px 0px 0px;
+    background-color: $item-info-bg;;
+    color: #fff;
+  }
+
+  .bottom-right-text {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 10px;
+  }
+
+  .item-sep {
+//      color: #660000;
+    color: #777;
+  }
+
+  .item-stat {
+    color: #1a80b6;
+  }
+}

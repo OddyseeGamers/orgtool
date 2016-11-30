@@ -1,9 +1,9 @@
 $item-margin: 6px;
 $item-font: 12px;
-//  $item-info-bg: background-color: rgba(10, 12, 17, .75);
-$item-info-bg: #0A0C11;
+$item-info-bg: rgba(10, 12, 17, .75);
+//  $item-info-bg: #0A0C11;
 
-.ship-model-details {
+.item-details {
 //    width: 300px;
 //    height: 400px;
 
@@ -31,10 +31,6 @@ $item-info-bg: #0A0C11;
     vertical-align: middle;
   }
 
-  .manu-img {
-    height: 20px;
-  }
-
   .ship-manu-name {
 //      height: 20px;
 //      margin-left: -2px;
@@ -46,8 +42,18 @@ $item-info-bg: #0A0C11;
 //      margin-right: $item-margin;
   }
 
+  .manu-img {
+    width: 24px;
+  }
+
   .ship-img {
-    width: 100%;
+         height: 100%;
+//       width: $member-width;
+     display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+//      width: 100%;
 //      width: 200px;
 //      height: 74px;
 //      height: 66px;

@@ -8,6 +8,7 @@
     background-color: transparent;
     border: 1px solid #219ab3;
     color: #fff;
+    height: 28px;
 /*     color: #219ab3; */
 }
 
@@ -38,3 +39,10 @@ label {
   display:inline;
 }
 
+.input-group-addon, .input-group-btn {
+  height: 28px;
+}
+
+.input-group .form-control {
+  z-index: 1;
+}

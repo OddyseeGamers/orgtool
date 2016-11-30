@@ -1,0 +1,57 @@
+<!-- <div class="item-name"> -->
+<!--   {{#if item.name}} -->
+<!--     {{item.name}} -->
+<!--     [{{item.parent.name}}] -->
+<!--   {{/if}} -->
+<!-- </div> -->
+
+<div class="top-left">
+    {{#if item.parent.parent.img}}
+      <img class="top-left-img" src={{item.parent.parent.img}}>
+    {{/if}}
+    <span class="top-left-name">
+      {{#if item.name}}
+        {{item.name}}
+      {{else}}
+        {{item.parent.name}}
+      {{/if}}
+    </span>
+</div>
+
+
+
+<div class="item-type">
+    <div class="ship-class-top">
+      {{item.type.name}} 
+      {{#if session.isUser}}
+          <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
+          <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
+      {{/if}}
+    </div>
+</div>
+
+
+
+{{#if item.img}}
+  <img class="item-img" src={{item.img}}>
+{{else}}
+  {{#if item.parent.img}}
+    <img class="item-img" src={{item.parent.img}}>
+  {{/if}}
+{{/if}}
+
+<div class="bottom-right">
+  <div class="bottom-right-text">
+      {{get-item-prop item.parent "class"}}
+  </div>
+</div>
+
+<!--
+<div class="ship-class">
+  {{#if details}}
+    &nbsp;
+  {{else}}
+    {{get-item-prop item "class"}}
+  {{/if}}
+</div>
+-->

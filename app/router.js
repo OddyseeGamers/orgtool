@@ -19,13 +19,15 @@ Router.map(function() {
       });
     });
 
-    this.route('ships');
+//     this.route('ships');
+    this.route('items');
+    this.route('log');
 
-    this.route('assets');
+//     this.route('settings', { resetNamespace: true }, function() {
+//       this.route('ships');
+//       this.route('items');
+//     });
 
-    this.route('settings', { resetNamespace: true }, function() {
-      this.route('ships');
-    });
 });
 
 export default Router;

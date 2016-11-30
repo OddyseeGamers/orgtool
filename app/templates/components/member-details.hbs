@@ -28,7 +28,7 @@
     </div>
 
     <div class="col-md-2">
-      s: {{member.ships.length}} tz: {{member.timezone}}
+      i: {{member.items.length}} tz: {{member.timezone}}
 
       {{#if session.isAdmin}}
         {{#if member.wp_id}}
@@ -52,8 +52,8 @@
 
           <div class="member-remove">
             <div class="member-stats">
-              {{#if member.ships.length}}
-              s: {{member.ships.length}}
+              {{#if member.items.length}}
+              i: {{member.items.length}}
               {{/if}}
               {{#if member.memberUnits.length}}
               u: {{member.memberUnits.length}}

@@ -1,8 +1,55 @@
 
+.modal-xl {
+//      width: 90%;
+    width: calc(100vw - 120px);
+    height: calc(100vh - 60px);
+
+  .modal-body {
+      height: calc(100vh - 180px);
+      overflow-y: auto;
+  }
+}
+
+.modal-l {
+    width: 60%;
+    height: calc(100vh - 60px);
+//    .modal-content {
+//      height: 100%;
+//    }
+
+  .modal-body {
+      height: calc(100vh - 180px);
+      overflow-y: auto;
+  }
+
+}
+
 .modal-content {
 //    background-color: #fff;
   background-color: #0A0C11;
 }
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+
 
 body.modal-open {
     overflow: visible;
@@ -39,12 +86,17 @@ media="all"
 }
 */
 .close {
+//      color: #f00;
+//      color: #1a80b6;
+    text-shadow: 0 1px 0 #1a80b6;
     color: #337ab7;
-    opacity: .5;
+    opacity: 1;
 }
 
 .close:hover, .close:focus {
-    color: #337ab7;
+//      color: #337ab7;
+//      color: #fff;
+    color: #fff;
     opacity: 1;
 }
 

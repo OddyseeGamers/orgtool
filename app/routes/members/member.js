@@ -15,7 +15,10 @@ export default Ember.Route.extend({
   afterModel: function(model, transition) {
     var self = this;
     get(this, 'member').then(function(mem) {
-      self.controllerFor('members.member').set('model', mem);
+      console.debug("show member", mem.get("name"));
+      self.controllerFor('members.member').set('member', mem);
+      self.controllerFor('members.member').set('showDialog', !self.controllerFor('members.member').get('showDialog'));
+      console.debug("show member done?", self.controllerFor('members.member').get('showDialog'));
     });
   },
 });
