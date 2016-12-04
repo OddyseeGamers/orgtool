@@ -13,6 +13,8 @@ $item-info-bg: #222;
 
   border-top: 1px solid #222;
 
+//    padding-left: 10px;
+
   .top-left {
 //      color: #1a80b6;
     color: #fff;
@@ -64,13 +66,15 @@ $item-info-bg: #222;
     border-radius: 0px 0px 0px 10px;
     background-color: $item-info-bg;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
+    z-index: 1;
+//      margin-top: 3px;
 //      margin-right: 2px;
     vertical-align: middle;
   }
 
   .item-type-name {
-    margin-top: 3px;
+//      margin-top: 3px;
     margin-bottom: 3px;
     margin-right: 10px;
   }
@@ -104,7 +108,7 @@ $item-info-bg: #222;
   .bottom-right {
     position: absolute;
     height: 20px;
-    bottom: 19px;
+    bottom: 0;
     right: 0px;
     color: #fff;
     padding-left: 10px;

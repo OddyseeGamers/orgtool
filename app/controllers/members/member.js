@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
   sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
   member: null,
   columns: [25, 25, 25, 25],
-  itemHeight: 150,
+  itemHeight: 120,
 
 
 
