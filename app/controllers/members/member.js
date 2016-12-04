@@ -20,6 +20,7 @@ export default Ember.Controller.extend({
   itemHeight: 150,
 
 
+
 //   changed: function() {
 //     console.debug("dialog....");
 //   }.observes('showDialog'),

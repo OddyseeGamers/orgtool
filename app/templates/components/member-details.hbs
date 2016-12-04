@@ -4,11 +4,7 @@
 <!--     </div> -->
 
     <div class="col-md-3">
-      {{#if member.avatar}}
-      <img class="member-avatar" src={{member.avatar}}>
-      {{else}}
-      <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-      {{/if}}
+      <img class="member-avatar" src={{member.avatar}} onerror="this.src='blank.png'">
 
       <div class="member-name">
         {{member.name}}
@@ -27,23 +23,33 @@
       {{/if}}
     </div>
 
-    <div class="col-md-2">
-      i: {{member.items.length}} tz: {{member.timezone}}
+    <div class="col-md-1">
+    </div>
 
+    <div class="col-md-1">
+      <div class="col-md-4">
+      {{member.timezone}}
+      </div>
+
+      <div class="col-md-4">
+      {{#if member.items.length}}
+        {{member.items.length}}
+      {{/if}}
+      </div>
+      
+      <div class="col-md-4">
       {{#if session.isAdmin}}
         {{#if member.wp_id}}
           <i class="fa fa-check text-success"></i> 
         {{/if}}
       {{/if}}
+      </div>
     </div>
+
   {{/link-to}}
 {{else}}
   <div class="member-detail">
-    {{#if member.avatar}}
-      <img class="member-avatar" src={{member.avatar}}>
-    {{else}}
-      <img class="member-avatar" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-    {{/if}}
+    <img class="member-avatar" src={{member.avatar}} onerror="this.src='blank.png'">
     <div class="member-box">
         <div class="member-info">
           <div class="member-name">

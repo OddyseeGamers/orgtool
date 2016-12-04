@@ -6,18 +6,18 @@
     </h4>
   {{/bs-modal-header}}
   {{#bs-modal-body}}
-  {{#if msg.item.isSaving}}
 
       <div class="loader-screen">
-        <div class="loader-box">
+        <div class="loader-box" style="height: 120px;">
+  {{#if msg.item.isSaving}}
           <div class="loader-text">
-            <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin "></button>
+            <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin"></button>
           </div>
-        </div>
-      </div>
   {{else}}
     {{msg.content}}
   {{/if}}
+        </div>
+      </div>
   {{/bs-modal-body}}
   {{#bs-modal-footer}}
     <button type="button" class="btn btn-default" {{action "close"}}>Close</button>

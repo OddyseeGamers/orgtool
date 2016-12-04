@@ -4,8 +4,12 @@ var get = Ember.get;
 var set = Ember.set;
 
 export default Ember.Route.extend({
-  eventManager: Ember.inject.service('events'),
+//   store: Ember.inject.service('store'),
   loader: Ember.inject.service(),
+
+//   model: function() {
+//     return this.store.findAll('member');
+//   },
 
   setupController(controller, model) {
     Ember.set(controller, 'models', this.get('loader', 'models'));
