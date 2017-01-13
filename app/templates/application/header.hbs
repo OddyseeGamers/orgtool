@@ -1,28 +1,15 @@
-<div id="header" class="clearfix">
+<div id="myheader" class="clearfix">
   <ul class="nav nav-tabs">
-    <li>{{#link-to 'overview'}}<i class="fa fa-pie-chart"></i> Overview{{/link-to}}</li>
-    <li>{{#link-to 'members'}}<i class="fa fa-users"></i> Members{{/link-to}}</li>
-<!--     <li>{{#link-to 'ships'}}<i class="fa fa-cubes"></i> Ships{{/link-to}}</li> -->
-    <li>{{#link-to 'items'}}<i class="fa fa-cubes"></i> Items{{/link-to}}</li>
     {{#if session.isUser}}
-      <li>{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
+      <li style="padding-left: 10px;">
+        <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.user.name}}
+      </li>
+
+      <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
     {{/if}}
 
-<!--     <li>{{#link-to 'assets'}}<i class="fa fa-cube"></i> Assets{{/link-to}}</li> -->
-<!--     <li>{{#link-to 'settings'}}<i class="fa fa-wrench"></i> Settings{{/link-to}}</li> -->
-
-    <li class="pull-right" style="min-width: 30px;">
-      {{#if session.isUser}}
-      {{!--
-        {{partial 'application/settings-menu'}}
-        {{#link-to 'settings'}}<i class="fa fa-wrench"></i> Settings{{/link-to}}
-      --}}
-      {{else}}
-        {{partial 'application/login-menu'}}
-      {{/if}}
-    </li>
-
-    <li class="pull-right debug">
-    </li>
+    <li class="pull-right" >{{#link-to 'items'}}<i class="fa fa-cubes"></i> Items{{/link-to}}</li>
+    <li class="pull-right" >{{#link-to 'members'}}<i class="fa fa-users"></i> Members{{/link-to}}</li>
+    <li class="pull-right" >{{#link-to 'overview'}}<i class="fa fa-pie-chart"></i> Overview{{/link-to}}</li>
   </ul>
 </div>

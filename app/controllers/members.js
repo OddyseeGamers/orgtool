@@ -16,12 +16,10 @@ export default Ember.Controller.extend({
 
   setup: Ember.on('init', function() {
 //     this.get('eventManager').on('createMember', this.createMember.bind(this));
-    console.debug("or get data here..");
     this.get('eventManager').on('saveMember', this.saveMember.bind(this));
     this.get('eventManager').on('deleteMember', this.deleteMember.bind(this));
 
     var self = this;
-    console.debug("get data");
     get(this, 'store').findRecord('unit', 1).then(function(unit) {
       self.set('rootUnit', unit);
     });
@@ -38,7 +36,7 @@ export default Ember.Controller.extend({
   hasParent: function(id, unit) {
     try {
 //       if (unit.get("id") == 102) {
-        console.debug("wtf now again?", unit.get("id"), " - ", unit.get("parent"), " = ", (unit.get("parent") ? unit.get("parent").get("isLoaded") : "-")); 
+//         console.debug("wtf now again?", unit.get("id"), " - ", unit.get("parent"), " = ", (unit.get("parent") ? unit.get("parent").get("isLoaded") : "-")); 
 //       }
       return (unit && unit.get("id") == id) || (unit && unit.get('parent') && this.hasParent(id, unit.get('parent')));
     } catch(err) {

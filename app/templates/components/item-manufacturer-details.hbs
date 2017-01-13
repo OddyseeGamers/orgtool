@@ -7,6 +7,16 @@
 </div>
 
 
+<div class="item-type">
+    <div class="item-type-name">
+      {{item.type.name}} 
+      {{#if session.isAdmin}}
+          <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
+          <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
+      {{/if}}
+    </div>
+</div>
+
 
 <!-- <div class="item-parent"> -->
 <!--   {{#if details}} -->

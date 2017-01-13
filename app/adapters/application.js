@@ -5,7 +5,7 @@ import Ember from 'ember';
 
 //   export default DS.RESTAdapter.extend(DS.BuildURLMixin, {
 export default DS.RESTAdapter.extend({
-  host: 'http://www.oddysee.org',
+  host: "https://oddysee.org",
   namespace: 'wp-json/orgtool',
 
   headers: { 

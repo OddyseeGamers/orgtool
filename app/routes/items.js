@@ -4,8 +4,12 @@ export default Ember.Route.extend({
   eventManager: Ember.inject.service('events'),
   loader: Ember.inject.service(),
 
-  setupController(controller, model) {
-    Ember.set(controller, 'models', this.get('loader', 'models'));
+  model: function() {
+    return this.store.findAll("item");
+  },
+
+  afterModel: function(model, transition) {
+    this.controllerFor('items').set('itemTypes', this.store.findAll('itemType'));
   },
 
 });

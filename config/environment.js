@@ -22,6 +22,13 @@ module.exports = function(environment) {
       // when it is created
     },
 
+//     moment: {
+//       includeLocales: true
+//     },
+    moment: {
+      includeTimezone: 'all'
+    },
+
 /*
     contentSecurityPolicy: {
       'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",

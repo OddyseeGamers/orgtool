@@ -32,20 +32,22 @@ export default Ember.Component.extend({
 
 
   setup: Ember.on('didInsertElement', function() {
+    console.debug("setup chart");
+    this.set('boundResizeHandler', Ember.run.bind(this, this._renderStruc));
+    $(window).on('resize', this.get('boundResizeHandler'));
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
-    $(window).bind('resize', this.get('_renderStruc').bind(this));
-//     set(this, 'currFilter', "1");
-//     console.debug("setup chart");
     this._renderStruc();
   }),
 
   willDestroy: function() {
-    $(window).unbind('resize', this.get('_renderStruc'));
+    console.debug("free chart");
+    $(window).off('resize', this.get('boundResizeHandler'));
     this.get('eventManager').off('rerender');
   },
 
+
   changed: function() {
-//     console.debug("filter changed");
+    console.debug("filter changed", this.get('currFilter'));
     this._renderStruc();
   }.observes('currFilter'),
 
@@ -169,7 +171,12 @@ export default Ember.Component.extend({
   _transformData: function() {
     var root = null;
     var data = get(this, 'units');
+    if (get(this, 'currFilter') === undefined) {
+      set(this, 'currFilter', 1);
+      console.debug("fix filter");
+    }
     var filter = get(this, 'currFilter');
+
     this.set("hideNav", filter <= 1);
 
 //     console.debug(" >>> search ", filter, " in ",get(data, 'length'), ' --- ',  get(data, 'isLoaded'));
@@ -179,6 +186,7 @@ export default Ember.Component.extend({
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
+//             console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
           if(!el || !get(el, 'isLoaded')) {
             console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
             return null;
@@ -226,7 +234,7 @@ export default Ember.Component.extend({
     Ember.$("filter").remove();
     Ember.$("rect").remove();
 
-    var src = root.get('img') || "http://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/oddysee-tool/app/assets/oddysee-logo-glow.svg";
+    var src = root.get('img') || "https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/oddysee-logo-glow.png";
     var rootImg = svg.append("filter")
                            .attr('id', 'img1')
                            .attr('width', "100%")
@@ -257,7 +265,8 @@ export default Ember.Component.extend({
             .attr("width", 10)
             .attr("height", 10)
             .attr("class", "unit-pilots-path")
-            .attr("fill-opacity", function(d, i) { return (d && d.depth === 0) ? "0" : "1"; })
+            .attr("fill-opacity", function(d, i) { if (d && d.depth === 0) { return "0"; } else {  return "1" } })
+//             .attr("fill-opacity", function(d, i) { if (d && d.depth === 0) { return "0"; } else {  return (d && d.color) ? "1" : "0.05"; } })
 //             .attr("filter", function(d, i) { return (d && d.depth === 0) ? "url(#img1)" : ""; })
             .attr("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))

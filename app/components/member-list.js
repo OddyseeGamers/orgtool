@@ -77,5 +77,6 @@ export default Ember.Component.extend({
 //       console.debug("clear");
       this.set('searchFilter', '');
     },
+
   }
 });

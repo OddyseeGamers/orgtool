@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   currentUnit: null,
-  currentChart: null,
+  currentChart: { id: 1 },
 //   units: [],
 //   model: [],
 //   members: [],
@@ -92,6 +92,7 @@ export default Ember.Controller.extend({
     var self = this;
     this.store.deleteRecord(data.unit);
     data.unit.save().then(function(nunit) {
+
       self.get('eventManager').trigger('rerender');
     }).catch(function(err) {
       console.debug("del err", err);

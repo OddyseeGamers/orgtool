@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend(Ember.Evented, {
-  after: "store",
+  after: "session",
   store: Ember.inject.service(),
+  session: Ember.inject.service(),
   loading: true,
   state: null,
   models: null,

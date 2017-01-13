@@ -1,7 +1,10 @@
 {{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false closeAction='close' }}
   {{#bs-modal-header}}
       <h4>
-        {{#if member.name}} {{member.name}} {{else}} &nbsp; {{/if}}
+        {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
+        {{#if model.hasDirtyAttributes}}
+        <span class="text-danger">[modified]</span>
+        {{/if}}
       </h4>
   {{/bs-modal-header}}
 
@@ -10,14 +13,23 @@
     <div style="width:100%; height:25%;">
       <div style="width:15%; height:100%; border-right:1px solid #204d74; float:left;">
         <div class="member-details-name">
-        {{#if session.isUser}}
-          <div class="toolbar toolbar-disabled">
-            <i class="fa fa-edit" ></i> Edit
+        {{#if (or session.isAdmin model.loggedIn)}}
+          <div class="toolbar">
+            {{#bs-dropdown closeOnMenuClick=false}}
+              {{#bs-dropdown-button type="tb"}}<i class="fa fa-edit"></i>{{/bs-dropdown-button}}
+              {{#bs-dropdown-menu align="right"}}
+                <li>
+                {{#bs-form model=model}}
+                  {{bs-form-element controlType="textarea" property="avatar"}}
+                {{/bs-form}}
+              </li>
+              {{/bs-dropdown-menu}}
+            {{/bs-dropdown}}
           </div>
         {{/if}}
 
-          {{#if member.avatar}}
-            <img class="member-details-img" src={{member.avatar}}>
+          {{#if model.avatar}}
+            <img class="member-details-img" src={{model.avatar}}>
           {{else}}
             <img class="member-details-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
           {{/if}}
@@ -25,76 +37,115 @@
       </div>
 
       <div style="width:25%; height:100%; border-right:1px solid #204d74; float:left; padding-left: 10px; padding-right: 10px;">
-        <div style="width:30%; float: left;">
-          <label class="control-label">Name</label>
-        </div>
-        <div style="width:70%; float: left;">
-          {{input type="text" class="form-control" value=member.name readonly=(not session.isAdmin)}}
-        </div>
-        <div style=clear:both;></div>
-        <div style="width:30%; float: left;">
-          <label class="control-label">Timezone</label>
-        </div>
-        <div style="width:50%; float: left;">
-          {{input type="number" class="form-control" value=member.timezone readonly=(not session.isUser)}}
-        </div>
-        <div style="width:20%; float: left;">
-          <label class="control-label">UTC</label>
+        <div class="row">
+          <div class="col-md-4">
+            <label class="control-label">Name</label>
+          </div>
+          <div class="col-md-8">
+            {{input type="text" class="form-control" value=model.name readonly=(not (or session.isAdmin model.loggedIn))}}
+          </div>
         </div>
 
-        <div style=clear:both;></div>
+        <div class="row">
+          <div class="col-md-4">
+            <label class="control-label">Timezone</label>
+          </div>
+          {{!--
+          <div class="col-md-6 input-group">
+            <input type="text" class="form-control" value={{model.timezone}} readonly>
+            <div class="input-group-btn">
+              {{#bs-dropdown}}
+                {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+                {{#bs-dropdown-menu align="right"}}
+                  {{#each tzs as |tz|}}
+                  <li {{action "setTimezone" tz}}><a href="#" >{{get-tz tz}}</a></li>
+<!--                           <li {{action "setTimezone" tz}}><a href="#" class={{if (eq pa.id item.parent.id) "active"}} >{{pa.name}}</a></li> -->
+                  {{/each}}
+                {{/bs-dropdown-menu}}
+              {{/bs-dropdown}}
+            </div>
+          </div>
+          --}}
+          <div class="col-md-2">
+            {{input type="number" class="form-control" value=model.timezone readonly=(not (or session.isAdmin model.loggedIn))}}
+          </div>
 
-        <div style="width:30%; float: left;">
-          <label class="control-label">Schedule</label>
+          <div class="col-md-6">
+            <label class="control-label">UTC</label>
+          </div>
         </div>
-        <div style="width:70%; float: left;">
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Su</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Mo</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Tu</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">We</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Th</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Fr</div>
-          <div style="width:14%; height: 100%; float: left; border: 1px solid #204d74; margin-top: 10px;">Sa</div>
+
+<!--         <div style=clear:both;></div> -->
+        <div class="row">
+          <div class="col-md-4" style="padding: 10px 0px;">
+            <label class="control-label">Schedule</label>
+          </div>
+          <div class="col-md-8" style="padding: 6px 12px;">
+            <div class="schedule-day">Su</div>
+            <div class="schedule-day">Mo</div>
+            <div class="schedule-day">Tu</div>
+            <div class="schedule-day">We</div>
+            <div class="schedule-day">Th</div>
+            <div class="schedule-day">Fr</div>
+            <div class="schedule-day">Sa</div>
+          </div>
         </div>
+
 
       </div>
 
-      <div style="width:20%; height:100%; border-right:1px solid #204d74; float:left; color: #333 !important; position: relative;">
-        {{#if session.isUser}}
-          <div class="toolbar toolbar-disabled">
-            <i class="fa fa-edit" ></i> Manage
-          </div>
+      <div style="width:20%; height:100%; border-right:1px solid #204d74; float:left; position: relative;">
+        {{#if (or session.isAdmin model.loggedIn)}}
+            <div class="toolbar">
+              <button class="tb tb-default" type="button"  {{action 'addHandle' model}}><i class="fa fa-plus"></i></button>
+            </div>
         {{/if}}
 
-          <table class="table member-handles">
-            <thead>
-              <tr>
-                <th>Service</th>
-                <th>Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <img src="http://vignette3.wikia.nocookie.net/siivagunner/images/9/9f/Discord_icon.svg" style="width:20px;height:20px">
-                  <b>Discord</b></td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>
+        <div class="handle-header">
+          <div class="col-md-5 member-list-header-name">
+            Service
+          </div>
+          <div class="col-md-6">
+            Handle
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+
+        <div class="handle-list">
+          {{#each model.handles as |hand|}}
+          <div class="row">
+          <div class="col-md-5">
+                {{#if (eq hand.type "rsi")}}
                   <img src="https://robertsspaceindustries.com/media/tb6ui8j38wwscr/icon/RSI.png" style="width:20px;height:20px">
-                  <b>RSI Handle</b></td>
-                <td>{{member.handle}}</td>
-              </tr>
-              <tr>
-                <td>
+                  <b>RSI</b>
+                {{/if}}
+                {{#if (eq hand.type "discord")}}
+                  <img src="http://vignette3.wikia.nocookie.net/siivagunner/images/9/9f/Discord_icon.svg" style="width:20px;height:20px">
+                  <b>Discord</b>
+                {{/if}}
+                {{#if (eq hand.type "steam")}}
                   <img src="http://icons.iconarchive.com/icons/martz90/circle/24/steam-icon.png" style="width:20px;height:20px">
-                  <b>Steam</b></td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
+                  <b>Steam</b>
+                {{/if}}
+            </div>
+            <div class="col-md-6">
+              {{hand.handle}}
+            </div>
+            <div class="col-md-1">
+                {{#if (or session.isAdmin model.loggedIn)}}
+                  <button class="tb" type="button" {{action 'editHandle' hand}}><i class="fa fa-edit"></i></button>
+                {{else}}
+                   &nbsp;
+                {{/if}}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+
       </div>
+
+
 
       <div style="width:20%; height:100%; border-right:1px solid #204d74; float:left; padding-left: 10px; padding-right: 10px; position:relative;">
         {{#if session.isUser}}
@@ -102,9 +153,9 @@
           <i class="fa fa-edit" ></i> Apply
         </div>
         {{/if}}
-        <label class="control-label">Units: {{member.memberUnits.length}}</label>
+        <label class="control-label">Units: {{model.memberUnits.length}}</label>
         <div>
-          {{#each member.memberUnits as |memUn|}}
+          {{#each model.memberUnits as |memUn|}}
           {{memUn.unit.name}}<br>
           {{/each}}
         </div>
@@ -128,7 +179,7 @@
     <div style="width:100%; height:75%; border-top:1px solid #204d74;">
       <div style="width:80%; height:100%; border-right:1px solid #204d74; float:left; position:relative;">
         <div class="item-list">
-          {{item-list member=member details=true columns=columns itemHeight=itemHeight itemTypeFilter=itemTypeFilter}}
+          {{item-list member=model details=true columns=columns itemHeight=itemHeight itemTypeFilter=itemTypeFilter}}
         </div>
       </div>
       <div style="width:20%; height:75%; color: #333 !important; float: right;padding-left: 10px; padding-right: 10px; ">
@@ -145,14 +196,25 @@
   {{/bs-modal-body}}
 
   {{#bs-modal-footer}}
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-
-    {{#if (and member.hasDirtyAttributes session.isAdmin)}}
-      <button type="submit" class="btn btn-primary">{{fa-icon "save"}} Save</button>
-    {{/if}}
-
     {{#if session.isAdmin}}
-      <button type="submit" class="btn btn-danger pull-right" {{action "deleteMember" member}}>{{fa-icon "remove"}} Delete</button>
+      <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "remove"}} Delete</button>
     {{/if}}
+
+    {{#if (or session.isAdmin model.loggedIn)}}
+      <button type="submit" class="btn btn-primary" {{action "saveMember" model}} disabled={{if model.hasDirtyAttributes false true}}>{{fa-icon "save"}} Save</button>
+    {{/if}}
+
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
+
   {{/bs-modal-footer}}
 {{/bs-modal}}
+
+
+{{#if showHandleDialog}}
+  {{handle-create handle=currHandle showDialog=showHandleDialog}}
+{{/if}}
+
+{{#if showConfirmDialog}}
+  {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+{{/if}}
+

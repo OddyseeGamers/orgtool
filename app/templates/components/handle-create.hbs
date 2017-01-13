@@ -1,0 +1,72 @@
+{{!--
+{{#if (and session.isUser showDialog)}}
+--}}
+{{#if showDialog}}
+
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close' class="handle-create"}}
+  {{#bs-modal-header}}
+    <h4 class="modal-title">
+      {{#if handle.isNew}}
+        Add
+      {{else}}
+      Edit
+      {{/if}}
+     {{handle.type}} / {{handle.handle}} 
+    </h4>
+  {{/bs-modal-header}}
+  {{#bs-modal-body}}
+
+    <label class="control-label">
+      Type
+      {{#unless handle.type}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" value={{handle.type}}>
+      <div class="input-group-btn">
+        {{#bs-dropdown}}
+          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
+          {{#bs-dropdown-menu align="right"}}
+
+            {{#each types as |ty|}}
+              <li {{action "setType" ty}}><a href="#" >{{ty.desc}}</a></li>
+            {{/each}}
+
+          {{/bs-dropdown-menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+
+    <label class="control-label">
+      Handle
+      {{#unless handle.handle}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    {{input type="text" class="form-control" value=handle.handle}}
+
+    <label class="control-label">
+      Name
+    </label>
+    {{input type="text" class="form-control" value=handle.name}}
+
+    
+      <div class="col-md-4 row text-center disabled">
+        <label class="control-label stretch">Hidden</label>
+        {{bs-switch size='mini' checked=false indeterminate=false}}
+      </div>
+
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    {{#unless handle.isSaving}}
+      <button type="submit" class="btn btn-danger" {{action "deleteHandle"}}> Delete </button>
+      <button type="submit" class="btn btn-primary" {{action "saveHandle"}}> {{#if handle.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    {{/unless}}
+  {{/bs-modal-footer}}
+{{/bs-modal}}
+
+
+{{/if}}
+

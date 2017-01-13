@@ -116,9 +116,9 @@ export default Ember.Controller.extend({
     login: function() {
       var session = this.get('session');
       if (session.authenticate(get(this, 'pwd'))) {
-        this.get("session").log("login", 'logged in as ' + (session.isAdmin?"admin":"member"));
-      } else {
-        this.get("session").log("error", "login failed");
+//         this.get("session").log("login", 'logged in as ' + (session.isAdmin?"admin":"member"));
+//       } else {
+//         this.get("session").log("error", "login failed");
       }
     }
   }

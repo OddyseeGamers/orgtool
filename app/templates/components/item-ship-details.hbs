@@ -23,7 +23,7 @@
 <div class="item-type">
     <div class="item-type-name">
       {{item.type.name}} 
-      {{#if session.isUser}}
+      {{#if (or session.isAdmin item.member.loggedIn)}}
           <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
           <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
       {{/if}}

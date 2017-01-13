@@ -10,8 +10,15 @@ $item-info-bg: #222;
 
   position: relative;
   overflow: hidden;
+  background-color: #000;
 
-  border-top: 1px solid #222;
+    border-radius: 10px 10px 10px 10px;
+
+//    border-top: 1px solid #222;
+
+      border: 2px solid rgba(0, 0, 0, 0);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
 
 //    padding-left: 10px;
 
@@ -60,7 +67,7 @@ $item-info-bg: #222;
   .item-type {
 //      float: left;
     position: absolute;
-//      top: 0px;
+    top: 0px;
     right: 0px;
     padding-left: 10px;
     border-radius: 0px 0px 0px 10px;
@@ -132,3 +139,7 @@ $item-info-bg: #222;
     color: #1a80b6;
   }
 }
+
+//  .item-details:hover {
+//        border: 2px solid rgba(255, 0, 0, 1);
+//  }

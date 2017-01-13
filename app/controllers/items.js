@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
 //   itemHeight: 39,
 
   columns: [16.6, 16.6, 16.6, 16.6, 16.6, 16.6],
-  itemHeight: 150,
+  itemHeight: 140,
 
   hasParent: function(id, unit) {
     try {

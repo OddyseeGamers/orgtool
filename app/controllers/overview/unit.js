@@ -12,12 +12,12 @@ export default Ember.Controller.extend({
 //  currShip: null,
  // sortProperties: ['name:asc'],
 //  sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
-  unit: null,
+  model: null,
   showDialog: false,
 
   actions: {
     submit: function() {
-      var unit = get(this, 'unit');
+      var unit = get(this, 'model');
       var self = this;
 
       self.set('showDialog', false);
@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
 
 //       console.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       unit.save().then(function(nunit) {
-        self.set('unit', null);
+        self.set('model', null);
         self.set('showDialog', false);
         self.get('eventManager').trigger('rerender');
         self.transitionToRoute('overview');
@@ -46,18 +46,18 @@ export default Ember.Controller.extend({
     },
 
     close: function() {
-      var unit = get(this, 'unit');
+      var unit = get(this, 'model');
       if (unit.get('hasDirtyAttributes')) {
 //         unit.rollbackAttributes();
         unit.reload();
       }
       this.set('showDialog', false);
-      this.set('unit', null);
+      this.set('model', null);
       this.transitionToRoute('overview');
     },
 
     setType: function(type) {
-      var unit = get(this, 'unit');
+      var unit = get(this, 'model');
       unit.set('type', type);
       unit.send('becomeDirty');
     },

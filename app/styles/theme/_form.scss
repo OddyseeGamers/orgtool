@@ -22,8 +22,9 @@ fieldset[disabled] .form-control {
 input[readonly].form-control {
     cursor: default;
     background-color: transparent;
-    border: 1px solid #219ab3;
     color: #fff;
+    border: 1px solid #219ab3;
+//      border: 0px;
 }
 
 .form-group {
@@ -31,7 +32,8 @@ input[readonly].form-control {
 }
 
 label {
-    margin-top: 14px;
+//      margin-top: 14px;
+    margin-top: 6px;
     margin-bottom: 6px;
 }
 

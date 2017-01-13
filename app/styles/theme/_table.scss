@@ -26,3 +26,23 @@ td, th {
     background-color: rgba(26,128,182,.2) !important;
     cursor: pointer;
 }
+
+.table td {
+  text-align: left;
+}
+
+.table-scroll, .table-scroll > table {
+  width: 100%;
+  height: 100%;
+
+  .scroll-header {
+    height: 24px;
+    width: 100%;
+  }
+  .scroll-box {
+    height: calc(100% - 24px);
+    width: 100%;
+    overflow:auto;
+  }
+
+}

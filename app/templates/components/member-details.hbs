@@ -4,7 +4,7 @@
 <!--     </div> -->
 
     <div class="col-md-3">
-      <img class="member-avatar" src={{member.avatar}} onerror="this.src='blank.png'">
+      <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/blank.png'">
 
       <div class="member-name">
         {{member.name}}
@@ -12,7 +12,12 @@
     </div>
 
     <div class="col-md-3">
-      {{member.handle}}
+      {{get-uniq member.handles "handle"}}
+      {{!--
+      {{#each member.handles as |han|}}
+        {{han.handle}},
+      {{/each}}
+        --}}
     </div>
 
     <div class="col-md-4">
@@ -49,7 +54,7 @@
   {{/link-to}}
 {{else}}
   <div class="member-detail">
-    <img class="member-avatar" src={{member.avatar}} onerror="this.src='blank.png'">
+    <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/blank.png'">
     <div class="member-box">
         <div class="member-info">
           <div class="member-name">
@@ -89,4 +94,5 @@
     </div>
   </div>
 {{/if}}
+
 

@@ -2,7 +2,8 @@
 .modal-xl {
 //      width: 90%;
     width: calc(100vw - 120px);
-    height: calc(100vh - 60px);
+//    height: calc(100vh - 60px);
+    margin: 0px auto;
 
   .modal-body {
       height: calc(100vh - 180px);

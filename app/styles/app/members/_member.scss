@@ -18,6 +18,11 @@
 */
 $member-width: 128px;
 
+.modal-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
   .member-details-img {
 //       float: left;
 
@@ -29,14 +34,44 @@ $member-width: 128px;
   }
 
 
+    .row {
+      margin-right: 0px;
+      margin-left: 10px;
+    }
+
+  .form-control {
+    height: 24px;
+  }
+
+  .schedule-day {
+    width:14%;
+    height: 100%;
+    float: left;
+    border: 1px solid #204d74;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .handle-header {
+    width: 100%;
+    height: $header-height;
+    font-size: 12px;
+    font-weight: bold;
+//      background-color: #333;
+    padding-top: 4px;
+    padding-left: 10px;
+    color: #1a80b6;
+    border-bottom: 1px solid #219ab3;
+  }
 
 
+  .handle-list {
+    width: 100%;
+    height: $result-height;
+    position: relative;
+    overflow: auto;
 
-
-
-
-
-
+  }
 
 
 

@@ -55,6 +55,11 @@ $result-height-filter: calc(100% - #{$menu-height});
       font-size: 14px;
       font-width: 300;
       vertical-align: middle;
+
+      .root-item-type-img {
+        height: 16px;
+      }
+
     }
 
     .item-type-menu-item > a {

@@ -34,6 +34,28 @@ export default Ember.Component.extend({
 
     get(this, 'store').findAll('itemType').then(function(types) {
       var res;
+      if (Ember.isArray(itf)) {
+        if (itf.length > 0) {
+          res = types.filter(function(record) {
+            return itf.indexOf(record.get('id')) >= 0;
+          });
+        } else {
+          res = types;
+        }
+      } else {
+        res = types.filter(function(record){
+          return record.get('permissions') == 1;
+        });
+      }
+
+      self.set('types', res);
+    });
+
+
+
+/*
+    get(this, 'store').findAll('itemType').then(function(types) {
+      var res;
       if (Ember.isArray(itf) && itf.length > 0) {
         res = types.filter(function(record) {
           return itf.indexOf(record.get('id')) >= 0;
@@ -42,9 +64,8 @@ export default Ember.Component.extend({
         res = types;
       }
       self.set('types', res);
+    });
 
-
-/*
 
         var res = types.filter(function(record) {
           return itf.indexOf(record.get('id')) >= 0;
@@ -86,7 +107,6 @@ export default Ember.Component.extend({
         self.set('types', res);
       }
       */
-    });
   }),
 
   hasParent: function(id, item) {
@@ -172,7 +192,7 @@ export default Ember.Component.extend({
 //           console.debug(">>>> SAVED!", nitem.get("id"), "-", mem.get("items")); //.get("length"));
         }).catch(function(err) {
 //           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
-          get(self, "session").log("error", "could not save item " + nitem.get("name"));
+          get(self, "session").log("error", "could not save item " + item.get("name"));
           console.debug("error saving", err);
           self.set('showDialog', true);
         });

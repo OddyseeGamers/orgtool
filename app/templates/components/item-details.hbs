@@ -9,3 +9,7 @@
 {{#if (eq item.type.id '3')}}
   {{partial 'components/item-ship-details'}}
 {{/if}}
+
+{{#if (gt item.type.id '3')}}
+  {{partial 'components/item-ship-details'}}
+{{/if}}

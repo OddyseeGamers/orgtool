@@ -1,10 +1,102 @@
 import Ember from 'ember';
 
+var get = Ember.get;
+var set = Ember.set;
+
 export default Ember.Service.extend({
   isAdmin: false,
   isUser: false,
 //   history: Ember.A(),
   store: Ember.inject.service(),
+  user: null,
+  loading: true,
+
+
+  init: function() {
+    var self = this;
+
+    self.set('loading', true);
+    self.set("state", "authenticate");
+    self.set("isUser", false);
+    self.set("isAdmin", false);
+    self.set("user", null);
+
+    this.get('store').findAll('session').then(function(session) {
+      var user = session.get('firstObject').get('user');
+      self.set("state", get(user, 'user_login'));
+      console.debug("set session", get(user, 'user_login'));
+      self.set("isUser", true);
+      if(get(user, 'isadmin')) {
+        self.set("isAdmin", true);
+        self.log("session", "logged in as admin");
+      } else {
+        self.log("session", "logged in as user");
+      }
+
+      var wp_id = get(user, "wp_id");
+      var members = self.createRequest("members", "member");
+      return members.then(function(members) {
+        self.set("state", "permissions");
+          console.debug(" ---- 1");
+        var res = members.filter(function(record) {
+          return record.get('wp_id') == wp_id;
+        });
+          console.debug(" ---- 2");
+
+        if (res && get(res, 'length') == 1) {
+          var mem = res.get("firstObject");
+          console.debug("find wp member in members...", wp_id, " | FOUND:", get(mem, "id"));
+          mem.set("loggedIn", true);
+          self.set("user", mem);
+          self.set("state", "permissions");
+          return self.loadThemAll();
+        } else {
+          console.debug(" ---- 4", res, '-', get(res, "length"));
+        }
+      });
+    }).catch(function(err) {
+      console.debug("error", err);
+      self.log("session", "logged in as visitor");
+      return self.createRequest("members", "member").then(function(members) {
+          return self.loadThemAll();
+      });
+    });
+  },
+
+
+  loadThemAll: function() {
+    var self = this;
+    this.set('loading', true);
+    self.set("state", null);
+
+    this.models = Ember.RSVP.hash({
+      handles: self.createRequest("handles", "handle"),
+      units: this.createRequest("units", "unit"),
+      memberUnits: this.createRequest("memberUnits", "memberUnit"),
+      unitTypes: self.createRequest("unitTypes", "unitType"),
+//       ships: this.createRequest("ships", "ship")
+//
+      items: self.createRequest("items", "item"),
+      itemTypes: self.createRequest("props", "prop"),
+      itemProps: self.createRequest("itemProps", "itemProp"),
+      itemTypes: self.createRequest("itemTypes", "itemType"),
+    });
+    return this.models.then(function(done) {
+          console.debug("loading all done");// , done.get('length'));
+          self.set("state", "done");
+          self.set('loading', false);
+    });
+  },
+
+  createRequest: function(name, modelName) {
+      var self = this;
+      return self.get('store').findAll(modelName).then(function(data) {
+        console.debug(" loaded ", name, Ember.get(data, 'length'));
+//         self.set(name, data);
+        self.set("state", name);
+        return data;
+      });
+  },
 
   log: function(comp, msg) {
     var d = new Date();

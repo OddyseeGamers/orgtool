@@ -2,18 +2,18 @@
 {{#bs-modal-header}}
 <!--     <div class="member-avatar"> -->
   <h4 class="modal-title">
-      {{#if unit.img}}
-        <img class="member-avatar-img" style="width:42px;" src={{unit.img}}>
+      {{#if model.img}}
+        <img class="member-avatar-img" style="width:42px;" src={{model.img}}>
       {{/if}}
 <!--     </div> -->
 <!--     <div class="member-name-hdr"> -->
 <!--     </div> -->
-    {{#if unit.isNew}} Create {{else}} Edit {{/if}}
+    {{#if model.isNew}} Create {{else}} Edit {{/if}}
     Unit
   </h4>
 {{/bs-modal-header}}
   {{#bs-modal-body}}
-    {{#bs-form action=(action "submit") model=unit}}
+    {{#bs-form action=(action "submit") model=model}}
       {{bs-form-element controlType="text" label="Name" property="name"}}
       {{bs-form-element controlType="text" label="Description" property="description"}}
       {{bs-form-element controlType="text" label="Color" property="color"}}
@@ -22,13 +22,13 @@
       <label class="control-label">Type</label>
       <div class="input-group">
 
-        <input type="text" class="form-control" id="unittype" value={{unit.type.name}} readonly>
+        <input type="text" class="form-control" id="unittype" value={{model.type.name}} readonly>
         <div class="input-group-btn">
           {{#bs-dropdown}}
             {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
             {{#bs-dropdown-menu  align="right"}}
-              {{#each loader.unitTypes as |ut|}}
-              <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id unit.type.id) "active"}} >{{ut.name}}</a></li>
+              {{#each unitTypes as |ut|}}
+              <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id model.type.id) "active"}} >{{ut.name}}</a></li>
               {{/each}}
             {{/bs-dropdown-menu}}
           {{/bs-dropdown}}
@@ -38,7 +38,7 @@
     {{/bs-modal-body}}
     {{#bs-modal-footer}}
         <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-        {{#if (and unit.hasDirtyAttributes session.isAdmin)}}
+        {{#if (and model.hasDirtyAttributes session.isAdmin)}}
           <button type="submit" class="btn btn-primary">Save</button>
         {{/if}}
     {{/bs-modal-footer}}

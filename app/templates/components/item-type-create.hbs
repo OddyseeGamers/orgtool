@@ -1,0 +1,61 @@
+{{!--
+{{#if (and session.isUser showDialog)}}
+--}}
+{{#if showDialog}}
+
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close'}}
+  {{#bs-modal-header}}
+    <h4 class="modal-title">
+      Add Item Type
+    </h4>
+  {{/bs-modal-header}}
+  {{#bs-modal-body}}
+
+  <label class="control-label">
+    Name
+    {{#unless itemType.name}}
+    <span class="text-danger">(required)</span>
+    {{/unless}}
+  </label>
+  {{input type="text" class="form-control" value=itemType.name}}
+
+  <label class="control-label">
+    Type Name
+    {{#unless itemType.typeName}}
+    <span class="text-danger">(required)</span>
+    {{/unless}}
+  </label>
+  {{input type="text" class="form-control" value=itemType.typName}}
+
+
+  <label class="control-label">
+    Description
+  </label>
+  {{input type="text" class="form-control" value=itemType.description}}
+
+  <label class="control-label">
+    Image
+  </label>
+  {{input type="text" class="form-control" value=itemType.img}}
+
+  <label class="control-label">
+    Incarnatable
+  </label>
+  {{bs-switch size='mini' checked=itemType.permissions indeterminate=false}}
+
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    {{#unless itemType.isSaving}}
+      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+      {{#unless itemType.isNew}}
+        <button type="submit" class="btn btn-danger" {{action "deleteItemType" itemType}}> Delete </button>
+      {{/unless}}
+      <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}}> Save </button>
+    {{/unless}}
+
+  {{/bs-modal-footer}}
+{{/bs-modal}}
+
+
+{{/if}}
+

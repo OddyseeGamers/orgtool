@@ -21,6 +21,8 @@ export default Ember.Component.extend({
   items: [],
   showConfirmDialog: false,
   showItemDialog: false,
+  showItemTypeDialog: false,
+
   itemTypeFilter: [],
   adminMode: false,
 
@@ -43,19 +45,21 @@ export default Ember.Component.extend({
     var itf = get(this, "itemTypeFilter");
     get(this, 'store').findAll('itemType').then(function(types) {
       var res;
-      if (Ember.isArray(itf) && itf.length > 0) {
-        res = types.filter(function(record) {
-          return itf.indexOf(record.get('id')) >= 0;
-        });
+      if (Ember.isArray(itf)) {
+        if (itf.length > 0) {
+          res = types.filter(function(record) {
+            return itf.indexOf(record.get('id')) >= 0;
+          });
+        } else {
+          res = types;
+        }
       } else {
-        res = types;
+        res = types.filter(function(record){
+          return record.get('permissions') == 1;
+        });
       }
-      self.set('types', res);
 
-//         if (get(res, "length") == 1) {
-//           set(self, "showType", false);
-//           self.setTypeAndFilter(res.get("firstObject"));
-//         }
+      self.set('types', res);
     });
 
 
@@ -175,32 +179,50 @@ export default Ember.Component.extend({
     },
 
     showConfirm: function(item) {
-      set(this, "msg", { "type": "delete", "item": item, "title": "Delete Item!", "content": "Do you really want to delete?" });
+      set(this, "msg", { "type": "delete", "item": item, "title": "Delete Item!", "content": "Do you really want to delete the item " + item.get("name") + "?" });
+      set(this, "showConfirmDialog", true);
+    },
+
+    showConfirmType: function(itemType) {
+      set(this, "msg", { "type": "delete", "item": itemType, "title": "Delete Item Type!", "content": "Do you really want to delete the item type " + itemType.get("name") + "?" });
       set(this, "showConfirmDialog", true);
     },
 
     onConfirmed: function(msg) {
-      if (get(msg, "item")) {
+      console.debug("on confirm");
+      var element = get(msg, "item");
+      var typename = element.get('constructor.modelName');
+      console.debug("element type", typename);
+
+      if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
-
 //           console.debug("has mem", get(get(msg, "item"), "member"));
 
-          get(msg, "item").destroyRecord().then(function(nitem) {
-            get(self, "session").log("item", "item " + nitem.get("name") + " deleted");
+          element.destroyRecord().then(function(nitem) {
+            get(self, "session").log(typename, nitem.get("name") + " deleted");
+
+            console.debug("reset filter", (get(self, "typeFilter") === element));
+            if (get(self, "typeFilter") === element) {
+              set(self, "typeFilter", null);
+            }
           }).catch(function(err) {
-            get(self, "session").log("error", "could not save item " + nitem.get("name"));
-            console.debug("error melting", err);
+            get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
+            console.debug("error deleting", err);
           }).finally(function() {
             set(self, "currItem", null);
+            set(self, "currItemType", null);
             set(self, "showConfirmDialog", false);
             set(self, "showItemDialog", false);
+            set(self, "showItemTypeDialog", false);
           });
         }
       } else {
         set(this, "currItem", null);
+        set(this, "currItemType", null);
         set(this, "showConfirmDialog", false);
         set(this, "showItemDialog", false);
+        set(this, "showItemTypeDialog", false);
       }
     },
 
@@ -218,6 +240,20 @@ export default Ember.Component.extend({
       }
       this.set('currItem', item);
       this.set('showItemDialog', true);
+    },
+
+    addItemType: function() {
+      var itemType = get(this, "store").createRecord('itemType');
+      get(this, "session").log("item", "new itemType created");
+      this.set('currItemType', itemType);
+      this.set('showItemTypeDialog', true);
+    },
+
+    editItemType: function(itemType) {
+//       var itemType = get(this, "store").createRecord('itemType');
+//       get(this, "session").log("item", "new itemType created");
+      this.set('currItemType', itemType);
+      this.set('showItemTypeDialog', true);
     },
   }
 
