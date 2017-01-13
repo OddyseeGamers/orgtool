@@ -11,33 +11,33 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
 * [Ember CLI](http://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone https://github.com/OddyseeGamers/orgtool.git` this repository
 * change into the new directory
+* `npm install ember-cli@2.7.0`
 * `npm install`
-* `bower install`
+* `node_modules/bower/bin/bower install`
 
 ## Running / Development
 
-* `ember server`
+* `node_modules/ember-cli/bin/ember s`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ### Code Generators
 
 Make use of the many generators for code, try `ember help generate` for more details
-
+<!--
 ### Running Tests
 
 * `ember test`
 * `ember test --server`
-
+-->
 ### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `node_modules/ember-cli/bin/ember build` (development)
+* `node_modules/ember-cli/bin/ember build --prod` (production)
 
 ### Deploying
 
