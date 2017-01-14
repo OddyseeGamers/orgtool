@@ -21,6 +21,7 @@ Router.map(function() {
 
 //     this.route('ships');
     this.route('items');
+    this.route('lfg');
     this.route('log');
 
 //     this.route('settings', { resetNamespace: true }, function() {
