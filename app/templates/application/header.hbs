@@ -1,10 +1,20 @@
 <div id="myheader" class="clearfix">
   <ul class="nav nav-tabs">
-    {{#if session.isUser}}
-      <li style="padding-left: 10px;">
-        <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.user.name}}
-      </li>
 
+    <li style="padding-left: 10px;">
+      {{#if session.errors}}
+        <i class="danger fa fa-warning"></i>
+        {{#each session.errors as |error|}}
+            {{error.message}},
+        {{/each}}
+      {{else}}
+        {{#if session.isUser}}
+          <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.display_name}}
+        {{/if}}
+      {{/if}}
+    </li>
+
+    {{#if session.isAdmin}}
       <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
     {{/if}}
 

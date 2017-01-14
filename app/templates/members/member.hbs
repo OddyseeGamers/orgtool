@@ -1,9 +1,10 @@
 {{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false closeAction='close' }}
   {{#bs-modal-header}}
       <h4>
+        {{#if model.loggedIn}} My profile {{/if}}
         {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
         {{#if model.hasDirtyAttributes}}
-        <span class="text-danger">[modified]</span>
+          <span class="text-danger">[modified]</span>
         {{/if}}
       </h4>
   {{/bs-modal-header}}
