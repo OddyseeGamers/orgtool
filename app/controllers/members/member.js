@@ -56,20 +56,22 @@ export default Ember.Controller.extend({
     deleteMember: function(member) {
 //       this.get('eventManager').trigger('deleteMember', member);
 //
-      set(this, "msg", { "type": "delete", "item": member, "title": "Delete Member!", "content": "Do you really want to delete member " + member.get("name") + "?" });
+      console.debug("delete user now", member);
+      set(this, "msg", { "type": "delete", "item": member, "title": "Delete Member!", "content": "Do you really want to delete member " + member.get("id") + " | " + member.get("name") + "?" });
       set(this, "showConfirmDialog", true);
 
     },
 
     onConfirmed: function(msg) {
-      console.debug("on confirm");
-      if (!msg || msg.item) {
+      console.debug("on confirm del mem", msg, " - ", get(msg, "item"));
+      if (!msg || !msg.item) {
         return;
       }
       console.debug("delete user");
 //       member.deleteRecord('member'); //this.store.createRecord('member');
       var self = this;
       msg.item.destroyRecord().then(function(done) {
+        set(self, "showConfirmDialog", false);
         self.transitionToRoute('members');
       }).catch(function(err) {
         console.debug("delete  user", err);
