@@ -57,12 +57,20 @@ export default Ember.Controller.extend({
 
     if (!Ember.isEmpty(searchFilter)) {
       var regex = new RegExp(searchFilter, 'i');
-      var handle = get(member, 'handle') ? get(member, 'handle') : get(member, 'name');
-      res = get(member, 'name').match(regex) || handle.match(regex);
 
-      if (Ember.isEmpty(res)) {
-        return false;
+      if (get(member, "name").match(regex)) {
+        return true;
       }
+
+      var handles;
+      var all = get(member, 'handles');
+      for (var i = 0; i < get(all, 'length'); i++) {
+        if (all.objectAt(i).get("handle").match(regex)) {
+          return true;
+        }
+      }
+
+      return false;
     }
 
     if (!Ember.isEmpty(unitFilter)) {
