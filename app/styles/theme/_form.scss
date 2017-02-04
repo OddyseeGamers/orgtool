@@ -8,7 +8,7 @@
     background-color: transparent;
     border: 1px solid #219ab3;
     color: #fff;
-    height: 28px;
+    height: 24px !important;
 /*     color: #219ab3; */
 }
 
@@ -27,6 +27,19 @@ input[readonly].form-control {
 //      border: 0px;
 }
 
+.input-group-btn {
+    height: 24px !important;
+}
+
+
+
+textarea {
+//      -webkit-appearance: textarea;
+//      background-color: white;
+    background-color: transparent;
+    border: 1px solid #219ab3;
+}
+
 .form-group {
     margin-bottom: 0px;
 }
@@ -41,10 +54,30 @@ label {
   display:inline;
 }
 
-.input-group-addon, .input-group-btn {
-  height: 28px;
-}
+//  .input-group-addon, .input-group-btn {
+//    height: 28px;
+//  }
 
 .input-group .form-control {
   z-index: 1;
 }
+
+// overwrite shortcodes.css
+input[type="date"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], select, textarea {
+//      padding: 10px;
+//      outline: none;
+//      margin: 0;
+//      width: 230px;
+//      max-width: 100%;
+//      display: block;
+     margin-bottom: 0px !important;
+//      font-size: 13px;
+//      border-width: 1px;
+//      border-style: solid;
+//      border-radius: 0;
+//      box-sizing: border-box;
+//      -webkit-appearance: none;
+}
+//  input[type="date"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], select, textarea {
+//      /* margin-bottom: 10px !important; */
+//  }

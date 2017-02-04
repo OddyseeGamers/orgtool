@@ -3,18 +3,13 @@
 --}}
 {{#if showDialog}}
 
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close' class="handle-create"}}
-  {{#bs-modal-header}}
+{{#bs-modal open=showDialog size='m' header=false body=false footer=false autoClose=false onHide=(action 'close') class="handle-create" as |md|}}
+  {{#md.header}}
     <h4 class="modal-title">
-      {{#if handle.isNew}}
-        Add
-      {{else}}
-      Edit
-      {{/if}}
-     {{handle.type}} / {{handle.handle}} 
+      {{#if handle.isNew}} Add {{else}} Edit {{/if}} Handle {{handle.handle}} [{{handle.type}}]
     </h4>
-  {{/bs-modal-header}}
-  {{#bs-modal-body}}
+  {{/md.header}}
+  {{#md.body}}
 
     <label class="control-label">
       Type
@@ -25,15 +20,15 @@
     <div class="input-group ship-model-modal">
       <input type="text" class="form-control" value={{handle.type}}>
       <div class="input-group-btn">
-        {{#bs-dropdown}}
-          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-          {{#bs-dropdown-menu align="right"}}
+        {{#bs-dropdown as |dd|}}
+          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+          {{#dd.menu align="right"}}
 
             {{#each types as |ty|}}
               <li {{action "setType" ty}}><a href="#" >{{ty.desc}}</a></li>
             {{/each}}
 
-          {{/bs-dropdown-menu}}
+          {{/dd.menu}}
         {{/bs-dropdown}}
       </div>
     </div>
@@ -51,20 +46,28 @@
     </label>
     {{input type="text" class="form-control" value=handle.name}}
 
+    <label class="control-label">
+      Image
+    </label>
+    {{input type="text" class="form-control" value=handle.img}}
     
       <div class="col-md-4 row text-center disabled">
         <label class="control-label stretch">Hidden</label>
-        {{bs-switch size='mini' checked=false indeterminate=false}}
+<!--         {{bs-switch size='mini' checked=false indeterminate=false}} -->
       </div>
+      <br>
+      <br>
+      <br>
+      <br>
 
-  {{/bs-modal-body}}
-  {{#bs-modal-footer}}
+  {{/md.body}}
+  {{#md.footer}}
     {{#unless handle.isSaving}}
       <button type="submit" class="btn btn-danger" {{action "deleteHandle"}}> Delete </button>
       <button type="submit" class="btn btn-primary" {{action "saveHandle"}}> {{#if handle.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
       <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
     {{/unless}}
-  {{/bs-modal-footer}}
+  {{/md.footer}}
 {{/bs-modal}}
 
 

@@ -16,18 +16,21 @@ Router.map(function() {
 
     this.route('members', { resetNamespace: true }, function() {
       this.route('member', { path: '/:member_id' }, function() {
+        this.route('general');
+        this.route('stats');
+        this.route('items');
       });
     });
 
-//     this.route('ships');
-    this.route('items');
     this.route('lfg');
     this.route('log');
+//     this.route('items');
+//     this.route('rewards');
 
-//     this.route('settings', { resetNamespace: true }, function() {
-//       this.route('ships');
-//       this.route('items');
-//     });
+    this.route('settings', { resetNamespace: true }, function() {
+      this.route('items');
+      this.route('rewards');
+    });
 
 });
 

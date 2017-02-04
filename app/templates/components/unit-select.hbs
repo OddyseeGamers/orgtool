@@ -1,0 +1,83 @@
+<button class="tb tb-default" type="button" {{action "openSelect"}}>
+  <i class="fa fa-edit"></i>
+</button>
+
+{{#if showSelect}}
+  <div class="unit-form">
+    {{#power-select
+      options=data
+      selected=selVal
+      onchange=(action (mut selVal))
+      renderInPlace=true
+      initiallyOpened=(not selVal)
+      as |num idx|
+    }}
+      {{num}}
+    {{/power-select}}
+
+    {{#if selVal}}
+      <div class="unit-apply">
+        <button class="btn btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-sign-in"></i> {{actionName}}</button>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
+
+
+{{!--
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <i class="fa fa-edit"></i>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li>lll</li>
+    <li>lll</li>
+    <li>lll</li>
+    <li>lll</li>
+    <li>
+      {{#power-select
+        options=data
+        selected=selVal
+        onchange=(action (mut selVal))
+        renderInPlace=true
+        initiallyOpened=true
+        as |num idx|
+      }}
+        {{num}}
+      {{/power-select}}
+
+      {{#if selVal}}
+        <button class="button btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-sign-in"></i> {{actionName}}</button>
+      {{/if}}
+    </li>
+  </ul>
+</div>
+---}}
+{{!--
+{{#bs-dropdown model=model closeOnMenuClick=false onShow=(action "show") onHide=(action "close") id="thedrop" as |dd|}}
+{{#dd.button type="tb"}}<i class="fa fa-edit"></i>{{/dd.button}}
+{{#dd.menu align="left"}}
+  <li>
+<!--   <div class="unit-form"> -->
+    {{#power-select
+      options=data
+      selected=selVal
+      onchange=(action (mut selVal))
+      renderInPlace=true
+      initiallyOpened=true
+      as |num idx|
+    }}
+      {{num}}
+    {{/power-select}}
+
+    {{#if selVal}}
+<!--     <div class="unit-apply"> -->
+      <button class="button btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-sign-in"></i> {{actionName}}</button>
+<!--     </div> -->
+    {{/if}}
+<!--     </div> -->
+  </li>
+{{/dd.menu}}
+{{/bs-dropdown}}
+--}}

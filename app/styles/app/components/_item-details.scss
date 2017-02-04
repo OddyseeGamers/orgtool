@@ -38,6 +38,20 @@ $item-info-bg: #222;
     z-index: 2;
   }
 
+  .top-left-sm {
+//      color: #1a80b6;
+//      color: #fff;
+//      font-size: 14px;
+
+    position: absolute;
+    left: 0px;
+    padding-right: 10px;
+    border-radius: 0 0 10px 0px;
+    background-color: $item-info-bg;
+    vertical-align: middle;
+    z-index: 2;
+  }
+
   .top-left-name {
     color: #1a80b6;
     margin-top: 3px;
@@ -49,6 +63,9 @@ $item-info-bg: #222;
     width: 24px;
   }
 
+  .top-left-img-sm {
+    width: 20px;
+  }
 
 
 

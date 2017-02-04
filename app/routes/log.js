@@ -10,9 +10,5 @@ export default Ember.Route.extend({
   model: function(params) {
     return this.store.peekAll('log');
   },
-
-//   setupController(controller, model) {
-//     Ember.set(controller, 'model', this.store.peekAll('log'));
-//   },
 });
 

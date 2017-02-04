@@ -1,7 +1,7 @@
 .nav-tabs>li>a {
     color: #fff;
     font-size: 12px;
-    font-weight: 30;
+    font-weight: bold;
     background-color: $gray5;
     margin-right: 0px;
 
@@ -71,7 +71,7 @@
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+//      font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     letter-spacing: 1px;
     line-height: 20px;
     transition: background .3s ease-in-out;
@@ -142,7 +142,8 @@ ul#set-menu li > a {
 }
 
 .nav-tabs>li>a:hover {
-    border-color: $menu-blue;
+//      border-color: $menu-blue;
+    border-color: transparent;
     background-color: transparent;
 }
 .nav>li>a:focus, .nav>li>a:hover {

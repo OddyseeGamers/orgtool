@@ -6,13 +6,13 @@ var set = Ember.set;
 export default Ember.Component.extend({
   classNames: ['item-create'],
   store: Ember.inject.service(),
-  loader: Ember.inject.service(),
   session: Ember.inject.service('session'),
 
   items: null,
   showDialog: false,
   itemTypeFilter: [],
 
+  requiredFields: Ember.computed.and('item.type', 'item.parent'),
 
   setup: Ember.on('init', function() {
     var itf = get(this, "itemTypeFilter");

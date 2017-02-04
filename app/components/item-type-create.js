@@ -6,7 +6,6 @@ var set = Ember.set;
 export default Ember.Component.extend({
   classNames: ['item-type-create'],
   store: Ember.inject.service(),
-  loader: Ember.inject.service(),
   session: Ember.inject.service('session'),
 
   showDialog: false,

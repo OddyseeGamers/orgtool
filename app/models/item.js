@@ -9,5 +9,8 @@ export default DS.Model.extend({
   member: DS.belongsTo('member', { inverse: 'items', async: true }),
   unit: DS.attr(),
   itemProps: DS.hasMany('itemProp', { async: true }),
-  items: DS.hasMany('item', { inverse: 'parent', async: false }),
+  items: DS.hasMany('item', { inverse: 'parent', async: true }),
+
+  hidden: DS.attr(),
+  available: DS.attr(),
 });

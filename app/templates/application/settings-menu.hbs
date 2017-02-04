@@ -1,8 +1,8 @@
-{{#bs-dropdown}}
-  {{#bs-dropdown-button type="trans"}}<i class="fa fa-cog"></i>{{/bs-dropdown-button}}
-  {{#bs-dropdown-menu align="right" id="set-menu"}}
+{{#bs-dropdown as |dd|}}
+  {{#dd.button type="trans"}}<i class="fa fa-cog"></i>{{/dd.button}}
+  {{#dd.menu align="right" id="set-menu"}}
     <li class="disabled"><a href="#"><i class="fa fa-users"></i> Members</a></li>
     <li class="disabled"><a href="#"><i class="fa fa-trophy"></i> Rewards</a></li>
     <li>{{#link-to 'settings.ships'}}<i class="fa fa-paper-plane"></i> Ship Models{{/link-to}}</li>
-  {{/bs-dropdown-menu}}
+  {{/dd.menu}}
 {{/bs-dropdown}}

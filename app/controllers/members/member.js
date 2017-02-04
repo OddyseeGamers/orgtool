@@ -15,8 +15,6 @@ export default Ember.Controller.extend({
 
   sortProperties: ['name:asc'],
   sortedShipModels: Ember.computed.sort('shipModels', 'sortProperties'),
-  columns: [25, 25, 25, 25],
-  itemHeight: 120,
 
 //   tzs: function() {
 //     console.debug("wtf", Moment);
@@ -40,6 +38,9 @@ export default Ember.Controller.extend({
 //
 //       this.set('showDialog', true);
     },*/
+
+    saveAvatar: function() {
+    },
 
     saveMember: function(member) {
       this.get('eventManager').trigger('saveMember', member);
@@ -116,21 +117,7 @@ export default Ember.Controller.extend({
 
 //////////////////////////////////////////
 
-    addHandle: function(member) {
-      var handle = this.store.createRecord('handle');
-      handle.set('member', member);
-      console.debug("set currhandle", handle);
-      set(this, 'currHandle', handle);
-      set(this, "showHandleDialog", true);
-    },
 
-    editHandle: function(handle) {
-//       var handle = this.store.createRecord('handle');
-//       handle.set('member', member);
-      console.debug("set currhandle", handle);
-      set(this, 'currHandle', handle);
-      set(this, "showHandleDialog", true);
-    },
 
 
 //////////////////////////////////////////

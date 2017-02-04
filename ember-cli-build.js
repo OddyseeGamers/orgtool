@@ -5,20 +5,27 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     // Add options here
     storeConfigInMeta: false,
-    'ember-cli-bootstrap': {
-      'importBootstrapCSS': false
-    },
-    vendorFiles: {
-      development: false,
-      production: false,
-      'bootstrap.less': false,
-      'vendor-prefixes.less': false,
-      'vendor-prefixes.css': false,
-      'vendor-prefixes.sass': false,
+    hinting: false,
+
+    minifyCSS: {
+      options: {
+        processImport: false
+      }
     },
     fingerprint: {
       enabled: false,
     },
+//     'ember-cli-bootstrap': {
+//       'importBootstrapCSS': false
+//     },
+//     vendorFiles: {
+//       development: false,
+//       production: false,
+//       'bootstrap.less': false,
+//       'vendor-prefixes.less': false,
+//       'vendor-prefixes.css': false,
+//       'vendor-prefixes.sass': false,
+//     },
   });
 
   // Use `app.import` to add additional libraries to the generated

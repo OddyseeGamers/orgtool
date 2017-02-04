@@ -8,9 +8,7 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
-  loader: Ember.inject.service(),
   showDialog: false,
-  pwd: "",
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
@@ -23,6 +21,14 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('log', this.log.bind(this));
     this.get('eventManager').on('success', this.success.bind(this));
     this.get('eventManager').on('failure', this.failure.bind(this));
+
+    var self = this;
+    this.store.findRecord('reward', 7).then(function(lead) {
+      self.set('leaderFilter', lead);
+    });
+    this.store.findRecord('reward', 8).then(function(mem) {
+      self.set('memberFilter', mem);
+    });
   }),
 
   success: function(text) {
@@ -50,34 +56,50 @@ export default Ember.Controller.extend({
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
+//     console.debug(">>>> assign", data, member.get("name"));
+
     var cu = get(member, 'memberUnits');
     var found = false;
+    var memUn;
+
     for (var i = 0; i < get(cu, 'length') && !found; i++) {
       var c = cu.objectAt(i);
       if (get(c, 'unit.id') == get(unit, 'id')) {
         found = true;
+        memUn = c;
       }
     }
 
-    if (found) {
-      this.log();
-      this.get("session").log("assign", 'member:' + data.id + ' is already assinged to unit: ' + data.dest);
-    } else {
-      var memUn = this.store.createRecord('memberUnit');
+    if (!found) {
+      memUn = this.store.createRecord('memberUnit');
       memUn.set('member', member);
       memUn.set('unit', unit);
+      this.get("session").log("assign", 'assign member:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
+    } else {
+      this.get("session").log("assign", 'changing position of member:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
+    }
 
-      this.get("session").log("assign", 'assign member:' + data.id + ' from unit: ' + data.dest);
+    if (data.destType == "leader") {
+      memUn.set('reward', this.store.peekRecord('reward', 7));
+//       memUn.set('reward', this.leaderFilter);
+    } else if (data.destType == "member") {
+      memUn.set('reward', this.store.peekRecord('reward', 8));
+//       memUn.set('reward', this.memberFilter);
+    } else if (data.destType == "applicant") {
+      memUn.set('reward', this.store.peekRecord('reward', 9));
+//       memUn.set('reward', this.memberFilter);
+    }
+
       var self = this;
       self.set('loading', true);
       memUn.save().then(function() {
         self.get("session").log("assign", "member assigned " + data.id);
       }).catch(function(err) {
-        self.get("session").log("error", "assigning member " + data.get(member, 'id'));
+        self.get("session").log("error", "assigning member " + data.id);
         console.debug("assign err", err);
         memUn.rollback();
       });
-    }
+
   },
 
 
@@ -113,14 +135,6 @@ export default Ember.Controller.extend({
 
 
   actions: {
-    login: function() {
-      var session = this.get('session');
-      if (session.authenticate(get(this, 'pwd'))) {
-//         this.get("session").log("login", 'logged in as ' + (session.isAdmin?"admin":"member"));
-//       } else {
-//         this.get("session").log("error", "login failed");
-      }
-    }
   }
 
 });

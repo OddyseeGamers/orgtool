@@ -1,31 +1,41 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-//   store: Ember.inject.service(),
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
-  unit: null,
-
-  collapseUnits: true,
-  collapseLeader: true,
-  collapsePilots: true,
-
   level: null,
 
-  showUnits: Ember.computed.bool('collapseUnits'),
-  showLeader: Ember.computed.bool('collapseLeader'),
-  showPilots: Ember.computed.bool('collapsePilots'),
+  showUnits: false,
+  showLeader: true,
+  showMembers: true,
+  showApplicants: true,
+
+  leaders: Ember.computed('unit.memberUnits.@each.reward', function() {
+    var mems = this.get('unit').get('memberUnits');
+    var re = Ember.A();
+    var ap = Ember.A();
+    var lead = Ember.A();
+    for (var i = 0; i < mems.get("length"); i++) {
+      if (mems.objectAt(i).get("reward").get("id") == "7") {
+        lead.pushObject(mems.objectAt(i).get("member"));
+      } else if (mems.objectAt(i).get("reward").get("id") == "8") {
+        re.pushObject(mems.objectAt(i).get("member"));
+      } else if (mems.objectAt(i).get("reward").get("id") == "9") {
+        ap.pushObject(mems.objectAt(i).get("member"));
+      }
+    }
+    this.set("members", re);
+    this.set("applicants", ap);
+    return lead;
+  }),
+
+//   seven: Ember.computed.filterBy('unit.memberUnits.@each', 'reward', 7),
 
   setup: Ember.on('init', function() {
     var level = this.get('level');
-    if (level !== null) {
-      level -= 1;
-    }
-    this.set('level', level);
-    
-    this.set('collapseUnits', level >= 0);
-    this.set('collapseLeader', level >= 0);
-    this.set('collapsePilots', level >= 0);
+    this.set('showUnits', level > 0);
+//     this.set('showLeader', level > 0);
+//     this.set('showMembers', level > 0);
   }),
 
   setupDrops: Ember.on('didInsertElement', function() {
@@ -71,14 +81,17 @@ export default Ember.Component.extend({
 
   actions: {
     toggleUnits: function() {
-      this.set('collapseUnits', ! this.get('collapseUnits'));
-      console.debug("collapse", this.get('collapseUnits'));
+      this.set('showUnits', ! this.get('showUnits'));
+      console.debug("showUnits", this.get('showUnits'));
     },
     toggleLeader: function() {
-      this.set('collapseLeader', ! this.get('collapseLeader'));
+      this.set('showLeader', ! this.get('showLeader'));
     },
-    togglePilots: function() {
-      this.set('collapsePilots', ! this.get('collapsePilots'));
+    toggleMembers: function() {
+      this.set('showMembers', ! this.get('showMembers'));
+    },
+    toggleApplicants: function() {
+      this.set('showApplicants', ! this.get('showApplicants'));
     },
 
     

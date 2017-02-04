@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 var get = Ember.get;
 var set = Ember.set;
@@ -6,32 +7,39 @@ var set = Ember.set;
 export default Ember.Service.extend({
   isAdmin: false,
   isUser: false,
-//   history: Ember.A(),
   store: Ember.inject.service(),
   user: null,
   loading: true,
-
+  statesDone: 16,
+  state: Ember.A(),
 
   init: function() {
+//     console.debug("session:", config.environment);
     var self = this;
 
     self.set('loading', true);
-    self.set("state", "authenticate");
+    get(self, "state").pushObject("connecting");
     self.set("isUser", false);
     self.set("isAdmin", false);
     self.set("user", null);
     self.set("errors", null);
 
-    return this.get('store').findAll('session').then(function(session) {
-      var wp_user = session.get('firstObject').get('user');
-
+    var _session = this.get('store').createRecord('session');
+//     if (config.environment === 'development') {
+//       _session.set('user', 'simsima');
+//     }
+    return _session.save().then(function(session) {
+      var wp_user = session.get('user');
+      get(self, "state").pushObject("permissions");
       if (Ember.isEmpty(get(wp_user, "id"))) {
         self.set("errors", [ { "attribute": "session", "message": "Something went wrong..." } ]);
         return self.loadThemAll();
       } else {
         self.set("current_user", wp_user);
         self.set("isUser", true);
+        get(self, "state").pushObject(get(wp_user, "display_name"));
         return self.get('store').findRecord('member', get(wp_user, "id")).then(function(mem) {
+          get(self, "state").pushObject("gotcha");
           mem.set("loggedIn", true);
           self.set("user", mem);
 
@@ -45,11 +53,13 @@ export default Ember.Service.extend({
           return self.loadThemAll();
         });
       }
-
     }).catch(function(err) {
+      self.set("statesDone", 14);
+      get(self, "state").pushObject("guest");
       if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
         self.set("errors", err.errors);
       }
+
       self.log("session", "logged in as visitor");
       return self.loadThemAll();
     });
@@ -59,23 +69,28 @@ export default Ember.Service.extend({
   loadThemAll: function() {
     var self = this;
     this.set('loading', true);
-    self.set("state", null);
+    
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),
       handles: self.createRequest("handles", "handle"),
       units: this.createRequest("units", "unit"),
-      memberUnits: this.createRequest("memberUnits", "memberUnit"),
-      unitTypes: self.createRequest("unitTypes", "unitType"),
-//
       items: self.createRequest("items", "item"),
-      itemTypes: self.createRequest("props", "prop"),
+      props: self.createRequest("props", "prop"),
       itemProps: self.createRequest("itemProps", "itemProp"),
+
+      rewards: self.createRequest("rewards", "reward"),
+      memberUnits: self.createRequest("memberUnits", "memberUnit"),
+      unitTypes: self.createRequest("unitTypes", "unitType"),
       itemTypes: self.createRequest("itemTypes", "itemType"),
+      rewardTypes: self.createRequest("rewardTypes", "rewardType"),
     });
     return all.then(function(done) {
-          console.debug("loading all done");// , done.get('length'));
-          self.set("state", "done");
-          self.set('loading', false);
+      console.debug("loading all done");
+      get(self, "state").pushObject("done");
+      self.set('loading', false);
+
+//       return Ember.RSVP.hash({
+//       });
     });
   },
 
@@ -83,8 +98,7 @@ export default Ember.Service.extend({
       var self = this;
       return self.get('store').findAll(modelName).then(function(data) {
         console.debug(" loaded ", name, Ember.get(data, 'length'));
-//         self.set(name, data);
-        self.set("state", name);
+        get(self, "state").pushObject(name);
         return data;
       });
   },

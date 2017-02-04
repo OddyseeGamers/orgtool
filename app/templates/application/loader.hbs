@@ -1,14 +1,33 @@
 <div class="loader-screen">
   <div class="loader-box">
     <div class="loader-text">
-      <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin "></button>
-      <br>
-      {{#if session.state}}
-        loading {{session.state}} ...
-        {{else}}
-          &nbsp;
-      {{/if}}
+<!--       <i class="loader-spinner fa fa-cloud-download"></i> -->
+      <i class="loader-spinner fa fa-download fa-pulse"></i>
+
+<!--       <i class="loader-spinner fa fa-gear fa-spin "></i> -->
+<!-- loading -->
+<!-- {{session.state.length}} / {{session.statesDone}} -->
+<!--       <div class="progress"> -->
+<!--         {{#if session.state.lastObject}} -->
+<!--         <div class="progress-bar" role="progressbar" aria-valuenow={{session.state.length}} aria-valuemin="0" aria-valuemax="12" style="min-width: 2em; width: 2%;"> -->
+<!--           {{session.state.lastObject}} ... -->
+<!--         </div> -->
+<!--         {{/if}} -->
+<!--       </div> -->
+
+<!-- <div class="progress"> -->
+<!--   <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> -->
+<!--     60% -->
+<!--   </div> -->
+<!-- </div> -->
 
     </div>
+
+      <div class="loader-bar">
+        {{#bs-progress class="progress-sm" as |p|}}
+            {{p.bar value=session.state.length minValue=0 maxValue=session.statesDone showLabel=false roundDigits=false type="info" striped=true animate=true}}
+        {{/bs-progress}}
+          {{session.state.lastObject}} ...
+      </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
-{{#bs-modal fade=false open=showDialog header=false body=false footer=false closeAction='close' }}
-{{#bs-modal-header}}
+{{#bs-modal fade=false open=showDialog header=false body=false footer=false onHide=(action 'close') as |md|}}
+{{#md.header}}
 <!--     <div class="member-avatar"> -->
   <h4 class="modal-title">
       {{#if model.img}}
@@ -11,35 +11,43 @@
     {{#if model.isNew}} Create {{else}} Edit {{/if}}
     Unit
   </h4>
-{{/bs-modal-header}}
-  {{#bs-modal-body}}
-    {{#bs-form action=(action "submit") model=model}}
-      {{bs-form-element controlType="text" label="Name" property="name"}}
-      {{bs-form-element controlType="text" label="Description" property="description"}}
-      {{bs-form-element controlType="text" label="Color" property="color"}}
-      {{bs-form-element controlType="text" label="Image" property="img"}}
+{{/md.header}}
+  {{#md.body}}
+    {{#bs-form action=(action "submit") model=model as |form|}}
+      {{form.element controlType="text" label="Name" property="name"}}
+      {{form.element controlType="text" label="Description" property="description"}}
+      {{form.element controlType="text" label="Color" property="color"}}
+      {{form.element controlType="text" label="Image" property="img"}}
 
       <label class="control-label">Type</label>
       <div class="input-group">
 
         <input type="text" class="form-control" id="unittype" value={{model.type.name}} readonly>
         <div class="input-group-btn">
-          {{#bs-dropdown}}
-            {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-            {{#bs-dropdown-menu  align="right"}}
+          {{#bs-dropdown as |dd|}}
+            {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+            {{#dd.menu  align="right"}}
               {{#each unitTypes as |ut|}}
               <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id model.type.id) "active"}} >{{ut.name}}</a></li>
               {{/each}}
-            {{/bs-dropdown-menu}}
+            {{/dd.menu}}
           {{/bs-dropdown}}
         </div>
       </div>
       {{/bs-form}}
-    {{/bs-modal-body}}
-    {{#bs-modal-footer}}
-        <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-        {{#if (and model.hasDirtyAttributes session.isAdmin)}}
-          <button type="submit" class="btn btn-primary">Save</button>
-        {{/if}}
-    {{/bs-modal-footer}}
+      <br>
+      <br>
+      <br>
+      <br>
+    {{/md.body}}
+    {{#md.footer}}
+<!--     <button type="submit" class="btn btn-danger" {{action "deleteRewardType"}} disabled={{rt.isSaving}}> Delete </button> -->
+    <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if model.type.id false true}} > {{#if model.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+
+<!--         <button type="button" class="btn btn-default" {{action "close"}}>Close</button> -->
+<!--         {{#if (and model.hasDirtyAttributes session.isAdmin)}} -->
+<!--           <button type="submit" class="btn btn-primary">Save</button> -->
+<!--         {{/if}} -->
+    {{/md.footer}}
 {{/bs-modal}}

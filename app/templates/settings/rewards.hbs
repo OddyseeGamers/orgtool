@@ -1,0 +1,66 @@
+{{#if session.isAdmin}}
+
+<div class="rewards" style="position: relative;">
+<!-- <div class="rewards"> -->
+        <div class="toolbar">
+  <!--         <button type="button" class="tb tb-default" {{action "createReward" rt}}>{{fa-icon "plus"}} Reward</button> -->
+          <button type="button" class="tb tb-default" {{action "createRewardType"}}>{{fa-icon "plus"}} Reward Type</button>
+        </div>
+
+  <div class="col-md-6">
+<!--     Reward Types {{model.length}}<br> <br> <br> -->
+    <br><br>
+
+    {{#each sortedModel as |rt|}}
+      <div class="box">
+
+        <div class="toolbar">
+          <button type="button" class="tb tb-default" {{action "createReward" rt}}>{{fa-icon "plus"}} Reward</button>
+        </div>
+            
+        <div class="box-header">
+          <span class="badge">{{rt.level}}</span>
+          {{rt.name}}
+          <button type="button" class="tb" {{action "editRewardType" rt}}>{{fa-icon "edit"}}</button>
+        </div>
+
+  <!--       <div class="row"> -->
+            {{#each rt.rewards as |r|}}
+              <div class="row" >
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                  {{r.level}}
+                </div>
+                <div class="col-md-3">
+                  {{r.name}}
+                </div>
+                <div class="col-md-3">
+                  {{if r.memberUnits.length r.memberUnits.length ""}}
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="tb" {{action "editReward" r}}>{{fa-icon "edit"}}</button>
+                </div>
+              </div>
+            {{/each}}
+  <!--       </div> -->
+
+      </div>
+    {{/each}}
+
+    {{#if showRTDialog}}
+      {{reward-type-create rt=currType showDialog=showRTDialog onConfirm=(action "showConfirmType")}}
+    {{/if}}
+
+    {{#if showRewardDialog}}
+      {{reward-create reward=currReward showDialog=showRewardDialog onConfirm=(action "showConfirmReward")}}
+    {{/if}}
+
+    {{#if showConfirmDialog}}
+      {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+    {{/if}}
+
+  </div>
+</div>
+
+{{/if}}

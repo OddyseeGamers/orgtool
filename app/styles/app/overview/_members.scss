@@ -7,6 +7,22 @@ $result-height: calc(100% - #{$filter-height});
   width: $info-width;
   height: 100%;
   float: left;
+  position: relative;
+
+
+  .info-stats {
+    height: 22px;
+    line-height: 22px;
+  }
+
+  .info-content {
+    height:  calc(100% - 22px);
+    position: relative;
+//      height: calc(100% - 26px);
+    width: 100%;
+    overflow-y: auto;
+  }
+
 //    border: 1px solid #f00;
 
 //    .member-filter {

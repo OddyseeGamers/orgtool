@@ -11,7 +11,6 @@ export default Ember.Component.extend({
   session: Ember.inject.service('session'),
   store: Ember.inject.service('store'),
 //   eventManager: Ember.inject.service('events'),
-  loader: Ember.inject.service('loader'),
   gameFilter: null,
   typeFilter: null,
   itemTypeFilter: null,

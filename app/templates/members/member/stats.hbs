@@ -1,0 +1,86 @@
+<div class="row">
+<!--   <div class="col-md-4 box"> -->
+  <div class="col-md-4 ">
+    <div class="box">
+      {{#if (or session.isAdmin model.loggedIn)}}
+      {{!--
+        <div class="toolbar">
+          {{#bs-dropdown model=model closeOnMenuClick=false as |dd|}}
+          {{#dd.button type="tb"}}<i class="fa fa-edit"></i>{{/dd.button}}
+          {{#dd.menu align="left"}}
+            <li>
+            {{#power-select options=names onchange=(action "foo") as |n|}}
+              - {{n}}
+            {{/power-select}}
+
+            </li>
+          {{/dd.menu}}
+          {{/bs-dropdown}}
+        </div>
+        --}}
+
+        <div class="toolbar">
+          {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
+        </div>
+
+
+  <!--     <div class="toolbar"> -->
+  <!--       <button class="tb tb-default" type="button" {{action 'applyMember'}}><i class="fa fa-edit"></i> Apply</button> -->
+  <!--     </div> -->
+      {{/if}}
+      <div class="box-header">
+<!--         <label class="control-label">Units: {{model.memberUnits.length}}</label> -->
+        Units: {{model.memberUnits.length}}
+      </div>
+      <div>
+        {{#each model.memberUnits as |memUn|}}
+        <div class="row info-block">
+          <div class="col-md-1">
+            <img style="width:20px;height:20px;" src={{memUn.unit.img}}/>
+          </div>
+          <div class="col-md-7">
+            {{memUn.unit.name}}
+          </div>
+          <div class="col-md-3">
+            {{memUn.reward.name}}
+          </div>
+          <div class="col-md-1">
+            {{#if (or session.isAdmin model.loggedIn)}}
+              <button class="tb txt-red" type="button" {{action 'showConfirm' memUn}}><i class="fa fa-sign-out"></i></button>
+            {{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#each filteredTypes as |rt|}}
+<div class="row">
+  <div class="col-md-4">
+    <div class="box">
+      <div class="box-header">
+       {{rt.name}}: {{rt.rewards.length}}
+      </div>
+      {{#each rt.rewards as |reward|}}
+        <div class="row">
+          {{reward.name}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+{{/each}}
+
+
+{{#if showConfirmDialog}}
+  {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+{{/if}}
+
+<!-- <div style="row"> -->
+<!--   LFG Contracts created -->
+<!-- </div> -->
+<!-- <div style="row"> -->
+<!--   LFG Contracts completed -->
+<!-- </div> -->

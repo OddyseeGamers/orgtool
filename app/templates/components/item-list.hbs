@@ -28,7 +28,7 @@
   </div>
 
 
-  {{#if (or session.isAdmin model.loggedIn)}}
+  {{#if (or session.isAdmin member.loggedIn)}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action "addItem" member}}> <i class="fa fa-plus" ></i> Item</button>
       {{#if (and adminMode session.isAdmin)}}

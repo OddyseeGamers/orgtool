@@ -16,5 +16,7 @@ export default DS.Model.extend({
   rewards: DS.attr(),
   logs: DS.attr(),
 
+  memberRewards: DS.hasMany('memberReward', { async: true }),
+
   loggedIn: false,
 });

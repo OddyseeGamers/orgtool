@@ -1,0 +1,37 @@
+.unit-select {
+  z-index: 1100;
+//    .dropdown-menu {
+//      width: 250px;
+//      float: left;
+//    }
+
+    input {
+      background-color: transparent;
+    }
+  
+
+  .ember-basic-dropdown {
+    width: 300px;
+//      float: left;
+  }
+
+  .unit-form { 
+//      border: 1px solid #f00;
+//      width: 400px;
+    position: absolute;
+//      float: left;
+  }
+
+  .unit-apply { 
+    float: right;
+//      width: 40px;
+  }
+
+//    .btn-default {
+//      top: 5px;
+//      right: -26px;
+//      position: absolute;
+//      height: 24px;
+//      border-radius: 3px;
+//    }
+}

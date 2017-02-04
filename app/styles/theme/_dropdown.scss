@@ -35,11 +35,13 @@
 /*     background-color: #111 !important; */
 
     color: #fff;
+    background-color: #0A0C11;
 //      background-color: #286090;
 //      background-color: #101215;
-    background-color: #24282d;
-    border: 0px;
+//      background-color: #24282d;
+//      border: 0px;
 //      border-color: #204d74;
+    border: 1px solid #219ab3;
 }
 
 .dropdown-menu>li>a {
@@ -49,14 +51,16 @@
 
 .dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
     color: #1a80b6;
-    background-color: #101215;
+    background-color: #000;
+//      background-color: #101215;
 //      background-color: #219ab3;
 //      background-color: #1a80b6;
 }
 
 .dropdown-menu>li>a.active {
-    color: #1a80b6;
-    background-color: #101215;
+//      color: #1a80b6;
+    background-color: rgba(0, 0, 0, 0.6);
+//      background-color: #101215;
 //      background-color: #219ab3;
 //      background-color: #1a80b6;
 }

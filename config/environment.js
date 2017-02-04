@@ -14,12 +14,17 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
       }
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      API_HOST: ''
     },
 
 //     moment: {
@@ -50,6 +55,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV.APP.API_HOST = 'https://oddysee.org'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

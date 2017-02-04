@@ -1,0 +1,47 @@
+{{#if showDialog}}
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') class="handle-create" as |md|}}
+  {{#md.header}}
+    <h4 class="modal-title">
+      {{#if reward.isNew}}
+        Add Reward to {{reward.type.name}}
+      {{else}}
+        Edit Reward {{reward.name}}
+      {{/if}}
+    </h4>
+  {{/md.header}}
+  {{#md.body}}
+
+    <label class="control-label">
+      Name
+      {{#unless reward.name}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    {{input type="text" class="form-control" value=reward.name}}
+
+    <label class="control-label">
+      Level
+      {{#unless reward.level}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    {{input type="number" class="form-control" value=reward.level}}
+
+    <label class="control-label">
+      Description
+    </label>
+    {{input type="text" class="form-control" value=reward.description}}
+
+    <label class="control-label">
+      Image
+    </label>
+    {{input type="text" class="form-control" value=reward.img}}
+
+  {{/md.body}}
+  {{#md.footer}}
+    <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}> Delete </button>
+    <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if requiredFields false true}} > {{#if reward.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+  {{/md.footer}}
+{{/bs-modal}}
+{{/if}}

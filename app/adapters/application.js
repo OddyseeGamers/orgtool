@@ -1,11 +1,12 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import config from '../config/environment';
 
 // export default DS.ActiveModelAdapter.extend({
 
 //   export default DS.RESTAdapter.extend(DS.BuildURLMixin, {
 export default DS.RESTAdapter.extend({
-  host: "https://oddysee.org",
+  host: config.APP.API_HOST,
   namespace: 'wp-json/orgtool',
 
   headers: { 

@@ -1,29 +1,36 @@
 .unit-tree {
   padding-top: 4px;
 
-  .unit-info {
-//      background-color: #101215;
-    background-color: $gray2;
-    border-radius: 4px;
-    padding-bottom: 4px;
-  }
-
-  .unit-img {
-    width: 24px;
+  .box {
     margin-bottom: 0px;
   }
 
-  .unit-header {
-    padding-left: 10px;
-    min-height: 35px;
+  .unit-info {
+//      background-color: #101215;
+//      background-color: $gray2;
+
+//      border: 1px solid #1a80b6;
+//      border-radius: 10px;
+//      padding-bottom: 4px;
+  }
+
+  .unit-img {
+    max-width: 32px;
+    height: 24px;
+    margin-bottom: 0px;
+  }
+
+  .box-header {
+//      padding-left: 10px;
+//      min-height: 35px;
 
     .unit-name {
       color: #1a80b6;
-      font-size: 16px;
-      min-height: 40px;
+//        font-size: 16px;
+//        min-height: 40px;
       vertical-align: middle;
-      line-height:40px;
-      border-bottom: 1px solid #444;
+//        line-height:40px;
+//        border-bottom: 1px solid #444;
       font-weight: bold;
 
       a.toggle {

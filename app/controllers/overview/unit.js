@@ -7,7 +7,6 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
-  loader: Ember.inject.service('loader'),
 //   showDialog: true,
 //  currShip: null,
  // sortProperties: ['name:asc'],
@@ -19,6 +18,7 @@ export default Ember.Controller.extend({
     submit: function() {
       var unit = get(this, 'model');
       var self = this;
+      console.debug("SUBMIT")
 
       self.set('showDialog', false);
 //       if (!unit.get('hasDirtyAttributes')) {

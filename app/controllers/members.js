@@ -6,7 +6,6 @@ var set = Ember.set;
 export default Ember.Controller.extend({
   sortProperties: ['numericID'],
   store: Ember.inject.service(),
-  loader: Ember.inject.service(),
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   details: false,

@@ -3,8 +3,8 @@
 --}}
 {{#if showDialog}}
 
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close' class="item-create"}}
-  {{#bs-modal-header}}
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') class="item-create" as |md|}}
+  {{#md.header}}
     <h4 class="modal-title">
       {{#if item.isNew}}
         Add {{item.type.name}} to
@@ -13,8 +13,8 @@
       {{/if}}
       {{item.member.name}}
     </h4>
-  {{/bs-modal-header}}
-  {{#bs-modal-body}}
+  {{/md.header}}
+  {{#md.body}}
 
   {{#if item.isNew}}
     <label class="control-label">
@@ -26,13 +26,13 @@
     <div class="input-group ship-model-modal">
       <input type="text" class="form-control" value={{item.type.name}} readonly>
       <div class="input-group-btn">
-        {{#bs-dropdown}}
-          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-          {{#bs-dropdown-menu align="right"}}
+        {{#bs-dropdown as |dd|}}
+          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+          {{#dd.menu align="right"}}
             {{#each types as |sm|}}
               <li {{action "setType" sm}}><a href="#" class={{if (and (and (and s s.id) (and item.type item.type.id)) (eq s.id item.type.id)) "active"}} >{{sm.name}}</a></li>
             {{/each}}
-          {{/bs-dropdown-menu}}
+          {{/dd.menu}}
         {{/bs-dropdown}}
       </div>
     </div>
@@ -51,9 +51,9 @@
     <div class="input-group ship-model-modal">
       <input type="text" class="form-control" id="shipModel" value={{item.parent.name}} readonly>
       <div class="input-group-btn">
-        {{#bs-dropdown}}
-          {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-          {{#bs-dropdown-menu align="right"}}
+        {{#bs-dropdown as |dd|}}
+          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+          {{#dd.menu align="right"}}
 
           {{#unless itemParentRoot}}
           {{#each parents as |pa|}}
@@ -73,7 +73,7 @@
               {{/each}}
           {{/each}}
 
-          {{/bs-dropdown-menu}}
+          {{/dd.menu}}
         {{/bs-dropdown}}
       </div>
     </div>
@@ -96,15 +96,20 @@
       </div>
       <div class="col-md-4 row text-center disabled">
         <label class="control-label stretch">Hidden</label>
-        {{bs-switch size='mini' checked=false indeterminate=false}}
+        {{bs-switch size='mini' checked=item.hidden indeterminate=false}}
         <label class="control-label stretch">Available</label>
-        {{bs-switch size='mini' checked=false indeterminate=false}}
+        {{bs-switch size='mini' checked=item.available indeterminate=false}}
       </div>
 <!--     </div> -->
 
 
-  {{/bs-modal-body}}
-  {{#bs-modal-footer}}
+  {{/md.body}}
+  {{#md.footer}}
+<!--     <button type="submit" class="btn btn-danger" {{action "deleteItem"}} disabled={{rt.isSaving}}> Delete </button> -->
+    <button type="submit" class="btn btn-primary" {{action "saveItem"}} disabled={{if requiredFields false true}} > {{#if item.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+
+    {{!--
     {{#unless item.isSaving}}
       <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
       {{#if item.parent}}
@@ -113,8 +118,8 @@
         <button type="submit" class="btn btn-primary"> {{if item.hasDirtyAttributes 'Save' 'Ok'}} </button>
       {{/if}}
     {{/unless}}
-
-  {{/bs-modal-footer}}
+    --}}
+  {{/md.footer}}
 {{/bs-modal}}
 
 

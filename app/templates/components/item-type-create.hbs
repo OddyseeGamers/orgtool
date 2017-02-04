@@ -3,13 +3,13 @@
 --}}
 {{#if showDialog}}
 
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false closeAction='close'}}
-  {{#bs-modal-header}}
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') as |md|}}
+  {{#md.header}}
     <h4 class="modal-title">
       Add Item Type
     </h4>
-  {{/bs-modal-header}}
-  {{#bs-modal-body}}
+  {{/md.header}}
+  {{#md.body}}
 
   <label class="control-label">
     Name
@@ -43,8 +43,8 @@
   </label>
   {{bs-switch size='mini' checked=itemType.permissions indeterminate=false}}
 
-  {{/bs-modal-body}}
-  {{#bs-modal-footer}}
+  {{/md.body}}
+  {{#md.footer}}
     {{#unless itemType.isSaving}}
       <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
       {{#unless itemType.isNew}}
@@ -53,7 +53,7 @@
       <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}}> Save </button>
     {{/unless}}
 
-  {{/bs-modal-footer}}
+  {{/md.footer}}
 {{/bs-modal}}
 
 

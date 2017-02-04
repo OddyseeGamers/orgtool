@@ -3,102 +3,104 @@
   {{!-- DEPRICATED:
   <div class="unit-info" style="background-color: {{hex-to-rgba unit.color ".2"}}">
     --}}
-  <div class="unit-info">
-    <div class="unit-header">
-      <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
+<!--   <div class="unit-info"> -->
+  <div class="box">
 
+    {{#if session.isAdmin}}
+      <div class="toolbar">
+        {{#bs-dropdown class="unit-menu" as |dd|}}
+        {{#dd.toggle}}
+            <button type="button" class="tb tb-default">{{fa-icon "gear"}}</button>
+          {{/dd.toggle}}
+          {{#dd.menu class="pull-right"}}
+              <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add</a></li>
+              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit</a></li>
+              <li><a {{action 'deleteUnit'}} style="color: #f00;" href="#">{{fa-icon "remove"}} Delete</a></li>
+          {{/dd.menu}}
+          {{/bs-dropdown}}
+        </div>
+      {{/if}}
+
+
+    <div class="box-header">
+      <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
         {{#if unit.units}}
-          <a class="toggle" {{action 'toggleUnits'}}>
-            <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
-            {{#if unit.img}}
-              <img class="unit-img" src={{unit.img}}>
-            {{/if}}
-            {{unit.name}}
-          </a>
+            <a class="toggle" {{action 'toggleUnits'}}>
+              <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
+              {{#if unit.img}}
+                <img class="unit-img" src={{unit.img}}>
+              {{/if}}
+              {{unit.name}}
+            </a>
         {{else}}
-          <i class="fixedWidth fa fa-circle"></i>
+          <i class="fixedWidth fa"></i>
           {{#if unit.img}}
             <img class="unit-img" src={{unit.img}}>
           {{/if}}
           {{unit.name}}
         {{/if}}
 
-        {{#if session.isAdmin}}
-        {{#bs-dropdown class="unit-menu"}}
-          {{#bs-dropdown-toggle}}
-            {{fa-icon "gear"}}
-          {{/bs-dropdown-toggle}}
-          {{#bs-dropdown-menu class="pull-right"}}
-              <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add</a></li>
-              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit</a></li>
-              {{!--
-              <li><a {{action 'deleteUnit'}} href="#">{{fa-icon "remove"}} Delete</a></li>
-              --}}
-
-
-
-              {{!--
-            {{#if showChildren}}
-
-              <li>{{#link-to 'overview.unit' unit.id activeClass=""}}{{fa-icon "pencil-square-o"}} Edit Unit{{/link-to}}</li>
-
-            {{else}}
-              <li><a {{action 'addGame'}} href="#">{{fa-icon "plus"}} Add Game</a></li>
-              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit {{unit.name}}</a></li>
-            {{/if}}
-              --}}
-
-          {{/bs-dropdown-menu}}
-          {{/bs-dropdown}}
-          {{/if}}
       </div>
     </div>
 
-    <div class="unit-leader-container" data-unitid={{unit.id}}>
-      {{#if unit.leader}}
-        <a class="toggleElement" {{action 'toggleLeader'}}>
-          <i class="fixedWidth fa {{if showLeader "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-          Leader: {{unit.leader.length}}
-        </a>
-      {{else}}
-        <i class="fixedWidth fa fa-circle"></i>
-        Leader: {{unit.leader.length}}
-      {{/if}}
-      <div class="unit-leader {{unless showLeader "hide"}}">
-        {{#each unit.leader as |lead|}}
-          <div class="half-col">
-            {{member-details member=lead draggable=true unitid=unit.id}}
-          </div>
-        {{/each}}
-      </div>
-      <div style="clear: both"/>
-    </div>
+      <div class="unit-leader-container" data-unitid={{unit.id}}>
+          <a class="toggleElement" {{action 'toggleLeader'}}>
+            <i class="fixedWidth fa {{if showLeader "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
+            Leader: {{leaders.length}}
+          </a>
 
-    <div class="unit-pilots-container" data-unitid={{unit.id}}>
-      {{#if unit.memberUnits}}
-        <a class="toggleElement" {{action 'togglePilots'}}>
-          <i class="fixedWidth fa {{if showPilots "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-          Member: {{unit.memberUnits.length}}
-        </a>
-      {{else}}
-        <i class="fixedWidth fa fa-circle"></i>
-        Member: {{unit.memberUnits.length}}
-      {{/if}}
-      <div class="unit-pilots {{unless showPilots "hide"}}">
-        {{#each unit.memberUnits as |memUn|}}
-            {{member-details member=memUn.member draggable=true unitid=unit.id}}
-        {{/each}}
+        {{#if showLeader}}
+        <div class="unit-pilots">
+          {{#each leaders as |lead|}}
+              {{member-details member=lead draggable=true unitid=unit.id}}
+          {{/each}}
+        </div>
+        {{/if}}
+
+        <div style="clear: both"/>
       </div>
-    </div>
+
+      <div class="unit-pilots-container" data-unitid={{unit.id}}>
+          <a class="toggleElement" {{action 'toggleMembers'}}>
+            <i class="fixedWidth fa {{if showMembers "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
+            Member: {{members.length}}
+          </a>
+
+        {{#if showMembers}}
+        <div class="unit-pilots">
+          {{#each members as |mem|}}
+              {{member-details member=mem draggable=true unitid=unit.id}}
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+
+      <div class="unit-pilots-container">
+          <a class="toggleElement" {{action 'toggleApplicants'}}>
+            <i class="fixedWidth fa {{if showApplicants "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
+            Applications: {{applicants.length}}
+          </a>
+
+        {{#if showApplicants}}
+        <div class="unit-pilots">
+          {{#each applicants as |mem|}}
+              {{member-details member=mem draggable=true unitid=unit.id}}
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
   </div>
 
-    <div class="unit-bg {{unless showUnits "hide"}}">
+    {{#if showUnits}}
+    <div class="unit-bg">
       <div class="child-units">
         {{#each unit.units as |child|}}
-          {{unit-tree unit=child level=level}}
+          {{unit-tree unit=child level=(-- level)}}
         {{/each}}
       </div>
     </div>
+    {{/if}}
 
   {{yield}}
 </div>

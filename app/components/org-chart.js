@@ -10,7 +10,6 @@ var y = 0;
 export default Ember.Component.extend({
   classNames: ['org-chart'],
   eventManager: Ember.inject.service('events'),
-  loader: Ember.inject.service(),
 
   radius: 0,
   padding: 6,
@@ -32,22 +31,25 @@ export default Ember.Component.extend({
 
 
   setup: Ember.on('didInsertElement', function() {
-    console.debug("setup chart");
+    var self = this;
+//     console.debug("setup chart", self.currFilter);
     this.set('boundResizeHandler', Ember.run.bind(this, this._renderStruc));
     $(window).on('resize', this.get('boundResizeHandler'));
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
-    this._renderStruc();
+    self._renderStruc();
   }),
 
   willDestroy: function() {
-    console.debug("free chart");
+//     console.debug("free chart", this.currFilter, "-", this);
     $(window).off('resize', this.get('boundResizeHandler'));
     this.get('eventManager').off('rerender');
+//     $('#to-remove *').unbind('click');
+//     Ember.$("#org_group").remove();
   },
 
 
   changed: function() {
-    console.debug("filter changed", this.get('currFilter'));
+//     console.debug("filter changed", this.get('currFilter'));
     this._renderStruc();
   }.observes('currFilter'),
 
@@ -201,12 +203,12 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
+//     console.debug("render");
     var units = get(this, 'units');
     if (!units) {
         console.debug("no data no render");
         return;
     }
-    console.debug("render");
 
     var root = this._transformData();
     var struc = this._serializeChildren(root);
@@ -234,7 +236,7 @@ export default Ember.Component.extend({
     Ember.$("filter").remove();
     Ember.$("rect").remove();
 
-    var src = root.get('img') || "https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/oddysee-logo-glow.png";
+    var src = root.get('img') || "https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/oddysee-logo-glow.png";
     var rootImg = svg.append("filter")
                            .attr('id', 'img1')
                            .attr('width', "100%")
@@ -256,6 +258,8 @@ export default Ember.Component.extend({
             .attr("id", "org_group")
             .attr("transform", "translate(" + center + ")");
 
+    var self = this;
+
     var path = vis.selectAll("path").data(nodes);
     path.enter().append("path")
             .attr("id", function(d, i) { return "path-" + d.id; })
@@ -266,14 +270,16 @@ export default Ember.Component.extend({
             .attr("height", 10)
             .attr("class", "unit-pilots-path")
             .attr("fill-opacity", function(d, i) { if (d && d.depth === 0) { return "0"; } else {  return "1" } })
-//             .attr("fill-opacity", function(d, i) { if (d && d.depth === 0) { return "0"; } else {  return (d && d.color) ? "1" : "0.05"; } })
-//             .attr("filter", function(d, i) { return (d && d.depth === 0) ? "url(#img1)" : ""; })
             .attr("fill", Ember.$.proxy(this.color, this))
             .on("click", Ember.$.proxy(this.click, this))
             .on("mouseover", self.mouseover);
+
+//             .attr("fill-opacity", function(d, i) { if (d && d.depth === 0) { return "0"; } else {  return (d && d.color) ? "1" : "0.05"; } })
+//             .attr("filter", function(d, i) { return (d && d.depth === 0) ? "url(#img1)" : ""; })
 //             .on("mouseover", Ember.$.proxy(this.mouseover, this))
 //             .on("mouseout", Ember.$.proxy(this.mouseout, this));
 //             .on("click", self.click.bind(self));
+
 
 
     var box = document.getElementById("org_group").firstChild.getBBox();
@@ -291,7 +297,6 @@ export default Ember.Component.extend({
                       .attr('height', box.height - padding);
 
 
-    self = this;
     var text = vis.selectAll("text").data(nodes);
     var textEnter = text.enter().append("text")
             .style("fill-opacity", 1)

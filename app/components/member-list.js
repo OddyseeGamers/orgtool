@@ -11,7 +11,6 @@ export default Ember.Component.extend({
   session: Ember.inject.service('session'),
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
-  loader: Ember.inject.service('loader'),
   unitFilter: null,
   columns: [100],
   itemHeight: 39,

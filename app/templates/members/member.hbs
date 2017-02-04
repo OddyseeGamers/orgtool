@@ -1,5 +1,5 @@
-{{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false closeAction='close' }}
-  {{#bs-modal-header}}
+{{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false onHide=(action 'close') class="member-modal" as |md|}}
+  {{#md.header}}
       <h4>
         {{#if model.loggedIn}} My profile {{/if}}
         {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
@@ -7,196 +7,26 @@
           <span class="text-danger">[modified]</span>
         {{/if}}
       </h4>
-  {{/bs-modal-header}}
 
-  {{#bs-modal-body}}
+  <ul class="nav nav-tabs member-tabs">
+    <li class="pull-right"> {{#link-to 'members.member.items' model.id}}<i class="fa fa-cubes"></i> Items{{/link-to}} </li>
+    <li class="pull-right"> {{#link-to 'members.member.stats' model.id}}<i class="fa fa-trophy"></i> Stats{{/link-to}} </li>
+    <li class="pull-right"> {{#link-to 'members.member.general' model.id}}<i class="fa fa-user-o"></i> General{{/link-to}} </li>
+  </ul>
 
-    <div style="width:100%; height:25%;">
-      <div style="width:15%; height:100%; border-right:1px solid #204d74; float:left;">
-        <div class="member-details-name">
-        {{#if (or session.isAdmin model.loggedIn)}}
-          <div class="toolbar">
-            {{#bs-dropdown closeOnMenuClick=false}}
-              {{#bs-dropdown-button type="tb"}}<i class="fa fa-edit"></i>{{/bs-dropdown-button}}
-              {{#bs-dropdown-menu align="right"}}
-                <li>
-                {{#bs-form model=model}}
-                  {{bs-form-element controlType="textarea" property="avatar"}}
-                {{/bs-form}}
-              </li>
-              {{/bs-dropdown-menu}}
-            {{/bs-dropdown}}
-          </div>
-        {{/if}}
+  {{/md.header}}
 
-          {{#if model.avatar}}
-            <img class="member-details-img" src={{model.avatar}}>
-          {{else}}
-            <img class="member-details-img" src="https://robertsspaceindustries.com/rsi/static/images/account/avatar_default.jpg">
-          {{/if}}
-        </div>
-      </div>
-
-      <div style="width:25%; height:100%; border-right:1px solid #204d74; float:left; padding-left: 10px; padding-right: 10px;">
-        <div class="row">
-          <div class="col-md-4">
-            <label class="control-label">Name</label>
-          </div>
-          <div class="col-md-8">
-            {{input type="text" class="form-control" value=model.name readonly=(not (or session.isAdmin model.loggedIn))}}
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <label class="control-label">Timezone</label>
-          </div>
-          {{!--
-          <div class="col-md-6 input-group">
-            <input type="text" class="form-control" value={{model.timezone}} readonly>
-            <div class="input-group-btn">
-              {{#bs-dropdown}}
-                {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-                {{#bs-dropdown-menu align="right"}}
-                  {{#each tzs as |tz|}}
-                  <li {{action "setTimezone" tz}}><a href="#" >{{get-tz tz}}</a></li>
-<!--                           <li {{action "setTimezone" tz}}><a href="#" class={{if (eq pa.id item.parent.id) "active"}} >{{pa.name}}</a></li> -->
-                  {{/each}}
-                {{/bs-dropdown-menu}}
-              {{/bs-dropdown}}
-            </div>
-          </div>
-          --}}
-          <div class="col-md-2">
-            {{input type="number" class="form-control" value=model.timezone readonly=(not (or session.isAdmin model.loggedIn))}}
-          </div>
-
-          <div class="col-md-6">
-            <label class="control-label">UTC</label>
-          </div>
-        </div>
-
-<!--         <div style=clear:both;></div> -->
-        <div class="row">
-          <div class="col-md-4" style="padding: 10px 0px;">
-            <label class="control-label">Schedule</label>
-          </div>
-          <div class="col-md-8" style="padding: 6px 12px;">
-            <div class="schedule-day">Su</div>
-            <div class="schedule-day">Mo</div>
-            <div class="schedule-day">Tu</div>
-            <div class="schedule-day">We</div>
-            <div class="schedule-day">Th</div>
-            <div class="schedule-day">Fr</div>
-            <div class="schedule-day">Sa</div>
-          </div>
-        </div>
+  {{#md.body}}
 
 
-      </div>
-
-      <div style="width:20%; height:100%; border-right:1px solid #204d74; float:left; position: relative;">
-        {{#if (or session.isAdmin model.loggedIn)}}
-            <div class="toolbar">
-              <button class="tb tb-default" type="button"  {{action 'addHandle' model}}><i class="fa fa-plus"></i></button>
-            </div>
-        {{/if}}
-
-        <div class="handle-header">
-          <div class="col-md-5 member-list-header-name">
-            Service
-          </div>
-          <div class="col-md-6">
-            Handle
-          </div>
-          <div class="col-md-1">
-          </div>
-        </div>
-
-        <div class="handle-list">
-          {{#each model.handles as |hand|}}
-          <div class="row">
-          <div class="col-md-5">
-                {{#if (eq hand.type "rsi")}}
-                  <img src="https://robertsspaceindustries.com/media/tb6ui8j38wwscr/icon/RSI.png" style="width:20px;height:20px">
-                  <b>RSI</b>
-                {{/if}}
-                {{#if (eq hand.type "discord")}}
-                  <img src="http://vignette3.wikia.nocookie.net/siivagunner/images/9/9f/Discord_icon.svg" style="width:20px;height:20px">
-                  <b>Discord</b>
-                {{/if}}
-                {{#if (eq hand.type "steam")}}
-                  <img src="http://icons.iconarchive.com/icons/martz90/circle/24/steam-icon.png" style="width:20px;height:20px">
-                  <b>Steam</b>
-                {{/if}}
-            </div>
-            <div class="col-md-6">
-              {{hand.handle}}
-            </div>
-            <div class="col-md-1">
-                {{#if (or session.isAdmin model.loggedIn)}}
-                  <button class="tb" type="button" {{action 'editHandle' hand}}><i class="fa fa-edit"></i></button>
-                {{else}}
-                   &nbsp;
-                {{/if}}
-            </div>
-          </div>
-          {{/each}}
-        </div>
-
-      </div>
+  <div class="tab-content">
+    {{outlet}}
+  </div>
 
 
+  {{/md.body}}
 
-      <div style="width:20%; height:100%; border-right:1px solid #204d74; float:left; padding-left: 10px; padding-right: 10px; position:relative;">
-        {{#if session.isUser}}
-        <div class="toolbar toolbar-disabled">
-          <i class="fa fa-edit" ></i> Apply
-        </div>
-        {{/if}}
-        <label class="control-label">Units: {{model.memberUnits.length}}</label>
-        <div>
-          {{#each model.memberUnits as |memUn|}}
-          {{memUn.unit.name}}<br>
-          {{/each}}
-        </div>
-
-      </div>
-
-      <div style="width:20%; height:100%; color: #333 !important; float:right; padding-left: 10px; padding-right: 10px; position:relative;">
-        {{#if session.isUser}}
-        <div class="toolbar toolbar-disabled">
-          <i class="fa fa-edit" ></i> Add
-        </div>
-        {{/if}}
-        <label class="control-label">Games: 0</label>
-<!--         <div> -->
-<!--           <img src="https://upload.wikimedia.org/wikipedia/en/9/91/Star_Citizen_logo.png" style="width:20px;height:20px"> -->
-<!--           Star Citizen -->
-<!--         </div> -->
-      </div>
-
-    </div>
-    <div style="width:100%; height:75%; border-top:1px solid #204d74;">
-      <div style="width:80%; height:100%; border-right:1px solid #204d74; float:left; position:relative;">
-        <div class="item-list">
-          {{item-list member=model details=true columns=columns itemHeight=itemHeight itemTypeFilter=itemTypeFilter}}
-        </div>
-      </div>
-      <div style="width:20%; height:75%; color: #333 !important; float: right;padding-left: 10px; padding-right: 10px; ">
-          <label class="control-label">Rank</label><br><br>
-          <label class="control-label">Positions</label><br><br>
-          <label class="control-label">Roles</label><br><br>
-          <label class="control-label">Certificates</label><br><br>
-          <label class="control-label">Badges</label><br><br>
-          <label class="control-label">Achievements</label><br><br>
-      </div>
-    </div>
-
-
-  {{/bs-modal-body}}
-
-  {{#bs-modal-footer}}
+  {{#md.footer}}
     {{#if session.isAdmin}}
       <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "remove"}} Delete</button>
     {{/if}}
@@ -207,7 +37,7 @@
 
     <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
 
-  {{/bs-modal-footer}}
+  {{/md.footer}}
 {{/bs-modal}}
 
 

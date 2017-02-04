@@ -4,7 +4,7 @@
 <!--     </div> -->
 
     <div class="col-md-3">
-      <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/blank.png'">
+      <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
 
       <div class="member-name">
         {{member.name}}
@@ -54,7 +54,7 @@
   {{/link-to}}
 {{else}}
   <div class="member-detail">
-    <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin-2/orgtool/public/blank.png'">
+    <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
     <div class="member-box">
         <div class="member-info">
           <div class="member-name">
@@ -70,11 +70,11 @@
               u: {{member.memberUnits.length}}
               {{/if}}
 
-              {{#bs-dropdown class="member-options"}}
-                {{#bs-dropdown-toggle}}
+              {{#bs-dropdown class="member-options" as |dd|}}
+                {{#dd.toggle}}
                   {{fa-icon "caret-down"}}
-                {{/bs-dropdown-toggle}}
-                {{#bs-dropdown-menu class="pull-right"}}
+                {{/dd.toggle}}
+                {{#dd.menu class="pull-right"}}
                   {{#if canUnassign}}
                     <li><a href="#" class="text-danger" {{action 'unassignMember' member unitid}}>{{fa-icon "close"}} Unassign</a></li>
                   {{/if}}
@@ -83,7 +83,7 @@
                     {{fa-icon "user"}} Profile
                     {{/link-to}}
                   </li>
-                {{/bs-dropdown-menu}}
+                {{/dd.menu}}
               {{/bs-dropdown}}
             </div>
           </div>

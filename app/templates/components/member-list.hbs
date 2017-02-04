@@ -15,9 +15,9 @@
         <input type="text" class="form-control" id="shipModel" value={{unitFilter.name}} placeholder="All" readonly>
         <div class="input-group-btn">
 
-          {{#bs-dropdown}}
-            {{#bs-dropdown-button}}<span class="caret"></span>{{/bs-dropdown-button}}
-            {{#bs-dropdown-menu align="right"}}
+          {{#bs-dropdown as |dd|}}
+            {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+            {{#dd.menu align="right"}}
               <li {{action "setUnitFilter" null}}>
                 <a href="#" class={{unless unitFilter "active"}}>
                   <img class="root-item-img" src={{rootUnit.img}}>
@@ -37,7 +37,7 @@
                 </a>
               </li>
               {{/each}}
-            {{/bs-dropdown-menu}}
+            {{/dd.menu}}
           {{/bs-dropdown}}
 
         </div>

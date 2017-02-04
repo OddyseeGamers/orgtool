@@ -1,0 +1,24 @@
+.rewards {
+  .reward-type {
+//      width: 100%;
+//      height: 100%;
+    border: 1px solid #1a80b6;
+//      position: absolute;
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+    .badge {
+      background-color: #1a80b6;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .toolbar {
+      border-radius: 0px 10px 0px 10px;
+      position: relative;
+      float: right;
+//      width: 100%;
+
+    }
+  }
+}

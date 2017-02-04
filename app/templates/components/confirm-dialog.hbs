@@ -1,28 +1,34 @@
 {{#if showDialog}}
-{{#bs-modal open=showDialog size='sm' header=false body=false footer=false autoClose=false closeAction='close'}}
-  {{#bs-modal-header}}
+{{#bs-modal open=showDialog size='sm' header=false body=false footer=false autoClose=false onHide=(action 'close') as |md|}}
+  {{#md.header}}
     <h4 class="modal-title">
       {{msg.title}}
     </h4>
-  {{/bs-modal-header}}
-  {{#bs-modal-body}}
+  {{/md.header}}
+  {{#md.body}}
 
       <div class="loader-screen">
         <div class="loader-box" style="height: 120px;">
-  {{#if msg.item.isSaving}}
-          <div class="loader-text">
-            <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin"></button>
-          </div>
-  {{else}}
-    {{msg.content}}
-  {{/if}}
+          {{#if msg.item.isSaving}}
+                  <div class="loader-text">
+                    <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin"></button>
+                  </div>
+          {{else}}
+            {{msg.content}}
+          {{/if}}
         </div>
       </div>
-  {{/bs-modal-body}}
-  {{#bs-modal-footer}}
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-    <button type="submit" class="btn btn-primary" {{action "submitConfirm"}}> Ok </button>
-  {{/bs-modal-footer}}
+  {{/md.body}}
+  {{#md.footer}}
+    <button type="button" class="btn btn-default" {{action "close"}} disabled={{msg.item.isSaving}}>Close</button>
+    {{#if (eq msg.type "delete")}}
+      <button type="submit" class="btn btn-danger" {{action "submitConfirm"}} disabled={{msg.item.isSaving}}> Do it!</button>
+    {{else}}
+      <button type="submit" class="btn btn-primary" {{action "submitConfirm"}} disabled={{msg.item.isSaving}}> Ok</button>
+    {{/if}}
+
+
+  {{/md.footer}}
 {{/bs-modal}}
 
 {{/if}}
