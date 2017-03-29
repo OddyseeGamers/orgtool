@@ -19,7 +19,7 @@ export default Ember.Component.extend({
     try {
       return unit.get("id") == id || unit.get('parent') && this.hasParent(id, unit.get('parent'));
     } catch(err) {
-        console.debug("error", err);
+        Ember.Logger.debug("error", err);
     }
     return false;
   },
@@ -78,12 +78,12 @@ export default Ember.Component.extend({
 
   actions: {
     setUnitFilter: function(data) {
-//       console.debug("set ", data);
+//       Ember.Logger.debug("set ", data);
       set(this, 'unitFilter', data);
     },
 
     clearFilter: function() {
-//       console.debug("clear");
+//       Ember.Logger.debug("clear");
       this.set('searchFilter', '');
     },
 

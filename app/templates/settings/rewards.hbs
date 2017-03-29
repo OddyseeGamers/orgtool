@@ -15,18 +15,18 @@
       <div class="box">
 
         <div class="toolbar">
+          <button type="button" class="tb tb-default" {{action "editRewardType" rt}}>{{fa-icon "edit"}}</button>
           <button type="button" class="tb tb-default" {{action "createReward" rt}}>{{fa-icon "plus"}} Reward</button>
         </div>
             
         <div class="box-header">
           <span class="badge">{{rt.level}}</span>
           {{rt.name}}
-          <button type="button" class="tb" {{action "editRewardType" rt}}>{{fa-icon "edit"}}</button>
         </div>
 
   <!--       <div class="row"> -->
             {{#each rt.rewards as |r|}}
-              <div class="row" >
+              <div class="row selectable" {{action "editReward" r}}>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-1">
@@ -36,10 +36,13 @@
                   {{r.name}}
                 </div>
                 <div class="col-md-3">
+                  {{!--
                   {{if r.memberUnits.length r.memberUnits.length ""}}
+                  --}}
+                  {{sum r.memberUnits.length r.memberRewards.length}}
                 </div>
                 <div class="col-md-1">
-                  <button type="button" class="tb" {{action "editReward" r}}>{{fa-icon "edit"}}</button>
+<!--                   <button type="button" class="tb" {{action "editReward" r}}>{{fa-icon "edit"}}</button> -->
                 </div>
               </div>
             {{/each}}

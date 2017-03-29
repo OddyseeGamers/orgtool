@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+var debug = Ember.Logger.debug;
+
 export default Ember.Component.extend({
   session: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
@@ -33,6 +35,7 @@ export default Ember.Component.extend({
 
   setup: Ember.on('init', function() {
     var level = this.get('level');
+    debug(" LEVEL", this.get('unit'), " --- ",  level, "show", level > 0);
     this.set('showUnits', level > 0);
 //     this.set('showLeader', level > 0);
 //     this.set('showMembers', level > 0);
@@ -76,13 +79,13 @@ export default Ember.Component.extend({
   onNodeDropped: function(event, ui) {
     var id = parseInt(ui.draggable.data('memberid'));
     var unitid = $(event.target).data('unitid');
-    console.debug("droped here", id, unitid);
+    Ember.Logger.debug("droped here", id, unitid);
   },
 
   actions: {
     toggleUnits: function() {
       this.set('showUnits', ! this.get('showUnits'));
-      console.debug("showUnits", this.get('showUnits'));
+      Ember.Logger.debug("showUnits", this.get('showUnits'));
     },
     toggleLeader: function() {
       this.set('showLeader', ! this.get('showLeader'));

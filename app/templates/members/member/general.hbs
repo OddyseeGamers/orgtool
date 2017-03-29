@@ -1,6 +1,7 @@
 <div class="panel panel-default">
 <div class="col-md-2">
     <div class="member-details-name">
+      {{!-- TODO: fix ie and edge
       {{#if (or session.isAdmin model.loggedIn)}}
       <div class="toolbar">
         {{#bs-dropdown model=model closeOnMenuClick=false as |dd|}}
@@ -13,7 +14,7 @@
         {{/bs-dropdown}}
       </div>
       {{/if}}
-
+      --}}
       {{#if model.avatar}}
         <img class="member-details-img" src={{model.avatar}}>
       {{else}}
@@ -41,6 +42,16 @@
         <label class="control-label">Rank</label>
       </div>
       <div class="col-md-2">
+        {{get-uniq rank "reward.name"}}
+      </div>
+
+      <div class="col-md-1">
+            {{!--
+        {{#if (or session.isAdmin model.loggedIn)}}
+            {{member-select actionName="Promote"}}
+            {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
+        {{/if}}
+            --}}
       </div>
     </div>
 

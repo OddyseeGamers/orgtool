@@ -22,10 +22,10 @@
       {{/if}}
 
 
-    <div class="box-header">
+    <div class="box-header" {{action 'toggleUnits'}}>
       <div class="unit-name unit-name-container" data-unitid={{unit.id}}> 
         {{#if unit.units}}
-            <a class="toggle" {{action 'toggleUnits'}}>
+              <a >
               <i class="fixedWidth fa {{if showUnits "fa-chevron-down" "fa-chevron-right"}}"></i>
               {{#if unit.img}}
                 <img class="unit-img" src={{unit.img}}>
@@ -43,10 +43,10 @@
       </div>
     </div>
 
-      <div class="unit-leader-container" data-unitid={{unit.id}}>
+      <div class="member-container unit-leader-container" data-unitid={{unit.id}}>
           <a class="toggleElement" {{action 'toggleLeader'}}>
             <i class="fixedWidth fa {{if showLeader "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-            Leader: {{leaders.length}}
+            Leader: {{leaders.length}} 
           </a>
 
         {{#if showLeader}}
@@ -55,12 +55,19 @@
               {{member-details member=lead draggable=true unitid=unit.id}}
           {{/each}}
         </div>
+
+        {{else}}
+
+        {{#each leaders as |lead|}}
+        <img class="mem-sm" style="width:16px; height: 16px;" src={{lead.avatar}}/>
+        {{/each}}
+
         {{/if}}
 
         <div style="clear: both"/>
       </div>
 
-      <div class="unit-pilots-container" data-unitid={{unit.id}}>
+      <div class="member-container unit-pilots-container" data-unitid={{unit.id}}>
           <a class="toggleElement" {{action 'toggleMembers'}}>
             <i class="fixedWidth fa {{if showMembers "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
             Member: {{members.length}}
@@ -72,11 +79,15 @@
               {{member-details member=mem draggable=true unitid=unit.id}}
           {{/each}}
         </div>
+        {{else}}
+          {{#each members as |mem|}}
+          <img class="mem-sm" style="width:16px; height: 16px;" src={{mem.avatar}}/>
+          {{/each}}
         {{/if}}
       </div>
 
 
-      <div class="unit-pilots-container">
+      <div class="member-container unit-pilots-container">
           <a class="toggleElement" {{action 'toggleApplicants'}}>
             <i class="fixedWidth fa {{if showApplicants "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
             Applications: {{applicants.length}}

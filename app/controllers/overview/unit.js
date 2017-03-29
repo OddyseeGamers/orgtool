@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
     submit: function() {
       var unit = get(this, 'model');
       var self = this;
-      console.debug("SUBMIT")
+      Ember.Logger.debug("SUBMIT")
 
       self.set('showDialog', false);
 //       if (!unit.get('hasDirtyAttributes')) {
@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
 //         return;
 //       }
 
-//       console.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
+//       Ember.Logger.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       unit.save().then(function(nunit) {
         self.set('model', null);
         self.set('showDialog', false);
@@ -38,7 +38,7 @@ export default Ember.Controller.extend({
 //           self.set('unitTypes', unitTypes);
 //         });
       }).catch(function(err) {
-        console.debug("save err", err);
+        Ember.Logger.debug("save err", err);
         self.set('showDialog',true);
 //         unit.rollback();
         self.get('eventManager').trigger('rerender');

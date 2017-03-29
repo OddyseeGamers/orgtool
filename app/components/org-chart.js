@@ -32,7 +32,7 @@ export default Ember.Component.extend({
 
   setup: Ember.on('didInsertElement', function() {
     var self = this;
-//     console.debug("setup chart", self.currFilter);
+//     Ember.Logger.debug("setup chart", self.currFilter);
     this.set('boundResizeHandler', Ember.run.bind(this, this._renderStruc));
     $(window).on('resize', this.get('boundResizeHandler'));
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
@@ -40,7 +40,7 @@ export default Ember.Component.extend({
   }),
 
   willDestroy: function() {
-//     console.debug("free chart", this.currFilter, "-", this);
+//     Ember.Logger.debug("free chart", this.currFilter, "-", this);
     $(window).off('resize', this.get('boundResizeHandler'));
     this.get('eventManager').off('rerender');
 //     $('#to-remove *').unbind('click');
@@ -49,12 +49,12 @@ export default Ember.Component.extend({
 
 
   changed: function() {
-//     console.debug("filter changed", this.get('currFilter'));
+//     Ember.Logger.debug("filter changed", this.get('currFilter'));
     this._renderStruc();
   }.observes('currFilter'),
 
 //   unitsChanged: function() {
-//     console.debug("unitts changed");
+//     Ember.Logger.debug("unitts changed");
 //   }.observes('units.length'),
 
   isParentOf: function (p, c) {
@@ -175,22 +175,22 @@ export default Ember.Component.extend({
     var data = get(this, 'units');
     if (get(this, 'currFilter') === undefined) {
       set(this, 'currFilter', 1);
-      console.debug("fix filter");
+      Ember.Logger.debug("fix filter");
     }
     var filter = get(this, 'currFilter');
 
     this.set("hideNav", filter <= 1);
 
-//     console.debug(" >>> search ", filter, " in ",get(data, 'length'), ' --- ',  get(data, 'isLoaded'));
+//     Ember.Logger.debug(" >>> search ", filter, " in ",get(data, 'length'), ' --- ',  get(data, 'isLoaded'));
 
     var self = this;
     var temp = root;
     if (data) {
       for (var i = 0; i < get(data, 'length') && !root; i++) {
         var el = data.objectAt(i);
-//             console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
+//             Ember.Logger.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
           if(!el || !get(el, 'isLoaded')) {
-            console.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
+            Ember.Logger.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
             return null;
           }
           if (get(el, 'id') == filter) {
@@ -203,21 +203,21 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
-//     console.debug("render");
+//     Ember.Logger.debug("render");
     var units = get(this, 'units');
     if (!units) {
-        console.debug("no data no render");
+        Ember.Logger.debug("no data no render");
         return;
     }
 
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
-      console.debug("render return, struc empty");
+      Ember.Logger.debug("render return, struc empty");
       return;
     }
 
-//     console.debug("render ", struc);
+//     Ember.Logger.debug("render ", struc);
     var div = Ember.$(".chart-pane");
     var width = div.width();
     var height = div.height();
@@ -290,7 +290,7 @@ export default Ember.Component.extend({
         padding = box.width - box.width / 2;
     }
 
-//     console.debug(">> FIRST", box, ipos);
+//     Ember.Logger.debug(">> FIRST", box, ipos);
     Ember.$("#bgimg").attr('x', ipos[0] + padding / 2)
                       .attr('y', ipos[1] + padding / 2)
                       .attr('width', box.width - padding)

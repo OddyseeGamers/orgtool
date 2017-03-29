@@ -35,11 +35,11 @@ export default Ember.Controller.extend({
   hasParent: function(id, unit) {
     try {
 //       if (unit.get("id") == 102) {
-//         console.debug("wtf now again?", unit.get("id"), " - ", unit.get("parent"), " = ", (unit.get("parent") ? unit.get("parent").get("isLoaded") : "-")); 
+//         Ember.Logger.debug("wtf now again?", unit.get("id"), " - ", unit.get("parent"), " = ", (unit.get("parent") ? unit.get("parent").get("isLoaded") : "-")); 
 //       }
       return (unit && unit.get("id") == id) || (unit && unit.get('parent') && this.hasParent(id, unit.get('parent')));
     } catch(err) {
-        console.debug("error", err);
+        Ember.Logger.debug("error", err);
     }
     return false;
   },
@@ -93,11 +93,11 @@ export default Ember.Controller.extend({
 
 
   saveMember: function(member) {
-    console.debug("save member", member.get('id'));
+    Ember.Logger.debug("save member", member.get('id'));
     member.save().then(function(mem) {
-      console.debug("save ok", mem);
+      Ember.Logger.debug("save ok", mem);
     }).catch(function(err) {
-      console.debug("save not ok", err);
+      Ember.Logger.debug("save not ok", err);
     });
   },
 
@@ -105,13 +105,13 @@ export default Ember.Controller.extend({
       if (!member) {
         return;
       }
-      console.debug("delete user");
+      Ember.Logger.debug("delete user");
 //       member.deleteRecord('member'); //this.store.createRecord('member');
       var self = this;
       member.destroyRecord().then(function(done) {
         self.transitionToRoute('members');
       }).catch(function(err) {
-        console.debug("delete  user", err);
+        Ember.Logger.debug("delete  user", err);
       });
 //       this.set('searchFilter', '');
 
@@ -120,25 +120,25 @@ export default Ember.Controller.extend({
 
   actions: {
     createMember: function() {
-        console.debug("create user");
+        Ember.Logger.debug("create user");
         var member = this.get('store').createRecord('member'); //this.store.createRecord('member');
         var self = this;
         member.save().then(function(done) {
           self.transitionToRoute('members.member', done.get('id'));
         }).catch(function(err) {
-          console.debug("create user", err);
+          Ember.Logger.debug("create user", err);
         });
   //       this.set('searchFilter', '');
 
     },
 
     setUnitFilter: function(data) {
-//       console.debug("set ", data);
+//       Ember.Logger.debug("set ", data);
       set(this, 'unitFilter', data);
     },
 
     clearFilter: function() {
-//       console.debug("clear");
+//       Ember.Logger.debug("clear");
       this.set('searchFilter', '');
     },
 

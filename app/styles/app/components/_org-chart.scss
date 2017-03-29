@@ -2,22 +2,30 @@
 path {
   /*  stroke: #000; */
 //    stroke: rgba(124,124,124,0.3); //#0A0C11;
-  stroke: #0A0C11;
+//    stroke: #0A0C11;
   stroke-width: 0.1;
 //    fill-opacity: "0.1";
   /*   cursor: pointer; */
 }
 
 path:hover {
-  //    stroke: #999;
-  stroke: #bbbbbb;
+//      stroke: #999;
+//    stroke: #bbbbbb;
+//    fill-opacity: "1";
+//    fill-opacity: "0.5";
+  fill-opacity: 0.4;
+  stroke-opacity: 1;
+  stroke: #1a80b6;
   stroke-width: 4;
   cursor: pointer;
 }
 
 .selected {
 //    fill: "#ff0000" !important;
-  stroke: #ffffff;
+//    stroke: #000000;
+  stroke: #337ab7;
+  stroke-opacity: 0.5;
+  fill-opacity: 0.9;
 //    stroke-width: 5.5;
   stroke-width: 8;
 }
@@ -32,7 +40,13 @@ text {
 }
 
 .drop-hover {
-  fill: #223248;
+//    fill: #223248;
+  stroke: #337ab7;
+  stroke-opacity: 1;
+  fill-opacity: 0.6;
+//    stroke-width: 5.5;
+  stroke-width: 4;
+
 }
 
 .org-chart {

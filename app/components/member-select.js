@@ -2,10 +2,11 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
+var debug = Ember.Logger.debug;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
-  classNames: ['unit-select', "dropdown"],
+  classNames: ['member-select', "dropdown"],
   data: [],
   selVal: null,
   lookup: [],
@@ -15,9 +16,9 @@ export default Ember.Component.extend({
 //       Ember.Logger.debug(">> init", this.data, "-", this.lookup, "-", this.selVal, "-", this.initDone);
 //       this.set("lookup", []);
       var store = get(this, "store");
-      var root = store.peekRecord('unit', 1);
-      var data = this._serializeChildren(root);
-      this.set("data", data.options);
+      var members = store.peekAll('member');
+      var data = this._serializeChildren(members);
+      this.set("data", data);
 //       this.set("initDone", true);
 //       Ember.Logger.debug("hmmm?");
   }),
@@ -30,6 +31,15 @@ export default Ember.Component.extend({
 //   }),
 
   _serializeChildren: function(obj) {
+      var ret = [];
+
+      obj.forEach(function(mem) {
+        ret.push(mem);
+//         ret.push({id: get(mem, "id"), name: get(mem, "name"), avatar: get(mem, "avatar")});
+      });
+      return ret;
+
+    /*
     var self = this;
     if (obj) {
       if (!get(obj, 'units').get("length")) {
@@ -51,6 +61,7 @@ export default Ember.Component.extend({
       });
     }
     return ret;
+    */
   },
 
   actions: {
@@ -58,12 +69,11 @@ export default Ember.Component.extend({
       this.set("showSelect", !this.get("showSelect"));
     },
 
-    applyMember: function(num) {
-      var uid = this.get("lookup")[num];
-//       Ember.Logger.debug("apply", num, "to", uid);
-      this.set("showSelect", false);
-      this.set("selVal", null);
-      this.get('onConfirm')(uid);
+    applyMember: function(member) {
+//       debug("apply member", get(member, "id"));
+      if(this.get('onConfirm')) {
+        this.get('onConfirm')(member);
+      }
     },
   }
 });

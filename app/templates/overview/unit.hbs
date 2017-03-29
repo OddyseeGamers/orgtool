@@ -41,9 +41,14 @@
       <br>
     {{/md.body}}
     {{#md.footer}}
-<!--     <button type="submit" class="btn btn-danger" {{action "deleteRewardType"}} disabled={{rt.isSaving}}> Delete </button> -->
-    <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if model.type.id false true}} > {{#if model.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    {{#if session.isAdmin}}
+      type: {{model.type.id}}, attr: {{model.hasDirtyAttributes}}
+<!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
+        <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if (or (not model.type.id) model.hasDirtyAttributes) false true}} >  
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
 
 <!--         <button type="button" class="btn btn-default" {{action "close"}}>Close</button> -->
 <!--         {{#if (and model.hasDirtyAttributes session.isAdmin)}} -->

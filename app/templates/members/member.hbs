@@ -28,7 +28,7 @@
 
   {{#md.footer}}
     {{#if session.isAdmin}}
-      <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "remove"}} Delete</button>
+      <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "user-times"}} Delete</button>
     {{/if}}
 
     {{#if (or session.isAdmin model.loggedIn)}}

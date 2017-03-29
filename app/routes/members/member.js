@@ -5,21 +5,21 @@ var set = Ember.set;
 
 export default Ember.Route.extend({
 //   redirect: function(model, transition) {
-//     console.debug("TRANSITION 1", transition.targetName)
+//     Ember.Logger.debug("TRANSITION 1", transition.targetName)
 //   },
 
   model: function(params) {
-//     console.debug("first");
+//     Ember.Logger.debug("first");
     return this.store.findRecord('member', params.member_id);
   },
 
   afterModel: function(model, transition) {
     var ctrl = this.controllerFor('members.member');
     ctrl.set('showDialog', true);
-//     console.debug("hmm?");
+//     Ember.Logger.debug("hmm?");
   },
 //   setupController: function(controller, model) {
-//     console.debug("what");
+//     Ember.Logger.debug("what");
 //     controller.setProperties(model);
 //   },
 

@@ -4,6 +4,7 @@ var get = Ember.get;
 var set = Ember.set;
 
 export default Ember.Controller.extend({
+  classNames: ['rewards'],
   session: Ember.inject.service(),
   store: Ember.inject.service(),
   showRTDialog: false,
@@ -46,10 +47,10 @@ export default Ember.Controller.extend({
     },
 
     onConfirmed: function(msg) {
-      console.debug("on confirm");
+      Ember.Logger.debug("on confirm");
       var element = get(msg, "item");
       var typename = element.get('constructor.modelName');
-      console.debug("element type", typename);
+      Ember.Logger.debug("element type", typename);
 
       if (element && typename) {
         if (get(msg, "type") == "delete") {
@@ -58,7 +59,7 @@ export default Ember.Controller.extend({
             get(self, "session").log(typename, nitem.get("name") + " deleted");
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
-            console.debug("error deleting", err);
+            Ember.Logger.debug("error deleting", err);
           }).finally(function() {
             set(self, "currType", null);
             set(self, "showConfirmDialog", false);
