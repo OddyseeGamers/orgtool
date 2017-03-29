@@ -7,17 +7,36 @@
   {{/md.header}}
   {{#md.body}}
 
-      <div class="loader-screen">
-        <div class="loader-box" style="height: 120px;">
+<div class="loader-screen" style="min-height: 175px;">
+  <div class="loader-box">
+<!--     <div class="loader-text"> -->
+
           {{#if msg.item.isSaving}}
+            {{#if (eq msg.type "delete")}}
+                  <div class="text-danger">
+<!--                     <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin"></button> -->
+                    <i class="loader-spinner fa fa-trash-o fa-pulse"></i>
+                  </div>
+            {{else}}
                   <div class="loader-text">
                     <button class="btn loader-spinner btn-only-trans fa fa-gear fa-spin"></button>
+                    <i class="loader-spinner fa fa-download fa-pulse"></i>
                   </div>
+            {{/if}}
           {{else}}
             {{msg.content}}
           {{/if}}
-        </div>
-      </div>
+<!--     </div> -->
+
+
+  </div>
+</div>
+
+
+<!--       <div class="loader-screen"> -->
+<!--         <div class="loader-box" style="height: 120px;"> -->
+<!--         </div> -->
+<!--       </div> -->
   {{/md.body}}
   {{#md.footer}}
     <button type="button" class="btn btn-default" {{action "close"}} disabled={{msg.item.isSaving}}>Close</button>

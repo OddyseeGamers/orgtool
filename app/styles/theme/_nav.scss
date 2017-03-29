@@ -137,6 +137,10 @@ ul#set-menu li > a {
   height: $menu-height;
 }
 
+.nav > li, .nav > li > a {
+    display: inline;
+}
+
 .nav > li > a {
     padding: 9px 15px;
 }

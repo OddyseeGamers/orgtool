@@ -5,7 +5,8 @@
 }
 
 .form-control {
-    background-color: transparent;
+//      background-color: transparent;
+    background-color: #000;
     border: 1px solid #219ab3;
     color: #fff;
     height: 24px !important;
@@ -21,7 +22,8 @@ fieldset[disabled] .form-control {
 
 input[readonly].form-control {
     cursor: default;
-    background-color: transparent;
+//      background-color: transparent;
+    background-color: #000;
     color: #fff;
     border: 1px solid #219ab3;
 //      border: 0px;
@@ -36,7 +38,8 @@ input[readonly].form-control {
 textarea {
 //      -webkit-appearance: textarea;
 //      background-color: white;
-    background-color: transparent;
+//      background-color: transparent;
+    background-color: #000;
     border: 1px solid #219ab3;
 }
 
