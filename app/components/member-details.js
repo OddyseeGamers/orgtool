@@ -28,7 +28,7 @@ export default Ember.Component.extend({
   }),
 
   reinit: function() {
-    console.debug(">>> reinit" );
+    Ember.Logger.debug(">>> reinit" );
     if (!this.get('canDrag')) {
       return;
     }
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
 
     var unitid = elm.unitid;
     if (!unitid) {
-//       console.debug("no match");
+//       Ember.Logger.debug("no match");
       return;
     }
 
@@ -114,7 +114,7 @@ export default Ember.Component.extend({
     this.set('lastColor', $(element).css('fill'));
     $(element).removeAttr("style");
     var classes = $(element).attr("class");
-//     console.debug(">>> classes", classes);
+//     Ember.Logger.debug(">>> classes", classes);
     if (classes) {
       classes = classes.split(" ");
     } else {
@@ -129,10 +129,10 @@ export default Ember.Component.extend({
     var id;
     var dest = "";
 
-//     console.debug("i", $(item.toElement).data('unitid'));
-//     console.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
-//     console.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
-//     console.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
+//     Ember.Logger.debug("i", $(item.toElement).data('unitid'));
+//     Ember.Logger.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
+//     Ember.Logger.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
+//     Ember.Logger.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
 
     if (!id) {
       id = $(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
@@ -141,10 +141,10 @@ export default Ember.Component.extend({
     
     if (!id) {
       id = $(item.originalEvent.target).closest( ".unit-leader-container" ).data('unitid');
-//       console.debug("elm leader");
+//       Ember.Logger.debug("elm leader");
       dest = "leader"
 //     } else {
-//       console.debug(" else");
+//       Ember.Logger.debug(" else");
     }
 
   if (!id) {
@@ -157,7 +157,7 @@ export default Ember.Component.extend({
       dest = "path";
   }
 
-//     console.debug(">>> ret", id, dest);
+//     Ember.Logger.debug(">>> ret", id, dest);
     return {unitid: id, dest: dest};
   },
 

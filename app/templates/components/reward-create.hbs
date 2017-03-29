@@ -1,16 +1,16 @@
 {{#if showDialog}}
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') class="handle-create" as |md|}}
+{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') class="reward-create" as |md|}}
   {{#md.header}}
     <h4 class="modal-title">
       {{#if reward.isNew}}
-        Add Reward to {{reward.type.name}}
+        Add '{{reward.name}}' to {{reward.type.name}}
       {{else}}
-        Edit Reward {{reward.name}}
+        Manage {{reward.type.name}} '{{reward.name}}'
       {{/if}}
     </h4>
   {{/md.header}}
   {{#md.body}}
-
+  <div class="reward-info">
     <label class="control-label">
       Name
       {{#unless reward.name}}
@@ -37,11 +37,71 @@
     </label>
     {{input type="text" class="form-control" value=reward.img}}
 
+    <label class="control-label">
+      Assignments: {{merged.length}}
+    </label>
+  </div>
+
+  <div class="reward-mu-list">
+    {{#if (and (not reward.isNew) (not-eq reward.type.id "2"))}}
+      <div class="toolbar">
+        {{member-select onConfirm=(action "rewardMember")}}
+      </div>
+    {{/if}}
+
+    {{#ember-collection items=merged cell-layout=(percentage-columns-layout merged.length columns itemHeight) as |mu index|}}
+        <div class="row" >
+          <div class="col-md-3">
+            <img src={{mu.member.avatar}} style="width:32px"/>
+            {{mu.member.name}}
+          </div>
+          <div class="col-md-3">
+            {{mu.unit.name}}
+          </div>
+          <div class="col-md-1">
+            <button class="tb txt-red" type="button" {{action 'showConfirm' mu}}><i class="fa fa-sign-out"></i></button>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+      {{/ember-collection}}
+    </div>
+
+
+    {{!--
+            {{#each reward.memberUnits as |mu|}}
+              <div class="row" >
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                  {{mu.member.name}}
+                </div>
+                <div class="col-md-1">
+                  {{mu.unit.name}}
+                </div>
+              </div>
+              {{/each}}
+              --}}
+
   {{/md.body}}
   {{#md.footer}}
-    <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}> Delete </button>
-    <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if requiredFields false true}} > {{#if reward.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    {{#if session.isAdmin}}
+      <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+      <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if (or requiredFields (not reward.hasDirtyAttributes)) true false}} >  
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
   {{/md.footer}}
 {{/bs-modal}}
+
+{{#if showConfirmDialog}}
+  {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+{{/if}}
+
+
 {{/if}}

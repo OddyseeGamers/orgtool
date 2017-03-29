@@ -23,7 +23,7 @@ export default Ember.Component.extend({
       rt.save().then(function(data) {
         self.set('showDialog', false);
       }).catch(function(err) {
-        console.debug("save error", data);
+        Ember.Logger.debug("save error", data);
       });
     },
     close: function() {

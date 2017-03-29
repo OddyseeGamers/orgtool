@@ -62,11 +62,13 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#unless handle.isSaving}}
-      <button type="submit" class="btn btn-danger" {{action "deleteHandle"}}> Delete </button>
-      <button type="submit" class="btn btn-primary" {{action "saveHandle"}}> {{#if handle.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-    {{/unless}}
+    {{#if session.isAdmin}}
+      <button type="submit" class="btn btn-danger" {{action "deleteHandle"}} disabled={{handle.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+      <button type="submit" class="btn btn-primary" {{action "saveHandle"}} disabled={{if handle.hasDirtyAttributes false true}} >  
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
   {{/md.footer}}
 {{/bs-modal}}
 

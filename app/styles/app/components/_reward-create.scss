@@ -1,0 +1,27 @@
+$info-height: 240px;
+//  $result-height: calc(100% - #{$filter-height} - #{$pager-height});
+$result-height: calc(100% - #{$info-height});
+
+//  .modal-body {
+//    height: 100%;
+
+  .reward-info {
+    height: $info-height;
+  }
+  
+  .reward-mu-list {
+    height: $result-height;
+//      height: 300px;
+    position: relative;
+  }
+
+//  }
+
+//    .item-img-box {
+//      width: 100%;
+//      height: 100%;
+//      display: block;
+//      margin-left: auto;
+//      margin-right: auto;
+//    }
+//  }

@@ -24,8 +24,8 @@ export default Ember.Component.extend({
     setType: function(type) {
       var handle = get(this, "handle");
       if (handle) {
-        console.debug("set type", type.type, "-", type);
-  //       console.debug("set type", type);
+        Ember.Logger.debug("set type", type.type, "-", type);
+  //       Ember.Logger.debug("set type", type);
         set(handle, "type", type.type);
       }
     },
@@ -40,7 +40,7 @@ export default Ember.Component.extend({
           get(self, "session").log("handle", "handle " + nhandle.get("type") + " saved");
         }).catch(function(err) {
           get(self, "session").log("error", "could not save handle " + handle.get("type"));
-          console.debug("error saving", err);
+          Ember.Logger.debug("error saving", err);
           self.set('showDialog', true);
         });
       }
@@ -57,7 +57,7 @@ export default Ember.Component.extend({
           get(self, "session").log("handle", "handle deleted");
         }).catch(function(err) {
           get(self, "session").log("error", "could not delete handle " + handle.get("type"));
-          console.debug("error saving", err);
+          Ember.Logger.debug("error saving", err);
           self.set('showDialog', true);
         });
       }
@@ -76,12 +76,12 @@ export default Ember.Component.extend({
             get(self, "session").log("item", "item " + nitem.get("name") + " deleted");
           }).catch(function(err) {
             get(self, "session").log("error", "could not save item " + nitem.get("name"));
-            console.debug("error melting", err);
+            Ember.Logger.debug("error melting", err);
           });
         }
 
         if (!Ember.isEmpty(item.get("member")) && !Ember.isEmpty(item.get("member").get("items"))) {
-//         console.debug(">>> RELOAD  MEMBER");
+//         Ember.Logger.debug(">>> RELOAD  MEMBER");
 //           item.get("member").get("items").reload();
         } 
 
