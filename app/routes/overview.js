@@ -15,7 +15,7 @@ export default Ember.Route.extend({
   },
 
 //   beforeModel: function(transition) {
-//   console.debug("beforemode.......");
+//   Ember.Logger.debug("beforemode.......");
 //   },
 
 //   setupController(controller, model) {

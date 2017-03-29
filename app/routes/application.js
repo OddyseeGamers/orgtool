@@ -6,6 +6,6 @@ export default Ember.Route.extend({
 //   },
 
 //   afterModel: function(model, transition) {
-//     console.debug("APP AFTER MODEL", transition.targetName);
+//     Ember.Logger.debug("APP AFTER MODEL", transition.targetName);
 //   },
 });

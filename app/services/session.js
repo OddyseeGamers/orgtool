@@ -14,7 +14,7 @@ export default Ember.Service.extend({
   state: Ember.A(),
 
   init: function() {
-//     console.debug("session:", config.environment);
+//     Ember.debug("session:", config.environment);
     var self = this;
 
     self.set('loading', true);
@@ -85,7 +85,7 @@ export default Ember.Service.extend({
       rewardTypes: self.createRequest("rewardTypes", "rewardType"),
     });
     return all.then(function(done) {
-      console.debug("loading all done");
+      Ember.Logger.log("loading all done");
       get(self, "state").pushObject("done");
       self.set('loading', false);
 
@@ -97,7 +97,7 @@ export default Ember.Service.extend({
   createRequest: function(name, modelName) {
       var self = this;
       return self.get('store').findAll(modelName).then(function(data) {
-        console.debug(" loaded ", name, Ember.get(data, 'length'));
+        Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
         get(self, "state").pushObject(name);
         return data;
       });

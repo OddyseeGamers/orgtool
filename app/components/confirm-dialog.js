@@ -10,7 +10,7 @@ export default Ember.Component.extend({
 
 //   setup: Ember.on('init', function() {
 //     var msg = get(this, "msg");
-//     console.debug(">>> msg", msg);
+//     Ember.Logger.debug(">>> msg", msg);
 //   }),
 
 

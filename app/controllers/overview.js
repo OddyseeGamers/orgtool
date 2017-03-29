@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
 
   currentUnit: null,
   currentChart: { id: 1 },
+  currentLevel: 1,
 
   columns: [50, 50],
   itemHeight: 80,
@@ -90,12 +91,12 @@ export default Ember.Controller.extend({
         get(punit, 'units').pushObject(unit);
 
         unit.save().then(function(done) {
-          console.debug("done saving", done);
+          Ember.Logger.debug("done saving", done);
 //           self.set('unit', done);
           self.get('eventManager').trigger('rerender');
           self.transitionToRoute('overview.unit', done.get('id'));
         }).catch(function(err) {
-          console.debug("error saving", err);
+          Ember.Logger.debug("error saving", err);
           unit.deleteRecord();
         });
       });
@@ -113,7 +114,7 @@ export default Ember.Controller.extend({
 
       self.get('eventManager').trigger('rerender');
     }).catch(function(err) {
-      console.debug("del err", err);
+      Ember.Logger.debug("del err", err);
       data.unit.rollback();
       self.get('eventManager').trigger('rerender');
     });
@@ -121,7 +122,7 @@ export default Ember.Controller.extend({
 
 
   setDetails: function(data) {
-//     console.debug("---- set details");
+//     Ember.Logger.debug("---- set details");
     var unitId = data.unitid;
     var extended = data.extended;
     var sync = data.sync;
@@ -139,13 +140,19 @@ export default Ember.Controller.extend({
           self.set('currentChart', unit);
         }
       }).catch(function(err) {
-        console.debug(">>>>  error ", err);
+        Ember.Logger.debug(">>>>  error ", err);
         self.set('currentUnit', 1);
         self.set('currentChart', 1);
       });
     } else {
       this.set('currentUnit', 1);
       this.set('currentChart', 1);
+    }
+
+    if(this.get('currentUnit', 1)) {
+      this.set('currentLevel', 1);
+    } else {
+      this.set('currentLevel', 5);
     }
   },
 });

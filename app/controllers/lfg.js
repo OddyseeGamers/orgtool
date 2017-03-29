@@ -8,13 +8,13 @@ export default Ember.Controller.extend({
 
   actions: {
     createEvent: function() {
-        console.debug("create event");
+        Ember.Logger.debug("create event");
         var lfg = this.get('store').createRecord('lfg');
         var self = this;
         lfg.save().then(function(done) {
-          console.debug("create event done", done);
+          Ember.Logger.debug("create event done", done);
         }).catch(function(err) {
-          console.debug("create event failed", err);
+          Ember.Logger.debug("create event failed", err);
         });
     },
   }

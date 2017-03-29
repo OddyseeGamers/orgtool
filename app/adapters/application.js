@@ -26,7 +26,7 @@ export default DS.RESTAdapter.extend({
     var url = this.urlForUpdateRecord(Ember.get(snapshot, 'id'), type.modelName, snapshot);
     var data = snapshot.serialize();
 //     data["id"] = Ember.get(snapshot, 'id');
-//     console.debug(">> where is the id", data);
+//     Ember.Logger.debug(">> where is the id", data);
     return this.ajax(url, 'POST', {data: data});
   },
 

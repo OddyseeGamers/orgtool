@@ -8,7 +8,7 @@ export function getTZ(params) {
   }
 
   var num = params[0];
-//   console.debug("time zone", num, ":", Moment.tz(num).format('Z'));
+//   Ember.Logger.debug("time zone", num, ":", Moment.tz(num).format('Z'));
   return Moment.tz(num).format('Z') + " " + num + " | " + moment().utcOffset(Moment.tz(num).format('Z'));
 }
 

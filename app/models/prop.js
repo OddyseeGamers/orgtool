@@ -8,7 +8,7 @@ export default DS.Model.extend({
   unit: DS.attr(),
   updated_at: DS.attr(),
 //   type: DS.belongsTo('propType', { inverse: 'prop', async: true }),
-  value: DS.attr(),
+//   value: DS.attr(),
 //   item: DS.belongsTo('item', { inverse: 'prop', async: true }),
 //   itemProps: DS.hasMany('itemProp', { async: true })
 
