@@ -3,28 +3,28 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
-var debug = Ember.Logger.debug;
+var debug = Ember.Logger.log;
 
 export default Ember.Controller.extend({
-//   store: Ember.inject.service(),
+  store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
-
 
   grouped: Ember.computed('model', function() {
     var types = this.store.peekAll("rewardType");
     var temp = types.toArray().sort(function(a, b) {
-      return Ember.compare(get(a, 'numericLevel'), get(b, 'numericLevel'), 10);
+      return Ember.compare(get(a, 'numericLevel'), get(b, 'numericLevel'));
     });
 
     var group = Ember.A();
     var rt_lookup = [];
     var idx = 0;
-    for (var t of temp){
+
+    temp.forEach(function(t) {
       group.push({id: get(t, "id"), name: get(t, "name"), rewards: []});
       rt_lookup[get(t, "id")] = idx;
       idx++;
-    }
+    });
 
     get(this, 'model').get("memberRewards").forEach(function(mr) {
       var gidx = rt_lookup[get(mr, "reward").get("type").get('id')];
@@ -34,11 +34,9 @@ export default Ember.Controller.extend({
       group[gidx].rewards.push(nr);
     });
 
-    var self = this;
     get(this, 'model').get("memberUnits").forEach(function(mu) {
       var gidx = rt_lookup[get(mu, "reward").get("type").get('id')];
       var or = get(mu, "reward");
-
       var ou = get(mu, "unit");
       var nu = { name: get(ou, "name"), img: get(ou, "img"), mu: mu };
 
@@ -94,7 +92,7 @@ export default Ember.Controller.extend({
 //             self.grouped;
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
-            Ember.Logger.debug("error deleting", err);
+            Ember.Logger.log("error deleting", err);
           }).finally(function() {
             set(self, "showConfirmDialog", false);
           });
