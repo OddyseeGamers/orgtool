@@ -25,9 +25,9 @@ export default Ember.Service.extend({
     self.set("errors", null);
 
     var _session = this.get('store').createRecord('session');
-//     if (config.environment === 'development') {
-//       _session.set('user', 'simsima');
-//     }
+    if (config.environment === 'development') {
+      _session.set('user', 'simsima');
+    }
     return _session.save().then(function(session) {
       var wp_user = session.get('user');
       get(self, "state").pushObject("permissions");

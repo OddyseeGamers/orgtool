@@ -91,7 +91,7 @@
   {{#md.footer}}
     {{#if session.isAdmin}}
       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
-      <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if (or requiredFields (not reward.hasDirtyAttributes)) true false}} >  
+      <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if (or (not requiredFields) (not reward.hasDirtyAttributes)) true false}} >  
         {{fa-icon "save"}} Save
       </button>
     {{/if}}
