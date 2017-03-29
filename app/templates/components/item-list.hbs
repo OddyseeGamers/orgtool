@@ -1,8 +1,8 @@
 <div class="item-menu">
   
-  <div class="item-type-menu">
-
-      <span class="item-type-menu-item">
+  
+  <div class={{if (and adminMode session.isAdmin) "item-type-menu" "item-type-menu item-type-menu-corner"}}>
+    <span class="item-type-menu-item">
         <a href="#" class={{unless typeFilter "active"}} {{action "setTypeFilter" null}}>
           All
         </a>
@@ -17,10 +17,22 @@
           {{/if}}
           {{it.name}}s
         </a>
+<!--         {{#if (and adminMode session.isAdmin)}} -->
+<!--           <button type="button" class="tb" {{action "editItemType" it}}> <i class="fa fa-gear" ></i></button> -->
+<!--         {{/if}} -->
       </span>
       {{/each}}
 
   </div>
+  {{#if (and adminMode session.isAdmin)}}
+    <div class="item-type-tb">
+      {{#if typeFilter}}
+      <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i></button>
+      {{/if}}
+      <button type="button" class="tb tb-default" {{action "addItemType"}}><i class="fa fa-plus" ></i> </button>
+    </div>
+  {{/if}}
+
 
 
   <div class="item-stat-menu">
@@ -31,12 +43,12 @@
   {{#if (or session.isAdmin member.loggedIn)}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action "addItem" member}}> <i class="fa fa-plus" ></i> Item</button>
-      {{#if (and adminMode session.isAdmin)}}
-        <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button>
-        {{#if typeFilter}}
-        <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i> {{typeFilter.name}}</button>
-        {{/if}}
-      {{/if}}
+<!--       {{#if (and adminMode session.isAdmin)}} -->
+<!--         <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button> -->
+<!--         {{#if typeFilter}} -->
+<!--         <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i> {{typeFilter.name}}</button> -->
+<!--         {{/if}} -->
+<!--       {{/if}} -->
     </div>
   {{/if}}
 </div>

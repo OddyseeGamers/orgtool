@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
   itemHeight: 120,
 
 //   tzs: function() {
-//     console.debug("wtf", Moment);
+//     Ember.Logger.debug("wtf", Moment);
 //     return Moment.tz.names();
 //   }.property("model"),
 
@@ -35,7 +35,7 @@ export default Ember.Controller.extend({
     /*
     addMember: function() {
       var member = this.store.createRecord('member');
-      console.debug(">>>> add member", member);
+      Ember.Logger.debug(">>>> add member", member);
       this.set('model', member);
 //
 //       this.set('showDialog', true);
@@ -44,58 +44,58 @@ export default Ember.Controller.extend({
     saveMember: function(member) {
       this.get('eventManager').trigger('saveMember', member);
 
-//         console.debug("save member", member.get('id'));
+//         Ember.Logger.debug("save member", member.get('id'));
 
       member.save().then(function(mem) {
-        console.debug("save ok", mem);
+        Ember.Logger.debug("save ok", mem);
       }).catch(function(err) {
-        console.debug("save not ok", err);
+        Ember.Logger.debug("save not ok", err);
       });
     },
 
     deleteMember: function(member) {
 //       this.get('eventManager').trigger('deleteMember', member);
 //
-      console.debug("delete user now", member);
+      Ember.Logger.debug("delete user now", member);
       set(this, "msg", { "type": "delete", "item": member, "title": "Delete Member!", "content": "Do you really want to delete member " + member.get("id") + " | " + member.get("name") + "?" });
       set(this, "showConfirmDialog", true);
 
     },
 
     onConfirmed: function(msg) {
-      console.debug("on confirm del mem", msg, " - ", get(msg, "item"));
+      Ember.Logger.debug("on confirm del mem", msg, " - ", get(msg, "item"));
       if (!msg || !msg.item) {
         return;
       }
-      console.debug("delete user");
+      Ember.Logger.debug("delete user");
 //       member.deleteRecord('member'); //this.store.createRecord('member');
       var self = this;
       msg.item.destroyRecord().then(function(done) {
         set(self, "showConfirmDialog", false);
         self.transitionToRoute('members');
       }).catch(function(err) {
-        console.debug("delete  user", err);
+        Ember.Logger.debug("delete  user", err);
       });
       /*
       var element = get(msg, "item");
       var typename = element.get('constructor.modelName');
-      console.debug("element type", typename);
+      Ember.Logger.debug("element type", typename);
 
       if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
-//           console.debug("has mem", get(get(msg, "item"), "member"));
+//           Ember.Logger.debug("has mem", get(get(msg, "item"), "member"));
 
           element.destroyRecord().then(function(nitem) {
             get(self, "session").log(typename, nitem.get("name") + " deleted");
 
-            console.debug("reset filter", (get(self, "typeFilter") === element));
+            Ember.Logger.debug("reset filter", (get(self, "typeFilter") === element));
             if (get(self, "typeFilter") === element) {
               set(self, "typeFilter", null);
             }
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
-            console.debug("error deleting", err);
+            Ember.Logger.debug("error deleting", err);
           }).finally(function() {
             set(self, "currItem", null);
             set(self, "currItemType", null);
@@ -119,7 +119,7 @@ export default Ember.Controller.extend({
     addHandle: function(member) {
       var handle = this.store.createRecord('handle');
       handle.set('member', member);
-      console.debug("set currhandle", handle);
+      Ember.Logger.debug("set currhandle", handle);
       set(this, 'currHandle', handle);
       set(this, "showHandleDialog", true);
     },
@@ -127,7 +127,7 @@ export default Ember.Controller.extend({
     editHandle: function(handle) {
 //       var handle = this.store.createRecord('handle');
 //       handle.set('member', member);
-      console.debug("set currhandle", handle);
+      Ember.Logger.debug("set currhandle", handle);
       set(this, 'currHandle', handle);
       set(this, "showHandleDialog", true);
     },
@@ -153,7 +153,7 @@ export default Ember.Controller.extend({
       ship.set('model', shipModel);
     },
     close: function() {
-//       console.debug("the other close...");
+//       Ember.Logger.debug("the other close...");
       this.set('showDialog', false);
       this.transitionToRoute('members');
     },
@@ -181,7 +181,7 @@ export default Ember.Controller.extend({
           self.set('showDialog', false);
         }).catch(function(err) {
           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
-          console.debug("error saving", err);
+          Ember.Logger.debug("error saving", err);
           self.set('showDialog', true);
         });
       }
@@ -196,7 +196,7 @@ export default Ember.Controller.extend({
           self.get('eventManager').trigger('success', 'ship melted of member: ' + memid);
         }).catch(function(err) {
           self.get('eventManager').trigger('failure', 'counld not melt ship of member: ' + memid);
-          console.debug("error melting", err);
+          Ember.Logger.debug("error melting", err);
         });
       }
     },

@@ -1,3 +1,51 @@
+{{#if (and tb (or session.isAdmin (or item.member.loggedIn count)))}}
+
+<div class="toolbar">
+  {{#if count}}
+    <div class="text-default">{{count}}x</div>
+  {{else}}
+    <button class="tb tb-default" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
+    <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
+  {{/if}}
+</div>
+{{/if}}
+
+<div class={{if count "top-left-sm" "top-left"}}>
+    {{#if item.member.avatar}}
+      <img class="top-left-img" src={{item.member.avatar}}>
+    {{else}}
+      {{#if item.parent.parent.img}}
+        <img class="top-left-img" src={{item.parent.parent.img}}>
+      {{else}}
+        {{#if item.parent.img}}
+          <img class={{if count "top-left-img-sm" "top-left-img"}} src={{item.parent.img}}>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+
+<!--     {{#unless count}} -->
+<!--     <span class="top-left-name"> -->
+<!--       {{item.parent.name}} -->
+<!--     </span> -->
+<!--     {{/unless}} -->
+
+    {{#if item.member.name}}
+      <span class={{if (and item.type (eq item.type.permissions "1")) "top-left-name" "item-name"}}>
+        {{item.member.name}}
+      </span><br><span style="margin-right:34px;"/>
+    {{/if}}
+
+    <span class="item-name">
+      {{#if item.name}}
+        {{item.name}}
+      {{else}}
+        {{item.parent.name}}
+      {{/if}}
+    </span>
+
+</div>
+
+
 {{#if (eq item.type.id '1')}}
   {{partial 'components/item-manufacturer-details'}}
 {{/if}}
@@ -10,6 +58,8 @@
   {{partial 'components/item-ship-details'}}
 {{/if}}
 
+{{!--
 {{#if (gt item.type.id '3')}}
   {{partial 'components/item-ship-details'}}
-{{/if}}
+  {{/if}}
+  --}}

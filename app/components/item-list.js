@@ -13,7 +13,6 @@ export default Ember.Component.extend({
 //   eventManager: Ember.inject.service('events'),
   gameFilter: null,
   typeFilter: null,
-  itemTypeFilter: null,
   columns: [25, 25, 25, 25],
   itemHeight: 400,
   showFilter: true,
@@ -32,7 +31,7 @@ export default Ember.Component.extend({
 //     this.get('eventManager').on('closeConfirm', this.closeConfirm.bind(this));
 //     this.get('eventManager').on('okConfirm', this.okConfirm.bind(this));
 
-    console.debug("itemTypeFilter", get(this, "itemTypeFilter"));
+//     Ember.Logger.debug("itemTypeFilter", get(this, "itemTypeFilter"));
     if (!Ember.isEmpty(get(this, "member"))) {
       set(this, "items", get(this, "member").get("items"));
     } 
@@ -69,7 +68,7 @@ export default Ember.Component.extend({
     try {
       return unit.get("id") == id || unit.get('parent') && this.hasParent(id, unit.get('parent'));
     } catch(err) {
-        console.debug("error", err);
+        Ember.Logger.debug("error", err);
     }
     return false;
   },
@@ -80,10 +79,10 @@ export default Ember.Component.extend({
     var res = []
 
     if (!Ember.isEmpty(typeFilter)) {
-//       console.debug("item name", item.get("name"), "-", item.get("type").get("id"), " --- ", typeFilter.get("id"));
+//       Ember.Logger.debug("item name", item.get("name"), "-", item.get("type").get("id"), " --- ", typeFilter.get("id"));
 //       var par = item.get("parent");
 //       if (par && par.get("type")) {
-//       console.debug("item name", item.get("name"), "-", par.get("type").get("id"), " --- ", typeFilter.get("id"));
+//       Ember.Logger.debug("item name", item.get("name"), "-", par.get("type").get("id"), " --- ", typeFilter.get("id"));
 //       }
       return item.get("type").get("id") == typeFilter.get("id");
     }
@@ -103,7 +102,7 @@ export default Ember.Component.extend({
 //     if (!Ember.isEmpty(gameFilter) && !Ember.isEmpty(item.get('unit'))) {
 //       return false;
 //     }
-//     console.debug("WTF", item, " - ", item.get("unit"), " - ", Ember.isEmpty(item.get('unit')));
+//     Ember.Logger.debug("WTF", item, " - ", item.get("unit"), " - ", Ember.isEmpty(item.get('unit')));
 
 //     if (Ember.isEmpty(searchFilter) && Ember.isEmpty(unitFilter)) {
 //       return true;
@@ -136,22 +135,22 @@ export default Ember.Component.extend({
 
   /*
   deleteItem: function(item) {
-    console.debug("### delete clicked");
+    Ember.Logger.debug("### delete clicked");
 
-//     console.debug("delete ITem here", item.get("id"));
+//     Ember.Logger.debug("delete ITem here", item.get("id"));
 //     set(this, "msg", { "type": "delete", "item": item, "title": "Delete Item?", "content": "Do you really wnat to delete" });
-//     console.debug("delete ITem here", get(this, "msg"));
+//     Ember.Logger.debug("delete ITem here", get(this, "msg"));
 //     set(this, "showConfirmDialog", true);
   },
 
   editItem: function(item) {
-//     console.debug("edit ITem here", item.get("id"));
+//     Ember.Logger.debug("edit ITem here", item.get("id"));
     set(this, "currItem", item);
     set(this, "showItemDialog", true);
   },
 
   closeConfirm: function() {
-    console.debug("### close clicked");
+    Ember.Logger.debug("### close clicked");
 //  
 //     set(this, "currItem", null);
 //     this.set("showConfirmDialog", false);
@@ -159,7 +158,7 @@ export default Ember.Component.extend({
   },
 
   okConfirm: function(msg) {
-    console.debug("### ok clicked");
+    Ember.Logger.debug("### ok clicked");
 
   },
     */
@@ -188,26 +187,26 @@ export default Ember.Component.extend({
     },
 
     onConfirmed: function(msg) {
-      console.debug("on confirm");
+      Ember.Logger.debug("on confirm");
       var element = get(msg, "item");
       var typename = element.get('constructor.modelName');
-      console.debug("element type", typename);
+      Ember.Logger.debug("element type", typename);
 
       if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
-//           console.debug("has mem", get(get(msg, "item"), "member"));
+//           Ember.Logger.debug("has mem", get(get(msg, "item"), "member"));
 
           element.destroyRecord().then(function(nitem) {
             get(self, "session").log(typename, nitem.get("name") + " deleted");
 
-            console.debug("reset filter", (get(self, "typeFilter") === element));
+            Ember.Logger.debug("reset filter", (get(self, "typeFilter") === element));
             if (get(self, "typeFilter") === element) {
               set(self, "typeFilter", null);
             }
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
-            console.debug("error deleting", err);
+            Ember.Logger.debug("error deleting", err);
           }).finally(function() {
             set(self, "currItem", null);
             set(self, "currItemType", null);

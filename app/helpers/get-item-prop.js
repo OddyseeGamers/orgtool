@@ -23,7 +23,7 @@ export function hexToRgba(params/*, hash*/) {
       result = get(get(ips.objectAt(i), "prop"), "value");
     }
   }
-//   console.debug(" res:", propName,":", result);
+//   Ember.Logger.debug(" res:", propName,":", result);
   return result;
 }
 

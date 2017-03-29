@@ -79,17 +79,24 @@
     </div>
 
     <label class="control-label">Item Name</label>
-    {{input type="text" class="form-control" id="shipName" value=item.name placeholder=item.parent.name}}
+    {{input type="text" class="form-control" id="itemName" value=item.name placeholder=item.parent.name}}
+
+    <label class="control-label">Image</label>
+    {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.parent.img}}
 
 <!--     <div class="row"> -->
       <div class="col-md-8" style="height: 50%;">
         <br>
         <div class="item-img-box">
-          {{#if item.parent}}
-            {{item-details item=item.parent details=false}}
+          {{#if item.img}}
+              {{item-details item=item details=false tb=false}}
           {{else}}
-            {{#if parentType}}
-              {{item-details item=parentType details=false}}
+            {{#if item.parent}}
+              {{item-details item=item.parent details=false tb=false}}
+            {{else}}
+              {{#if parentType}}
+                {{item-details item=parentType details=false tb=false}}
+              {{/if}}
             {{/if}}
           {{/if}}
         </div>
@@ -105,20 +112,14 @@
 
   {{/md.body}}
   {{#md.footer}}
-<!--     <button type="submit" class="btn btn-danger" {{action "deleteItem"}} disabled={{rt.isSaving}}> Delete </button> -->
-    <button type="submit" class="btn btn-primary" {{action "saveItem"}} disabled={{if requiredFields false true}} > {{#if item.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+    {{#if session.isAdmin}}
+<!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
+      <button type="submit" class="btn btn-primary" {{action "saveItem"}} disabled={{cannotSave}} >  
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
 
-    {{!--
-    {{#unless item.isSaving}}
-      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-      {{#if item.parent}}
-        <button type="submit" class="btn btn-primary" {{action "saveItem"}}> {{#if item.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-      {{else}}
-        <button type="submit" class="btn btn-primary"> {{if item.hasDirtyAttributes 'Save' 'Ok'}} </button>
-      {{/if}}
-    {{/unless}}
-    --}}
   {{/md.footer}}
 {{/bs-modal}}
 

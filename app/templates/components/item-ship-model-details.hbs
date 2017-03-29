@@ -7,19 +7,19 @@
 <!-- </div> -->
 
 
-<div class={{if count "top-left-sm" "top-left"}}>
-    {{#if item.parent.img}}
-      <img class={{if count "top-left-img-sm" "top-left-img"}} src={{item.parent.img}}>
-    {{/if}}
-    {{#unless count}}
-    <span class="top-left-name">
-      {{item.parent.name}}
-    </span>
-    {{/unless}}
-    <span class="item-name">
-      {{item.name}}
-    </span>
-</div>
+<!-- <div class={{if count "top-left-sm" "top-left"}}> -->
+<!--     {{#if item.parent.img}} -->
+<!--       <img class={{if count "top-left-img-sm" "top-left-img"}} src={{item.parent.img}}> -->
+<!--     {{/if}} -->
+<!--     {{#unless count}} -->
+<!--     <span class="top-left-name"> -->
+<!--       {{item.parent.name}} -->
+<!--     </span> -->
+<!--     {{/unless}} -->
+<!--     <span class="item-name"> -->
+<!--       {{item.name}} -->
+<!--     </span> -->
+<!-- </div> -->
 
 
 <!-- <div class="item-parent"> -->
@@ -46,15 +46,13 @@
   {{/if}}
 {{/if}}
 
+{{#unless count}}
 <div class="bottom-right">
   <div class="bottom-right-text">
-    {{#if count}}
-      {{count}}x
-    {{else}}
-        c: <span class="item-stat">{{get-item-prop item "crew"}}</span>  <span class="item-sep">|</span> l: <span class="item-stat">{{get-item-prop item "length"}}</span>  <span class="item-sep">|</span> m: <span class="item-stat">{{get-item-prop item "mass"}}</span>
-    {{/if}}
+    c: <span class="item-stat">{{get-item-prop item "crew"}}</span>  <span class="item-sep">|</span> l: <span class="item-stat">{{get-item-prop item "length"}}</span>  <span class="item-sep">|</span> m: <span class="item-stat">{{get-item-prop item "mass"}}</span>
   </div>
 </div>
+{{/unless}}
 
 <!--
 

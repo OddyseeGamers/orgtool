@@ -5,30 +5,30 @@
 <!--   {{/if}} -->
 <!-- </div> -->
 
-<div class="top-left">
-    {{#if item.parent.parent.img}}
-      <img class="top-left-img" src={{item.parent.parent.img}}>
-    {{/if}}
-    <span class="top-left-name">
-      {{#if item.name}}
-        {{item.name}}
-      {{else}}
-        {{item.parent.name}}
-      {{/if}}
-    </span>
-</div>
+<!-- <div class="top-left"> -->
+<!--     {{#if item.parent.parent.img}} -->
+<!--       <img class="top-left-img" src={{item.parent.parent.img}}> -->
+<!--     {{/if}} -->
+<!--     <span class="top-left-name"> -->
+<!--       {{#if item.name}} -->
+<!--         {{item.name}} -->
+<!--       {{else}} -->
+<!--         {{item.parent.name}} -->
+<!--       {{/if}} -->
+<!--     </span> -->
+<!-- </div> -->
 
 
 
-<div class="item-type">
-    <div class="item-type-name">
-      {{item.type.name}} 
-      {{#if (or session.isAdmin item.member.loggedIn)}}
-          <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
-          <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
-      {{/if}}
-    </div>
-</div>
+<!-- <div class="item-type"> -->
+<!--     <div class="item-type-name"> -->
+<!--       {{item.type.name}}  -->
+<!--       {{#if (or session.isAdmin item.member.loggedIn)}} -->
+<!--           <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button> -->
+<!--           <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button> -->
+<!--       {{/if}} -->
+<!--     </div> -->
+<!-- </div> -->
 
 
 
@@ -42,7 +42,7 @@
 
 <div class="bottom-right">
   <div class="bottom-right-text">
-      {{get-item-prop item.parent "class"}}
+    {{get-item-prop item.parent "class"}}
   </div>
 </div>
 

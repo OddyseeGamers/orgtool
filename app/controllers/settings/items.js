@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
     try {
       return unit.get("id") == id || unit.get('parent') && this.hasParent(id, unit.get('parent'));
     } catch(err) {
-        console.debug("error", err);
+        Ember.Logger.debug("error", err);
     }
     return false;
   },
@@ -43,7 +43,7 @@ export default Ember.Controller.extend({
 //     if (!Ember.isEmpty(gameFilter) && !Ember.isEmpty(item.get('unit'))) {
 //       return false;
 //     }
-    console.debug("WTF", item, " - ", item.get("unit"), " - ", Ember.isEmpty(item.get('unit')));
+//     Ember.Logger.debug("WTF", item, " - ", item.get("unit"), " - ", Ember.isEmpty(item.get('unit')));
 
 //     if (Ember.isEmpty(searchFilter) && Ember.isEmpty(unitFilter)) {
 //       return true;
@@ -73,7 +73,6 @@ export default Ember.Controller.extend({
   }).property('searchFilter', 'gameFilter'),
 
   setup: Ember.on('init', function() {
-    console.debug(">>>> set root unit for items");
     var self = this;
     get(this, 'store').findRecord('unit', 1).then(function(unit) {
       self.set('games', unit);
