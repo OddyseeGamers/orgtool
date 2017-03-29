@@ -7,6 +7,10 @@
 {{#if showSelect}}
 --}}
 
+<span class="action-name">
+  {{actionName}}
+</span>
+
   <div class="member-form">
     {{#power-select
       options=data
@@ -22,7 +26,7 @@
 
     {{#if selVal}}
       <span class="member-apply">
-        <button class="btn btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-user-plus"></i>{{actionName}}</button>
+        <button class="btn btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-user-plus"></i></button>
       </span>
     {{/if}}
   </div>

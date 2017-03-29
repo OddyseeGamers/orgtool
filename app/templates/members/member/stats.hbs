@@ -1,52 +1,63 @@
-{{#each grouped as |rt|}}
-<div class="row">
-  <div class="col-md-4">
-    <div class="box">
-      <div class="box-header">
-       {{rt.name}}: {{rt.rewards.length}}
-      </div>
-      {{#each rt.rewards as |reward|}}
-        <div class="row info-block">
-          <div class="row">
-            <div class="col-md-1">
-              {{#if reward.img}}
-                <img style="width:20px;height:20px;" src={{reward.img}}/>
-              {{/if}}
-            </div>
-            <div class="col-md-7">
-              {{reward.name}}
-            </div>
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-1">
-            </div>
-          </div>
+<div class="stats">
+  <div class="member-rewards col-md-6">
 
-          {{#each reward.units as |unit|}}
-            <div class="row">
-              <div class="col-md-1">
+    {{#each grouped as |rt|}}
+    <div class="row">
+<!--       <div class="col-md-4"> -->
+        <div class="box">
+          {{#if (eq rt.id "2")}}
+          <div class="toolbar">
+            {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
+          </div>
+          {{/if}}
+
+          <div class="box-header">
+           {{rt.name}}: {{rt.rewards.length}}
+          </div>
+          {{#each rt.rewards as |reward|}}
+            <div class="row info-block">
+              <div class="row">
+                <div class="col-md-1">
+                  {{#if reward.img}}
+                    <img style="width:20px;height:20px;" src={{reward.img}}/>
+                  {{/if}}
+                </div>
+                <div class="col-md-7">
+                  {{reward.name}}
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-1">
+                </div>
               </div>
-              <div class="col-md-3">
-              </div>
-              <div class="col-md-7">
-                {{#if unit.img}}
-                  <img style="width:20px;height:20px;" src={{unit.img}}/>
-                {{/if}}
-                {{unit.name}}
-              </div>
-              <div class="col-md-1">
-                {{#if (or session.isAdmin model.loggedIn)}}
-                  <button class="tb txt-red" type="button" {{action 'showConfirm' unit.mu}}><i class="fa fa-sign-out"></i></button>
-                {{/if}}
-              </div>
+
+              {{#each reward.units as |unit|}}
+                <div class="row">
+                  <div class="col-md-1">
+                  </div>
+                  <div class="col-md-3">
+                  </div>
+                  <div class="col-md-7">
+                    {{#if unit.img}}
+                      <img style="width:20px;height:20px;" src={{unit.img}}/>
+                    {{/if}}
+                    {{unit.name}}
+                  </div>
+                  <div class="col-md-1">
+                    {{#if (or session.isAdmin model.loggedIn)}}
+                      <button class="tb txt-red" type="button" {{action 'showConfirm' unit.mu}}><i class="fa fa-sign-out"></i></button>
+                    {{/if}}
+                  </div>
+                </div>
+              {{/each}}
             </div>
           {{/each}}
         </div>
-      {{/each}}
+<!--       </div> -->
     </div>
+    {{/each}}
   </div>
 </div>
-{{/each}}
 
 
 {{#if showConfirmDialog}}

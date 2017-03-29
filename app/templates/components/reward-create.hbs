@@ -45,7 +45,7 @@
   <div class="reward-mu-list">
     {{#if (and (not reward.isNew) (not-eq reward.type.id "2"))}}
       <div class="toolbar">
-        {{member-select onConfirm=(action "rewardMember")}}
+        {{member-select onConfirm=(action "rewardMember") actionName="Reward"}}
       </div>
     {{/if}}
 

@@ -10,24 +10,13 @@ export default Ember.Component.extend({
   selVal: null,
   lookup: [],
 
-//   initDone: false,
   setup: Ember.on('didInsertElement', function() {
-//       Ember.Logger.debug(">> init", this.data, "-", this.lookup, "-", this.selVal, "-", this.initDone);
-//       this.set("lookup", []);
       var store = get(this, "store");
       var root = store.peekRecord('unit', 1);
       var data = this._serializeChildren(root);
       this.set("data", data.options);
-//       this.set("initDone", true);
-//       Ember.Logger.debug("hmmm?");
   }),
 
-//   names: ["1", "2"],
-
-//   cleanup: Ember.on('didDestroyElement', function() {
-//     Ember.Logger.debug(">> cleanup")
-//       Ember.Logger.debug(">> init", this.data, "-", this.lookup, "-", this.selVal);
-//   }),
 
   _serializeChildren: function(obj) {
     var self = this;
@@ -60,10 +49,11 @@ export default Ember.Component.extend({
 
     applyMember: function(num) {
       var uid = this.get("lookup")[num];
-//       Ember.Logger.debug("apply", num, "to", uid);
-      this.set("showSelect", false);
+//       this.set("showSelect", false);
+      if(this.get('onConfirm')) {
+        this.get('onConfirm')(uid);
+      }
       this.set("selVal", null);
-      this.get('onConfirm')(uid);
     },
   }
 });

@@ -11,19 +11,29 @@
   
 
   .ember-basic-dropdown {
-    width: 300px;
+    width: 250px;
+    float: left;
+//      width: 300px;
 //      float: left;
+  }
+
+  .action-name {
+    float: left;
+    margin-right: 8px;
+    line-height: 24px;
   }
 
   .unit-form { 
 //      border: 1px solid #f00;
 //      width: 400px;
-    position: absolute;
-//      float: left;
+//      position: absolute;
+    display: inline;
+    float: left;
   }
 
   .unit-apply { 
-    float: right;
+//      float: right;
+    line-height: 24px;
 //      width: 40px;
   }
 

@@ -89,7 +89,7 @@ $member-menu-height: 34px;
       margin-top: 34px;
 //      top: 40px;
 //      width: 100%;
-//      position: relative;
+    position: relative;
   }
 
     .row {
@@ -164,6 +164,16 @@ line-height: 24px;
   }
 
 
+  .stats {
+    .member-rewards {
+//      position: relative;
+//      top: 24px;
+//      padding-top: 24px;
+//      .toolbar {
+//        top: 100px;
+//        position: absolute;
+    }
+  }
 
 
 

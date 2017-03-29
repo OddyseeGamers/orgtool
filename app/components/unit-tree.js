@@ -35,7 +35,6 @@ export default Ember.Component.extend({
 
   setup: Ember.on('init', function() {
     var level = this.get('level');
-    debug(" LEVEL", this.get('unit'), " --- ",  level, "show", level > 0);
     this.set('showUnits', level > 0);
 //     this.set('showLeader', level > 0);
 //     this.set('showMembers', level > 0);

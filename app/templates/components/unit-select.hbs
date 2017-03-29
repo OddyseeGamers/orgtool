@@ -1,28 +1,35 @@
+{{!--
 <button class="tb tb-default" type="button" {{action "openSelect"}}>
   <i class="fa fa-edit"></i>
 </button>
 
 {{#if showSelect}}
+--}}
+<span class="action-name">
+  {{actionName}}
+</span>
   <div class="unit-form">
     {{#power-select
       options=data
       selected=selVal
       onchange=(action (mut selVal))
       renderInPlace=true
-      initiallyOpened=(not selVal)
+      initiallyOpened=selVal
       as |num idx|
     }}
       {{num}}
     {{/power-select}}
 
     {{#if selVal}}
-      <div class="unit-apply">
-        <button class="btn btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-sign-in"></i> {{actionName}}</button>
-      </div>
+      <span class="unit-apply">
+        <button class="btn btn-default" type="button" {{action 'applyMember' selVal}}><i class="fa fa-sign-in"></i></button>
+      </span>
     {{/if}}
   </div>
-{{/if}}
 
+  {{!--
+{{/if}}
+--}}
 
 {{!--
 
