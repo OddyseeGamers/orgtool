@@ -1,5 +1,6 @@
 # Orgtool
 
+The Orgtool is a tool developed by the Oddysee community to manage and organize its Members, Units and Game Items.
 
 ## Prerequisites
 
