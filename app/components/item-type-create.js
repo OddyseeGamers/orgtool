@@ -10,10 +10,12 @@ export default Ember.Component.extend({
 
   showDialog: false,
 
+  hasType: Ember.computed.notEmpty("itemType.name"),
+  hasTypename: Ember.computed.notEmpty("itemType.typeName"),
+  requiredFields: Ember.computed.and("hasType", "hasTypename"),
+
   setup: Ember.on('init', function() {
   }),
-
-
 
   actions: {
     deleteItemType: function(itemType) {

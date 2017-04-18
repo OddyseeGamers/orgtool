@@ -1,5 +1,5 @@
 {{#if showDialog}}
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') class="handle-create" as |md|}}
+{{#bs-modal open=showDialog size='m' header=false body=false footer=false autoClose=false onHide=(action 'close') class="handle-create" as |md|}}
   {{#md.header}}
     <h4 class="modal-title">
       {{#if rt.isNew}} Add {{else}} Edit {{/if}}
@@ -28,11 +28,13 @@
     </label>
     {{input type="text" class="form-control" value=rt.description}}
 
+    <div class="row">
     <label class="control-label">
       Image
     </label>
     {{input type="text" class="form-control" value=rt.img}}
-
+    </div>
+    <br>
   {{/md.body}}
   {{#md.footer}}
     <button type="submit" class="btn btn-danger" {{action "deleteRewardType"}} disabled={{rt.isSaving}}> Delete </button>

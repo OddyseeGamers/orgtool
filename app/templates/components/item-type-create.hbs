@@ -3,7 +3,7 @@
 --}}
 {{#if showDialog}}
 
-{{#bs-modal open=showDialog size='l' header=false body=false footer=false autoClose=false onHide=(action 'close') as |md|}}
+{{#bs-modal open=showDialog size='m' header=false body=false footer=false autoClose=false onHide=(action 'close') as |md|}}
   {{#md.header}}
     <h4 class="modal-title">
       Add Item Type
@@ -11,13 +11,6 @@
   {{/md.header}}
   {{#md.body}}
 
-  <label class="control-label">
-    Name
-    {{#unless itemType.name}}
-    <span class="text-danger">(required)</span>
-    {{/unless}}
-  </label>
-  {{input type="text" class="form-control" value=itemType.name}}
 
   <label class="control-label">
     Type Name
@@ -25,8 +18,15 @@
     <span class="text-danger">(required)</span>
     {{/unless}}
   </label>
-  {{input type="text" class="form-control" value=itemType.typName}}
+  {{input type="text" class="form-control" value=itemType.typeName}}
 
+  <label class="control-label">
+    Display Name
+    {{#unless itemType.name}}
+    <span class="text-danger">(required)</span>
+    {{/unless}}
+  </label>
+  {{input type="text" class="form-control" value=itemType.name}}
 
   <label class="control-label">
     Description
@@ -38,21 +38,39 @@
   </label>
   {{input type="text" class="form-control" value=itemType.img}}
 
-  <label class="control-label">
-    Incarnatable
-  </label>
-  {{bs-switch size='mini' checked=itemType.permissions indeterminate=false}}
+  <div class="row checklist">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-check" {{action (toggle itemType "permissions")}}>
+        {{#if itemType.permissions}}
+        <i class="fa fa-check-square-o fa-2x"></i>
+        {{else}}
+        <i class="fa fa-square-o fa-2x"></i>
+        {{/if}}
+      </button>
+    </div>
+    <div class="col-md-10">
+      <label class="control-label">
+        Incarnatable
+      </label>
+    </div>
+  </div>
+
+  {{!--
+  {{bs-switch size='mini' checked=itemType.permissions indeterminate=true}}
+  {{input type="checkbox" checked=itemType.permissions}}
+  --}}
 
   {{/md.body}}
   {{#md.footer}}
-    {{#unless itemType.isSaving}}
-      <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
-      {{#unless itemType.isNew}}
-        <button type="submit" class="btn btn-danger" {{action "deleteItemType" itemType}}> Delete </button>
-      {{/unless}}
-      <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}}> Save </button>
-    {{/unless}}
-
+    {{#if session.isAdmin}}
+      <button type="submit" class="btn btn-danger" {{action "deleteItemType" itemType}} disabled={{ItemType.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+      <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}} disabled={{if (or (not requiredFields) (not itemType.hasDirtyAttributes)) true false}} >
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
   {{/md.footer}}
 {{/bs-modal}}
 

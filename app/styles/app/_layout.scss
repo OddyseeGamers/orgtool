@@ -28,6 +28,13 @@ body {
   height: 100%;
 }
 
+.fake-header {
+  background-color: #101215;
+  height:90px;
+//    height:89px;
+//    border-bottom: 1px solid #1a80b6;
+ }
+
 #orgtool-container {
   height: calc(100% - #{$wp-menu-height});
 //  height: 100%;

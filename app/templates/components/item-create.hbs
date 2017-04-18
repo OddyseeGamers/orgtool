@@ -101,11 +101,46 @@
           {{/if}}
         </div>
       </div>
-      <div class="col-md-4 row text-center disabled">
-        <label class="control-label stretch">Hidden</label>
+      <div class="col-md-4 checklist">
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-check" {{action (toggle item "hidden")}}>
+              {{#if item.hidden}}
+              <i class="fa fa-check-square-o fa-2x"></i>
+              {{else}}
+              <i class="fa fa-square-o fa-2x"></i>
+              {{/if}}
+            </button>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Hidden</label>
+          </div>
+        </div>
+        {{!--
         {{bs-switch size='mini' checked=item.hidden indeterminate=false}}
-        <label class="control-label stretch">Available</label>
+        --}}
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-check" {{action (toggle item "available")}}>
+              {{#if item.available}}
+              <i class="fa fa-check-square-o fa-2x"></i>
+              {{else}}
+              <i class="fa fa-square-o fa-2x"></i>
+              {{/if}}
+            </button>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Available</label>
+          </div>
+        </div>
+        {{!--
+        {{bs-switch size='mini' checked=item.hidden indeterminate=false}}
         {{bs-switch size='mini' checked=item.available indeterminate=false}}
+        --}}
       </div>
 <!--     </div> -->
 

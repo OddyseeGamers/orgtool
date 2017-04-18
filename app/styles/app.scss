@@ -146,9 +146,12 @@ $ember-power-select-option-padding: 14px;
 #Top_bar .top_bar_left {
 //      position: relative;
 //      float: right;
-    width: 96%;
+    width: calc(100% - 95px);
+//      width: 96%;
 //      height: 
 }
+
+
 
 ol, ul {
     margin-bottom: 0px;
