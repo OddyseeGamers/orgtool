@@ -340,3 +340,11 @@
   color: #1a80b6;
   background: transparent;
 }
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    z-index: auto;
+//      height: 24px;
+}
+.btn-group > .btn, .btn-group-vertical > .btn {
+  height: 24px;
+}

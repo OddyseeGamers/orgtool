@@ -90,7 +90,7 @@
         <div class="col-md-3">
           {{member-details member=item.member details=false}}
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 mem-sel">
           {{member-select onConfirm=(action "changeOwner") actionName="Change"}}
         </div>
       </div>
@@ -99,7 +99,7 @@
 
 
 <!--     <div class="row"> -->
-      <div class="col-md-8" style="height: 50%;">
+      <div class="col-md-6" style="height: 30%;">
         <br>
         <div class="item-img-box">
           {{#if item.img}}
@@ -115,15 +115,12 @@
           {{/if}}
         </div>
       </div>
-      <div class="col-md-4 checklist">
+      <div class="col-md-6 checklist">
 
         <div class="row">
           <div class="col-md-4">
           </div>
-          <div class="col-md-5">
-            <label class="control-label">Hidden</label>
-          </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <button type="button" class="btn btn-check" {{action (toggle item "hidden")}}>
               {{#if item.hidden}}
               <i class="fa fa-check-square-o fa-2x"></i>
@@ -132,17 +129,14 @@
               {{/if}}
             </button>
           </div>
+          <div class="col-md-6">
+            <label class="control-label">Hidden</label>
+          </div>
         </div>
-        {{!--
-        {{bs-switch size='mini' checked=item.hidden indeterminate=false}}
-        --}}
         <div class="row">
           <div class="col-md-4">
           </div>
-          <div class="col-md-5">
-            <label class="control-label">Available</label>
-          </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <button type="button" class="btn btn-check" {{action (toggle item "available")}}>
               {{#if item.available}}
               <i class="fa fa-check-square-o fa-2x"></i>
@@ -151,11 +145,10 @@
               {{/if}}
             </button>
           </div>
+          <div class="col-md-6">
+            <label class="control-label">Available</label>
+          </div>
         </div>
-        {{!--
-        {{bs-switch size='mini' checked=item.hidden indeterminate=false}}
-        {{bs-switch size='mini' checked=item.available indeterminate=false}}
-        --}}
       </div>
 <!--     </div> -->
 

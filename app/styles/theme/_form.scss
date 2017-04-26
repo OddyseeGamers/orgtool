@@ -30,7 +30,11 @@ input[readonly].form-control {
 }
 
 .input-group-btn {
-    height: 24px !important;
+    height: 24px;
+}
+
+.input-group-btn > .btn {
+  height: 24px;
 }
 
 

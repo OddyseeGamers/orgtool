@@ -166,3 +166,17 @@ media="all"
 //      -ms-transform: translate(0, 0); // IE9 only
 //          transform: translate(0, 0);
 //  }
+
+@media (min-width: $screen-sm-min) {
+  // Automatically set modal's width for larger viewports
+  .modal-dialog {
+//      width: $modal-md;
+    margin: 0;
+  }
+//    .modal-content {
+//      @include box-shadow(0 5px 15px rgba(0,0,0,.5));
+//    }
+
+//    Modal sizes
+//    .modal-sm { width: $modal-sm; }
+}
