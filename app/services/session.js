@@ -26,10 +26,29 @@ export default Ember.Service.extend({
 
     var _session = this.get('store').createRecord('session');
     if (config.environment === 'development') {
-      _session.set('user', 'simsima');
+        var user = 
+        _session.set('id', "1");
+        _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": false});
+        return self.loadSession(_session);
+    } else {
+      return _session.save().then(function(session) {
+        return self.loadSession(session);
+      }).catch(function(err) {
+        self.set("statesDone", 14);
+        get(self, "state").pushObject("guest");
+        if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
+          self.set("errors", err.errors);
+        }
+
+        self.log("session", "logged in as visitor");
+        return self.loadThemAll();
+      });
     }
-    return _session.save().then(function(session) {
+  },
+
+  loadSession: function(session) {
       var wp_user = session.get('user');
+      var self = this;
       get(self, "state").pushObject("permissions");
       if (Ember.isEmpty(get(wp_user, "id"))) {
         self.set("errors", [ { "attribute": "session", "message": "Something went wrong..." } ]);
@@ -53,16 +72,6 @@ export default Ember.Service.extend({
           return self.loadThemAll();
         });
       }
-    }).catch(function(err) {
-      self.set("statesDone", 14);
-      get(self, "state").pushObject("guest");
-      if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
-        self.set("errors", err.errors);
-      }
-
-      self.log("session", "logged in as visitor");
-      return self.loadThemAll();
-    });
   },
 
 
