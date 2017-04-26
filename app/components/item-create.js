@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
-var debug = Ember.Logger.debug;
+var debug = Ember.Logger.log;
 
 export default Ember.Component.extend({
   classNames: ['item-create'],
@@ -180,6 +180,19 @@ export default Ember.Component.extend({
 
 
   actions: {
+    changeOwner: function(owner) {
+      debug(">>>> new ID: ", owner.id);
+      var item = get(this, "item");
+      set(item, "member", owner);
+      item.save().then(function(done) {
+        debug("saved....", get(done, "id"));
+      }).catch(function(err) {
+        debug("item-create save failed, err", err);
+        item.rollbackAttributes();
+      });
+//       this.setTypeAndFilter(type);
+    },
+
     setType: function(type) {
       this.setTypeAndFilter(type);
     },
