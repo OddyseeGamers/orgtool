@@ -16,6 +16,7 @@
   {{/md.header}}
   {{#md.body}}
 
+    <div class="row">
   {{#if item.isNew}}
     <label class="control-label">
       Type
@@ -37,7 +38,9 @@
       </div>
     </div>
     {{/if}}
+    </div>
 
+    <div class="row">
     <label class="control-label">
       {{#if item.type}} 
         {{parentType.name}}
@@ -77,28 +80,37 @@
         {{/bs-dropdown}}
       </div>
     </div>
+    </div>
 
+    <div class="row">
     <label class="control-label">Item Name</label>
     {{input type="text" class="form-control" id="itemParentName" value=item.name placeholder=item.parent.name}}
+    </div>
 
+    <div class="row">
     <label class="control-label">Image</label>
     {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.parent.img}}
+    </div>
 
+    <div class="row">
     {{#if (and session.isAdmin item.member)}}
       <label class="control-label">Owner</label>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-5">
           {{member-details member=item.member details=false}}
         </div>
-        <div class="col-md-9 mem-sel">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-6 mem-sel">
           {{member-select onConfirm=(action "changeOwner") actionName="Change"}}
         </div>
       </div>
     {{/if}}
+    </div>
 
 
 
-<!--     <div class="row"> -->
+<!--     <div class="row"  style="height: 30%;"> -->
       <div class="col-md-6" style="height: 30%;">
         <br>
         <div class="item-img-box">
