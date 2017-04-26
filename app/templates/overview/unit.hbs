@@ -42,7 +42,7 @@
     {{/md.body}}
     {{#md.footer}}
     {{#if session.isAdmin}}
-      type: {{model.type.id}}, attr: {{model.hasDirtyAttributes}}
+<!--       type: {{model.type.id}}, attr: {{model.hasDirtyAttributes}} -->
 <!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
         <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if (or (not model.type.id) model.hasDirtyAttributes) false true}} >  
         {{fa-icon "save"}} Save
