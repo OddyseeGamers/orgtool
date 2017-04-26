@@ -5,10 +5,12 @@
     <div class="row">
 <!--       <div class="col-md-4"> -->
         <div class="box">
-          {{#if (eq rt.id "2")}}
-          <div class="toolbar">
-            {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
-          </div>
+          {{#if (or session.isAdmin model.loggedIn)}}
+            {{#if (eq rt.id "2")}}
+            <div class="toolbar">
+              {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
+            </div>
+            {{/if}}
           {{/if}}
 
           <div class="box-header">
