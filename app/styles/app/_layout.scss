@@ -66,6 +66,7 @@ body {
   width: 100%;
 //    height: 754px;
   height: 100%;
+//    z-index: -1;
 }
 
 
@@ -83,6 +84,7 @@ body {
 #mycontent {
   width: 100%;
   height: calc(100% - #{$menu-height});
+  z-index: 10;
 //    height: 100%;
 //    position: absolute;
 //    top: #{$menu-height};

@@ -12,6 +12,14 @@
           <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.display_name}}
         {{/if}}
       {{/if}}
+
+      <button type="button" class="btn btn-check" {{action (toggle session "fancyBG")}}>
+        {{#if session.fancyBG}}
+        <i class="fa fa-check-square-o"></i>
+        {{else}}
+        <i class="fa fa-square-o"></i>
+        {{/if}}
+      </button> Fancy Background
     </li>
 
     {{#if session.isAdmin}}

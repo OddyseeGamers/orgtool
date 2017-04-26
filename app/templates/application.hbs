@@ -1,8 +1,15 @@
+{{#if session.fancyBG}}
+<div class="stars"></div>
+<div class="twinkling"></div>
+<div class="clouds"></div>
+{{/if}}
+
 {{#if session.loading}}
   {{partial "application/loader"}}
 {{else}}
   <div id="ember-basic-dropdown-wormhole"></div>
   <div id="maincontainer">
+
     {{partial 'application/header'}}
     {{partial 'application/content'}}
   </div>
