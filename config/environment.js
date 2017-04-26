@@ -43,10 +43,10 @@ module.exports = function(environment) {
 */
 
     contentSecurityPolicy: {
-      'default-src': "http://www.oddysee.org",
-      'script-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200 'unsafe-eval'",
-      'font-src': "'self' http://fonts.gstatic.com http://www.oddysee.org:4200 http://fonts.googleapis.com",
-      'connect-src': "'self' http://www.oddysee.org http://www.oddysee.org:4200",
+      'default-src': "https://www.oddysee.org",
+      'script-src': "'self' https://www.oddysee.org 'unsafe-eval'",
+      'font-src': "'self' https://fonts.gstatic.com http://fonts.googleapis.com",
+      'connect-src': "'self' https://www.oddysee.org",
       'img-src': "*",
       'style-src': "'self' 'unsafe-inline'",
       'report-uri':"'self'"
@@ -77,7 +77,6 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
   }
 
   return ENV;

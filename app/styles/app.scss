@@ -3,6 +3,7 @@ $header-height: 93px;
 $panel-margin:10px;
 $menu-height: 32px;
 $wp-menu-height: 90px;
+//$wp-menu-height: 127px;
 $wp-fix-height: 32px;
 
 $oddblue: #337ab7;
@@ -75,7 +76,9 @@ $ember-power-select-option-padding: 14px;
 //   color: #fff;
 
 //  @import 'ember-basic-dropdown';
+@import "ember-bootstrap/bootstrap";
 @import "ember-power-select";
+
 
 .ember-power-select-group-name {
   color: $blue;
@@ -131,6 +134,9 @@ $ember-power-select-option-padding: 14px;
 .page-template footer {
     display: none;
 }
+#Footer {
+    display: none;
+}
 #back_to_top {
     display: none;
 }
@@ -139,13 +145,14 @@ $ember-power-select-option-padding: 14px;
   height: 100%;
 //  height: calc(100% - #{$wp-menu-height} - #{$wp-fix-height});
 //  height: calc(100% - #{$wp-fix-height});
-  .menu_wrapper {
-    height: $wp-menu-height;
-  }
+//  .menu_wrapper {
+//    height: $wp-menu-height;
+//  }
 }
 #Top_bar .top_bar_left {
 //      position: relative;
 //      float: right;
+    //width: calc(100% - 95px);
     width: calc(100% - 95px);
 //      width: 96%;
 //      height: 
@@ -159,4 +166,5 @@ ol, ul {
 
 @import 'theme';
 @import 'app/layout';
+
 
