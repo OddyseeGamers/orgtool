@@ -4,7 +4,13 @@
 <!--     </div> -->
 
     <div class="col-md-3">
-      <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+      {{#if member.avatar}}
+        <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+      {{else}}
+        <div class="member-avatar text-center" style="padding-top: 6px;">
+          <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+        </div>
+      {{/if}}
 
       <div class="member-name">
         {{member.name}}
@@ -54,7 +60,15 @@
   {{/link-to}}
 {{else}}
   <div class="member-detail">
-    <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+
+      {{#if member.avatar}}
+        <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+      {{else}}
+        <div class="member-avatar text-center" style="padding-top: 6px;">
+          <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+        </div>
+      {{/if}}
+
     <div class="member-box">
         <div class="member-info">
           <div class="member-name">
