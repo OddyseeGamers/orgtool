@@ -22,9 +22,13 @@
   height: 100%;
 //    padding-top: 2px;
 //    padding-bottom: 2px;
-  border: 1px solid #333;
-  border-bottom-color: rgba(51,122,183, 0.3);
+//    border: 1px solid #333;
+//    border-bottom-color: rgba(51,122,183, 0.3);
 //      border-bottom: 1px solid #337ab7;
+
+  border: 1px solid transparent;
+  border-top: 1px solid #333;
+  border-left: 1px solid #333;
 
   .member-detail {
     width: 100%;
