@@ -25,6 +25,21 @@
 
 }
 
+.modal-sm {
+//    height: 33%;
+    width: 30%;
+    height: 50%;
+//    .modal-content {
+//      height: 100%;
+//    }
+
+  .modal-body {
+      height: 50%; 
+      overflow-y: auto;
+  }
+
+}
+
 .modal-content {
 //    background-color: #fff;
   background-color: #0A0C11;
