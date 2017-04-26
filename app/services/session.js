@@ -25,6 +25,7 @@ export default Ember.Service.extend({
     self.set("user", null);
     self.set("errors", null);
 
+    var _session = this.get('store').createRecord('session');
     return _session.save().then(function(session) {
       return self.loadSession(session);
     }).catch(function(err) {
