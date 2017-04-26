@@ -34,14 +34,14 @@ export default Ember.Component.extend({
     var self = this;
 //     Ember.Logger.debug("setup chart", self.currFilter);
     this.set('boundResizeHandler', Ember.run.bind(this, this._renderStruc));
-    $(window).on('resize', this.get('boundResizeHandler'));
+    Ember.$(window).on('resize', this.get('boundResizeHandler'));
     this.get('eventManager').on('rerender', this._renderStruc.bind(this));
     self._renderStruc();
   }),
 
   willDestroy: function() {
 //     Ember.Logger.debug("free chart", this.currFilter, "-", this);
-    $(window).off('resize', this.get('boundResizeHandler'));
+    Ember.$(window).off('resize', this.get('boundResizeHandler'));
     this.get('eventManager').off('rerender');
 //     $('#to-remove *').unbind('click');
 //     Ember.$("#org_group").remove();
