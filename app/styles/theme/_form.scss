@@ -20,14 +20,26 @@ fieldset[disabled] .form-control {
     opacity: 0.1;
 }
 
+input.form-control {
+    background-color: #000;
+}
+
 input[readonly].form-control {
     cursor: default;
 //      background-color: transparent;
-    background-color: #000;
+//      background-color: #000;
     color: #fff;
     border: 1px solid #219ab3;
 //      border: 0px;
 }
+
+
+form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+   background-color: #000;
+   opacity: 1;
+}
+
+
 
 .input-group-btn {
     height: 24px;
