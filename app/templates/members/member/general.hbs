@@ -2,6 +2,7 @@
 <div class="col-md-2">
     <div class="member-details-name">
       {{!-- TODO: fix ie and edge
+      --}}
       {{#if (or session.isAdmin model.loggedIn)}}
       <div class="toolbar">
         {{#bs-dropdown model=model closeOnMenuClick=false as |dd|}}
@@ -14,7 +15,7 @@
         {{/bs-dropdown}}
       </div>
       {{/if}}
-      --}}
+
       {{#if model.avatar}}
         <img class="member-details-img" src={{model.avatar}}>
       {{else}}
@@ -25,7 +26,22 @@
 
   <div class="col-md-1">
   </div>
+
   <div class="col-md-9">
+    {{#if session.isAdmin}}
+      <div class="row info-block">
+        <div class="col-md-2">
+          <label class="control-label">WP ID</label>
+        </div>
+        <div class="col-md-1">
+          {{input type="text" class="form-control" value=model.wp_id}}
+        </div>
+
+        <div class="col-md-9">
+        </div>
+      </div>
+    {{/if}}
+
 
     <div class="row info-block">
       <div class="col-md-2">
