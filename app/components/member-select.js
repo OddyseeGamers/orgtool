@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
-var debug = Ember.Logger.debug;
+var debug = Ember.Logger.log;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
