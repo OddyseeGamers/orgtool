@@ -12,7 +12,7 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
-  fancyBG: false,
+  fancyBG: true,
 
   init: function() {
 //     Ember.debug("session:", config.environment);
