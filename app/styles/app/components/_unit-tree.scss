@@ -16,14 +16,16 @@
 
   .unit-img {
     max-width: 32px;
-    height: 24px;
+    height: 32px;
     margin-bottom: 0px;
   }
+
 
   .box-header {
 //      padding-left: 10px;
 //      min-height: 35px;
 
+//      line-height: 14px;
 
     .unit-name {
 //        color: #1a80b6;
@@ -51,6 +53,17 @@
         text-decoration: none;
       font-weight: bold;
       }
+    }
+
+    .unit-desc {
+      float: right;
+      position: relative;
+      display: inline;
+      font-size: 10px;
+      color: #444;
+//        vertical-align: bottom;
+      right: -10px;
+      top: -22px;
     }
 
     .unit-menu {
