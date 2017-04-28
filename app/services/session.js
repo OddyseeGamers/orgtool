@@ -12,7 +12,7 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
-  fancyBG: true,
+  fancyBG: false,
 
   init: function() {
 //     Ember.debug("session:", config.environment);
@@ -26,18 +26,27 @@ export default Ember.Service.extend({
     self.set("errors", null);
 
     var _session = this.get('store').createRecord('session');
-    return _session.save().then(function(session) {
-      return self.loadSession(session);
-    }).catch(function(err) {
-      self.set("statesDone", 14);
-      get(self, "state").pushObject("guest");
-      if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
-        self.set("errors", err.errors);
-      }
+    if (config.environment === 'development') {
+//       self.set("fancyBG", false);
+      _session.set('id', "1");
+      _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": false});
+      return self.loadSession(_session);
+    } else {
+      return _session.save().then(function(session) {
+        return self.loadSession(session);
+      }).catch(function(err) {
+        self.set("statesDone", 14);
+        get(self, "state").pushObject("guest");
+        if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
+          self.set("errors", err.errors);
+        }
 
-      self.log("session", "logged in as visitor");
-      return self.loadThemAll();
-    });
+        self.log("session", "logged in as visitor");
+        return self.loadThemAll();
+      });
+
+    }
+
   },
 
   loadSession: function(session) {

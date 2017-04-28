@@ -56,13 +56,14 @@
     }
 
     .unit-desc {
-      float: right;
+//        float: right;
+    text-align: right;
       position: relative;
-      display: inline;
+//        display: inline;
       font-size: 10px;
       color: #444;
 //        vertical-align: bottom;
-      right: -10px;
+//        right: -10px;
       top: -22px;
     }
 
