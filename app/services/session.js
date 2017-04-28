@@ -12,12 +12,20 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
-  fancyBG: false,
+  fancyBG: true,
 
   init: function() {
-//     Ember.debug("session:", config.environment);
     var self = this;
-
+    var scripts = document.getElementsByTagName("script");
+    var filename = "assets/orgtool.js";
+    var src = scripts[scripts.length-1].src;
+    var loc = src.substring(0, src.indexOf(filename)); // + filename;
+//     self.set('rootURL', scripts[scripts.length-1]);
+//     Ember.Logger.log(">>> ME", src, " | ", loc, " | " , window.location);
+//     Ember.Logger.log("session:", config.environment);
+//     Ember.Logger.log("session:", config.rootURL);
+    self.set('rootURL', loc);
+//
     self.set('loading', true);
     get(self, "state").pushObject("connecting");
     self.set("isUser", false);

@@ -1,8 +1,4 @@
-{{#if session.fancyBG}}
-<div class="stars"></div>
-<div class="twinkling"></div>
-<div class="clouds"></div>
-{{/if}}
+{{fancy-background show=session.fancyBG}}
 
 {{#if session.loading}}
   {{partial "application/loader"}}

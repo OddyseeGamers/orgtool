@@ -20,6 +20,9 @@ export default Ember.Component.extend({
   session: Ember.inject.service('session'),
 
   setup: Ember.on('didInsertElement', function() {
+//   Ember.onerror = function(error) {
+//     console.log("An error has occurred in ember: " + error.message);
+// };
     if (!this.get('canDrag')) {
       return;
     }
@@ -161,10 +164,17 @@ export default Ember.Component.extend({
     return {unitid: id, dest: dest};
   },
 
+  loadError(img) {
+    Ember.$(img.target).attr("src", Ember.get(this, "session").rootURL + "/member.png");
+//     set(img, "src", get(this, "session").rootURL + "/member.png");
+    return true;
+  },
+
   actions: {
     unassignMember: function(member, unitid) {
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': unitid, 'destType': "unit" } );
     },
+
   }
 
 });
