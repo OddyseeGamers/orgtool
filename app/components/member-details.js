@@ -80,7 +80,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    var id = parseInt($(event.target).data('memberid'));
+    var id = parseInt(this.$(event.target).data('memberid'));
     this.get('eventManager').trigger('assign', { 'id': id, 'type': 'member', 'dest': unitid, 'destType': elm.dest } );
     this.$("body").css("cursor","");
   },
@@ -90,7 +90,7 @@ export default Ember.Component.extend({
     if (last) {
       this.$(last).css({ fill: this.get('lastColor')});
 
-      var classes = $(last).attr("class");
+      var classes = this.$(last).attr("class");
       if (classes) {
         classes = classes.split(" ");
         var idx = classes.indexOf("drop-hover");
@@ -111,7 +111,7 @@ export default Ember.Component.extend({
     }
     this.resetLast();
     this.set('lastElement', element);
-    this.set('lastColor', $(element).css('fill'));
+    this.set('lastColor', this.$(element).css('fill'));
     this.$(element).removeAttr("style");
     var classes = this.$(element).attr("class");
 //     Ember.Logger.debug(">>> classes", classes);
