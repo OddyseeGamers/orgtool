@@ -12,7 +12,6 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
-  fancyBG: true,
 
   init: function() {
     var self = this;
@@ -20,7 +19,6 @@ export default Ember.Service.extend({
 
     var scripts = document.getElementsByTagName("script");
     var filename = "assets/orgtool.js";
-
     for (var i = 0; i < scripts.length; i++) {
       var src = scripts[i].src;
       if (src.indexOf(filename) > 0) {
@@ -37,7 +35,6 @@ export default Ember.Service.extend({
 
     var _session = this.get('store').createRecord('session');
     if (config.environment === 'development') {
-//       self.set("fancyBG", false);
       _session.set('id', "1");
       _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": false});
       return self.loadSession(_session);

@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
   eventManager: Ember.inject.service('events'),
   classNames: ['strech-tree'],
   showDialog: false,
+  showBG: true,
 
   setup: Ember.on('init', function() {
     this.get('eventManager').on('assign', this.assign.bind(this));
