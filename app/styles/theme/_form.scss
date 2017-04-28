@@ -84,14 +84,15 @@ label {
 
 // overwrite shortcodes.css
 input[type="date"], input[type="email"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="url"], select, textarea {
-    padding: 1px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
 //      outline: none;
 //      margin: 0;
 //      width: 230px;
 //      max-width: 100%;
 //      display: block;
      margin-bottom: 0px !important;
-    font-size: 12px;
+//      font-size: 12px;
 //      border-width: 1px;
 //      border-style: solid;
 //      border-radius: 0;
