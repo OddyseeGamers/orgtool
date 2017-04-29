@@ -12,13 +12,21 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
-  fancyBG: true,
 
   init: function() {
-//     Ember.debug("session:", config.environment);
     var self = this;
-
     self.set('loading', true);
+
+    var scripts = document.getElementsByTagName("script");
+    var filename = "assets/orgtool.js";
+    for (var i = 0; i < scripts.length; i++) {
+      var src = scripts[i].src;
+      if (src.indexOf(filename) > 0) {
+        self.set('rootURL', src.substring(0, src.indexOf(filename)));
+        break;
+      }
+    }
+
     get(self, "state").pushObject("connecting");
     self.set("isUser", false);
     self.set("isAdmin", true);
@@ -26,18 +34,26 @@ export default Ember.Service.extend({
     self.set("errors", null);
 
     var _session = this.get('store').createRecord('session');
-    return _session.save().then(function(session) {
-      return self.loadSession(session);
-    }).catch(function(err) {
-      self.set("statesDone", 14);
-      get(self, "state").pushObject("guest");
-      if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
-        self.set("errors", err.errors);
-      }
+    if (config.environment === 'development') {
+      _session.set('id', "1");
+      _session.set('user', {"id": 1, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": true});
+      return self.loadSession(_session);
+    } else {
+      return _session.save().then(function(session) {
+        return self.loadSession(session);
+      }).catch(function(err) {
+        self.set("statesDone", 14);
+        get(self, "state").pushObject("guest");
+        if (err.errors && err.errors[0].status && err.errors[0].status != 401) {
+          self.set("errors", err.errors);
+        }
 
-      self.log("session", "logged in as visitor");
-      return self.loadThemAll();
-    });
+        self.log("session", "logged in as visitor");
+        return self.loadThemAll();
+      });
+
+    }
+
   },
 
   loadSession: function(session) {

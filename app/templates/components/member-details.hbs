@@ -5,7 +5,7 @@
 
     <div class="col-md-3">
       {{#if member.avatar}}
-        <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+        <img class="member-avatar" src={{member.avatar}} onerror={{action loadError}}>
       {{else}}
         <div class="member-avatar text-center" style="padding-top: 6px;">
           <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
@@ -62,7 +62,7 @@
   <div class="member-detail">
 
       {{#if member.avatar}}
-        <img class="member-avatar" src={{member.avatar}} onerror="this.src='https://www.oddysee.org/wp-content/plugins/orgtool-wordpress-plugin/orgtool/dist/blank.png'">
+        <img class="member-avatar" src={{member.avatar}} onerror={{action loadError}}>
       {{else}}
         <div class="member-avatar text-center" style="padding-top: 6px;">
           <i class="fa fa-user-o fa-2x" style="color:#666;"></i>

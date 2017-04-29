@@ -13,8 +13,8 @@
         {{/if}}
       {{/if}}
 
-      <button type="button" class="btn btn-check" {{action (toggle session "fancyBG")}}>
-        {{#if session.fancyBG}}
+      <button type="button" class="btn btn-check" {{action (toggle this "showBG")}}>
+        {{#if showBG}}
         <i class="fa fa-check-square-o"></i>
         {{else}}
         <i class="fa fa-square-o"></i>

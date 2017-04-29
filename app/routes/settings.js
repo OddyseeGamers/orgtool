@@ -6,9 +6,9 @@ var log = Ember.Logger.log;
 
 export default Ember.Route.extend({
   session: Ember.inject.service(),
-  redirect: function(model, transition) {
-    if (!Ember.get(this, "session").get("isAdmin")) {
-      transition.abort();
-    }
-  },
+//   redirect: function(model, transition) {
+//     if (!Ember.get(this, "session").get("isAdmin")) {
+//       transition.abort();
+//     }
+//   },
 });

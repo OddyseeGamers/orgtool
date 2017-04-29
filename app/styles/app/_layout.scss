@@ -252,6 +252,7 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 }
 
 
+
 @import 'overview/units';
 @import 'overview/chart';
 @import 'overview/members';
@@ -263,6 +264,7 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 @import 'members/members';
 @import 'members/member';
 
+@import 'components/fancy-background';
 @import 'components/org-chart';
 @import 'components/unit-tree';
 @import 'components/unit-select';

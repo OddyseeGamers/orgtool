@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
+var debug = Ember.Logger.log;
 
 export default Ember.Component.extend({
   classNames: ['item-filtered-list'],
@@ -230,6 +231,7 @@ export default Ember.Component.extend({
     },
 
     addItem: function() {
+      debug("ADD ITEM");
       var item = get(this, "store").createRecord('item');
       get(this, "session").log("item", "new item created");
       if (!Ember.isEmpty(get(this, "member"))) {
