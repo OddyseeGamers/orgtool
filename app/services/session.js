@@ -21,7 +21,7 @@ export default Ember.Service.extend({
     self.set('loading', true);
     get(self, "state").pushObject("connecting");
     self.set("isUser", false);
-    self.set("isAdmin", false);
+    self.set("isAdmin", true);
     self.set("user", null);
     self.set("errors", null);
 
@@ -76,10 +76,11 @@ export default Ember.Service.extend({
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),
       handles: self.createRequest("handles", "handle"),
-      units: this.createRequest("units", "unit"),
+      units: self.createRequest("units", "unit"),
       items: self.createRequest("items", "item"),
       props: self.createRequest("props", "prop"),
-      itemProps: self.createRequest("itemProps", "itemProp"),
+      // those are gone
+      //itemProps: self.createRequest("itemProps", "itemProp"),
 
       rewards: self.createRequest("rewards", "reward"),
       memberUnits: self.createRequest("memberUnits", "memberUnit"),
@@ -98,12 +99,12 @@ export default Ember.Service.extend({
   },
 
   createRequest: function(name, modelName) {
-      var self = this;
-      return self.get('store').findAll(modelName).then(function(data) {
-        Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
-        get(self, "state").pushObject(name);
-        return data;
-      });
+    var self = this;
+    return self.get('store').findAll(modelName).then(function(data) {
+      Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
+      get(self, "state").pushObject(name);
+      return data;
+    });
   },
 
   log: function(comp, msg) {
