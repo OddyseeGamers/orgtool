@@ -39,7 +39,7 @@ export default Ember.Component.extend({
     }
 
     if (item.get("type.id")) {
-      this.setTypeAndFilter(item.get("type").get("name"));
+      this.setTypeAndFilter(item.get("type"));
     }
     var self = this;
     get(this, 'store').findAll('itemType').then(function(types) {
@@ -72,7 +72,7 @@ export default Ember.Component.extend({
   },
 
   setTypeAndFilter: function(type) {
-    console.log(type.get("parent"))
+    console.log(type)
     var item = get(this, "item");
     if (item.get("type") && item.get("type").get("id") != type.get("id")) {
       set(item, "type", type);
