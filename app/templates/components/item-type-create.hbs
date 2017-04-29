@@ -12,31 +12,53 @@
   {{#md.body}}
 
 
-  <label class="control-label">
-    Type Name
-    {{#unless itemType.typeName}}
-    <span class="text-danger">(required)</span>
-    {{/unless}}
-  </label>
-  {{input type="text" class="form-control" value=itemType.typeName}}
+  <div class="row">
+    <label class="control-label">
+      Type Name
+      {{#unless itemType.typeName}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    {{input type="text" class="form-control" value=itemType.typeName}}
+  </div>
 
-  <label class="control-label">
-    Display Name
-    {{#unless itemType.name}}
-    <span class="text-danger">(required)</span>
-    {{/unless}}
-  </label>
-  {{input type="text" class="form-control" value=itemType.name}}
+  <div class="row">
+    <label class="control-label">
+      Display Name
+      {{#unless itemType.name}}
+      <span class="text-danger">(required)</span>
+      {{/unless}}
+    </label>
+    {{input type="text" class="form-control" value=itemType.name}}
+  </div>
 
-  <label class="control-label">
-    Description
-  </label>
-  {{input type="text" class="form-control" value=itemType.description}}
+  <div class="row">
+    <label class="control-label">Parent</label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" id="itemTypeParent" value={{itemType.parent.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown as |dd|}}
+          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+          {{#dd.menu align="right"}}
+              <li {{action "setParent" null}}><a href="#" class={{if (not itemType.parent) "active"}} >None</a></li>
+              {{#each types as |pi|}}
+                <li {{action "setParent" pi}}><a href="#" class={{if (eq pi.id itemType.parent.id) "active"}} >{{pi.name}}</a></li>
+              {{/each}}
+          {{/dd.menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+  </div>
 
-  <label class="control-label">
-    Image
-  </label>
-  {{input type="text" class="form-control" value=itemType.img}}
+  <div class="row">
+    <label class="control-label">Description</label>
+    {{input type="text" class="form-control" value=itemType.description}}
+  </div>
+
+  <div class="row">
+    <label class="control-label">Image</label>
+    {{input type="text" class="form-control" value=itemType.img}}
+  </div>
 
   <div class="row checklist">
     <div class="col-md-1">
@@ -57,11 +79,6 @@
     </div>
   </div>
 
-  {{!--
-  {{bs-switch size='mini' checked=itemType.permissions indeterminate=true}}
-  {{input type="checkbox" checked=itemType.permissions}}
-  --}}
-
   {{/md.body}}
   {{#md.footer}}
     {{#if session.isAdmin}}
@@ -73,7 +90,6 @@
     <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
   {{/md.footer}}
 {{/bs-modal}}
-
 
 {{/if}}
 

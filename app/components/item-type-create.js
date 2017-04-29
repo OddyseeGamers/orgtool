@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
+var debug = Ember.Logger.log;
 
 export default Ember.Component.extend({
   classNames: ['item-type-create'],
@@ -15,34 +16,36 @@ export default Ember.Component.extend({
   requiredFields: Ember.computed.and("hasType", "hasTypename"),
 
   setup: Ember.on('init', function() {
+    var self = this;
+    get(this, 'store').findAll('itemType').then(function(types) {
+      set(self, "types", types);
+    });
   }),
 
   actions: {
+    setParent: function(parent) {
+        set(this, "itemType.parent", parent);
+    },
+
     deleteItemType: function(itemType) {
       this.get('onConfirm')(itemType);
     },
 
-
     saveItemType: function(itemType) {
-//       var itemType = get(this, "itemType");
       var self = this;
       if (itemType) {
-//         Ember.Logger.debug("save item", item.get("name"), item.get("parent").get("name"), "-", item.get("type").get("name"), "-", item.get("member").get("id"));
         itemType.save().then(function(nitemType) {
-//           self.get('eventManager').trigger('success', 'ship added to member: ' + memid);
-//           Ember.Logger.debug(">>>>", nitem.get("id"), "-", mem.get("items")); //.get("length"));
           self.set('itemType', null);
           self.set('showDialog', false);
           get(self, "session").log("itemType", "itemType " + nitemType.get("name") + " saved");
-//           Ember.Logger.debug(">>>> SAVED!", nitem.get("id"), "-", mem.get("items")); //.get("length"));
         }).catch(function(err) {
-//           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
           get(self, "session").log("error", "could not save itemType " + itemType.get("name"));
           Ember.Logger.debug("error saving", err);
           self.set('showDialog', true);
         });
       }
     },
+
     close: function() {
       var itemType = get(this, 'itemType');
       var self = this;
@@ -63,5 +66,4 @@ export default Ember.Component.extend({
       this.set('itemType', null);
     },
   }
-  
 });
