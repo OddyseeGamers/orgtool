@@ -16,96 +16,116 @@
   {{/md.header}}
   {{#md.body}}
 
-    <div class="row">
-  {{#if item.isNew}}
-    <label class="control-label">
-      Type
-      {{#unless item.type}}
-      <span class="text-danger">(required)</span>
-      {{/unless}}
-    </label>
-    <div class="input-group ship-model-modal">
-      <input type="text" class="form-control" value={{item.type.name}} readonly>
-      <div class="input-group-btn">
-        {{#bs-dropdown as |dd|}}
-          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
-          {{#dd.menu align="right"}}
-            {{#each types as |sm|}}
-              <li {{action "setType" sm}}><a href="#" class={{if (and (and (and s s.id) (and item.type item.type.id)) (eq s.id item.type.id)) "active"}} >{{sm.name}}</a></li>
-            {{/each}}
-          {{/dd.menu}}
-        {{/bs-dropdown}}
-      </div>
-    </div>
-    {{/if}}
-    </div>
-
-    <div class="row">
-    <label class="control-label">
-      {{#if item.type}} 
-        {{parentType.name}}
-        {{#unless item.parent}}
-        <span class="text-danger">(required)</span>
-        {{/unless}}
-      {{else}}
-        &nbsp;
-      {{/if}}
-    </label>
-    <div class="input-group ship-model-modal">
-      <input type="text" class="form-control" id="shipModel" value={{item.parent.name}} readonly>
-      <div class="input-group-btn">
-        {{#bs-dropdown as |dd|}}
-          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
-          {{#dd.menu align="right"}}
-
-          {{#unless itemParentRoot}}
-          {{#each parents as |pa|}}
-              <li {{action "setParent" pa}}><a href="#" class={{if (eq pa.id item.parent.id) "active"}} >{{pa.name}}</a></li>
-          {{/each}}
+  <div class="row">
+    <div class="col-md-6">
+      {{#if item.isNew}}
+        <label class="control-label">
+          Type
+          {{#unless item.type}}
+          <span class="text-danger">(required)</span>
           {{/unless}}
+        </label>
+        <div class="input-group ship-model-modal">
+          <input type="text" class="form-control" value={{item.type.name}} readonly>
+          <div class="input-group-btn">
+            {{#bs-dropdown as |dd|}}
+              {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+              {{#dd.menu align="right"}}
+                {{#each types as |sm|}}
+                  <li {{action "setType" sm}}><a href="#" class={{if (and (and (and s s.id) (and item.type item.type.id)) (eq s.id item.type.id)) "active"}} >{{sm.name}}</a></li>
+                {{/each}}
+              {{/dd.menu}}
+            {{/bs-dropdown}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
 
-            {{#each itemParentRoot as |sm|}}
-              <li class="ship-manu">
-               {{#if sm.img}}
-                  <img class="manu-img" src={{sm.img}}>
+    <div class="col-md-6">
+      {{#if parentType}} 
+        <label class="control-label">
+            {{parentType.name}}
+            {{#unless item.parent}}
+              <span class="text-danger">(required)</span>
+            {{/unless}}
+          </label>
+        <div class="input-group ship-model-modal">
+          <input type="text" class="form-control" id="shipModel" value={{item.parent.name}} readonly>
+          <div class="input-group-btn">
+            {{#bs-dropdown as |dd|}}
+              {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+              {{#dd.menu align="right"}}
+                {{#if parentType.parent}}
+                  {{#each parentType.parent.items as |pi|}}
+                    <li class="ship-manu">
+                     {{#if pi.img}}
+                        <img class="manu-img" src={{pi.img}}>
+                      {{/if}}
+                      {{pi.name}}
+                    </li>
+                    {{#each pi.items as |it|}}
+                      <li {{action "setParent" it}}><a href="#" class={{if (eq it.id item.parent.id) "active"}} >{{it.name}}</a></li>
+                    {{/each}}
+                  {{/each}}
+                {{else}}
+                  {{#each parentType.items as |pi|}}
+                    <li {{action "setParent" pi}}><a href="#" class={{if (eq pi.id item.parent.id) "active"}} >{{pi.name}}</a></li>
+                  {{/each}}
                 {{/if}}
-                {{sm.name}}
-              </li>
-              {{#each sm.items as |it|}}
-                <li {{action "setParent" it}}><a href="#" class={{if (eq it.id item.parent.id) "active"}} >{{it.name}}</a></li>
-              {{/each}}
-          {{/each}}
-
-          {{/dd.menu}}
-        {{/bs-dropdown}}
-      </div>
+              {{/dd.menu}}
+            {{/bs-dropdown}}
+          </div>
+        </div>
+      {{/if}}
     </div>
+  </div>
+  {{!--
+                {{#unless parentType.parent}}
+                  {{#each parents as |pa|}}
+                      <li {{action "setParent" pa}}><a href="#" class={{if (eq pa.id item.parent.id) "active"}} >{{pa.name}}</a></li>
+                  {{/each}}
+                {{/unless}}
+
+                  {{#each parentType.items as |pi|}}
+                    <li class="ship-manu">
+                     {{#if sm.img}}
+                        <img class="manu-img" src={{sm.img}}>
+                      {{/if}}
+                      {{sm.name}}
+                    </li>
+                    {{#each sm.items as |it|}}
+                      <li {{action "setParent" it}}><a href="#" class={{if (eq it.id item.parent.id) "active"}} >{{it.name}}</a></li>
+                    {{/each}}
+                {{/each}}
+  --}}
+
+    <br><br>
+
+
+    <div class="row">
+      <label class="control-label">Item Name</label>
+      {{input type="text" class="form-control" id="itemParentName" value=item.name placeholder=item.parent.name}}
     </div>
 
     <div class="row">
-    <label class="control-label">Item Name</label>
-    {{input type="text" class="form-control" id="itemParentName" value=item.name placeholder=item.parent.name}}
+      <label class="control-label">Image</label>
+      {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.parent.img}}
     </div>
 
     <div class="row">
-    <label class="control-label">Image</label>
-    {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.parent.img}}
-    </div>
-
-    <div class="row">
-    {{#if (and session.isAdmin item.member)}}
-      <label class="control-label">Owner</label>
-      <div class="row">
-        <div class="col-md-5">
-          {{member-details member=item.member details=false}}
+      {{#if (and session.isAdmin (eq item.type.permissions "1"))}}
+        <label class="control-label">Owner</label>
+        <div class="row">
+          <div class="col-md-5">
+            {{member-details member=item.member details=false}}
+          </div>
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-6 mem-sel">
+            {{member-select onConfirm=(action "changeOwner") actionName="Change"}}
+          </div>
         </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-6 mem-sel">
-          {{member-select onConfirm=(action "changeOwner") actionName="Change"}}
-        </div>
-      </div>
-    {{/if}}
+      {{/if}}
     </div>
 
 

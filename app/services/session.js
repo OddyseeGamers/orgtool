@@ -36,7 +36,7 @@ export default Ember.Service.extend({
     var _session = this.get('store').createRecord('session');
     if (config.environment === 'development') {
       _session.set('id', "1");
-      _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": false});
+      _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": true});
       return self.loadSession(_session);
     } else {
       return _session.save().then(function(session) {
