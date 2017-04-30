@@ -29,7 +29,7 @@ export default Ember.Service.extend({
 
     get(self, "state").pushObject("connecting");
     self.set("isUser", false);
-    self.set("isAdmin", true);
+    self.set("isAdmin", false);
     self.set("user", null);
     self.set("errors", null);
 
