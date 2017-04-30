@@ -17,7 +17,6 @@
   {{#md.body}}
 
   <div class="row">
-    <div class="col-md-6">
       {{#if item.isNew}}
         <label class="control-label">
           Type
@@ -41,7 +40,7 @@
       {{/if}}
     </div>
 
-    <div class="col-md-6">
+    <div class="row">
       {{#if parentType}} 
         <label class="control-label">
             {{parentType.name}}
@@ -78,7 +77,6 @@
         </div>
       {{/if}}
     </div>
-  </div>
   {{!--
                 {{#unless parentType.parent}}
                   {{#each parents as |pa|}}
