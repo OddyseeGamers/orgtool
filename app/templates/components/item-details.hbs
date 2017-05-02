@@ -47,15 +47,15 @@
 
 
 {{#if (eq typeFilter nil)}}
-  {{partial 'components/item-manufacturer-details'}}
+  {{partial 'components/item-category-details'}}
 {{/if}}
 
 {{#if (eq typeFilter 'tpls')}}
-  {{partial 'components/item-ship-model-details'}}
+  {{partial 'components/item-template-details'}}
 {{/if}}
 
 {{#if (eq typeFilter 'items')}}
-  {{partial 'components/item-ship-details'}}
+  {{partial 'components/item-item-details'}}
 {{/if}}
 
 {{!--
