@@ -94,14 +94,14 @@ export default Ember.Service.extend({
       handles: self.createRequest("handles", "handle"),
       units: self.createRequest("units", "unit"),
       items: self.createRequest("items", "item"),
+      categories: self.createRequest("categories", "category"),
+      templates: self.createRequest("templates", "template"),
       props: self.createRequest("props", "prop"),
-      // those are gone
-      //itemProps: self.createRequest("itemProps", "itemProp"),
 
       rewards: self.createRequest("rewards", "reward"),
       memberUnits: self.createRequest("memberUnits", "memberUnit"),
       unitTypes: self.createRequest("unitTypes", "unitType"),
-      //itemTypes: self.createRequest("itemTypes", "itemType"),
+
       rewardTypes: self.createRequest("rewardTypes", "rewardType"),
     });
     return all.then(function(done) {
