@@ -46,15 +46,15 @@
 </div>
 
 
-{{#if (eq item.type.id '1')}}
+{{#if (eq typeFilter nil)}}
   {{partial 'components/item-manufacturer-details'}}
 {{/if}}
 
-{{#if (eq item.type.id '2')}}
+{{#if (eq typeFilter 'tpls')}}
   {{partial 'components/item-ship-model-details'}}
 {{/if}}
 
-{{#if (eq item.type.id '3')}}
+{{#if (eq typeFilter 'items')}}
   {{partial 'components/item-ship-details'}}
 {{/if}}
 
