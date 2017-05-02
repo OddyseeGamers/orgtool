@@ -88,7 +88,7 @@ export default Ember.Service.extend({
   loadThemAll: function() {
     var self = this;
     this.set('loading', true);
-    
+
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),
       handles: self.createRequest("handles", "handle"),
@@ -101,7 +101,7 @@ export default Ember.Service.extend({
       rewards: self.createRequest("rewards", "reward"),
       memberUnits: self.createRequest("memberUnits", "memberUnit"),
       unitTypes: self.createRequest("unitTypes", "unitType"),
-      itemTypes: self.createRequest("itemTypes", "itemType"),
+      //itemTypes: self.createRequest("itemTypes", "itemType"),
       rewardTypes: self.createRequest("rewardTypes", "rewardType"),
     });
     return all.then(function(done) {
