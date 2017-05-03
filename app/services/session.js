@@ -100,7 +100,6 @@ export default Ember.Service.extend({
       template_props: self.createRequest("template_props", "template_prop"),
 
       rewards: self.createRequest("rewards", "reward"),
-      memberUnits: self.createRequest("memberUnits", "memberUnit"),
       unitTypes: self.createRequest("unitTypes", "unitType"),
 
       rewardTypes: self.createRequest("rewardTypes", "rewardType"),

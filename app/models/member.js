@@ -12,7 +12,6 @@ export default DS.Model.extend({
   handles: DS.hasMany('handle', { inverse: 'member', async: true}),
   items: DS.hasMany('items', { inverse: 'member', async: true}),
 //   ships: DS.hasMany('ship', { inverse: 'member', async: true}),
-  memberUnits: DS.hasMany('memberUnit', { async: true }),
   rewards: DS.attr(),
   logs: DS.attr(),
 

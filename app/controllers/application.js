@@ -127,12 +127,12 @@ export default Ember.Controller.extend({
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
-    var cu = get(member, 'memberUnits');
+    var units = get(member, 'units');
     var found = false;
     var memUn;
     for (var i = 0; i < get(cu, 'length') && !found; i++) {
       var c = cu.objectAt(i);
-      if (get(c, 'unit.id') == get(unit, 'id')) {
+      if (get(c, 'id') == get(unit, 'id')) {
         found = true;
         memUn = c;
       }
