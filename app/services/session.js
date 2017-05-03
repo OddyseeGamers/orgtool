@@ -96,7 +96,8 @@ export default Ember.Service.extend({
       items: self.createRequest("items", "item"),
       categories: self.createRequest("categories", "category"),
       templates: self.createRequest("templates", "template"),
-      props: self.createRequest("props", "prop"),
+      item_props: self.createRequest("item_props", "item_prop"),
+      template_props: self.createRequest("template_props", "template_prop"),
 
       rewards: self.createRequest("rewards", "reward"),
       memberUnits: self.createRequest("memberUnits", "memberUnit"),
