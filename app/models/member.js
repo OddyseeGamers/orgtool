@@ -10,11 +10,15 @@ export default DS.Model.extend({
   updated_at: DS.attr(),
 
   handles: DS.hasMany('handle', { inverse: 'member', async: true}),
-  items: DS.hasMany('item', { inverse: 'member', async: true}),
+  items: DS.hasMany('items', { inverse: 'member', async: true}),
 //   ships: DS.hasMany('ship', { inverse: 'member', async: true}),
   memberUnits: DS.hasMany('memberUnit', { async: true }),
   rewards: DS.attr(),
   logs: DS.attr(),
+
+  memberships: DS.hasMany('unit', {inverse: 'members', async: true }),
+  leaderships: DS.hasMany('unit', {inverse: 'leaders', async: true }),
+  applications: DS.hasMany('unit', {inverse: 'applicants', async: true }),
 
   memberRewards: DS.hasMany('memberReward', { async: true }),
 

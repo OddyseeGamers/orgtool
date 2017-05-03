@@ -7,7 +7,7 @@ export default DS.Model.extend({
 
   template_id: DS.belongsTo('template', { inverse: 'items', async: true }),
 
-  member_id: DS.belongsTo('member', { inverse: 'items', async: true }),
+  member: DS.belongsTo('member', { inverse: 'items', async: true }),
 
   unit_id:  DS.belongsTo('unit', { inverse: 'items', async: true }),
 

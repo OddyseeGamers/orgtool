@@ -6,9 +6,11 @@ export default DS.Model.extend({
   img: DS.attr(),
   color: DS.attr(),
 
-  type_id: DS.belongsTo('unitType', { async: true }),
-  unit_id: DS.belongsTo('unit', { inverse: 'units', async: true }),
+  type: DS.belongsTo('unitType', { async: true }),
+  unit: DS.belongsTo('unit', { inverse: 'units', async: true }),
+  units: DS.hasMany('unit', { inverse: 'unit', async: true }),
+  members: DS.hasMany('member', { inverse: 'memberships', async: true }),
+  leaders: DS.hasMany('member', { inverse: 'leaderships', async: true }),
+  applicants: DS.hasMany('member', { inverse: 'applications', async: true }),
 
-  units: DS.hasMany('unit', { inverse: 'unit_id', async: true }),
-  memberUnits: DS.hasMany('memberUnit', { async: true })
 });
