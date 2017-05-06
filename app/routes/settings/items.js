@@ -8,7 +8,7 @@ export default Ember.Route.extend({
   },
 
   afterModel: function(model, transition) {
-    this.controllerFor('settings.items').set('itemTypes', this.store.findAll('itemType'));
+    //this.controllerFor('settings.items').set('itemTypes', this.store.findAll('itemType'));
   },
 
 });

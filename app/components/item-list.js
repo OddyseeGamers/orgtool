@@ -17,6 +17,8 @@ export default Ember.Component.extend({
   columns: [25, 25, 25, 25],
   itemHeight: 400,
   showFilter: true,
+  categories: [],
+  templates: [],
   items: [],
   showConfirmDialog: false,
   showItemDialog: false,
@@ -33,36 +35,29 @@ export default Ember.Component.extend({
 //     this.get('eventManager').on('okConfirm', this.okConfirm.bind(this));
 
 //     Ember.Logger.debug("itemTypeFilter", get(this, "itemTypeFilter"));
+    var self = this;
+
     if (!Ember.isEmpty(get(this, "member"))) {
       set(this, "items", get(this, "member").get("items"));
-    } 
+    } else {
+      get(this, 'store').findAll('item').then(function(items) {
+        self.set('items', items);
+      });
+    }
+    get(this, 'store').findAll('category').then(function(categories) {
+      self.set('categories', categories);
+    });
+    get(this, 'store').findAll('template').then(function(templates) {
+      self.set('templates', templates);
+    });
 
-    var self = this;
+    get(this, 'store').findAll('item').then(function(types) {
+      self.set('types', types);
+    });
+
 //     get(this, 'store').findAll('itemType').then(function(types) {
 //       self.set('types', types);
 //     });
-    var itf = get(this, "itemTypeFilter");
-    get(this, 'store').findAll('itemType').then(function(types) {
-      var res;
-      if (Ember.isArray(itf)) {
-        if (itf.length > 0) {
-          res = types.filter(function(record) {
-            return itf.indexOf(record.get('id')) >= 0;
-          });
-        } else {
-          res = types;
-        }
-      } else {
-        res = types.filter(function(record){
-          return record.get('permissions') == 1;
-        });
-      }
-
-      self.set('types', res);
-    });
-
-
-
   }),
 
   hasParent: function(id, unit) {
@@ -74,63 +69,24 @@ export default Ember.Component.extend({
     return false;
   },
 
-  filteredContent: Ember.computed.filter('items', function(item, index, array) {
-    var gameFilter = this.get('gameFilter');
+  filteredContent: Ember.computed('items', function() {
     var typeFilter = this.get('typeFilter');
-    var res = []
-
-    if (!Ember.isEmpty(typeFilter)) {
-//       Ember.Logger.debug("item name", item.get("name"), "-", item.get("type").get("id"), " --- ", typeFilter.get("id"));
-//       var par = item.get("parent");
-//       if (par && par.get("type")) {
-//       Ember.Logger.debug("item name", item.get("name"), "-", par.get("type").get("id"), " --- ", typeFilter.get("id"));
-//       }
-      return item.get("type").get("id") == typeFilter.get("id");
-    }
-
-    if (Ember.isEmpty(gameFilter)) {
-      return true;
-    }
-
-    if (gameFilter == "unset" && Ember.isEmpty(item.get('unit'))) {
-      return true;
-    }
-
-    if (Ember.isEmpty(item.get('unit'))) {
-      return false;
-    }
-
-//     if (!Ember.isEmpty(gameFilter) && !Ember.isEmpty(item.get('unit'))) {
-//       return false;
-//     }
-//     Ember.Logger.debug("WTF", item, " - ", item.get("unit"), " - ", Ember.isEmpty(item.get('unit')));
-
-//     if (Ember.isEmpty(searchFilter) && Ember.isEmpty(unitFilter)) {
-//       return true;
-//     }
-
-//     if (!Ember.isEmpty(searchFilter)) {
-//       var regex = new RegExp(searchFilter, 'i');
-//       var handle = get(member, 'handle') ? get(member, 'handle') : get(member, 'name');
-//       res = get(member, 'name').match(regex) || handle.match(regex);
-
-//       if (Ember.isEmpty(res)) {
-//         return false;
-//       }
-//     }
-
-    if (!Ember.isEmpty(gameFilter)) {
-      var self = this;
-      res = item.get('unit').filter(function(unit, index, enumerable){
-        return self.hasParent(gameFilter.get("id"), unit.get('unit'));
-      });
-      if (Ember.isEmpty(res)) {
-        return false;
+    console.log("filter:", typeFilter)
+     if (typeFilter == "tpls") {
+      // templates
+      return get(this, 'store').findAll('template');
+    } else if (typeFilter == "items") {
+      // items
+      if (!Ember.isEmpty(get(this, "member"))) {
+        return get(this, "member").get("items");
+      } else {
+        return get(this, 'store').findAll('item');
       }
+    } else {
+      // categories
+      return get(this, 'store').findAll('category');
     }
-
-    return res;
-  }).property('typeFilter', 'gameFilter', "items", "currItem"),
+  }).property('typeFilter', "items", "currItem"),
 
   sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),
 

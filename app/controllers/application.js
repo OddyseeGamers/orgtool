@@ -54,52 +54,71 @@ export default Ember.Controller.extend({
   },
 
   assign: function(data) {
+    console.log("data", data)
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
+    switch (data.destType) {
+    case "member":
+      unit.get('members').pushObject(member).save().catch(function(err) {
+         unit.rollback();
+      });
+      break;
+    case "leader":
+      unit.get('leaders').pushObject(member).save().catch(function(err) {
+         unit.rollback();
+      });
+      break;
+    case "applicant":
+      unit.get('applicants').pushObject(member).save().catch(function(err) {
+         unit.rollback();
+      });
+      break;
+    }
+    
 //     Ember.Logger.debug(">>>> assign", data, member.get("name"));
 
-    var cu = get(member, 'memberUnits');
-    var found = false;
-    var memUn;
+//     var cu = get(member, 'memberUnits');
+//     var found = false;
+//     var memUn;
 
-    for (var i = 0; i < get(cu, 'length') && !found; i++) {
-      var c = cu.objectAt(i);
-      if (get(c, 'unit.id') == get(unit, 'id')) {
-        found = true;
-        memUn = c;
-      }
-    }
+//     for (var i = 0; i < get(cu, 'length') && !found; i++) {
+//       var c = cu.objectAt(i);
+//       if (get(c, 'unit.id') == get(unit, 'id')) {
+//         found = true;
+//         memUn = c;
+//       }
+//     }
 
-    if (!found) {
-      memUn = this.store.createRecord('memberUnit');
-      memUn.set('member', member);
-      memUn.set('unit', unit);
-      this.get("session").log("assign", 'assign member:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
-    } else {
-      this.get("session").log("assign", 'changing position of member:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
-    }
+//     if (!found) {
+//       memUn = this.store.createRecord('memberUnit');
+//       memUn.set('member', member);
+//       memUn.set('unit', unit);
+//       this.get("session").log("assign", 'assign member:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
+//     } else {
+//       this.get("session").log("assign", 'changing position of member:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
+//     }
 
-    if (data.destType == "leader") {
-      memUn.set('reward', this.store.peekRecord('reward', 7));
-//       memUn.set('reward', this.leaderFilter);
-    } else if (data.destType == "member" || data.destType == "path") {
-      memUn.set('reward', this.store.peekRecord('reward', 8));
-//       memUn.set('reward', this.memberFilter);
-    } else if (data.destType == "applicant") {
-      memUn.set('reward', this.store.peekRecord('reward', 9));
-//       memUn.set('reward', this.memberFilter);
-    }
+//     if (data.destType == "leader") {
+//       memUn.set('reward', this.store.peekRecord('reward', 7));
+// //       memUn.set('reward', this.leaderFilter);
+//     } else if (data.destType == "member" || data.destType == "path") {
+//       memUn.set('reward', this.store.peekRecord('reward', 8));
+// //       memUn.set('reward', this.memberFilter);
+//     } else if (data.destType == "applicant") {
+//       memUn.set('reward', this.store.peekRecord('reward', 9));
+// //       memUn.set('reward', this.memberFilter);
+//     }
 
-      var self = this;
-      self.set('loading', true);
-      memUn.save().then(function() {
-        self.get("session").log("assign", "member assigned " + data.id);
-      }).catch(function(err) {
-        self.get("session").log("error", "assigning member " + data.id);
-        Ember.Logger.debug("assign err", err);
-        memUn.rollback();
-      });
+//       var self = this;
+//       self.set('loading', true);
+//       memUn.save().then(function() {
+//         self.get("session").log("assign", "member assigned " + data.id);
+//       }).catch(function(err) {
+//         self.get("session").log("error", "assigning member " + data.id);
+//         Ember.Logger.debug("assign err", err);
+//         memUn.rollback();
+//       });
 
   },
 
@@ -108,12 +127,12 @@ export default Ember.Controller.extend({
     var member = this.store.peekRecord('member', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
-    var cu = get(member, 'memberUnits');
+    var units = get(member, 'units');
     var found = false;
     var memUn;
     for (var i = 0; i < get(cu, 'length') && !found; i++) {
       var c = cu.objectAt(i);
-      if (get(c, 'unit.id') == get(unit, 'id')) {
+      if (get(c, 'id') == get(unit, 'id')) {
         found = true;
         memUn = c;
       }

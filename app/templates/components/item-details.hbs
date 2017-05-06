@@ -46,16 +46,16 @@
 </div>
 
 
-{{#if (eq item.type.id '1')}}
-  {{partial 'components/item-manufacturer-details'}}
+{{#if (eq typeFilter nil)}}
+  {{partial 'components/item-category-details'}}
 {{/if}}
 
-{{#if (eq item.type.id '2')}}
-  {{partial 'components/item-ship-model-details'}}
+{{#if (eq typeFilter 'tpls')}}
+  {{partial 'components/item-template-details'}}
 {{/if}}
 
-{{#if (eq item.type.id '3')}}
-  {{partial 'components/item-ship-details'}}
+{{#if (eq typeFilter 'items')}}
+  {{partial 'components/item-item-details'}}
 {{/if}}
 
 {{!--
