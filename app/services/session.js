@@ -17,6 +17,7 @@ export default Ember.Service.extend({
     var self = this;
     self.set('loading', true);
 
+    // fix path to assets in wordpress
     var scripts = document.getElementsByTagName("script");
     var filename = "assets/orgtool.js";
     for (var i = 0; i < scripts.length; i++) {
@@ -88,6 +89,11 @@ export default Ember.Service.extend({
   loadThemAll: function() {
     var self = this;
     this.set('loading', true);
+
+//       Ember.Logger.log("loading all done");
+//       get(self, "state").pushObject("done");
+//       self.set('loading', false);
+//       return;
 
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),

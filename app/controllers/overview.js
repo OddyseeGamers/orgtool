@@ -73,7 +73,7 @@ export default Ember.Controller.extend({
       self.store.findRecord('unitType', data.unitType).then(function (unitType) {
         var unit = self.store.createRecord('unit');
         unit.set('type', unitType);
-        set(unit, 'parent', punit);
+        set(unit, 'unit', punit);
         get(punit, 'units').pushObject(unit);
 
         unit.save().then(function(done) {

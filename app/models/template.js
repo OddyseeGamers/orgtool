@@ -5,8 +5,9 @@ export default DS.Model.extend({
   description: DS.attr(),
   img: DS.attr(),
 
-  category_id: DS.belongsTo('category', {inverse: 'templates', async: true }),
+  category: DS.belongsTo('category', { async: true }),
 
-  items: DS.hasMany('item', { inverse: 'template_id', async: true }),
+//   items: DS.hasMany('item', { inverse: 'template_id', async: true }),
+  items: DS.hasMany('item', { async: true }),
 
 });

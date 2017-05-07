@@ -1,9 +1,10 @@
 <div class="item-menu">
 
 
+  {{#if (and adminMode session.isAdmin)}}
   <div class={{if (and adminMode session.isAdmin) "item-type-menu" "item-type-menu item-type-menu-corner"}}>
     <span class="item-type-menu-item">
-      <a href="#" class={{unless typeFilter "active"}} {{action "setTypeFilter" null}}>
+      <a href="#" class={{if (eq "cats" typeFilter) "active"}} {{action "setTypeFilter" "cats"}}>
         Categories
       </a>
     </span>
@@ -14,13 +15,15 @@
     </span>
     <span class="item-type-menu-item">
       <a href="#" class={{if (eq "items" typeFilter) "active"}} {{action "setTypeFilter" "items"}}>
-        items
+        Items
       </a>
     </span>
   </div>
+  {{/if}}
 
   <div class="item-stat-menu">
-    Items: {{filteredContent.length}} / {{items.length}}
+    Items: {{filteredContent.length}} 
+<!--     / {{items.length}} -->
   </div>
 
 

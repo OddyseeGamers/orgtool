@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   store: Ember.inject.service('store'),
 //   eventManager: Ember.inject.service('events'),
   gameFilter: null,
-  typeFilter: null,
+  typeFilter: "cats",
   columns: [25, 25, 25, 25],
   itemHeight: 400,
   showFilter: true,
@@ -34,9 +34,42 @@ export default Ember.Component.extend({
 //     this.get('eventManager').on('closeConfirm', this.closeConfirm.bind(this));
 //     this.get('eventManager').on('okConfirm', this.okConfirm.bind(this));
 
-//     Ember.Logger.debug("itemTypeFilter", get(this, "itemTypeFilter"));
+
+/*
+    if (!Ember.isEmpty(get(this, "member"))) {
+      set(this, "items", get(this, "member").get("items"));
+    } 
+
+    var self = this;
+//     get(this, 'store').findAll('itemType').then(function(types) {
+//       self.set('types', types);
+//     });
+    var itf = get(this, "itemTypeFilter");
+    get(this, 'store').findAll('itemType').then(function(types) {
+      var res;
+      if (Ember.isArray(itf)) {
+        if (itf.length > 0) {
+          res = types.filter(function(record) {
+            return itf.indexOf(record.get('id')) >= 0;
+          });
+        } else {
+          res = types;
+        }
+      } else {
+        res = types.filter(function(record){
+          return record.get('permissions') == 1;
+        });
+      }
+
+      self.set('types', res);
+    });
+*/
+
+    Ember.Logger.log("itemTypeFilter", get(this, "itemTypeFilter"), "|adminmode:", get(this, "adminMode"));
     var self = this;
 
+
+    debug("has member", get(this, "member"));
     if (!Ember.isEmpty(get(this, "member"))) {
       set(this, "items", get(this, "member").get("items"));
     } else {
@@ -44,16 +77,19 @@ export default Ember.Component.extend({
         self.set('items', items);
       });
     }
-    get(this, 'store').findAll('category').then(function(categories) {
-      self.set('categories', categories);
-    });
-    get(this, 'store').findAll('template').then(function(templates) {
-      self.set('templates', templates);
-    });
+  
+//     if (get(this, "adminMode") {
+//       get(this, 'store').findAll('category').then(function(categories) {
+//         self.set('categories', categories);
+//       });
+//       get(this, 'store').findAll('template').then(function(templates) {
+//         self.set('templates', templates);
+//       });
 
-    get(this, 'store').findAll('item').then(function(types) {
-      self.set('types', types);
-    });
+//       get(this, 'store').findAll('item').then(function(types) {
+//         self.set('types', types);
+//       });
+//     } else if (get(this, "member")
 
 //     get(this, 'store').findAll('itemType').then(function(types) {
 //       self.set('types', types);
@@ -70,6 +106,41 @@ export default Ember.Component.extend({
   },
 
   filteredContent: Ember.computed('items', function() {
+    var gameFilter = this.get('gameFilter');
+    var typeFilter = this.get('typeFilter');
+    var res = []
+
+    debug("set filter ", typeFilter);
+
+    if (get(this, "member")) {
+      return get(this, "member").get("items");
+    } else {
+      if (typeFilter == "cats") {
+        return get(this, 'store').findAll('category');
+      } else if (typeFilter == "tpls") {
+        return get(this, 'store').findAll('template');
+      } else if (typeFilter == "items") {
+        return get(this, 'store').findAll('item');
+      }
+    }
+    return [];
+
+
+//     if (!Ember.isEmpty(typeFilter)) {
+//       Ember.Logger.debug("item name", item.get("name"), "-", item.get("type").get("id"), " --- ", typeFilter.get("id"));
+//       var par = item.get("parent");
+//       if (par && par.get("type")) {
+//       Ember.Logger.debug("item name", item.get("name"), "-", par.get("type").get("id"), " --- ", typeFilter.get("id"));
+//       }
+//       return item.get("type").get("id") == typeFilter.get("id");
+
+//     }
+
+//     return get(this, "member").get("items");
+//     return get(this, "items");
+
+
+  /*
     var typeFilter = this.get('typeFilter');
     console.log("filter:", typeFilter)
      if (typeFilter == "tpls") {
@@ -86,6 +157,7 @@ export default Ember.Component.extend({
       // categories
       return get(this, 'store').findAll('category');
     }
+    */
   }).property('typeFilter', "items", "currItem"),
 
   sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),

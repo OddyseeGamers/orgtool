@@ -30,6 +30,8 @@ export default Ember.Controller.extend({
 
 //       Ember.Logger.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       unit.save().then(function(nunit) {
+        Ember.Logger.log("save ok", nunit);
+
         self.set('model', null);
         self.set('showDialog', false);
         self.get('eventManager').trigger('rerender');
@@ -38,7 +40,7 @@ export default Ember.Controller.extend({
 //           self.set('unitTypes', unitTypes);
 //         });
       }).catch(function(err) {
-        Ember.Logger.debug("save err", err);
+        Ember.Logger.log("save err", err);
         self.set('showDialog',true);
 //         unit.rollback();
         self.get('eventManager').trigger('rerender');
@@ -57,6 +59,7 @@ export default Ember.Controller.extend({
     },
 
     setType: function(type) {
+        Ember.Logger.log("set TYPE ", type);
       var unit = get(this, 'model');
       unit.set('type', type);
       unit.send('becomeDirty');

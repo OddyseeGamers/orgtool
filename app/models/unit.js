@@ -13,4 +13,6 @@ export default DS.Model.extend({
   leaders: DS.hasMany('member', { inverse: 'leaderships', async: true }),
   applicants: DS.hasMany('member', { inverse: 'applications', async: true }),
 
+  
+
 });

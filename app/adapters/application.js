@@ -2,12 +2,46 @@ import DS from 'ember-data';
 import Ember from 'ember';
 import config from '../config/environment';
 
+
 // export default DS.ActiveModelAdapter.extend({
 
 
 export default DS.JSONAPIAdapter.extend({
   host: config.APP.API_HOST,
-  namespace: 'api'
+  namespace: 'api',
+
+/*
+modelNameFromPayloadKey: function(key) {
+    Ember.Logger.log("---> model", key);
+  return singularize(normalizeModelName(key));
+},
+payloadKeyFromModelName: function(modelName) {
+    Ember.Logger.log("---> pay", modelName);
+  return pluralize(modelName);
+},
+*/
+/*
+    normalizeArrayResponse(store, primaryModelClass, payload, id, requestType) {
+    let normalizedDocument = this._super(...arguments);
+
+    // Customize document meta
+    normalizedDocument.meta = camelCaseKeys(normalizedDocument.meta);
+
+    Ember.Logger.log("---> doc", normalizedDocument);
+    
+    return normalizedDocument;
+  },
+
+  extractRelationship(relationshipHash) {
+    let normalizedRelationship = this._super(...arguments);
+
+    // Customize relationship meta
+    normalizedRelationship.meta = camelCaseKeys(normalizedRelationship.meta);
+
+    Ember.Logger.log("---> rel", normalizedRelationship);
+    return normalizedRelationship;
+  }
+  */
 });
 
 

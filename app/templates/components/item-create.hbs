@@ -16,7 +16,45 @@
   {{/md.header}}
   {{#md.body}}
 
+
   <div class="row">
+      {{#if item.isNew}}
+        <label class="control-label">
+          Type
+          {{#unless item.template}}
+          <span class="text-danger">(required)</span>
+          {{/unless}}
+        </label>
+        <div class="input-group ship-model-modal">
+          <input type="text" class="form-control" value={{item.template.name}} readonly>
+          <div class="input-group-btn">
+            {{#bs-dropdown as |dd|}}
+              {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+              {{#dd.menu align="right"}}
+                {{#each categories as |cat|}}
+                    <li class="ship-manu">
+                     {{#if cat.img}}
+                        <img class="manu-img" src={{cat.img}}>
+                      {{/if}}
+                      {{cat.name}}
+                    </li>
+                    {{#each cat.templates as |temp|}}
+                      <li {{action "setTemplate" temp}}><a href="#" >{{temp.name}}</a></li>
+                    {{/each}}
+                {{/each}}
+              {{/dd.menu}}
+            {{/bs-dropdown}}
+          </div>
+        </div>
+      {{/if}}
+  </div>
+
+
+  {{!--
+<!--                   <li {{action "setType" cat}}><a href="#" class={{if (eq cat.id item.template.id) "active"}} >{{sm.name}}</a></li> -->
+
+  <div class="row">
+    <div class="col-md-6">
       {{#if item.isNew}}
         <label class="control-label">
           Type
@@ -40,7 +78,7 @@
       {{/if}}
     </div>
 
-    <div class="row">
+    <div class="col-md-6">
       {{#if parentType}} 
         <label class="control-label">
             {{parentType.name}}
@@ -77,6 +115,10 @@
         </div>
       {{/if}}
     </div>
+  </div>
+  --}}
+
+
   {{!--
                 {{#unless parentType.parent}}
                   {{#each parents as |pa|}}
@@ -102,12 +144,23 @@
 
     <div class="row">
       <label class="control-label">Item Name</label>
-      {{input type="text" class="form-control" id="itemParentName" value=item.name placeholder=item.parent.name}}
+      {{#if item.errors.name.length}}
+        <span class="text-danger">
+        {{#each item.errors.name as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+      {{input type="text" class="form-control" id="itemParentName" value=item.name placeholder=item.template.name}}
     </div>
 
     <div class="row">
       <label class="control-label">Image</label>
-      {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.parent.img}}
+      {{#if item.errors.img.length}}
+        <span class="text-danger">
+        {{#each item.errors.img as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+
+      {{input type="text" class="form-control" id="itemImg" value=item.img placeholder=item.template.img}}
     </div>
 
     <div class="row">
@@ -138,8 +191,8 @@
             {{#if item.parent}}
               {{item-details item=item.parent details=false tb=false}}
             {{else}}
-              {{#if parentType}}
-                {{item-details item=parentType details=false tb=false}}
+              {{#if item.template}}
+                {{item-details item=item.template details=false tb=false}}
               {{/if}}
             {{/if}}
           {{/if}}

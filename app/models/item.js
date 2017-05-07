@@ -5,11 +5,11 @@ export default DS.Model.extend({
   description: DS.attr(),
   img: DS.attr(),
 
-  template_id: DS.belongsTo('template', { inverse: 'items', async: true }),
+  template: DS.belongsTo('template', { inverse: 'items', async: true }),
 
   member: DS.belongsTo('member', { inverse: 'items', async: true }),
 
-  unit_id:  DS.belongsTo('unit', { inverse: 'items', async: true }),
+//   unit_id:  DS.belongsTo('unit', { inverse: 'items', async: true }),
 
   itemProps: DS.hasMany('itemProp', { async: true }),
 

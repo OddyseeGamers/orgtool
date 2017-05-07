@@ -79,6 +79,7 @@ export default Ember.Component.extend({
 
 
     addUnit: function() {
+        Ember.Logger.log("ADD UNNIT ");
       this.get('eventManager').trigger('addUnit', { 'id': this.get('unit.id'), 'type': 'unit', 'unitType': 6 } );
     },
     addGame: function() {

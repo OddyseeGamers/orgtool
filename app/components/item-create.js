@@ -9,6 +9,58 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   session: Ember.inject.service('session'),
 
+  setup: Ember.on('init', function() {
+    var self = this;
+    get(this, 'store').findAll('category').then(function(categories) {
+      debug("categories: ", get(categories, "length"));
+      self.set('categories', categories);
+    });
+  }),
+
+  actions: {
+    changeOwner: function(owner) {
+    },
+
+    setTemplate: function(template) {
+      set(this, "item.template", template);
+      set(this, "item.name", get(template, "name"));
+      set(this, "item.img", get(template, "img"));
+    },
+
+    setParent: function(par) {
+    },
+
+    saveItem: function() {
+      var item = get(this, "item");
+      if (item) {
+        //         Ember.Logger.debug("save item", item.get("name"), item.get("parent").get("name"), "-", item.get("type").get("name"), "-", item.get("member").get("id"));
+        var self = this;
+        var mem = get(item, 'member');
+        var memid = get(mem, 'id');
+        //         self.set('showDialog', false);
+        item.save().then(function(nitem) {
+          //           self.get('eventManager').trigger('success', 'ship added to member: ' + memid);
+          //           Ember.Logger.debug(">>>>", nitem.get("id"), "-", mem.get("items")); //.get("length"));
+//           mem.get("items").pushObject(nitem);
+          self.set('item', null);
+          self.set('showDialog', false);
+
+          Ember.Logger.log("save ok ", nitem , " |" , get(nitem, "member"));
+          get(self, "session").log("item", "item " + nitem.get("name") + " saved");
+          //           Ember.Logger.debug(">>>> SAVED!", nitem.get("id"), "-", mem.get("items")); //.get("length"));
+        }).catch(function(err) {
+          //           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
+          get(self, "session").log("error", "could not save item " + item.get("name"));
+          Ember.Logger.log("error saving", err);
+          self.set('showDialog', true);
+        });
+      }
+    },
+    close: function() {
+    },
+  }
+
+/*
   items: null,
   showDialog: false,
   itemTypeFilter: [],
@@ -157,4 +209,5 @@ export default Ember.Component.extend({
       this.set('item', null);
     },
   }
+  */
 });
