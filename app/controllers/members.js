@@ -74,8 +74,8 @@ export default Ember.Controller.extend({
 
     if (!Ember.isEmpty(unitFilter)) {
       var self = this;
-      res = member.get('memberUnits').filter(function(item, index, enumerable){
-        return self.hasParent(unitFilter.get("id"), item.get('unit'));
+      res = member.get('units').filter(function(item, index, enumerable){
+        return self.hasParent(unitFilter.get("id"), item.id);
       });
       if (Ember.isEmpty(res)) {
         return false;

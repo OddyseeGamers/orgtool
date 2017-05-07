@@ -1,62 +1,46 @@
 <div class="item-menu">
-  
-  
+
+
   <div class={{if (and adminMode session.isAdmin) "item-type-menu" "item-type-menu item-type-menu-corner"}}>
     <span class="item-type-menu-item">
-        <a href="#" class={{unless typeFilter "active"}} {{action "setTypeFilter" null}}>
-          All
-        </a>
-      </span>
-      {{#each types as |it|}}
-      <span class="item-type-menu-item">
-        <a href="#" class={{if (eq it.id typeFilter.id) "active"}} {{action "setTypeFilter" it}}>
-          {{#if it.img}}
-            <img class="root-item-type-img" src={{it.img}}>
-          {{else}}
-<!--                       <img class="root-item-img" src={{rootUnit.img}}> -->
-          {{/if}}
-          {{it.name}}s
-        </a>
-<!--         {{#if (and adminMode session.isAdmin)}} -->
-<!--           <button type="button" class="tb" {{action "editItemType" it}}> <i class="fa fa-gear" ></i></button> -->
-<!--         {{/if}} -->
-      </span>
-      {{/each}}
-
+      <a href="#" class={{unless typeFilter "active"}} {{action "setTypeFilter" null}}>
+        Categories
+      </a>
+    </span>
+    <span class="item-type-menu-item">
+      <a href="#" class={{if (eq "tpls" typeFilter) "active"}} {{action "setTypeFilter" "tpls"}}>
+        Templates
+      </a>
+    </span>
+    <span class="item-type-menu-item">
+      <a href="#" class={{if (eq "items" typeFilter) "active"}} {{action "setTypeFilter" "items"}}>
+        items
+      </a>
+    </span>
   </div>
-  {{#if (and adminMode session.isAdmin)}}
-    <div class="item-type-tb">
-      {{#if typeFilter}}
-      <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i></button>
-      {{/if}}
-      <button type="button" class="tb tb-default" {{action "addItemType"}}><i class="fa fa-plus" ></i> </button>
-    </div>
-  {{/if}}
-
-
 
   <div class="item-stat-menu">
-      Items: {{filteredContent.length}} / {{items.length}}
+    Items: {{filteredContent.length}} / {{items.length}}
   </div>
 
 
   {{#if (or session.isAdmin member.loggedIn)}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action "addItem" member}}> <i class="fa fa-plus" ></i> Item</button>
-<!--       {{#if (and adminMode session.isAdmin)}} -->
-<!--         <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button> -->
-<!--         {{#if typeFilter}} -->
-<!--         <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i> {{typeFilter.name}}</button> -->
-<!--         {{/if}} -->
-<!--       {{/if}} -->
+      <!--       {{#if (and adminMode session.isAdmin)}} -->
+      <!--         <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button> -->
+      <!--         {{#if typeFilter}} -->
+      <!--         <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i> {{typeFilter.name}}</button> -->
+      <!--         {{/if}} -->
+      <!--       {{/if}} -->
     </div>
   {{/if}}
 </div>
 
 <div class="item-list">
-    {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |item index|}}
-      {{item-details item=item details=details onConfirm=(action "showConfirm") onEdit=(action "showEdit")}}
-    {{/ember-collection}}
+  {{#ember-collection items=filteredContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |item index|}}
+    {{item-details item=item details=details onConfirm=(action "showConfirm") onEdit=(action "showEdit")}}
+  {{/ember-collection}}
 </div>
 
 {{#if showItemDialog}}

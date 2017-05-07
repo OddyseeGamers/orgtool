@@ -36,7 +36,7 @@ export default Ember.Service.extend({
     var _session = this.get('store').createRecord('session');
     if (config.environment === 'development') {
       _session.set('id', "1");
-      _session.set('user', {"id": 299, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": true});
+      _session.set('user', {"id": 1, "wp_id": 256, "display_name": "Devel", "user_login": "devel", "isadmin": true});
       return self.loadSession(_session);
     } else {
       return _session.save().then(function(session) {
@@ -88,19 +88,20 @@ export default Ember.Service.extend({
   loadThemAll: function() {
     var self = this;
     this.set('loading', true);
-    
+
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),
       handles: self.createRequest("handles", "handle"),
-      units: this.createRequest("units", "unit"),
+      units: self.createRequest("units", "unit"),
       items: self.createRequest("items", "item"),
-      props: self.createRequest("props", "prop"),
-      itemProps: self.createRequest("itemProps", "itemProp"),
+      categories: self.createRequest("categories", "category"),
+      templates: self.createRequest("templates", "template"),
+      item_props: self.createRequest("item_props", "item_prop"),
+      template_props: self.createRequest("template_props", "template_prop"),
 
       rewards: self.createRequest("rewards", "reward"),
-      memberUnits: self.createRequest("memberUnits", "memberUnit"),
       unitTypes: self.createRequest("unitTypes", "unitType"),
-      itemTypes: self.createRequest("itemTypes", "itemType"),
+
       rewardTypes: self.createRequest("rewardTypes", "rewardType"),
     });
     return all.then(function(done) {
@@ -114,12 +115,12 @@ export default Ember.Service.extend({
   },
 
   createRequest: function(name, modelName) {
-      var self = this;
-      return self.get('store').findAll(modelName).then(function(data) {
-        Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
-        get(self, "state").pushObject(name);
-        return data;
-      });
+    var self = this;
+    return self.get('store').findAll(modelName).then(function(data) {
+      Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
+      get(self, "state").pushObject(name);
+      return data;
+    });
   },
 
   log: function(comp, msg) {

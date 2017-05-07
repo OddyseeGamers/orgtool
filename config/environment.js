@@ -55,7 +55,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.API_HOST = 'https://oddysee.org'
+    // ENV.APP.API_HOST = 'https://oddysee.org'
+    ENV.APP.API_HOST = 'http://127.0.0.1:4000'
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

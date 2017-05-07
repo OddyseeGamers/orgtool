@@ -12,32 +12,24 @@ export default Ember.Component.extend({
   showMembers: true,
   showApplicants: true,
 
-  leaders: Ember.computed('unit.memberUnits.@each.reward', function() {
-    var mems = this.get('unit').get('memberUnits');
-    var re = Ember.A();
-    var ap = Ember.A();
-    var lead = Ember.A();
-    for (var i = 0; i < mems.get("length"); i++) {
-      if (mems.objectAt(i).get("reward").get("id") == "7") {
-        lead.pushObject(mems.objectAt(i).get("member"));
-      } else if (mems.objectAt(i).get("reward").get("id") == "8") {
-        re.pushObject(mems.objectAt(i).get("member"));
-      } else if (mems.objectAt(i).get("reward").get("id") == "9") {
-        ap.pushObject(mems.objectAt(i).get("member"));
-      }
-    }
-    this.set("members", re);
-    this.set("applicants", ap);
-    return lead;
-  }),
-
-//   seven: Ember.computed.filterBy('unit.memberUnits.@each', 'reward', 7),
+  //   seven: Ember.computed.filterBy('unit.memberUnits.@each', 'reward', 7),
 
   setup: Ember.on('init', function() {
     var level = this.get('level');
+    var unit = this.get('unit');
+    if (unit) {
+      var leaders = unit.get('leaders');
+      var members = unit.get('members');
+      var aplicants = unit.get('applicants')
+
+      this.set("leaders", leaders);
+      this.set("members", members);
+      this.set("applicants", aplicants);
+    }
+
     this.set('showUnits', level > 0);
-//     this.set('showLeader', level > 0);
-//     this.set('showMembers', level > 0);
+    //     this.set('showLeader', level > 0);
+    //     this.set('showMembers', level > 0);
   }),
 
   setupDrops: Ember.on('didInsertElement', function() {
@@ -46,22 +38,6 @@ export default Ember.Component.extend({
       this.$(".unit-pilots-container").droppable({
         tolerance: 'pointer',
         hoverClass: 'hovered',
-  //       zIndex: 10,
-  //       over: function(event, ui) {
-  //         ui.draggable.css("cursor", "copy");
-  //       },
-  //       out: function(event, ui) {
-  //         ui.draggable.css("cursor", "no-drop");
-  //       },
-  //       over: function(){
-  //         $('.unit-content').css('cursor','copy');
-  //       },
-  //       out: function(){
-  //         $('.unit-content').css('cursor','no-drop');
-  //       },
-//         drop: Ember.$.proxy(this.onNodeDropped, this),
-  //       over: Ember.$.proxy(this.onNodeOver, this),
-  //       out: Ember.$.proxy(this.onNodeOut, this)
       });
 
       this.$(".unit-leader-container").droppable({
@@ -96,8 +72,8 @@ export default Ember.Component.extend({
       this.set('showApplicants', ! this.get('showApplicants'));
     },
 
-    
     unassignMember: function(member) {
+      console.log("unassign!", member)
       this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
 

@@ -1,7 +1,7 @@
 {{#if details}}
   {{#link-to 'members.member' member.id tagName="div" class="member-detail select"}}
-<!--     <div class="col-md-1"> -->
-<!--     </div> -->
+    <!--     <div class="col-md-1"> -->
+    <!--     </div> -->
 
     <div class="col-md-3">
       {{#if member.avatar}}
@@ -20,16 +20,16 @@
     <div class="col-md-3">
       {{get-uniq member.handles "handle"}}
       {{!--
-      {{#each member.handles as |han|}}
-        {{han.handle}},
-      {{/each}}
-        --}}
+         {{#each member.handles as |han|}}
+         {{han.handle}},
+         {{/each}}
+         --}}
     </div>
 
     <div class="col-md-4">
       {{#if member.memberUnits.length}}
         {{#each member.memberUnits as |memUn|}}
-          {{memUn.unit.name}}, 
+          {{memUn.unit.name}},
         {{/each}}
       {{/if}}
     </div>
@@ -39,21 +39,21 @@
 
     <div class="col-md-1">
       <div class="col-md-4">
-      {{member.timezone}}
+        {{member.timezone}}
       </div>
 
       <div class="col-md-4">
-      {{#if member.items.length}}
-        {{member.items.length}}
-      {{/if}}
-      </div>
-      
-      <div class="col-md-4">
-      {{#if session.isAdmin}}
-        {{#if member.wp_id}}
-          <i class="fa fa-check text-success"></i> 
+        {{#if member.items.length}}
+          {{member.items.length}}
         {{/if}}
-      {{/if}}
+      </div>
+
+      <div class="col-md-4">
+        {{#if session.isAdmin}}
+          {{#if member.wp_id}}
+            <i class="fa fa-check text-success"></i>
+          {{/if}}
+        {{/if}}
       </div>
     </div>
 
@@ -61,52 +61,50 @@
 {{else}}
   <div class="member-detail">
 
-      {{#if member.avatar}}
-        <img class="member-avatar" src={{member.avatar}} onerror={{action loadError}}>
-      {{else}}
-        <div class="member-avatar text-center" style="padding-top: 6px;">
-          <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
-        </div>
-      {{/if}}
+    {{#if member.avatar}}
+      <img class="member-avatar" src={{member.avatar}} onerror={{action loadError}}>
+    {{else}}
+      <div class="member-avatar text-center" style="padding-top: 6px;">
+        <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+      </div>
+    {{/if}}
 
     <div class="member-box">
-        <div class="member-info">
-          <div class="member-name">
-            {{member.name}}
-          </div>
+      <div class="member-info">
+        <div class="member-name">
+          {{member.name}}
+        </div>
 
-          <div class="member-remove">
-            <div class="member-stats">
-              {{#if member.items.length}}
+        <div class="member-remove">
+          <div class="member-stats">
+            {{#if member.items.length}}
               i: {{member.items.length}}
-              {{/if}}
-              {{#if member.memberUnits.length}}
+            {{/if}}
+            {{#if member.memberUnits.length}}
               u: {{member.memberUnits.length}}
-              {{/if}}
+            {{/if}}
 
-              {{#bs-dropdown class="member-options" as |dd|}}
-                {{#dd.toggle}}
-                  {{fa-icon "caret-down"}}
-                {{/dd.toggle}}
-                {{#dd.menu class="pull-right"}}
-                  {{#if canUnassign}}
-                    <li><a href="#" class="text-danger" {{action 'unassignMember' member unitid}}>{{fa-icon "close"}} Unassign</a></li>
-                  {{/if}}
-                  <li>
-                    {{#link-to 'members.member' member.id}}
+            {{#bs-dropdown class="member-options" as |dd|}}
+              {{#dd.toggle}}
+                {{fa-icon "caret-down"}}
+              {{/dd.toggle}}
+              {{#dd.menu class="pull-right"}}
+                {{#if canUnassign}}
+                  <li><a href="#" class="text-danger" {{action 'unassignMember' member unit type}}>{{fa-icon "close"}} Unassign</a></li>
+                {{/if}}
+                <li>
+                  {{#link-to 'members.member' member.id}}
                     {{fa-icon "user"}} Profile
-                    {{/link-to}}
-                  </li>
-                {{/dd.menu}}
-              {{/bs-dropdown}}
-            </div>
+                  {{/link-to}}
+                </li>
+              {{/dd.menu}}
+            {{/bs-dropdown}}
           </div>
         </div>
-        <div class="member-rank">
-          {{member.rank}}
-        </div>
+      </div>
+      <div class="member-rank">
+        {{member.rank}}
+      </div>
     </div>
   </div>
 {{/if}}
-
-

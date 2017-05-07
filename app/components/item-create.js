@@ -33,13 +33,13 @@ export default Ember.Component.extend({
     if (get(this, "item.parent.id")) {
       set(this, "otypeid", get(this, "item.parent.id"));
     }
-    
+
     if (Ember.isEmpty(item)) {
       return;
     }
 
     if (item.get("type.id")) {
-      this.setTypeAndFilter(item.get("type").get("name"));
+      this.setTypeAndFilter(item.get("type"));
     }
     var self = this;
     get(this, 'store').findAll('itemType').then(function(types) {
@@ -66,12 +66,13 @@ export default Ember.Component.extend({
     try {
       return item.get("id") == id || item.get('parent') && this.hasParent(id, item.get('parent'));
     } catch(err) {
-        Ember.Logger.debug("error", err);
+      Ember.Logger.debug("error", err);
     }
     return false;
   },
 
   setTypeAndFilter: function(type) {
+    console.log(type)
     var item = get(this, "item");
     if (item.get("type") && item.get("type").get("id") != type.get("id")) {
       set(item, "type", type);
@@ -95,7 +96,7 @@ export default Ember.Component.extend({
         debug("item-create save failed, err", err);
         item.rollbackAttributes();
       });
-//       this.setTypeAndFilter(type);
+      //       this.setTypeAndFilter(type);
     },
 
     setType: function(type) {
@@ -110,21 +111,21 @@ export default Ember.Component.extend({
     saveItem: function() {
       var item = get(this, "item");
       if (item) {
-//         Ember.Logger.debug("save item", item.get("name"), item.get("parent").get("name"), "-", item.get("type").get("name"), "-", item.get("member").get("id"));
+        //         Ember.Logger.debug("save item", item.get("name"), item.get("parent").get("name"), "-", item.get("type").get("name"), "-", item.get("member").get("id"));
         var self = this;
         var mem = get(item, 'member');
         var memid = get(mem, 'id');
-//         self.set('showDialog', false);
+        //         self.set('showDialog', false);
         item.save().then(function(nitem) {
-//           self.get('eventManager').trigger('success', 'ship added to member: ' + memid);
-//           Ember.Logger.debug(">>>>", nitem.get("id"), "-", mem.get("items")); //.get("length"));
+          //           self.get('eventManager').trigger('success', 'ship added to member: ' + memid);
+          //           Ember.Logger.debug(">>>>", nitem.get("id"), "-", mem.get("items")); //.get("length"));
           mem.get("items").pushObject(nitem);
           self.set('item', null);
           self.set('showDialog', false);
           get(self, "session").log("item", "item " + nitem.get("name") + " saved");
-//           Ember.Logger.debug(">>>> SAVED!", nitem.get("id"), "-", mem.get("items")); //.get("length"));
+          //           Ember.Logger.debug(">>>> SAVED!", nitem.get("id"), "-", mem.get("items")); //.get("length"));
         }).catch(function(err) {
-//           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
+          //           self.get('eventManager').trigger('failure', 'counld not add ship to member: ' + memid);
           get(self, "session").log("error", "could not save item " + item.get("name"));
           Ember.Logger.debug("error saving", err);
           self.set('showDialog', true);
@@ -147,9 +148,9 @@ export default Ember.Component.extend({
         }
 
         if (!Ember.isEmpty(item.get("member")) && !Ember.isEmpty(item.get("member").get("items"))) {
-//         Ember.Logger.debug(">>> RELOAD  MEMBER");
-//           item.get("member").get("items").reload();
-        } 
+          //         Ember.Logger.debug(">>> RELOAD  MEMBER");
+          //           item.get("member").get("items").reload();
+        }
 
       }
       this.set('showDialog', false);
