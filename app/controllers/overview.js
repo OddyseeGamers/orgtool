@@ -64,22 +64,8 @@ export default Ember.Controller.extend({
     if (Ember.isEmpty(this.get("currentUnit"))) {
       return [];
     }
-    return this.getMembers(this.get("currentUnit"));
+    return this.get("currentUnit").get('members');
   }),
-
- getMembers: function(unit) {
-    var members = Ember.A();
-    unit.get("memberUnits").forEach(function(mu) {
-      members.pushObject(mu.get("member"));
-    });
-
-    var self= this;
-    unit.get("units").forEach(function(un) {
-      members.pushObjects(self.getMembers(un));
-    });
-
-    return members;
-  },
 
   addUnit: function(data) {
     var self = this;

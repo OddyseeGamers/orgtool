@@ -34,28 +34,29 @@ export default Ember.Controller.extend({
       group[gidx].rewards.push(nr);
     });
 
-    get(this, 'model').get("memberUnits").forEach(function(mu) {
-      var gidx = rt_lookup[get(mu, "reward").get("type").get('id')];
-      var or = get(mu, "reward");
-      var ou = get(mu, "unit");
-      var nu = { name: get(ou, "name"), img: get(ou, "img"), mu: mu };
+    // Rewards are no longer assigned to units
+    // get(this, 'model').get("memberUnits").forEach(function(mu) {
+    //   var gidx = rt_lookup[get(mu, "reward").get("type").get('id')];
+    //   var or = get(mu, "reward");
+    //   var ou = get(mu, "unit");
+    //   var nu = { name: get(ou, "name"), img: get(ou, "img"), mu: mu };
 
-      if (group[gidx].rewards.length) {
-        var res = group[gidx].rewards.find(function(r) {
-          return get(r, "id") == get(or, "id");
-        });
-        if (res) {
-          res.units.push(nu);
-        } else {
-          var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
-          group[gidx].rewards.push(nr);
-        }
-      } else {
-        var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
-        group[gidx].rewards.push(nr);
-      }
+    //   if (group[gidx].rewards.length) {
+    //     var res = group[gidx].rewards.find(function(r) {
+    //       return get(r, "id") == get(or, "id");
+    //     });
+    //     if (res) {
+    //       res.units.push(nu);
+    //     } else {
+    //       var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
+    //       group[gidx].rewards.push(nr);
+    //     }
+    //   } else {
+    //     var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
+    //     group[gidx].rewards.push(nr);
+    //   }
 
-    });
+    // });
 
     return group;
   }).property('model', 'model.memberRewards.length', 'model.memberUnits.length', 'showConfirmDialog'),

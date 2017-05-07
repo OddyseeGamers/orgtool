@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   columns: [100],
   itemHeight: 39,
 
-  merged: Ember.computed.union('reward.memberRewards', 'reward.memberUnits'),
+  merged: Ember.computed.union('reward.memberRewards'),
 
   setup: Ember.on('init', function() {
   }),

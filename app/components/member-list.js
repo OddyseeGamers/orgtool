@@ -53,15 +53,15 @@ export default Ember.Component.extend({
     }
 
 
-    if (!Ember.isEmpty(unitFilter)) {
-      var self = this;
-      res = member.get('memberUnits').filter(function(item, index, enumerable){
-        return self.hasParent(unitFilter.get("id"), item.get('unit'));
-      });
-      if (Ember.isEmpty(res)) {
-        return false;
-      }
-    }
+    // if (!Ember.isEmpty(unitFilter)) {
+    //   var self = this;
+    //   res = member.get('memberUnits').filter(function(item, index, enumerable){
+    //     return self.hasParent(unitFilter.get("id"), item.get('unit'));
+    //   });
+    //   if (Ember.isEmpty(res)) {
+    //     return false;
+    //   }
+    //}
 
     return res;
   }).property('searchFilter', 'members.length', 'unitFilter'),

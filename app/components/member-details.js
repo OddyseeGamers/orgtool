@@ -3,26 +3,27 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['member-details'],
   classNameBindings: ['canDrag:member-details-draggable'],
-//   classNameBindings: ['isUrgent:urgent'],
-
+  //   classNameBindings: ['isUrgent:urgent'],
+  store: Ember.inject.service(),
   draggable: false,
   droppable: true,
   selectable: true,
-  unitid: null,
+  unit: null,
+  type: null,
   attributeBindings: ["memberid:data-memberid"],
   memberid: Ember.computed.alias('member.id'),
   lastElement: null,
   lastColor: null,
   canDrag: Ember.computed.and('draggable', 'session.isAdmin'),
-  canUnassign: Ember.computed.and('unitid', 'session.isAdmin'),
+  canUnassign: Ember.computed.and('unit', 'session.isAdmin'),
 
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
 
   setup: Ember.on('didInsertElement', function() {
-//   Ember.onerror = function(error) {
-//     console.log("An error has occurred in ember: " + error.message);
-// };
+    //   Ember.onerror = function(error) {
+    //     console.log("An error has occurred in ember: " + error.message);
+    // };
     if (!this.get('canDrag')) {
       return;
     }
@@ -44,8 +45,8 @@ export default Ember.Component.extend({
     this.$().draggable({
       tolerance: 'pointer',
       helper: 'clone',
-      cursorAt: { left: -5, top: -5 }, 
-//       zIndex: 1,
+      cursorAt: { left: -5, top: -5 },
+      //       zIndex: 1,
       stack: ".draggable",
       revert: true,
       scroll: false,
@@ -59,11 +60,11 @@ export default Ember.Component.extend({
 
   onDrag: function(e) {
     var el = this.getElementId(e);
-    var matches = el.unitid !== undefined;
+    var matches = el.unit !== undefined;
     this.$('body').css("cursor", function() {
       return (matches) ? "copy" : "move";
     });
-//     var last = this.get('lastElement');
+    //     var last = this.get('lastElement');
     if (matches && el.dest == "path") {
       this.setLast(e.toElement);
     } else {
@@ -76,10 +77,9 @@ export default Ember.Component.extend({
     this.resetLast();
     // Dropped on a non-matching target.
     var elm = this.getElementId(event);
-
     var unitid = elm.unitid;
     if (!unitid) {
-//       Ember.Logger.debug("no match");
+      //       Ember.Logger.debug("no match");
       return;
     }
 
@@ -117,7 +117,7 @@ export default Ember.Component.extend({
     this.set('lastColor', this.$(element).css('fill'));
     this.$(element).removeAttr("style");
     var classes = this.$(element).attr("class");
-//     Ember.Logger.debug(">>> classes", classes);
+    //     Ember.Logger.debug(">>> classes", classes);
     if (classes) {
       classes = classes.split(" ");
     } else {
@@ -128,51 +128,68 @@ export default Ember.Component.extend({
   },
 
   getElementId: function(item) {
-//     var id = $(item.toElement).data('unitid');
+    //     var id = $(item.toElement).data('unitid');
     var id;
     var dest = "";
 
-//     Ember.Logger.debug("i", $(item.toElement).data('unitid'));
-//     Ember.Logger.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
-//     Ember.Logger.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
-//     Ember.Logger.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
+    //     Ember.Logger.debug("i", $(item.toElement).data('unitid'));
+    //     Ember.Logger.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
+    //     Ember.Logger.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
+    //     Ember.Logger.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
 
     if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
       dest = "member"
     }
-    
+
     if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-leader-container" ).data('unitid');
-//       Ember.Logger.debug("elm leader");
+      //       Ember.Logger.debug("elm leader");
       dest = "leader"
-//     } else {
-//       Ember.Logger.debug(" else");
+      //     } else {
+      //       Ember.Logger.debug(" else");
     }
 
-  if (!id) {
+    if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-name-container" ).data('unitid');
       dest = "member";
-  }
+    }
 
-  if (!id) {
+    if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-pilots-path" ).data('unitid');
       dest = "path";
-  }
+    }
 
-//     Ember.Logger.debug(">>> ret", id, dest);
+    //     Ember.Logger.debug(">>> ret", id, dest);
     return {unitid: id, dest: dest};
   },
 
   loadError(img) {
     Ember.$(img.target).attr("src", Ember.get(this, "session").rootURL + "/member.png");
-//     set(img, "src", get(this, "session").rootURL + "/member.png");
+    //     set(img, "src", get(this, "session").rootURL + "/member.png");
     return true;
   },
 
   actions: {
-    unassignMember: function(member, unitid) {
-      this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': unitid, 'destType': "unit" } );
+    unassignMember: function(member, unit, type) {
+      //this.store.findRecord('unit', unitid).then(function(lead) {
+      console.log("unassign", member, unit, type);
+      //});
+      switch (type) {
+      case "leaders":
+        unit.get('leaders').removeObject(member);
+        unit.save();
+        break;
+      case "members":
+        unit.get('members').removeObject(member);
+        unit.save();
+        break;
+      case "applicants":
+        unit.get('applicants').removeObject(member);
+        unit.save();
+        break;
+      }
+      //this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': unitid, 'destType': "unit" } );
     },
 
   }
