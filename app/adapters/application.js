@@ -10,6 +10,54 @@ export default DS.JSONAPIAdapter.extend({
   host: config.APP.API_HOST,
   namespace: 'api',
 
+  queryRecord(store, type, query) {
+//     Ember.Logger.log("QUERY", store, "-------", type.modelName, "------------", query);
+
+    if (query.id && query.recursive && type.modelName == "unit") {
+      let url = this.buildURL(type.modelName, null, null, 'queryRecord', null);
+      url += "/" + query.id + "?recursive=" + query.recursive;
+//       let url = this.buildURL(type.modelName, query.id, null, 'queryRecord', query);
+//       let url = this.namespace + "/" + Ember.String.pluralize(type.modelName) + "/" + query.id + "?recursive=" + query.recursive;
+//       delete query.id
+      console.log(">>>> URL", url);
+
+      return this.ajax(url, 'GET', {});
+//       return this.ajax(url, 'GET', { data: query });
+//       return Ember.$.getJSON(url);
+    } else {
+      let url = this.buildURL(type.modelName, null, null, 'queryRecord', query);
+
+      if (this.sortQueryParams) {
+        query = this.sortQueryParams(query);
+      }
+
+      return this.ajax(url, 'GET', { data: query });
+    }
+  },
+
+  query(store, type, query) {
+    if (query.id && query.recursive && type.modelName == "unit") {
+      let url = this.buildURL(type.modelName, null, null, 'query', null);
+      url += "/" + query.id + "?recursive=" + query.recursive;
+      console.log(">>>> URL", url);
+
+      return this.ajax(url, 'GET', {});
+    } else {
+      let url = this.buildURL(type.modelName, null, null, 'query', query);
+
+      if (this.sortQueryParams) {
+        query = this.sortQueryParams(query);
+      }
+
+      return this.ajax(url, 'GET', { data: query });
+    }
+  },
+
+//   pathForType: function(type) {
+//     Ember.Logger.log("---> type", type);
+//     return Ember.String.underscore(type);
+//   }
+
 /*
 modelNameFromPayloadKey: function(key) {
     Ember.Logger.log("---> model", key);
