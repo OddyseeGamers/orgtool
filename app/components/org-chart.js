@@ -175,7 +175,7 @@ export default Ember.Component.extend({
     var data = get(this, 'units');
     if (get(this, 'currFilter') === undefined) {
       set(this, 'currFilter', 1);
-      Ember.Logger.debug("fix filter");
+      Ember.Logger.log("fix filter");
     }
     var filter = get(this, 'currFilter');
 
@@ -190,7 +190,7 @@ export default Ember.Component.extend({
         var el = data.objectAt(i);
 //             Ember.Logger.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
           if(!el || !get(el, 'isLoaded')) {
-            Ember.Logger.debug("      >  ", filter, " in ", get(el, 'isLoaded'));
+            Ember.Logger.log("      >  ", filter, " in ", get(el, 'isLoaded'));
             return null;
           }
           if (get(el, 'id') == filter) {
@@ -203,17 +203,17 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
-//     Ember.Logger.debug("render");
+    Ember.Logger.log("render");
     var units = get(this, 'units');
     if (!units) {
-        Ember.Logger.debug("no data no render");
+        Ember.Logger.log("no data no render");
         return;
     }
 
     var root = this._transformData();
     var struc = this._serializeChildren(root);
     if (!struc) {
-      Ember.Logger.debug("render return, struc empty");
+      Ember.Logger.log("render return, struc empty");
       return;
     }
 
