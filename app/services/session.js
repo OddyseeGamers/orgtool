@@ -67,6 +67,7 @@ export default Ember.Service.extend({
       } else {
         self.set("current_user", wp_user);
         self.set("isUser", true);
+
         get(self, "state").pushObject(get(wp_user, "display_name"));
         return self.get('store').findRecord('member', get(wp_user, "id")).then(function(mem) {
           get(self, "state").pushObject("gotcha");
@@ -90,10 +91,10 @@ export default Ember.Service.extend({
     var self = this;
     this.set('loading', true);
 
-//       Ember.Logger.log("loading all done");
-//       get(self, "state").pushObject("done");
-//       self.set('loading', false);
-//       return;
+    Ember.Logger.log("loading all done");
+    get(self, "state").pushObject("done");
+    self.set('loading', false);
+    return;
 
     var all = Ember.RSVP.hash({
       members: self.createRequest("members", "member"),
