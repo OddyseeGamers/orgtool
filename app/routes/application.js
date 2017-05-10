@@ -1,17 +1,19 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  session: Ember.inject.service(),
 
-
-//   beforeModel: function(transition) {
-//   },
+  beforeModel: function(transition) {
+//     Ember.Logger.log(">>>>>>> BEF TR", Ember.get(this, "session"));
+    Ember.get(this, "session");
+  },
 
 //   afterModel: function(model, transition) {
 //     Ember.Logger.debug("APP AFTER MODEL", transition.targetName);
 //   },
 //
-    actions: {
-    didTransition() {
+//     actions: {
+//     didTransition() {
 //       this.controller.get('errors.base').clear();
 
 //  Ember.run.scheduleOnce('afterRender', this, () => {
@@ -20,7 +22,7 @@ export default Ember.Route.extend({
 //     Ember.Logger.log(">>>>>>> INIT TR", Ember.$(".stars").css("background"));
 //   });
 
-      return true; // Bubble the didTransition event
-    }
-  }
+//       return true; // Bubble the didTransition event
+//     }
+//   }
 });
