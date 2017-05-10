@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var get = Ember.get;
 var set = Ember.set;
+var debug = Ember.Logger.log;
 
 export default Ember.Controller.extend({
   store: Ember.inject.service(),
@@ -24,7 +25,7 @@ export default Ember.Controller.extend({
 
     this.get('eventManager').on('setDetails', this.setDetails.bind(this));
 
-//     this.setDetails({ "unitid": 1, "extended": false, "sync": false }); 
+    this.setDetails({ "unitid": 1, "extended": true, "sync": true }); 
   }),
 
 //   sortProperties: ['name'],
@@ -61,7 +62,7 @@ export default Ember.Controller.extend({
   }),
 
   sumMembers: Ember.computed("currentUnit", function() {
-    if (Ember.isEmpty(this.get("currentUnit"))) {
+    if (Ember.isEmpty(this.get("currentUnit")) || Ember.isEmpty(get(this, "currentUnit.members"))) {
       return [];
     }
     return this.get("currentUnit").get('members');
@@ -72,17 +73,23 @@ export default Ember.Controller.extend({
     this.store.findRecord('unit', data.id).then(function (punit) {
       self.store.findRecord('unitType', data.unitType).then(function (unitType) {
         var unit = self.store.createRecord('unit');
+
+//         debug("PARENT UNIT", get(punit, "name"));
+
         unit.set('type', unitType);
-        set(unit, 'unit', punit);
-        get(punit, 'units').pushObject(unit);
+        unit.set('unit', punit);
+
+//         debug("PARENT UNIT", get(unit, "unit.name"));
+//         set(unit, 'unit', punit);
+//         get(punit, 'units').pushObject(unit);
 
         unit.save().then(function(done) {
-          Ember.Logger.debug("done saving", done);
+          debug("done saving", done);
 //           self.set('unit', done);
           self.get('eventManager').trigger('rerender');
           self.transitionToRoute('overview.unit', done.get('id'));
         }).catch(function(err) {
-          Ember.Logger.debug("error saving", err);
+          debug("error saving", err);
           unit.deleteRecord();
         });
       });
@@ -108,7 +115,7 @@ export default Ember.Controller.extend({
 
 
   setDetails: function(data) {
-//     Ember.Logger.debug("---- set details");
+    Ember.Logger.log("---- set details", data);
     var unitId = data.unitid;
     var extended = data.extended;
     var sync = data.sync;
@@ -119,14 +126,32 @@ export default Ember.Controller.extend({
 
     if (unitId !== undefined) {
       var self = this;
-      this.get('store').findRecord('unit', unitId).then(function(unit) {
+//      this.store.query('unit', { recursive: true});
+
+      get(this, 'store').query('unit', { id: unitId, recursive: true })
+//       get(this, 'store').queryRecord('unit', { id: unitId, recursive: true })
+//       this.store.find('unit', unitId, {recursive: 'true'})
+//       this.get('store').findRecord('unit', unitId, { query: 'recursive=true' })
+      .then(function(units) {
+//         Ember.Logger.log(">>>>  WTF ", get(units, "length"));
+
+        var unit = self.get('store').peekRecord('unit', unitId);
+
+//         Ember.Logger.log("---- found parent", get(unit, "unit.name"));
+//         Ember.Logger.log("---- found units", get(unit, "units.length"));
+
+//         Ember.Logger.log("----  units ", get(unit, "units").reload());
+
+//         Ember.Logger.log("----  units ", get(unit, "units.isFulfilled"));
+//         Ember.Logger.log("----  units loaded", get(unit, "isLoaded"));
+
         self.set('currentUnit', unit);
         self.set('extended', extended);
         if (sync) {
           self.set('currentChart', unit);
         }
       }).catch(function(err) {
-        Ember.Logger.debug(">>>>  error ", err);
+        Ember.Logger.log(">>>>  error ", err);
         self.set('currentUnit', 1);
         self.set('currentChart', 1);
       });
