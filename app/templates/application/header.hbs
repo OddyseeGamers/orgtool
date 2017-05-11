@@ -8,8 +8,8 @@
             {{error.message}},
         {{/each}}
       {{else}}
-        {{#if session.isUser}}
-          <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.display_name}}
+        {{#if session.current_user}}
+          <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
         {{/if}}
       {{/if}}
 
