@@ -15,6 +15,11 @@ export default Ember.Component.extend({
       debug("categories: ", get(categories, "length"));
       self.set('categories', categories);
     });
+
+    get(this, 'store').findAll('template').then(function(templates) {
+      debug("templates: ", get(templates, "length"));
+      self.set('templates', templates);
+    });
   }),
 
   actions: {
