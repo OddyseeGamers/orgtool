@@ -103,7 +103,6 @@ export default Ember.Component.extend({
     }
 
     if (d.parent && d.parent.depth == 0) {
-      Ember.Logger.log(">>> RET 1 color", d.color);
       return d.color || "#fff";
     }
 
@@ -113,11 +112,9 @@ export default Ember.Component.extend({
       var colors = d.children.map(Ember.$.proxy(this.color, this)),
                     a = d3.hsl(colors[0]),
                     b = d3.hsl(colors[idx]);
-      Ember.Logger.log(">>> RET 3 magic color");
       return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     }
 
-    Ember.Logger.log(">>> RET 2 color", d.color);
     return d.color || "#fff";
   },
 
