@@ -27,13 +27,13 @@
       <label class="control-label">Type</label>
       <div class="input-group">
 
-        <input type="text" class="form-control" id="unittype" value={{model.type.name}} readonly>
+        <input type="text" class="form-control" id="unittype" value={{model.unitType.name}} readonly>
         <div class="input-group-btn">
           {{#bs-dropdown as |dd|}}
             {{#dd.button}}<span class="caret"></span>{{/dd.button}}
             {{#dd.menu  align="right"}}
               {{#each unitTypes as |ut|}}
-              <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id model.type.id) "active"}} >{{ut.name}}</a></li>
+              <li {{action "setType" ut}}><a href="#" class={{if (eq ut.id model.unitType.id) "active"}} >{{ut.name}}</a></li>
               {{/each}}
             {{/dd.menu}}
           {{/bs-dropdown}}
@@ -49,7 +49,7 @@
     {{#if session.isAdmin}}
 <!--       type: {{model.type.id}}, attr: {{model.hasDirtyAttributes}} -->
 <!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
-        <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if (or (not model.type.id) model.hasDirtyAttributes) false true}} >  
+        <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if (or (not model.unit-type.id) model.hasDirtyAttributes) false true}} >  
         {{fa-icon "save"}} Save
       </button>
     {{/if}}

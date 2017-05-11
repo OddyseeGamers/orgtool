@@ -18,27 +18,13 @@ export default Ember.Controller.extend({
     submit: function() {
       var unit = get(this, 'model');
       var self = this;
-      Ember.Logger.debug("SUBMIT")
 
-      self.set('showDialog', false);
-//       if (!unit.get('hasDirtyAttributes')) {
-//         self.log("done unit " + get(unit, 'id'));
-//         self.set('unit', null);
-//         self.set('loading', false);
-//         return;
-//       }
-
-//       Ember.Logger.debug("save", unit.get('hasDirtyAttributes'), " - " , unit.get('type.name'), ' = ', unit.get('type.hasDirtyAttributes') );
       unit.save().then(function(nunit) {
-        Ember.Logger.log("save ok", nunit);
-
         self.set('model', null);
         self.set('showDialog', false);
         self.get('eventManager').trigger('rerender');
         self.transitionToRoute('overview');
-//         self.store.findAll('unitType').then(function(unitTypes) {
-//           self.set('unitTypes', unitTypes);
-//         });
+
       }).catch(function(err) {
         Ember.Logger.log("save err", err);
         self.set('showDialog',true);
@@ -59,9 +45,9 @@ export default Ember.Controller.extend({
     },
 
     setType: function(type) {
-        Ember.Logger.log("set TYPE ", type);
+//       Ember.Logger.log("set TYPE ", get(type, "name"));
       var unit = get(this, 'model');
-      unit.set('type', type);
+      unit.set('unitType', type);
       unit.send('becomeDirty');
     },
   }

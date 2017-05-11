@@ -6,7 +6,7 @@ export default DS.Model.extend({
   img: DS.attr(),
   color: DS.attr(),
 
-  type: DS.belongsTo('unitType', { async: true }),
+  unitType: DS.belongsTo('unitType', { inverse: 'units', async: true }),
   unit: DS.belongsTo('unit', { inverse: 'units', async: true }),
   units: DS.hasMany('unit', { inverse: 'unit', async: true }),
   members: DS.hasMany('member', { inverse: 'memberships', async: true }),

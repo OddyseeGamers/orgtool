@@ -73,14 +73,8 @@ export default Ember.Controller.extend({
     this.store.findRecord('unit', data.id).then(function (punit) {
       self.store.findRecord('unitType', data.unitType).then(function (unitType) {
         var unit = self.store.createRecord('unit');
-
-//         debug("PARENT UNIT", get(punit, "name"));
-
-        unit.set('type', unitType);
+        unit.set('unitType', unitType);
         unit.set('unit', punit);
-
-//         debug("PARENT UNIT", get(unit, "unit.name"));
-//         set(unit, 'unit', punit);
 //         get(punit, 'units').pushObject(unit);
 
         unit.save().then(function(done) {
@@ -115,7 +109,7 @@ export default Ember.Controller.extend({
 
 
   setDetails: function(data) {
-    Ember.Logger.log("---- set details", data);
+//     Ember.Logger.log("---- set details", data);
     var unitId = data.unitid;
     var extended = data.extended;
     var sync = data.sync;
@@ -126,24 +120,11 @@ export default Ember.Controller.extend({
 
     if (unitId !== undefined) {
       var self = this;
-//      this.store.query('unit', { recursive: true});
-
       get(this, 'store').query('unit', { id: unitId, recursive: true })
 //       get(this, 'store').queryRecord('unit', { id: unitId, recursive: true })
-//       this.store.find('unit', unitId, {recursive: 'true'})
-//       this.get('store').findRecord('unit', unitId, { query: 'recursive=true' })
       .then(function(units) {
-//         Ember.Logger.log(">>>>  WTF ", get(units, "length"));
 
         var unit = self.get('store').peekRecord('unit', unitId);
-
-//         Ember.Logger.log("---- found parent", get(unit, "unit.name"));
-//         Ember.Logger.log("---- found units", get(unit, "units.length"));
-
-//         Ember.Logger.log("----  units ", get(unit, "units").reload());
-
-//         Ember.Logger.log("----  units ", get(unit, "units.isFulfilled"));
-//         Ember.Logger.log("----  units loaded", get(unit, "isLoaded"));
 
         self.set('currentUnit', unit);
         self.set('extended', extended);
