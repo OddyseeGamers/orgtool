@@ -12,6 +12,8 @@ export default Ember.Service.extend({
   loading: true,
   statesDone: 16,
   state: Ember.A(),
+  current_user: null,
+  pers: { read: 1, create: 2, edit: 4, delete: 8, assign: 16, accept: 32, apply: 64 },
 
   init: function() {
     var self = this;
@@ -39,7 +41,8 @@ export default Ember.Service.extend({
 
     if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
       var userid = session.sub.split(':')[1];
-      return self.get('store').findRecord('member', userid).then(function(mem) {
+      Ember.Logger.log("session", session);
+      return self.get('store').findRecord('user', userid).then(function(mem) {
         Ember.Logger.log("found", get(mem, "name"));
         self.setUser(session, mem);
       }).catch(function(err) {
@@ -66,17 +69,16 @@ export default Ember.Service.extend({
     return null;
   },
 
-  setUser: function(session, mem) {
+  setUser: function(session, user) {
   var self = this;
-    if (!Ember.isEmpty(mem)) {
+    if (!Ember.isEmpty(user)) {
       mem.set("loggedIn", true);
-      self.set("current_user", mem);
+      self.set("current_user", user);
 //       self.set("user", mem);
-      self.set("isUser", true);
-      self.set("current_user.id", get(mem, "id"));
+//       self.set("isUser", true);
+//       self.set("current_user.id", get(mem, "id"));
 
-      if(session.isadmin) {
-        self.set("isAdmin", true);
+      if(get(user, 'is_admin')) {
         self.log("session", "logged in as admin");
       } else {
         self.log("session", "logged in as user");

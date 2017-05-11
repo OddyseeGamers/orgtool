@@ -21,5 +21,7 @@ export default DS.Model.extend({
 
   memberRewards: DS.hasMany('memberReward', { async: true }),
 
+  user: DS.belongsTo('user'),
+
   loggedIn: false,
 });
