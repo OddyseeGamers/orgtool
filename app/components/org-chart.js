@@ -103,6 +103,7 @@ export default Ember.Component.extend({
     }
 
     if (d.parent && d.parent.depth == 0) {
+      Ember.Logger.log(">>> RET 1 color", d.color);
       return d.color || "#fff";
     }
 
@@ -112,9 +113,11 @@ export default Ember.Component.extend({
       var colors = d.children.map(Ember.$.proxy(this.color, this)),
                     a = d3.hsl(colors[0]),
                     b = d3.hsl(colors[idx]);
+      Ember.Logger.log(">>> RET 3 magic color");
       return d3.hsl((a.h + b.h) / 2, a.s * 1.2, a.l / 1.2);
     }
 
+    Ember.Logger.log(">>> RET 2 color", d.color);
     return d.color || "#fff";
   },
 
@@ -145,11 +148,18 @@ export default Ember.Component.extend({
   mouseout: function(d) {
   },
 
+  _serializeUnit: function(obj) {
+      var ret = {};
+      ret.id = get(obj, 'id');
+      ret.name = get(obj, 'name');
+      ret.color = get(obj, 'color');
+      return ret;
+  },
+
   _serializeChildren: function(obj) {
     var self = this;
     if (obj) {
-      var ret = obj.serialize();
-      ret.id = get(obj, 'id');
+      var ret = self._serializeUnit(obj);
       get(obj, 'units').forEach(function(unit) {
         var add = true;
         if (self.currFilter == 1 && self.currFilter != ret.id) {
@@ -157,7 +167,7 @@ export default Ember.Component.extend({
         }
 
         if (add) {
-          var unit_ser = unit.serialize();
+          var unit_ser = self._serializeUnit(unit);
           if (!ret.children) {
             ret.children = [unit_ser];
           } else {
@@ -203,7 +213,7 @@ export default Ember.Component.extend({
   },
 
   _renderStruc: function() {
-    Ember.Logger.log("render");
+//     Ember.Logger.log("render");
     var units = get(this, 'units');
     if (!units) {
         Ember.Logger.log("no data no render");
@@ -217,7 +227,7 @@ export default Ember.Component.extend({
       return;
     }
 
-//     Ember.Logger.debug("render ", struc);
+//     Ember.Logger.log("render ", struc);
     var div = Ember.$(".chart-pane");
     var width = div.width();
     var height = div.height();
