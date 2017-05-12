@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
 //   itemWidth: 400,
 //   itemSizes: { width: 400, height: 500},
 //   itemHeight
-//   filteredShips: Ember.computed.filterBy('content', 'member', ),
+//   filteredShips: Ember.computed.filterBy('content', 'player', ),
 //   setup: Ember.on('init', function() {
 //     this.set('content', this.store.findAll('shipCollection'));
 //     this.set('ships', this.store.findAll('ship'));

@@ -1,0 +1,110 @@
+{{#if details}}
+  {{#link-to 'players.player' player.id tagName="div" class="player-detail select"}}
+    <!--     <div class="col-md-1"> -->
+    <!--     </div> -->
+
+    <div class="col-md-3">
+      {{#if player.avatar}}
+        <img class="player-avatar" src={{player.avatar}} onerror={{action loadError}}>
+      {{else}}
+        <div class="player-avatar text-center" style="padding-top: 6px;">
+          <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+        </div>
+      {{/if}}
+
+      <div class="player-name">
+        {{player.name}}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      {{get-uniq player.handles "handle"}}
+      {{!--
+         {{#each player.handles as |han|}}
+         {{han.handle}},
+         {{/each}}
+         --}}
+    </div>
+
+    <div class="col-md-4">
+      {{#if player.playerUnits.length}}
+        {{#each player.playerUnits as |memUn|}}
+          {{memUn.unit.name}},
+        {{/each}}
+      {{/if}}
+    </div>
+
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-1">
+      <div class="col-md-4">
+        {{player.timezone}}
+      </div>
+
+      <div class="col-md-4">
+        {{#if player.items.length}}
+          {{player.items.length}}
+        {{/if}}
+      </div>
+
+      <div class="col-md-4">
+        {{#if session.current_user.is_admin}}
+          {{#if player.wp_id}}
+            <i class="fa fa-check text-success"></i>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+
+  {{/link-to}}
+{{else}}
+  <div class="player-detail">
+
+    {{#if player.avatar}}
+      <img class="player-avatar" src={{player.avatar}} onerror={{action loadError}}>
+    {{else}}
+      <div class="player-avatar text-center" style="padding-top: 6px;">
+        <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+      </div>
+    {{/if}}
+
+    <div class="player-box">
+      <div class="player-info">
+        <div class="player-name">
+          {{player.name}}
+        </div>
+
+        <div class="player-remove">
+          <div class="player-stats">
+            {{#if player.items.length}}
+              i: {{player.items.length}}
+            {{/if}}
+            {{#if player.playerUnits.length}}
+              u: {{player.playerUnits.length}}
+            {{/if}}
+
+            {{#bs-dropdown class="player-options" as |dd|}}
+              {{#dd.toggle}}
+                {{fa-icon "caret-down"}}
+              {{/dd.toggle}}
+              {{#dd.menu class="pull-right"}}
+                {{#if canUnassign}}
+                  <li><a href="#" class="text-danger" {{action 'unassignMember' player unit type}}>{{fa-icon "close"}} Unassign</a></li>
+                {{/if}}
+                <li>
+                  {{#link-to 'players.player' player.id}}
+                    {{fa-icon "user"}} Profile
+                  {{/link-to}}
+                </li>
+              {{/dd.menu}}
+            {{/bs-dropdown}}
+          </div>
+        </div>
+      </div>
+      <div class="player-rank">
+        {{player.rank}}
+      </div>
+    </div>
+  </div>
+{{/if}}

@@ -43,7 +43,9 @@ export default Ember.Service.extend({
       var userid = session.sub.split(':')[1];
       Ember.Logger.log("session", session);
       return self.get('store').findRecord('user', userid).then(function(user) {
-        Ember.Logger.log("found", get(user, "name"));
+        Ember.Logger.log("User:", get(user, "name"));
+        Ember.Logger.log("Player ID:", get(user, "player").get("id"));
+        Ember.Logger.log("Permission ID:", get(user, "permission").get("id"));
         self.setUser(session, user);
       }).catch(function(err) {
         Ember.Logger.log("error", err);
@@ -101,7 +103,7 @@ export default Ember.Service.extend({
         self.set("isUser", true);
 
         get(self, "state").pushObject(get(wp_user, "display_name"));
-        return self.get('store').findRecord('member', get(wp_user, "id")).then(function(mem) {
+        return self.get('store').findRecord('player', get(wp_user, "id")).then(function(mem) {
           get(self, "state").pushObject("gotcha");
           mem.set("loggedIn", true);
           self.set("user", mem);
@@ -124,7 +126,7 @@ export default Ember.Service.extend({
     this.set('loading', true);
 
     var all = Ember.RSVP.hash({
-      members: self.createRequest("members", "member"),
+      players: self.createRequest("players", "player"),
       handles: self.createRequest("handles", "handle"),
       units: self.createRequest("units", "unit"),
       items: self.createRequest("items", "item"),

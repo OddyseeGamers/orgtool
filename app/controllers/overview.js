@@ -62,10 +62,10 @@ export default Ember.Controller.extend({
   }),
 
   sumMembers: Ember.computed("currentUnit", function() {
-    if (Ember.isEmpty(this.get("currentUnit")) || Ember.isEmpty(get(this, "currentUnit.members"))) {
+    if (Ember.isEmpty(this.get("currentUnit")) || Ember.isEmpty(get(this, "currentUnit.players"))) {
       return [];
     }
-    return this.get("currentUnit").get('members');
+    return this.get("currentUnit").get('players');
   }),
 
   addUnit: function(data) {
@@ -114,8 +114,8 @@ export default Ember.Controller.extend({
     var extended = data.extended;
     var sync = data.sync;
 
-//     if (extended && (!this.get('members') || this.get('members.length') === 0)) {
-//       this.set('members', this.store.peekAll('member'));
+//     if (extended && (!this.get('players') || this.get('players.length') === 0)) {
+//       this.set('players', this.store.peekAll('player'));
 //     }
 
     if (unitId !== undefined) {

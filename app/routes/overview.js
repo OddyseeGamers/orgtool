@@ -11,7 +11,7 @@ export default Ember.Route.extend({
   },
 
   afterModel: function(model, transition) {
-    this.controllerFor('overview').set('members', this.store.findAll('member'));
+    this.controllerFor('overview').set('players', this.store.findAll('player'));
   },
 
 //   beforeModel: function(transition) {

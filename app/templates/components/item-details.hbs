@@ -1,4 +1,4 @@
-{{#if (and tb (or session.current_user.is_admin (or item.member.loggedIn count)))}}
+{{#if (and tb (or session.current_user.is_admin (or item.player.loggedIn count)))}}
 
 <div class="toolbar">
   {{#if count}}
@@ -11,8 +11,8 @@
 {{/if}}
 
 <div class={{if count "top-left-sm" "top-left"}}>
-    {{#if item.member.avatar}}
-      <img class="top-left-img" src={{item.member.avatar}}>
+    {{#if item.player.avatar}}
+      <img class="top-left-img" src={{item.player.avatar}}>
     {{else}}
       {{#if item.parent.parent.img}}
         <img class="top-left-img" src={{item.parent.parent.img}}>
@@ -29,9 +29,9 @@
 <!--     </span> -->
 <!--     {{/unless}} -->
 
-    {{#if item.member.name}}
+    {{#if item.player.name}}
       <span class={{if (and item.type (eq item.type.permissions "1")) "top-left-name" "item-name"}}>
-        {{item.member.name}}
+        {{item.player.name}}
       </span><br><span style="margin-right:34px;"/>
     {{/if}}
 

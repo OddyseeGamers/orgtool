@@ -1,0 +1,297 @@
+/*
+.player-edit-panel {
+  position: relative;
+  background-color: #000000 !important;
+  height: 100%;
+
+  .panel-body {
+    height: calc(100% - 60px - 55px);
+    overflow-y:auto;
+  }
+
+  .panel-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+*/
+$player-width: 128px;
+$player-header-height: 70px;
+$player-menu-height: 34px;
+
+
+.modal-header {
+  h4 {
+      font-size: 24px;
+      line-height: 19px;
+//        font-weight: 300;
+//        letter-spacing: 0px;
+  }
+}
+
+
+.modal-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+  .player-details-img {
+//       float: left;
+
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #219ab3;
+     width: 100%;
+//       height: 100%;
+//       width: $player-width;
+//       display: block;
+//      margin-left: auto;
+//      margin-right: auto;
+
+  }
+
+//    .player-details-name {
+//    .box {
+//      .toolbar {
+//          border-radius: 0px 10px 0px 10px;
+//        }
+//    }
+
+  .player-tabs {
+    height: $player-menu-height;
+    top: 69px;
+    right: 0px;
+    background-color: #000 !important;
+
+    li  {
+      border-bottom: 1px solid #219ab3;
+    }
+    li > a {
+      background-color: transparent !important;
+    }
+
+    li > a:focus, li > a:hover {
+      background-color: transparent !important;
+    }
+
+    position: absolute;
+    z-index: 500;
+  }
+
+   .player-tabs > :last-child {
+      border-left: 1px solid #219ab3;
+    }
+
+
+  .tab-content {
+//      border: 1px solid #f00;
+    height: calc(100% - #{$player-header-height});
+      margin-top: 34px;
+//      top: 40px;
+//      width: 100%;
+    position: relative;
+  }
+
+    .row {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+
+//    .form-control {
+//      height: 24px !important;
+//    }
+
+
+  .schedule-day {
+    width: 14.28%;
+//      height: 100%;
+    height: 24px;
+    float: left;
+//      border: 1px solid #204d74;
+    border: 1px solid #219ab3;
+//      margin-top: 10px;
+//      text-align: center;
+
+text-align: center;
+vertical-align: middle;
+line-height: 24px;
+
+//      display: table-cell;
+//      vertical-align: middle;
+  }
+
+  .schedule-day:first-child  {
+//      color: #f00;
+    border-radius: 4px 0 0 4px;
+//      background: #f00;
+//      border-border: 10px 0 0 10px;
+  }
+
+  .schedule-day:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+
+  .handle-header {
+    width: 100%;
+    height: $header-height;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: bold;
+//      background-color: #333;
+    padding-top: 4px;
+//      padding-left: 10px;
+    color: #1a80b6;
+    border-bottom: 1px solid #219ab3;
+  }
+
+
+  .handle-list {
+    width: 100%;
+    height: $result-height;
+    position: relative;
+    overflow: auto;
+
+  }
+
+
+  .info-block {
+//      padding-bottom: 10px;
+  }
+
+  .info-block-xl {
+    padding-bottom: 5%;
+  }
+
+
+  .stats {
+    .player-rewards {
+//      position: relative;
+//      top: 24px;
+//      padding-top: 24px;
+//      .toolbar {
+//        top: 100px;
+//        position: absolute;
+    }
+  }
+
+
+
+
+
+  .player-time {
+//      width: 100%;
+    height: 85px;
+//      float: left;
+
+    margin: 10px;
+    padding:10px;
+
+    border: 1px solid #219ab3;
+    border-radius: 4px;
+  }
+
+  .player-handles  {
+    td, th {
+      height: 24px;
+    }
+  }
+
+
+  .verticalLine {
+    height: 100%;
+//      border-left: 1px solid #219ab3;
+    border-left: 1px solid #204d74 !important;
+//      border-right: 1px solid #219ab3;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+
+  .player-name-hdr {
+    padding-left: 60px;
+    color: #1a80b6;
+  }
+
+  .add-ship-button {
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .item-list {
+    height: 100%;
+//      height: calc(100vh - 428px);
+    overflow-y: auto;
+  }
+
+
+  //  .compact-table {
+  //    height: 100%;
+  //  }
+
+
+  .compact-table {
+    height: 200px;
+//      height: 100%;
+//      height: auto;
+//      width: auto;
+  }
+  .compact-table > tbody {
+//      height: 200px;
+    height: 100%;
+//      height: auto;
+    overflow-y:auto;
+    display:block;
+  }
+
+  .compact-table td, tr {
+    height: 14px;
+    border-bottom: 1px solid #333;
+  }
+
+  .compact-table > thead > tr > th,
+  .compact-table > tbody > tr > th,
+  .compact-table > tfoot > tr > th,
+  .compact-table > thead > tr > td,
+  .compact-table > tbody > tr > td,
+  .compact-table > tfoot > tr > td {
+    padding: 2px;
+  }
+
+  .ship-name {
+    width: 100%;
+  }
+
+  .ship-edit {
+    width: 20px;
+    text-align: right;
+  }
+
+//  }
+
+.ship-model-modal {
+  .dropdown-menu {
+    height: auto;
+    max-height: 300px;
+    width: 250px;
+    overflow-x: hidden;
+  }
+
+  .manu-img {
+    width: 24px;
+  }
+
+  .ship-manu {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 2px;
+    margin-right: 10px;
+  //    padding-top: 5px;
+    background-color: #000;
+    color: #1a80b6;
+    font-weight: bold;
+    border-bottom: 1px solid #1a80b6;
+  }
+}
+

@@ -14,8 +14,8 @@ Router.map(function() {
     });
 
 
-    this.route('members', { resetNamespace: true }, function() {
-      this.route('member', { path: '/:member_id' }, function() {
+    this.route('players', { resetNamespace: true }, function() {
+      this.route('player', { path: '/:player_id' }, function() {
         this.route('general');
         this.route('stats');
         this.route('items');

@@ -5,5 +5,5 @@ export default DS.Model.extend({
   name: DS.attr(),
   handle: DS.attr(),
   img: DS.attr(),
-  member: DS.belongsTo('member', { async: true }),
+  player: DS.belongsTo('player', { async: true }),
 });

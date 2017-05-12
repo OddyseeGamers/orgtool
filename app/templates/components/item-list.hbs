@@ -27,9 +27,9 @@
   </div>
 
 
-  {{#if (or session.current_user.is_admin member.loggedIn)}}
+  {{#if (or session.current_user.is_admin player.loggedIn)}}
     <div class="toolbar">
-      <button type="button" class="tb tb-default" {{action "addItem" member}}> <i class="fa fa-plus" ></i> Item</button>
+      <button type="button" class="tb tb-default" {{action "addItem" player}}> <i class="fa fa-plus" ></i> Item</button>
       <!--       {{#if (and adminMode session.current_user.is_admin)}} -->
       <!--         <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button> -->
       <!--         {{#if typeFilter}} -->

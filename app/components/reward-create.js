@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   columns: [100],
   itemHeight: 39,
 
-  merged: Ember.computed.union('reward.memberRewards'),
+  merged: Ember.computed.union('reward.playerRewards'),
 
   setup: Ember.on('init', function() {
   }),
@@ -36,22 +36,22 @@ export default Ember.Component.extend({
       this.set('showDialog', false);
     },
 
-    rewardMember: function(member) {
-      debug("add member", get(member, 'id'), "to", get(this.get('reward'), 'id'));
+    rewardMember: function(player) {
+      debug("add player", get(player, 'id'), "to", get(this.get('reward'), 'id'));
 
-      var memrew = get(this, 'store').createRecord('memberReward');
-      set(memrew, "member", member);
+      var memrew = get(this, 'store').createRecord('playerReward');
+      set(memrew, "player", player);
       set(memrew, "reward", this.get('reward'));
       memrew.save().then(function(done) {
         debug("saved....", get(done, "id"));
       }).catch(function(err) {
-        debug("member-reward save failed, err", err);
+        debug("player-reward save failed, err", err);
         memrew.rollbackAttributes();
       });
     },
 
     showConfirm: function(memUn) {
-      set(this, "msg", { "type": "delete", "item": memUn, "title": "Remove Reward", "content": "Do you really want to remove the reward '" + memUn.get("reward.name") + "' from member '" + memUn.get("member.name") + "'?" });
+      set(this, "msg", { "type": "delete", "item": memUn, "title": "Remove Reward", "content": "Do you really want to remove the reward '" + memUn.get("reward.name") + "' from player '" + memUn.get("player.name") + "'?" });
       set(this, "showConfirmDialog", true);
     },
 

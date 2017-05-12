@@ -1,12 +1,12 @@
 {{#bs-modal fade=false open=showDialog header=false body=false footer=false onHide=(action 'close') as |md|}}
 {{#md.header}}
-<!--     <div class="member-avatar"> -->
+<!--     <div class="player-avatar"> -->
   <h4 class="modal-title">
       {{#if model.img}}
-        <img class="member-avatar-img" style="width:42px;" src={{model.img}}>
+        <img class="player-avatar-img" style="width:42px;" src={{model.img}}>
       {{/if}}
 <!--     </div> -->
-<!--     <div class="member-name-hdr"> -->
+<!--     <div class="player-name-hdr"> -->
 <!--     </div> -->
     {{#if model.isNew}} Create {{else}} Edit {{/if}}
     Unit

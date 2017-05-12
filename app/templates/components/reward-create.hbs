@@ -45,15 +45,15 @@
   <div class="reward-mu-list">
     {{#if (and (not reward.isNew) (not-eq reward.type.id "2"))}}
       <div class="toolbar">
-        {{member-select onConfirm=(action "rewardMember") actionName="Reward"}}
+        {{player-select onConfirm=(action "rewardMember") actionName="Reward"}}
       </div>
     {{/if}}
 
     {{#ember-collection items=merged cell-layout=(percentage-columns-layout merged.length columns itemHeight) as |mu index|}}
         <div class="row" >
           <div class="col-md-3">
-            <img src={{mu.member.avatar}} style="width:32px"/>
-            {{mu.member.name}}
+            <img src={{mu.player.avatar}} style="width:32px"/>
+            {{mu.player.name}}
           </div>
           <div class="col-md-3">
             {{mu.unit.name}}
@@ -69,7 +69,7 @@
 
 
     {{!--
-            {{#each reward.memberUnits as |mu|}}
+            {{#each reward.playerUnits as |mu|}}
               <div class="row" >
                 <div class="col-md-1">
                 </div>
@@ -78,7 +78,7 @@
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-3">
-                  {{mu.member.name}}
+                  {{mu.player.name}}
                 </div>
                 <div class="col-md-1">
                   {{mu.unit.name}}

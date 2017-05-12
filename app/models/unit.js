@@ -9,9 +9,9 @@ export default DS.Model.extend({
   unitType: DS.belongsTo('unitType', { inverse: 'units', async: true }),
   unit: DS.belongsTo('unit', { inverse: 'units', async: true }),
   units: DS.hasMany('unit', { inverse: 'unit', async: true }),
-  members: DS.hasMany('member', { inverse: 'memberships', async: true }),
-  leaders: DS.hasMany('member', { inverse: 'leaderships', async: true }),
-  applicants: DS.hasMany('member', { inverse: 'applications', async: true }),
+  players: DS.hasMany('player', { inverse: 'playerships', async: true }),
+  leaders: DS.hasMany('player', { inverse: 'leaderships', async: true }),
+  applicants: DS.hasMany('player', { inverse: 'applications', async: true }),
 
   
 

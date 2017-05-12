@@ -186,7 +186,7 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 
 
 
-  .member-details-name {
+  .player-details-name {
     position: relative;
 //      right: -5px;
     width: 100%;
@@ -255,22 +255,22 @@ $overview-width: calc(100% - #{($pilot-width + $info-width)});
 
 @import 'overview/units';
 @import 'overview/chart';
-@import 'overview/members';
+@import 'overview/players';
 
 @import 'ships/ships';
 @import 'items/items';
 @import 'rewards/rewards';
 
-@import 'members/members';
-@import 'members/member';
+@import 'players/players';
+@import 'players/player';
 
 @import 'components/fancy-background';
 @import 'components/org-chart';
 @import 'components/unit-tree';
 @import 'components/unit-select';
-@import 'components/member-list';
-@import 'components/member-details';
-@import 'components/member-select';
+@import 'components/player-list';
+@import 'components/player-details';
+@import 'components/player-select';
 @import 'components/item-list';
 @import 'components/item-details';
 @import 'components/item-create';

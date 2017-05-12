@@ -11,7 +11,7 @@
       {{else}}
       Edit {{item.type.name}} of
       {{/if}}
-      {{item.member.name}}
+      {{item.player.name}}
     </h4>
   {{/md.header}}
   {{#md.body}}
@@ -168,12 +168,12 @@
         <label class="control-label">Owner</label>
         <div class="row">
           <div class="col-md-5">
-            {{member-details member=item.member details=false}}
+            {{player-details player=item.player details=false}}
           </div>
           <div class="col-md-1">
           </div>
           <div class="col-md-6 mem-sel">
-            {{member-select onConfirm=(action "changeOwner") actionName="Change"}}
+            {{player-select onConfirm=(action "changeOwner") actionName="Change"}}
           </div>
         </div>
       {{/if}}

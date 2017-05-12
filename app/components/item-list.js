@@ -36,8 +36,8 @@ export default Ember.Component.extend({
 
 
 /*
-    if (!Ember.isEmpty(get(this, "member"))) {
-      set(this, "items", get(this, "member").get("items"));
+    if (!Ember.isEmpty(get(this, "player"))) {
+      set(this, "items", get(this, "player").get("items"));
     } 
 
     var self = this;
@@ -69,9 +69,9 @@ export default Ember.Component.extend({
     var self = this;
 
 
-    debug("has member", get(this, "member"));
-    if (!Ember.isEmpty(get(this, "member"))) {
-      set(this, "items", get(this, "member").get("items"));
+    debug("has player", get(this, "player"));
+    if (!Ember.isEmpty(get(this, "player"))) {
+      set(this, "items", get(this, "player").get("items"));
     } else {
       get(this, 'store').findAll('item').then(function(items) {
         self.set('items', items);
@@ -89,7 +89,7 @@ export default Ember.Component.extend({
 //       get(this, 'store').findAll('item').then(function(types) {
 //         self.set('types', types);
 //       });
-//     } else if (get(this, "member")
+//     } else if (get(this, "player")
 
 //     get(this, 'store').findAll('itemType').then(function(types) {
 //       self.set('types', types);
@@ -112,8 +112,8 @@ export default Ember.Component.extend({
 
     debug("set filter ", typeFilter);
 
-    if (get(this, "member")) {
-      return get(this, "member").get("items");
+    if (get(this, "player")) {
+      return get(this, "player").get("items");
     } else {
       if (typeFilter == "cats") {
         return get(this, 'store').findAll('category');
@@ -136,7 +136,7 @@ export default Ember.Component.extend({
 
 //     }
 
-//     return get(this, "member").get("items");
+//     return get(this, "player").get("items");
 //     return get(this, "items");
 
 
@@ -148,8 +148,8 @@ export default Ember.Component.extend({
       return get(this, 'store').findAll('template');
     } else if (typeFilter == "items") {
       // items
-      if (!Ember.isEmpty(get(this, "member"))) {
-        return get(this, "member").get("items");
+      if (!Ember.isEmpty(get(this, "player"))) {
+        return get(this, "player").get("items");
       } else {
         return get(this, 'store').findAll('item');
       }
@@ -224,7 +224,7 @@ export default Ember.Component.extend({
       if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
-//           Ember.Logger.debug("has mem", get(get(msg, "item"), "member"));
+//           Ember.Logger.debug("has mem", get(get(msg, "item"), "player"));
 
           element.destroyRecord().then(function(nitem) {
             get(self, "session").log(typename, nitem.get("name") + " deleted");
@@ -262,9 +262,9 @@ export default Ember.Component.extend({
       debug("ADD ITEM");
       var item = get(this, "store").createRecord('item');
       get(this, "session").log("item", "new item created");
-      if (!Ember.isEmpty(get(this, "member"))) {
-        item.set('member', get(this, "member"));
-        get(this, "session").log("item", "added item to member " + get(this, "member").get("name"));
+      if (!Ember.isEmpty(get(this, "player"))) {
+        item.set('player', get(this, "player"));
+        get(this, "session").log("item", "added item to player " + get(this, "player").get("name"));
       }
       this.set('currItem', item);
       this.set('showItemDialog', true);

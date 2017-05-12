@@ -6,5 +6,6 @@ export default DS.Model.extend({
   inserted_at: DS.attr(),
   created_at: DS.attr(),
   is_admin: DS.attr(),
-  member: DS.belongsTo('member'),
+  player: DS.belongsTo('player'),
+  permission: DS.belongsTo('permission'),
 });

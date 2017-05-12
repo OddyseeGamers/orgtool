@@ -28,7 +28,7 @@ export default Ember.Controller.extend({
       self.set('leaderFilter', lead);
     });
     this.store.findRecord('reward', 8).then(function(mem) {
-      self.set('memberFilter', mem);
+      self.set('playerFilter', mem);
     });
   }),
 
@@ -55,30 +55,30 @@ export default Ember.Controller.extend({
 
   assign: function(data) {
     console.log("data", data)
-    var member = this.store.peekRecord('member', data.id);
+    var player = this.store.peekRecord('player', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
     switch (data.destType) {
-    case "member":
-      unit.get('members').pushObject(member).save().catch(function(err) {
+    case "player":
+      unit.get('players').pushObject(player).save().catch(function(err) {
          unit.rollback();
       });
       break;
     case "leader":
-      unit.get('leaders').pushObject(member).save().catch(function(err) {
+      unit.get('leaders').pushObject(player).save().catch(function(err) {
          unit.rollback();
       });
       break;
     case "applicant":
-      unit.get('applicants').pushObject(member).save().catch(function(err) {
+      unit.get('applicants').pushObject(player).save().catch(function(err) {
          unit.rollback();
       });
       break;
     }
     
-//     Ember.Logger.debug(">>>> assign", data, member.get("name"));
+//     Ember.Logger.debug(">>>> assign", data, player.get("name"));
 
-//     var cu = get(member, 'memberUnits');
+//     var cu = get(player, 'playerUnits');
 //     var found = false;
 //     var memUn;
 
@@ -91,31 +91,31 @@ export default Ember.Controller.extend({
 //     }
 
 //     if (!found) {
-//       memUn = this.store.createRecord('memberUnit');
-//       memUn.set('member', member);
+//       memUn = this.store.createRecord('playerUnit');
+//       memUn.set('player', player);
 //       memUn.set('unit', unit);
-//       this.get("session").log("assign", 'assign member:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
+//       this.get("session").log("assign", 'assign player:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
 //     } else {
-//       this.get("session").log("assign", 'changing position of member:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
+//       this.get("session").log("assign", 'changing position of player:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
 //     }
 
 //     if (data.destType == "leader") {
 //       memUn.set('reward', this.store.peekRecord('reward', 7));
 // //       memUn.set('reward', this.leaderFilter);
-//     } else if (data.destType == "member" || data.destType == "path") {
+//     } else if (data.destType == "player" || data.destType == "path") {
 //       memUn.set('reward', this.store.peekRecord('reward', 8));
-// //       memUn.set('reward', this.memberFilter);
+// //       memUn.set('reward', this.playerFilter);
 //     } else if (data.destType == "applicant") {
 //       memUn.set('reward', this.store.peekRecord('reward', 9));
-// //       memUn.set('reward', this.memberFilter);
+// //       memUn.set('reward', this.playerFilter);
 //     }
 
 //       var self = this;
 //       self.set('loading', true);
 //       memUn.save().then(function() {
-//         self.get("session").log("assign", "member assigned " + data.id);
+//         self.get("session").log("assign", "player assigned " + data.id);
 //       }).catch(function(err) {
-//         self.get("session").log("error", "assigning member " + data.id);
+//         self.get("session").log("error", "assigning player " + data.id);
 //         Ember.Logger.debug("assign err", err);
 //         memUn.rollback();
 //       });
@@ -124,10 +124,10 @@ export default Ember.Controller.extend({
 
 
   unassign: function(data) {
-    var member = this.store.peekRecord('member', data.id);
+    var player = this.store.peekRecord('player', data.id);
     var unit = this.store.peekRecord('unit', data.dest);
 
-    var units = get(member, 'units');
+    var units = get(player, 'units');
     var found = false;
     var memUn;
     for (var i = 0; i < get(cu, 'length') && !found; i++) {
@@ -140,12 +140,12 @@ export default Ember.Controller.extend({
 
     if (found) {
       var self = this;
-      this.get("session").log("unassign", 'unassign member:' + data.id + ' from unit: ' + data.dest);
+      this.get("session").log("unassign", 'unassign player:' + data.id + ' from unit: ' + data.dest);
 //       self.set('loading', true);
       memUn.destroyRecord().then(function() {
-        self.get("session").log("unassign", "member unassigned " + data.id);
+        self.get("session").log("unassign", "player unassigned " + data.id);
       }).catch(function(err) {
-        self.get("session").log("error", "unassigning member " + get(member, 'id'));
+        self.get("session").log("error", "unassigning player " + get(player, 'id'));
         Ember.Logger.debug("unassign err", err);
         memUn.rollback();
       });

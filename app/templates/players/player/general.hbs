@@ -1,0 +1,180 @@
+<div class="panel panel-default">
+<div class="col-md-2">
+    <div class="player-details-name">
+      {{!-- TODO: fix ie and edge
+      --}}
+      {{#if (or session.current_user.is_admin model.loggedIn)}}
+      <div class="toolbar">
+        {{#bs-dropdown model=model closeOnMenuClick=false as |dd|}}
+        {{#dd.button type="tb"}}<i class="fa fa-edit"></i>{{/dd.button}}
+        {{#dd.menu align="left"}}
+          <li>
+            {{textarea autofocus=true rows=3 wrap=true form=true required=true value=(mut (get model "avatar")) enter="saveAvatar"}} 
+          </li>
+        {{/dd.menu}}
+        {{/bs-dropdown}}
+      </div>
+      {{/if}}
+
+      {{#if model.avatar}}
+        <img class="player-details-img" src={{model.avatar}}>
+      {{else}}
+        <div class="player-details-img text-center" style="padding: 25%;height: auto;">
+          <i class="fa fa-user-o fa-2x" style="color:#666;"></i>
+        </div>
+      {{/if}}
+    </div>
+</div>
+
+  <div class="col-md-1">
+  </div>
+
+  <div class="col-md-9">
+    {{#if session.current_user.is_admin}}
+      <div class="row info-block">
+        <div class="col-md-2">
+          <label class="control-label">WP ID</label>
+        </div>
+        <div class="col-md-1">
+          {{input type="text" class="form-control" value=model.wp_id}}
+        </div>
+
+        <div class="col-md-9">
+        </div>
+      </div>
+    {{/if}}
+
+
+    <div class="row info-block">
+      <div class="col-md-2">
+        <label class="control-label">Name</label>
+      </div>
+      <div class="col-md-3">
+        {{input type="text" class="form-control" value=model.name readonly=(not (or session.current_user.is_admin model.loggedIn))}}
+      </div>
+
+      <div class="col-md-1">
+      </div>
+
+      <div class="col-md-2">
+        <label class="control-label">Rank</label>
+      </div>
+      <div class="col-md-2">
+        {{get-uniq rank "reward.name"}}
+      </div>
+
+      <div class="col-md-1">
+            {{!--
+        {{#if (or session.current_user.is_admin model.loggedIn)}}
+            {{player-select actionName="Promote"}}
+            {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
+        {{/if}}
+            --}}
+      </div>
+    </div>
+
+
+    <div class="row info-block-xl">
+      <div class="col-md-2">
+        <label class="control-label">Timezone</label>
+      </div>
+      <div class="col-md-1">
+        {{input type="number" class="form-control" value=model.timezone readonly=(not (or session.current_user.is_admin model.loggedIn))}}
+      </div>
+
+      <div class="col-md-1">
+        <label class="control-label">UTC</label>
+      </div>
+
+      <div class="col-md-2">
+      </div>
+
+      <div class="col-md-2">
+        <label class="control-label">LFG Level</label>
+      </div>
+
+      <div class="col-md-2">
+      </div>
+
+    </div>
+
+
+    <div class="row info-block-xl">
+      <div class="col-md-2">
+        <label class="control-label">Schedule</label>
+      </div>
+
+      <div class="col-md-3">
+        <div class="schedule-day">Su</div>
+        <div class="schedule-day">Mo</div>
+        <div class="schedule-day">Tu</div>
+        <div class="schedule-day">We</div>
+        <div class="schedule-day">Th</div>
+        <div class="schedule-day">Fr</div>
+        <div class="schedule-day">Sa</div>
+      </div>
+
+      <div class="col-md-1">
+      </div>
+
+      <div class="col-md-6">
+          {{#if (or session.current_user.is_admin model.loggedIn)}}
+              <div class="toolbar">
+                <button class="tb tb-default" type="button"  {{action 'addHandle' model}}><i class="fa fa-plus"></i></button>
+              </div>
+          {{/if}}
+
+          <div class="handle-header">
+            <div class="col-md-3 player-list-header-name">
+              Service
+            </div>
+            <div class="col-md-3">
+              Handle
+            </div>
+            <div class="col-md-5">
+              Name
+            </div>
+            <div class="col-md-1">
+            </div>
+          </div>
+
+          <div class="handle-list">
+            {{#each model.handles as |hand|}}
+            <div class="row">
+            <div class="col-md-3">
+                  {{#if (eq hand.type "rsi")}}
+                    <img src="https://robertsspaceindustries.com/media/tb6ui8j38wwscr/icon/RSI.png" style="width:20px;height:20px">
+                    <b>RSI</b>
+                  {{/if}}
+                  {{#if (eq hand.type "discord")}}
+                    <img src="http://vignette3.wikia.nocookie.net/siivagunner/images/9/9f/Discord_icon.svg" style="width:20px;height:20px">
+                    <b>Discord</b>
+                  {{/if}}
+                  {{#if (eq hand.type "steam")}}
+                    <img src="http://icons.iconarchive.com/icons/martz90/circle/24/steam-icon.png" style="width:20px;height:20px">
+                    <b>Steam</b>
+                  {{/if}}
+              </div>
+              <div class="col-md-3">
+                <img src={{hand.img}} style="width:18px; height: 18px;"/> {{hand.handle}}
+              </div>
+
+              <div class="col-md-5">
+                {{hand.name}}
+              </div>
+              <div class="col-md-1">
+                  {{#if (or session.current_user.is_admin model.loggedIn)}}
+                    <button class="tb" type="button" {{action 'editHandle' hand}}><i class="fa fa-edit"></i></button>
+                  {{else}}
+                     &nbsp;
+                  {{/if}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

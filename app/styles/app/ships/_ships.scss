@@ -27,7 +27,7 @@ $ship-height: calc(100% - #{$mod-height});
     overflow-y:auto;
   }
 
-  .member-avatar {
+  .player-avatar {
     width: 29px;
     float: left;
   }
@@ -58,7 +58,7 @@ $ship-height: calc(100% - #{$mod-height});
     padding-top: 2px;
   }
 
-  .member-ships {
+  .player-ships {
 //      height: 100px;
     overflow: auto;
 //      position: relative;

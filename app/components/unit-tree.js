@@ -12,18 +12,18 @@ export default Ember.Component.extend({
   showMembers: true,
   showApplicants: true,
 
-  //   seven: Ember.computed.filterBy('unit.memberUnits.@each', 'reward', 7),
+  //   seven: Ember.computed.filterBy('unit.playerUnits.@each', 'reward', 7),
 
   setup: Ember.on('init', function() {
     var level = this.get('level');
     var unit = this.get('unit');
     if (unit) {
       var leaders = unit.get('leaders');
-      var members = unit.get('members');
+      var players = unit.get('players');
       var aplicants = unit.get('applicants')
 
       this.set("leaders", leaders);
-      this.set("members", members);
+      this.set("players", players);
       this.set("applicants", aplicants);
     }
 
@@ -52,7 +52,7 @@ export default Ember.Component.extend({
   }),
 
   onNodeDropped: function(event, ui) {
-    var id = parseInt(ui.draggable.data('memberid'));
+    var id = parseInt(ui.draggable.data('playerid'));
     var unitid = $(event.target).data('unitid');
     Ember.Logger.debug("droped here", id, unitid);
   },
@@ -72,9 +72,9 @@ export default Ember.Component.extend({
       this.set('showApplicants', ! this.get('showApplicants'));
     },
 
-    unassignMember: function(member) {
-      console.log("unassign!", member)
-      this.get('eventManager').trigger('unassign', { 'id': member.get('id'), 'type': 'member', 'dest': this.get('unit.id'), 'destType': "unit" } );
+    unassignMember: function(player) {
+      console.log("unassign!", player)
+      this.get('eventManager').trigger('unassign', { 'id': player.get('id'), 'type': 'player', 'dest': this.get('unit.id'), 'destType': "unit" } );
     },
 
 

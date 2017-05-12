@@ -81,7 +81,7 @@
 
       <div style="clear:both;"/>
 
-      <div class="member-container unit-leader-container" data-unitid={{unit.id}}>
+      <div class="player-container unit-leader-container" data-unitid={{unit.id}}>
         <a class="toggleElement" {{action 'toggleLeader'}}>
           <i class="fixedWidth fa {{if showLeader "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
           Leader: {{leaders.length}}
@@ -90,7 +90,7 @@
         {{#if showLeader}}
           <div class="unit-pilots">
             {{#each leaders as |lead|}}
-              {{member-details member=lead draggable=true unit=unit type="leaders"}}
+              {{player-details player=lead draggable=true unit=unit type="leaders"}}
             {{/each}}
           </div>
 
@@ -105,27 +105,27 @@
         <div style="clear: both"/>
       </div>
 
-      <div class="member-container unit-pilots-container" data-unitid={{unit.id}}>
+      <div class="player-container unit-pilots-container" data-unitid={{unit.id}}>
         <a class="toggleElement" {{action 'toggleMembers'}}>
           <i class="fixedWidth fa {{if showMembers "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
-          Member: {{members.length}}
+          Member: {{players.length}}
         </a>
 
         {{#if showMembers}}
           <div class="unit-pilots">
-            {{#each members as |mem|}}
-              {{member-details member=mem draggable=true unit=unit type="members"}}
+            {{#each players as |mem|}}
+              {{player-details player=mem draggable=true unit=unit type="players"}}
             {{/each}}
           </div>
         {{else}}
-          {{#each members as |mem|}}
+          {{#each players as |mem|}}
             <img class="mem-sm" style="width:16px; height: 16px;" src={{mem.avatar}}/>
           {{/each}}
         {{/if}}
       </div>
 
 
-      <div class="member-container unit-pilots-container">
+      <div class="player-container unit-pilots-container">
         <a class="toggleElement" {{action 'toggleApplicants'}}>
           <i class="fixedWidth fa {{if showApplicants "fa-chevron-circle-down" "fa-chevron-circle-right"}}"></i>
           Applications: {{applicants.length}}
@@ -134,7 +134,7 @@
         {{#if showApplicants}}
           <div class="unit-pilots">
             {{#each applicants as |mem|}}
-              {{member-details member=mem draggable=true unit=unit type="applicants"}}
+              {{player-details player=mem draggable=true unit=unit type="applicants"}}
             {{/each}}
           </div>
         {{/if}}

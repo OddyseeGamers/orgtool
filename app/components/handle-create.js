@@ -80,9 +80,9 @@ export default Ember.Component.extend({
           });
         }
 
-        if (!Ember.isEmpty(item.get("member")) && !Ember.isEmpty(item.get("member").get("items"))) {
+        if (!Ember.isEmpty(item.get("player")) && !Ember.isEmpty(item.get("player").get("items"))) {
 //         Ember.Logger.debug(">>> RELOAD  MEMBER");
-//           item.get("member").get("items").reload();
+//           item.get("player").get("items").reload();
         } 
 
       }*/
