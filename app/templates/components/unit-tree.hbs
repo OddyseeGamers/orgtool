@@ -6,7 +6,7 @@
     <!--   <div class="unit-info"> -->
     <div class="box">
 
-      {{#if session.isAdmin}}
+      {{#if session.current_user.is_admin}}
         <div class="toolbar">
           {{#bs-dropdown class="unit-menu" as |dd|}}
             {{#dd.toggle}}

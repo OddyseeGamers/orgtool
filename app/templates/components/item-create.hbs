@@ -1,5 +1,5 @@
 {{!--
-{{#if (and session.isUser showDialog)}}
+{{#if (and session.current_user showDialog)}}
 --}}
 {{#if showDialog}}
 
@@ -164,7 +164,7 @@
     </div>
 
     <div class="row">
-      {{#if (and session.isAdmin (eq item.type.permissions "1"))}}
+      {{#if (and session.current_user.is_admin (eq item.type.permissions "1"))}}
         <label class="control-label">Owner</label>
         <div class="row">
           <div class="col-md-5">
@@ -238,7 +238,7 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#if session.isAdmin}}
+    {{#if session.current_user.is_admin}}
 <!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
       <button type="submit" class="btn btn-primary" {{action "saveItem"}} disabled={{cannotSave}} >  
         {{fa-icon "save"}} Save

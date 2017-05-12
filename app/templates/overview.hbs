@@ -13,7 +13,7 @@
 </div>
 
 <div id="info">
-  {{#if session.isAdmin}}
+  {{#if session.current_user.is_admin}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action (toggle this "showMembers")}}> <i class="fa fa-eye" ></i> {{if showMembers "Fleet" "Members"}}</button>
     </div>
@@ -34,7 +34,7 @@
         {{/ember-collection}}
     {{/if}}
 
-    {{#if (and session.isAdmin showMembers)}}
+    {{#if (and session.current_user.is_admin showMembers)}}
       {{member-list members=members draggable=true details=false}}
     {{/if}}
   </div>

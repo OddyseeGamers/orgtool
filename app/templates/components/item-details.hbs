@@ -1,4 +1,4 @@
-{{#if (and tb (or session.isAdmin (or item.member.loggedIn count)))}}
+{{#if (and tb (or session.current_user.is_admin (or item.member.loggedIn count)))}}
 
 <div class="toolbar">
   {{#if count}}

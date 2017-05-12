@@ -1,5 +1,5 @@
 <div class="lfg">
-  {{#if session.isAdmin}}
+  {{#if session.current_user.is_admin}}
     <button type="button" class="btn btn-default" {{action "createEvent"}}>{{fa-icon "close"}} Create Event</button>
   {{/if}}
 </div>

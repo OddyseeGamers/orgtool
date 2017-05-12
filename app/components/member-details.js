@@ -14,8 +14,8 @@ export default Ember.Component.extend({
   memberid: Ember.computed.alias('member.id'),
   lastElement: null,
   lastColor: null,
-  canDrag: Ember.computed.and('draggable', 'session.isAdmin'),
-  canUnassign: Ember.computed.and('unit', 'session.isAdmin'),
+  canDrag: Ember.computed.and('draggable', 'session.current_user.is_admin'),
+  canUnassign: Ember.computed.and('unit', 'session.current_user.is_admin'),
 
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
@@ -39,7 +39,7 @@ export default Ember.Component.extend({
     if (this.$().data('ui-draggable') === undefined) {
       this.createDraggable();
     }
-  }.observes('session.isAdmin'),
+  }.observes('session.current_user.is_admin'),
 
   createDraggable: function() {
     this.$().draggable({

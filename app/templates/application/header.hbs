@@ -9,7 +9,7 @@
         {{/each}}
       {{else}}
         {{#if session.current_user}}
-          <i class={{if session.isAdmin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
+          <i class={{if session.current_user.is_admin "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
         {{/if}}
       {{/if}}
 
@@ -22,7 +22,7 @@
       </button> Fancy Background
     </li>
 
-    {{#if session.isAdmin}}
+    {{#if session.current_user.is_admin}}
       <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
       <li class="pull-right" >{{#link-to 'settings'}}<i class="fa fa-gear"></i> Settings{{/link-to}}</li>
       <li class="pull-right" >{{#link-to 'lfg'}}<i class="fa fa-gamepad"></i> LFG{{/link-to}}</li>

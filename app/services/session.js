@@ -42,9 +42,9 @@ export default Ember.Service.extend({
     if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
       var userid = session.sub.split(':')[1];
       Ember.Logger.log("session", session);
-      return self.get('store').findRecord('user', userid).then(function(mem) {
-        Ember.Logger.log("found", get(mem, "name"));
-        self.setUser(session, mem);
+      return self.get('store').findRecord('user', userid).then(function(user) {
+        Ember.Logger.log("found", get(user, "name"));
+        self.setUser(session, user);
       }).catch(function(err) {
         Ember.Logger.log("error", err);
         self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
@@ -72,8 +72,9 @@ export default Ember.Service.extend({
   setUser: function(session, user) {
   var self = this;
     if (!Ember.isEmpty(user)) {
-      mem.set("loggedIn", true);
+//       mem.set("loggedIn", true);
       self.set("current_user", user);
+      Ember.Logger.log(">>> USER", user.serialize());
 //       self.set("user", mem);
 //       self.set("isUser", true);
 //       self.set("current_user.id", get(mem, "id"));

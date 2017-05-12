@@ -1,5 +1,5 @@
 {{!--
-{{#if (and session.isUser showDialog)}}
+{{#if (and session.current_user showDialog)}}
 --}}
 {{#if showDialog}}
 
@@ -81,7 +81,7 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#if session.isAdmin}}
+    {{#if session.current_user.is_admin}}
       <button type="submit" class="btn btn-danger" {{action "deleteItemType" itemType}} disabled={{ItemType.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
       <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}} disabled={{if (or (not requiredFields) (not itemType.hasDirtyAttributes)) true false}} >
         {{fa-icon "save"}} Save

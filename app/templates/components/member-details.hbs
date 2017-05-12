@@ -49,7 +49,7 @@
       </div>
 
       <div class="col-md-4">
-        {{#if session.isAdmin}}
+        {{#if session.current_user.is_admin}}
           {{#if member.wp_id}}
             <i class="fa fa-check text-success"></i>
           {{/if}}
