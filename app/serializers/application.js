@@ -3,16 +3,27 @@ import Ember from 'ember';
 import config from '../config/environment';
 
 export default DS.JSONAPISerializer.extend({
+  modelNameFromPayloadKey: function(key) {
+  //     Ember.Logger.log("---> model", key);
+    return Ember.String.singularize(key); //this.normalizeModelName(key));
+  },
 
+  payloadKeyFromModelName: function(modelName) {
+      return Ember.String.singularize(modelName);
+  },
 
-modelNameFromPayloadKey: function(key) {
-//     Ember.Logger.log("---> model", key);
-  return Ember.String.singularize(key); //this.normalizeModelName(key));
-},
-payloadKeyFromModelName: function(modelName) {
-    return Ember.String.singularize(modelName);
-},
+/*
+  keyForAttribute: function(attr) {
+    Ember.Logger.log("---> KEY", attr);
+//     return Ember.String.underscore(attr);
 
+    if (attr === 'is_admin') {
+      attr = 'is-admin';
+    }
+
+    return this._super(...arguments);
+  },
+*/
 
   /*
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {

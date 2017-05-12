@@ -46,8 +46,8 @@
       <br>
     {{/md.body}}
     {{#md.footer}}
-    {{#if session.current_user.is_admin}}
-<!--       type: {{model.type.id}}, attr: {{model.hasDirtyAttributes}} -->
+
+    {{#if session.current_user.permission.unit_edit}}
 <!--       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button> -->
         <button type="submit" class="btn btn-primary" {{action "submit"}} disabled={{if (or (not model.unit-type.id) model.hasDirtyAttributes) false true}} >  
         {{fa-icon "save"}} Save

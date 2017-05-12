@@ -7,12 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-//     this.route('overview');
     this.route('overview', { resetNamespace: true }, function() {
       this.route('unit', { path: '/:unit_id' }, function() {
       });
     });
-
 
     this.route('players', { resetNamespace: true }, function() {
       this.route('player', { path: '/:player_id' }, function() {
@@ -22,10 +20,13 @@ Router.map(function() {
       });
     });
 
+    this.route('users', { resetNamespace: true }, function() {
+      this.route('user', { path: '/:user_id' }, function() {
+      });
+    });
+
     this.route('lfg');
     this.route('log');
-//     this.route('items');
-//     this.route('rewards');
 
     this.route('settings', { resetNamespace: true }, function() {
       this.route('items');

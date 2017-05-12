@@ -146,11 +146,7 @@ export default Ember.Component.extend({
   },
 
   _serializeUnit: function(obj) {
-      var ret = {};
-      ret.id = get(obj, 'id');
-      ret.name = get(obj, 'name');
-      ret.color = get(obj, 'color');
-      return ret;
+      return {id: get(obj, 'id'), name: get(obj, 'name'), color: get(obj, 'color')};
   },
 
   _serializeChildren: function(obj) {

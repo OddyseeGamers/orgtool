@@ -1,0 +1,63 @@
+<div class="players">
+  <div class="panel panel-default panel-player-filter">
+
+  <div class="panel-body">
+    <div class="col-md-12">
+      Name
+      <div class="input-group">
+        {{input type="text" class="form-control" value=searchFilter}}
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"  {{action 'clearFilter'}}><i class="fa fa-eraser"></i></button>
+        </span>
+      </div><!-- /input-group -->
+    </div>
+<!--       <hr> -->
+
+      <div class="col-md-12">
+        <div class="filter-stats">
+          Members: {{filteredContent.length}} / {{users.length}} 
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="panel panel-player-list">
+    <div class="player-list-header">
+     
+      <div class="col-md-3 player-list-header-name">
+        Name
+      </div>
+      <div class="col-md-3">
+        Handle
+      </div>
+      <div class="col-md-4">
+        Units
+      </div>
+      <div class="col-md-1">
+        -
+      </div>
+      <div class="col-md-1">
+        TZ/Items
+      </div>
+      
+    </div>
+    <div class="player-list-result">
+      {{#each model as |user|}}
+      {{user.name}} - {{user.email}}
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+{{outlet}}
+
+
+{{!--
+
+      {{#if filteredContent}}
+      {{#ember-collection items=sortedContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |player index|}}
+        {{player-details player=player draggable=draggable details=true}}
+      {{/ember-collection}}
+      {{/if}}
+ --}}

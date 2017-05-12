@@ -1,0 +1,51 @@
+{{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false onHide=(action 'close') class="player-modal" as |md|}}
+  {{#md.header}}
+      <h4>
+        {{#if model.loggedIn}} My profile {{/if}}
+        {{#if model.name}} {{model.name}} {{else}} &nbsp; {{/if}}
+        {{#if model.hasDirtyAttributes}}
+          <span class="text-danger">[modified]</span>
+        {{/if}}
+      </h4>
+
+  <ul class="nav nav-tabs player-tabs">
+    <li class="pull-right"> {{#link-to 'players.player.items' model.id}}<i class="fa fa-cubes"></i> Items{{/link-to}} </li>
+    <li class="pull-right"> {{#link-to 'players.player.stats' model.id}}<i class="fa fa-trophy"></i> Stats{{/link-to}} </li>
+    <li class="pull-right"> {{#link-to 'players.player.general' model.id}}<i class="fa fa-user-o"></i> General{{/link-to}} </li>
+  </ul>
+
+  {{/md.header}}
+
+  {{#md.body}}
+
+
+  <div class="tab-content">
+    {{outlet}}
+  </div>
+
+
+  {{/md.body}}
+
+  {{#md.footer}}
+    {{#if session.current_user.is_admin}}
+      <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "user-times"}} Delete</button>
+    {{/if}}
+
+    {{#if (or session.current_user.is_admin model.loggedIn)}}
+      <button type="submit" class="btn btn-primary" {{action "saveMember" model}} disabled={{if model.hasDirtyAttributes false true}}>{{fa-icon "save"}} Save</button>
+    {{/if}}
+
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
+
+  {{/md.footer}}
+{{/bs-modal}}
+
+
+{{#if showHandleDialog}}
+  {{handle-create handle=currHandle showDialog=showHandleDialog}}
+{{/if}}
+
+{{#if showConfirmDialog}}
+  {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
+{{/if}}
+

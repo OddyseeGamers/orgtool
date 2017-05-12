@@ -22,13 +22,25 @@
       </button> Fancy Background
     </li>
 
-    {{#if session.current_user.is_admin}}
-      <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
-      <li class="pull-right" >{{#link-to 'settings'}}<i class="fa fa-gear"></i> Settings{{/link-to}}</li>
-      <li class="pull-right" >{{#link-to 'lfg'}}<i class="fa fa-gamepad"></i> LFG{{/link-to}}</li>
+    {{#if (or session.current_user.read_users session.current_user.read_rewards)}}
+      {{partial 'application/settings-menu'}}
+
+<!--       <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li> -->
+<!--       <li class="pull-right" >{{#link-to 'settings'}}<i class="fa fa-gear"></i> Settings{{/link-to}}</li> -->
+<!--       <li class="pull-right" >{{#link-to 'lfg'}}<i class="fa fa-gamepad"></i> LFG{{/link-to}}</li> -->
     {{/if}}
 
-    <li class="pull-right" >{{#link-to 'players'}}<i class="fa fa-users"></i> Members{{/link-to}}</li>
-    <li class="pull-right" >{{#link-to 'overview'}}<i class="fa fa-pie-chart"></i> Overview{{/link-to}}</li>
+    {{#if session.current_user.permission.user_read}}
+      <li class="pull-right" >{{#link-to 'users'}}<i class="fa fa-users"></i> Users{{/link-to}}</li>
+    {{/if}}
+
+    {{#if session.current_user.permission.player_read}}
+      <li class="pull-right" >{{#link-to 'players'}}<i class="fa fa-users"></i> Players{{/link-to}}</li>
+    {{/if}}
+
+    {{#if session.current_user.permission.unit_read}}
+      <li class="pull-right" >{{#link-to 'overview'}}<i class="fa fa-pie-chart"></i> Overview{{/link-to}}</li>
+    {{/if}}
+
   </ul>
 </div>

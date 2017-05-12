@@ -13,7 +13,6 @@ export default Ember.Service.extend({
   statesDone: 16,
   state: Ember.A(),
   current_user: null,
-  pers: { read: 1, create: 2, edit: 4, delete: 8, assign: 16, accept: 32, apply: 64 },
 
   init: function() {
     var self = this;

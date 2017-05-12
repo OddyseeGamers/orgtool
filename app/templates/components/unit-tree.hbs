@@ -2,20 +2,30 @@
   <div class="unit-tree">
     {{!-- DEPRICATED:
        <div class="unit-info" style="background-color: {{hex-to-rgba unit.color ".2"}}">
+      {{#if session.current_user.is_admin}}
+
        --}}
     <!--   <div class="unit-info"> -->
     <div class="box">
 
-      {{#if session.current_user.is_admin}}
+      {{#if (or (or session.current_user.permission.unit_create session.current_user.permission.unit_edit)  session.current_user.permission.unit_delete)}}
         <div class="toolbar">
           {{#bs-dropdown class="unit-menu" as |dd|}}
             {{#dd.toggle}}
               <button type="button" class="tb tb-default">{{fa-icon "gear"}}</button>
             {{/dd.toggle}}
             {{#dd.menu class="pull-right"}}
-              <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add</a></li>
-              <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit</a></li>
-              <li><a {{action 'deleteUnit'}} style="color: #f00;" href="#">{{fa-icon "remove"}} Delete</a></li>
+              {{#if session.current_user.permission.unit_create}}
+                <li><a {{action 'addUnit'}} href="#">{{fa-icon "plus"}} Add</a></li>
+              {{/if}}
+
+              {{#if session.current_user.permission.unit_edit}}
+                <li><a {{action 'editUnit'}} href="#">{{fa-icon "pencil-square-o"}} Edit</a></li>
+              {{/if}}
+
+              {{#if session.current_user.permission.unit_delete}}
+                <li><a {{action 'deleteUnit'}} style="color: #f00;" href="#">{{fa-icon "remove"}} Delete</a></li>
+              {{/if}}
             {{/dd.menu}}
           {{/bs-dropdown}}
         </div>
