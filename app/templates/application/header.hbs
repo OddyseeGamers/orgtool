@@ -22,16 +22,17 @@
       </button> Fancy Background
     </li>
 
-    {{#if (or session.current_user.read_users session.current_user.read_rewards)}}
-      {{partial 'application/settings-menu'}}
 
+    {{!--
+    {{#if (or session.current_user.permission.user_read session.current_user.permission.reward_read)}}
+    --}}
+    {{#if session.current_user.permission.settings}}
+      <li class="pull-right" >
+        {{partial 'application/settings-menu'}}
+      </li>
 <!--       <li class="pull-right" >{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li> -->
 <!--       <li class="pull-right" >{{#link-to 'settings'}}<i class="fa fa-gear"></i> Settings{{/link-to}}</li> -->
 <!--       <li class="pull-right" >{{#link-to 'lfg'}}<i class="fa fa-gamepad"></i> LFG{{/link-to}}</li> -->
-    {{/if}}
-
-    {{#if session.current_user.permission.user_read}}
-      <li class="pull-right" >{{#link-to 'users'}}<i class="fa fa-users"></i> Users{{/link-to}}</li>
     {{/if}}
 
     {{#if session.current_user.permission.player_read}}

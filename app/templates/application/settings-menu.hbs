@@ -1,8 +1,30 @@
 {{#bs-dropdown as |dd|}}
-  {{#dd.button type="trans"}}<i class="fa fa-cog"></i>{{/dd.button}}
+  {{#dd.button type="borderless"}}<i class="fa fa-cog"></i>{{/dd.button}}
+  {{#dd.menu align="right"}}
+    {{#if session.current_user.permission.user_read}}
+      <li>{{#link-to 'users'}}<i class="fa fa-users"></i> Users{{/link-to}}</li>
+    {{/if}}
+
+    {{#if session.current_user.permission.item_read}}
+      <li>{{#link-to 'settings.items'}}<i class="fa fa-cubes"></i> Items{{/link-to}}</li>
+    {{/if}}
+
+    {{#if session.current_user.permission.reward_read}}
+      <li>{{#link-to 'settings.rewards'}}<i class="fa fa-trophy"></i> Rewards{{/link-to}}</li>
+    {{/if}}
+
+    <li>{{#link-to 'log'}}<i class="fa fa-history"></i> Log{{/link-to}}</li>
+
+<!--     <li class="pull-right" >{{#link-to 'settings.rewards'}}<i class="fa fa-trophy"></i> Rewards{{/link-to}}</li> -->
+<!--     <li class="pull-right" >{{#link-to 'settings.items'}}<i class="fa fa-cubes"></i> Items{{/link-to}}</li> -->
+
+
+  {{!--
+
   {{#dd.menu align="right" id="set-menu"}}
-    <li class="disabled"><a href="#"><i class="fa fa-users"></i> Members</a></li>
+    <li class="disabled"><a href="#"><i class="fa fa-users"></i> Users</a></li>
     <li class="disabled"><a href="#"><i class="fa fa-trophy"></i> Rewards</a></li>
-    <li>{{#link-to 'settings.ships'}}<i class="fa fa-paper-plane"></i> Ship Models{{/link-to}}</li>
+    <li class="disabled"><a href="#"><i class="fa fa-trophy"></i> Items</a></li>
+    --}}
   {{/dd.menu}}
 {{/bs-dropdown}}

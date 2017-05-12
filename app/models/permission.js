@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -43,4 +44,9 @@ export default DS.Model.extend({
 
   inserted_at: DS.attr(),
   created_at: DS.attr(),
+
+
+  settings: Ember.computed('user_read', 'item_read', 'reward_read', function() {
+    return this.get('user_read') || this.get('item_read') || this.get('reward_read');
+  }),
 });

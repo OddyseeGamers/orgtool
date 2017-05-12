@@ -7,7 +7,5 @@ export default DS.Model.extend({
 
   category: DS.belongsTo('category', { async: true }),
 
-//   items: DS.hasMany('item', { inverse: 'template_id', async: true }),
   items: DS.hasMany('item', { async: true }),
-
 });
