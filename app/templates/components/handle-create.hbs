@@ -62,7 +62,7 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#if session.current_user.is_admin}}
+    {{#if session.current_user.permission.player_edit}}
       <button type="submit" class="btn btn-danger" {{action "deleteHandle"}} disabled={{handle.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
       <button type="submit" class="btn btn-primary" {{action "saveHandle"}} disabled={{if handle.hasDirtyAttributes false true}} >  
         {{fa-icon "save"}} Save

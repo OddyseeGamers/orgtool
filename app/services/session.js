@@ -9,14 +9,15 @@ export default Ember.Service.extend({
   isUser: false,
   store: Ember.inject.service(),
   user: null,
-  loading: true,
+  loading: false,
   statesDone: 16,
   state: Ember.A(),
   current_user: null,
 
   init: function() {
+//     Ember.Logger.log(">>> init >>>> session");
     var self = this;
-    self.set('loading', true);
+//     self.set('loading', true);
     self.set('current_user', null);
 
     // fix path to assets in wordpress
@@ -30,32 +31,34 @@ export default Ember.Service.extend({
       }
     }
 
-    get(self, "state").pushObject("auth");
     var session;
-    if (config.environment === 'development') {
-      session = {"sub": "User:1", "display_name": "Devel", "user_login": "devel", "isadmin": true};
+    if (Ember.isEmpty(window.jwt)) {
+      self.setUser({"sub": "User:0"}, null);
+//       self.set('loading', false);
     } else {
       session = this.parseJwt(window.jwt);
     }
+
+    if (config.environment === 'development') {
+      session = {"sub": "User:1"};
+    }
+
+    
+//     && !Ember.isEmpty(get(session, "sub"))) {
 
     if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
       var userid = session.sub.split(':')[1];
       Ember.Logger.log("session", session);
       return self.get('store').findRecord('user', userid).then(function(user) {
-        Ember.Logger.log("User:", get(user, "name"));
-        Ember.Logger.log("Player ID:", get(user, "player").get("id"));
-        Ember.Logger.log("Permission ID:", get(user, "permission").get("id"));
         self.setUser(session, user);
       }).catch(function(err) {
         Ember.Logger.log("error", err);
         self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
       }).finally(function(){
-        get(self, "state").pushObject("done");
         self.set('loading', false);
       });
     } else {
         self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
-        get(self, "state").pushObject("done");
         self.set('loading', false);
     }
   },
@@ -71,20 +74,25 @@ export default Ember.Service.extend({
   },
 
   setUser: function(session, user) {
-  var self = this;
+    var self = this;
     if (!Ember.isEmpty(user)) {
 //       mem.set("loggedIn", true);
       self.set("current_user", user);
-      Ember.Logger.log(">>> USER", user.serialize());
+//       Ember.Logger.log(">>> USER", user.serialize());
+//       Ember.Logger.log("Player ID:", get(user, "player").get("id"));
+      if (!Ember.isEmpty(get(user, "player").get("id"))) {
+        set(get(user, "player"), "loggedIn", true);
+      }
+
 //       self.set("user", mem);
 //       self.set("isUser", true);
 //       self.set("current_user.id", get(mem, "id"));
 
-      if(get(user, 'is_admin')) {
-        self.log("session", "logged in as admin");
-      } else {
+//       if(get(user, 'permission.')) {
+//         self.log("session", "logged in as admin");
+//       } else {
         self.log("session", "logged in as user");
-      }
+//       }
     } else {
         self.log("session", "logged in as guest");
     }
@@ -93,7 +101,7 @@ export default Ember.Service.extend({
   loadSession: function(session) {
       var wp_user = session.get('user');
       var self = this;
-      get(self, "state").pushObject("permissions");
+//       get(self, "state").pushObject("permissions");
       if (Ember.isEmpty(get(wp_user, "id"))) {
         self.set("errors", [ { "attribute": "session", "message": "Something went wrong..." } ]);
         return self.loadThemAll();

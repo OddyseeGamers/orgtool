@@ -13,11 +13,10 @@
 </div>
 
 <div id="info">
-  {{#if session.current_user.is_admin}}
+  {{#if session.current_user.permission.unit_assign}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action (toggle this "showMembers")}}> <i class="fa fa-eye" ></i> {{if showMembers "Fleet" "Members"}}</button>
     </div>
-  {{/if}}
 
   <div class="info-stats">
     {{#if currentUnit}}
@@ -25,6 +24,7 @@
       Items: {{sumItems.length}}
     {{/if}}
   </div>
+  {{/if}}
 
 
   <div class="info-content">
@@ -34,7 +34,7 @@
         {{/ember-collection}}
     {{/if}}
 
-    {{#if (and session.current_user.is_admin showMembers)}}
+    {{#if (and session.current_user.permission.unit_assign showMembers)}}
       {{player-list players=players draggable=true details=false}}
     {{/if}}
   </div>

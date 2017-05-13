@@ -28,6 +28,11 @@ export default Ember.Component.extend({
   adminMode: false,
 
   setup: Ember.on('didInsertElement', function() {
+    if (!Ember.isEmpty(get(this, "player"))) {
+      debug(">>> list",get(this, "player") );
+//       set(this, "items", get(this, "player").get("items"));
+    } 
+
 //     this.get('eventManager').on('deleteItem', this.deleteItem.bind(this));
 //     this.get('eventManager').on('editItem', this.editItem.bind(this));
 

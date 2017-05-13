@@ -1,13 +1,17 @@
-{{#if (and tb (or session.current_user.is_admin (or item.player.loggedIn count)))}}
 
-<div class="toolbar">
-  {{#if count}}
-    <div class="text-default">{{count}}x</div>
-  {{else}}
-    <button class="tb tb-default" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
-    <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
-  {{/if}}
-</div>
+{{#if (and tb (or session.current_user.permission.item_tb count))}}
+  <div class="toolbar">
+    {{#if count}}
+      <div class="text-default">{{count}}x</div>
+    {{else}}
+      {{#if session.current_user.permission.item_edit}}
+        <button class="tb tb-default" type="button" {{action 'editItem' item}}><i class="fa fa-gear"></i></button>
+      {{/if}}
+      {{#if session.current_user.permission.item_delete}}
+        <button class="tb tb-danger" type="button" {{action 'deleteItem' item}}><i class="fa fa-close"></i></button>
+      {{/if}}
+    {{/if}}
+  </div>
 {{/if}}
 
 <div class={{if count "top-left-sm" "top-left"}}>

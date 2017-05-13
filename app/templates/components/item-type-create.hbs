@@ -81,8 +81,10 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#if session.current_user.is_admin}}
+    {{#if session.current_user.permission.item_delete}}
       <button type="submit" class="btn btn-danger" {{action "deleteItemType" itemType}} disabled={{ItemType.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+    {{/if}}
+    {{#if session.current_user.permission.item_edit}}
       <button type="submit" class="btn btn-primary" {{action "saveItemType" itemType}} disabled={{if (or (not requiredFields) (not itemType.hasDirtyAttributes)) true false}} >
         {{fa-icon "save"}} Save
       </button>

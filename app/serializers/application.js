@@ -17,8 +17,8 @@ export default DS.JSONAPISerializer.extend({
     Ember.Logger.log("---> KEY", attr);
 //     return Ember.String.underscore(attr);
 
-    if (attr === 'is_admin') {
-      attr = 'is-admin';
+    if (attr === 'is_some') {
+      attr = 'is-seome';
     }
 
     return this._super(...arguments);

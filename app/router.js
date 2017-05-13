@@ -7,6 +7,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+    this.route('login');
+
     this.route('overview', { resetNamespace: true }, function() {
       this.route('unit', { path: '/:unit_id' }, function() {
       });

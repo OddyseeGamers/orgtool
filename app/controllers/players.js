@@ -119,14 +119,17 @@ export default Ember.Controller.extend({
 
 
   actions: {
-    createMember: function() {
-        Ember.Logger.debug("create user");
+    createPlayer: function() {
+        Ember.Logger.log("create user");
         var player = this.get('store').createRecord('player'); //this.store.createRecord('player');
+        player.set("name", "nobody");
+        player.set("timezone", "0");
         var self = this;
         player.save().then(function(done) {
+          Ember.Logger.log("create user ok", done);
           self.transitionToRoute('players.player', done.get('id'));
         }).catch(function(err) {
-          Ember.Logger.debug("create user", err);
+          Ember.Logger.log("create user", err);
         });
   //       this.set('searchFilter', '');
 

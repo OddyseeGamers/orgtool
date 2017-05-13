@@ -9,17 +9,17 @@ export default DS.Model.extend({
   timezone: DS.attr(),
   updated_at: DS.attr(),
 
-  handles: DS.hasMany('handle', { inverse: 'player', async: true}),
-  items: DS.hasMany('items', { inverse: 'player', async: true}),
+  handles: DS.hasMany('handle'),
+  items: DS.hasMany('items'), //, { async: true}),
 //   ships: DS.hasMany('ship', { inverse: 'player', async: true}),
   rewards: DS.attr(),
   logs: DS.attr(),
 
-  playerships: DS.hasMany('unit', {inverse: 'players', async: true }),
-  leaderships: DS.hasMany('unit', {inverse: 'leaders', async: true }),
-  applications: DS.hasMany('unit', {inverse: 'applicants', async: true }),
+  playerships: DS.hasMany('unit'),
+  leaderships: DS.hasMany('unit'),
+  applications: DS.hasMany('unit'),
 
-  playerRewards: DS.hasMany('playerReward', { async: true }),
+  playerRewards: DS.hasMany('playerReward'),
 
   user: DS.belongsTo('user'),
 

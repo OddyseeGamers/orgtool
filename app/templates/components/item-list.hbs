@@ -1,24 +1,33 @@
 <div class="item-menu">
 
 
-  {{#if (and adminMode session.current_user.is_admin)}}
-  <div class={{if (and adminMode session.current_user.is_admin) "item-type-menu" "item-type-menu item-type-menu-corner"}}>
-    <span class="item-type-menu-item">
-      <a href="#" class={{if (eq "cats" typeFilter) "active"}} {{action "setTypeFilter" "cats"}}>
-        Categories
-      </a>
-    </span>
-    <span class="item-type-menu-item">
-      <a href="#" class={{if (eq "tpls" typeFilter) "active"}} {{action "setTypeFilter" "tpls"}}>
-        Templates
-      </a>
-    </span>
-    <span class="item-type-menu-item">
-      <a href="#" class={{if (eq "items" typeFilter) "active"}} {{action "setTypeFilter" "items"}}>
-        Items
-      </a>
-    </span>
-  </div>
+  {{!--
+  <!--   {{#if (and adminMode session.current_user.permission.)}} -->
+  --}}
+  {{#if (and adminMode session.current_user.permission.item_list_filter)}}
+    <div class={{if (and adminMode session.current_user.permission.category_read) "item-type-menu" "item-type-menu item-type-menu-corner"}}>
+      {{#if session.current_user.permission.category_read}}
+        <span class="item-type-menu-item">
+          <a href="#" class={{if (eq "cats" typeFilter) "active"}} {{action "setTypeFilter" "cats"}}>
+            Categories
+          </a>
+        </span>
+      {{/if}}
+      {{#if session.current_user.permission.template_read}}
+        <span class="item-type-menu-item">
+          <a href="#" class={{if (eq "tpls" typeFilter) "active"}} {{action "setTypeFilter" "tpls"}}>
+            Templates
+          </a>
+        </span>
+      {{/if}}
+      {{#if session.current_user.permission.item_read}}
+        <span class="item-type-menu-item">
+          <a href="#" class={{if (eq "items" typeFilter) "active"}} {{action "setTypeFilter" "items"}}>
+            Items
+          </a>
+        </span>
+      {{/if}}
+    </div>
   {{/if}}
 
   <div class="item-stat-menu">
@@ -27,15 +36,9 @@
   </div>
 
 
-  {{#if (or session.current_user.is_admin player.loggedIn)}}
+  {{#if session.current_user.permission.item_create}}
     <div class="toolbar">
       <button type="button" class="tb tb-default" {{action "addItem" player}}> <i class="fa fa-plus" ></i> Item</button>
-      <!--       {{#if (and adminMode session.current_user.is_admin)}} -->
-      <!--         <button type="button" class="tb tb-default" {{action "addItemType"}}> <i class="fa fa-plus" ></i> Type</button> -->
-      <!--         {{#if typeFilter}} -->
-      <!--         <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i> {{typeFilter.name}}</button> -->
-      <!--         {{/if}} -->
-      <!--       {{/if}} -->
     </div>
   {{/if}}
 </div>

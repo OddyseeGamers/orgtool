@@ -89,8 +89,10 @@
 
   {{/md.body}}
   {{#md.footer}}
-    {{#if session.current_user.is_admin}}
+    {{#if session.current_user.permission.reward_delete}}
       <button type="submit" class="btn btn-danger" {{action "deleteReward"}} disabled={{reward.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+    {{/if}}
+    {{#if session.current_user.permission.reward_edit}}
       <button type="submit" class="btn btn-primary" {{action "saveReward"}} disabled={{if (or (not requiredFields) (not reward.hasDirtyAttributes)) true false}} >  
         {{fa-icon "save"}} Save
       </button>

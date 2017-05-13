@@ -8,7 +8,8 @@ $result-height: calc(100% - #{$header-height});
   .panel-player-filter {
     width: 20%;
     height: 100%;
-    float: left;
+    float: right;
+    position: relative;
 //      border-right: 1px solid #219ab3;
 
 
@@ -45,7 +46,7 @@ $result-height: calc(100% - #{$header-height});
     width: 80%;
     height: 100%;
 //      height: $result-height;
-    float: right;
+    float: left;
     position: relative;
   }
 

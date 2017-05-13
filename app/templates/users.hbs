@@ -28,23 +28,29 @@
       <div class="col-md-3 player-list-header-name">
         Name
       </div>
-      <div class="col-md-3">
-        Handle
+      <div class="col-md-5">
+        Email
       </div>
       <div class="col-md-4">
-        Units
-      </div>
-      <div class="col-md-1">
-        -
-      </div>
-      <div class="col-md-1">
-        TZ/Items
+        Player
       </div>
       
     </div>
     <div class="player-list-result">
       {{#each model as |user|}}
-      {{user.name}} - {{user.email}}
+      <div class="row">
+        <div class="col-md-3">
+          {{user.name}}
+        </div>
+
+        <div class="col-md-5">
+          {{user.email}}
+        </div>
+
+        <div class="col-md-4">
+          {{user.player.name}}
+        </div>
+      </div>
       {{/each}}
     </div>
   </div>

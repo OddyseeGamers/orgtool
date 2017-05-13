@@ -3,7 +3,7 @@
     <div class="player-details-name">
       {{!-- TODO: fix ie and edge
       --}}
-      {{#if (or session.current_user.is_admin model.loggedIn)}}
+      {{#if (or session.current_user.permission.player_edit model.loggedIn)}}
       <div class="toolbar">
         {{#bs-dropdown model=model closeOnMenuClick=false as |dd|}}
         {{#dd.button type="tb"}}<i class="fa fa-edit"></i>{{/dd.button}}
@@ -30,7 +30,7 @@
   </div>
 
   <div class="col-md-9">
-    {{#if session.current_user.is_admin}}
+    {{!--
       <div class="row info-block">
         <div class="col-md-2">
           <label class="control-label">WP ID</label>
@@ -42,7 +42,7 @@
         <div class="col-md-9">
         </div>
       </div>
-    {{/if}}
+      --}}
 
 
     <div class="row info-block">
@@ -50,7 +50,7 @@
         <label class="control-label">Name</label>
       </div>
       <div class="col-md-3">
-        {{input type="text" class="form-control" value=model.name readonly=(not (or session.current_user.is_admin model.loggedIn))}}
+        {{input type="text" class="form-control" value=model.name readonly=(not (or session.current_user.permission.player_edit model.loggedIn))}}
       </div>
 
       <div class="col-md-1">
@@ -65,7 +65,7 @@
 
       <div class="col-md-1">
             {{!--
-        {{#if (or session.current_user.is_admin model.loggedIn)}}
+        {{#if (or session.current_user.permission.can model.loggedIn)}}
             {{player-select actionName="Promote"}}
             {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
         {{/if}}
@@ -79,7 +79,7 @@
         <label class="control-label">Timezone</label>
       </div>
       <div class="col-md-1">
-        {{input type="number" class="form-control" value=model.timezone readonly=(not (or session.current_user.is_admin model.loggedIn))}}
+        {{input type="number" class="form-control" value=model.timezone readonly=(not (or session.current_user.permission.player_edit model.loggedIn))}}
       </div>
 
       <div class="col-md-1">
@@ -118,7 +118,7 @@
       </div>
 
       <div class="col-md-6">
-          {{#if (or session.current_user.is_admin model.loggedIn)}}
+          {{#if (or session.current_user.permission.player_edit model.loggedIn)}}
               <div class="toolbar">
                 <button class="tb tb-default" type="button"  {{action 'addHandle' model}}><i class="fa fa-plus"></i></button>
               </div>
@@ -163,7 +163,7 @@
                 {{hand.name}}
               </div>
               <div class="col-md-1">
-                  {{#if (or session.current_user.is_admin model.loggedIn)}}
+                  {{#if (or session.current_user.permission.player_edit model.loggedIn)}}
                     <button class="tb" type="button" {{action 'editHandle' hand}}><i class="fa fa-edit"></i></button>
                   {{else}}
                      &nbsp;

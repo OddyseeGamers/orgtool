@@ -49,4 +49,12 @@ export default DS.Model.extend({
   settings: Ember.computed('user_read', 'item_read', 'reward_read', function() {
     return this.get('user_read') || this.get('item_read') || this.get('reward_read');
   }),
+
+  item_list_filter: Ember.computed('category_read', 'template_read', 'item_read', function() {
+    return this.get('user_read') || this.get('item_read') || this.get('reward_read');
+  }),
+
+  item_tb: Ember.computed('item_edit', 'item_delete', function() {
+    return this.get('item_edit') || this.get('item_delete');
+  }),
 });

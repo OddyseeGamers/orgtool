@@ -23,7 +23,7 @@
 <!-- <div class="item-type"> -->
 <!--     <div class="item-type-name"> -->
 <!--       {{item.type.name}}  -->
-<!--       {{#if (or session.current_user.is_admin item.player.loggedIn)}} -->
+<!--       {{#if (or session.current_user.can item.player.loggedIn)}} -->
 <!--           <button class="tb" type="button"  {{action 'editItem' item}}><i class="fa fa-gear"></i></button> -->
 <!--           <button class="tb tb-danger" type="button"  {{action 'deleteItem' item}}><i class="fa fa-close"></i></button> -->
 <!--       {{/if}} -->

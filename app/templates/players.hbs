@@ -1,7 +1,43 @@
 <div class="players">
+
+<div class="panel panel-player-list">
+    <div class="player-list-header">
+     
+      <div class="col-md-3 player-list-header-name">
+        Name
+      </div>
+      <div class="col-md-3">
+        Handles
+      </div>
+      <div class="col-md-4">
+        Units
+      </div>
+      <div class="col-md-1">
+        Timezone
+      </div>
+      <div class="col-md-1">
+        Items
+      </div>
+      
+    </div>
+    <div class="player-list-result">
+      {{#if filteredContent}}
+      {{#ember-collection items=sortedContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |player index|}}
+        {{player-details player=player draggable=draggable details=true}}
+      {{/ember-collection}}
+      {{/if}}
+    </div>
+  </div>
   <div class="panel panel-default panel-player-filter">
+    {{#if session.current_user.permission.player_create}}
+      <div class="toolbar">
+        <button type="button" class="tb tb-default" {{action 'createPlayer'}}>{{fa-icon "user-plus"}} Add Player</button>
+      </div>
+    {{/if}}
 
   <div class="panel-body">
+
+
     <div class="col-md-12">
       Name/Handle:
       <div class="input-group">
@@ -50,41 +86,14 @@
 
       <div class="col-md-12">
         <div class="filter-stats">
-          Members: {{filteredContent.length}} / {{players.length}} 
+          Players: {{filteredContent.length}} / {{players.length}} 
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="panel panel-player-list">
-    <div class="player-list-header">
-     
-      <div class="col-md-3 player-list-header-name">
-        Name
-      </div>
-      <div class="col-md-3">
-        Handle
-      </div>
-      <div class="col-md-4">
-        Units
-      </div>
-      <div class="col-md-1">
-        -
-      </div>
-      <div class="col-md-1">
-        TZ/Items
-      </div>
-      
-    </div>
-    <div class="player-list-result">
-      {{#if filteredContent}}
-      {{#ember-collection items=sortedContent cell-layout=(percentage-columns-layout filteredContent.length columns itemHeight) as |player index|}}
-        {{player-details player=player draggable=draggable details=true}}
-      {{/ember-collection}}
-      {{/if}}
-    </div>
-  </div>
+  
 </div>
 
 {{outlet}}
@@ -100,7 +109,7 @@
 
 {{!--
 <div class="pull-left" style="position: relative;">
-  {{#if session.current_user.is_admin}}
+  {{#if session.current_user.permission.player_edit}}
     <div class="context-toolbar">
       <button type="button" class="btn btn-success" style="" {{action 'createMember'}}>{{fa-icon "plus"}} Add Member</button>
     </div>

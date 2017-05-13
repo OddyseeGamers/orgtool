@@ -27,11 +27,11 @@
   {{/md.body}}
 
   {{#md.footer}}
-    {{#if session.current_user.is_admin}}
+    {{#if session.current_user.permission.user_delete}}
       <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "user-times"}} Delete</button>
     {{/if}}
 
-    {{#if (or session.current_user.is_admin model.loggedIn)}}
+    {{#if (or session.current_user.permission.user_edit model.loggedIn)}}
       <button type="submit" class="btn btn-primary" {{action "saveMember" model}} disabled={{if model.hasDirtyAttributes false true}}>{{fa-icon "save"}} Save</button>
     {{/if}}
 

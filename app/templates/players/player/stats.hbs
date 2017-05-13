@@ -5,7 +5,7 @@
     <div class="row">
 <!--       <div class="col-md-4"> -->
         <div class="box">
-          {{#if (or session.current_user.is_admin model.loggedIn)}}
+          {{#if (or session.current_user.permission.unit_apply model.loggedIn)}}
             {{#if (eq rt.id "2")}}
             <div class="toolbar">
               {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
@@ -46,7 +46,7 @@
                     {{unit.name}}
                   </div>
                   <div class="col-md-1">
-                    {{#if (or session.current_user.is_admin model.loggedIn)}}
+                    {{#if (or session.current_user.permission.unit_apply model.loggedIn)}}
                       <button class="tb txt-red" type="button" {{action 'showConfirm' unit.mu}}><i class="fa fa-sign-out"></i></button>
                     {{/if}}
                   </div>

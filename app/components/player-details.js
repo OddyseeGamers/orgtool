@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+var debug = Ember.Logger.log;
+
 export default Ember.Component.extend({
   classNames: ['player-details'],
   classNameBindings: ['canDrag:player-details-draggable'],
@@ -14,8 +16,8 @@ export default Ember.Component.extend({
   playerid: Ember.computed.alias('player.id'),
   lastElement: null,
   lastColor: null,
-  canDrag: Ember.computed.and('draggable', 'session.current_user.is_admin'),
-  canUnassign: Ember.computed.and('unit', 'session.current_user.is_admin'),
+  canDrag: Ember.computed.and('draggable', 'session.current_user.permission.unit_assign'),
+  canUnassign: Ember.computed.and('unit', 'session.current_user.permission.unit_assign'),
 
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
@@ -27,19 +29,31 @@ export default Ember.Component.extend({
     if (!this.get('canDrag')) {
       return;
     }
+//     debug(">> init", Ember.get(this, "playerid"));
+    this.get("store").findRecord("player", Ember.get(this, "playerid"));
 
     this.createDraggable();
   }),
 
+  reinit_2: function() {
+    Ember.Logger.log(">>> player cachanged" );
+//     if (!this.get('canDrag')) {
+//       return;
+//     }
+//     if (this.$().data('ui-draggable') === undefined) {
+//       this.createDraggable();
+//     }
+  }.observes('player'),
+
   reinit: function() {
-    Ember.Logger.debug(">>> reinit" );
+    Ember.Logger.log(">>> reinit" );
     if (!this.get('canDrag')) {
       return;
     }
     if (this.$().data('ui-draggable') === undefined) {
       this.createDraggable();
     }
-  }.observes('session.current_user.is_admin'),
+  }.observes('session.current_user.permission.unit_assign'),
 
   createDraggable: function() {
     this.$().draggable({
@@ -60,11 +74,13 @@ export default Ember.Component.extend({
 
   onDrag: function(e) {
     var el = this.getElementId(e);
-    var matches = el.unit !== undefined;
+    var matches = el.unitid !== undefined;
+    debug("drag", matches);
     this.$('body').css("cursor", function() {
       return (matches) ? "copy" : "move";
     });
     //     var last = this.get('lastElement');
+    debug("dest", el);
     if (matches && el.dest == "path") {
       this.setLast(e.toElement);
     } else {
@@ -84,6 +100,7 @@ export default Ember.Component.extend({
     }
 
     var id = parseInt(this.$(event.target).data('playerid'));
+    debug("assign", id);
     this.get('eventManager').trigger('assign', { 'id': id, 'type': 'player', 'dest': unitid, 'destType': elm.dest } );
     this.$("body").css("cursor","");
   },

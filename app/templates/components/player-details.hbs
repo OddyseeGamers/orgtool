@@ -35,27 +35,25 @@
     </div>
 
     <div class="col-md-1">
+        {{player.timezone}}
     </div>
 
     <div class="col-md-1">
-      <div class="col-md-4">
-        {{player.timezone}}
-      </div>
-
-      <div class="col-md-4">
         {{#if player.items.length}}
           {{player.items.length}}
+        {{else}}
+          {{items-hack player}}
         {{/if}}
-      </div>
+    </div>
 
+      {{!--
       <div class="col-md-4">
-        {{#if session.current_user.is_admin}}
           {{#if player.wp_id}}
             <i class="fa fa-check text-success"></i>
           {{/if}}
-        {{/if}}
       </div>
     </div>
+      --}}
 
   {{/link-to}}
 {{else}}
