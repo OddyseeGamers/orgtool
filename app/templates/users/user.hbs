@@ -1,4 +1,4 @@
-{{#bs-modal fade=false size='xl' open=showDialog header=false body=false footer=false onHide=(action 'close') class="player-modal" as |md|}}
+{{#bs-modal fade=false size='l' open=true header=false body=false footer=false onHide=(action 'close') class="player-modal" as |md|}}
   {{#md.header}}
       <h4>
         {{#if model.loggedIn}} My profile {{/if}}
@@ -8,31 +8,102 @@
         {{/if}}
       </h4>
 
-  <ul class="nav nav-tabs player-tabs">
-    <li class="pull-right"> {{#link-to 'players.player.items' model.id}}<i class="fa fa-cubes"></i> Items{{/link-to}} </li>
-    <li class="pull-right"> {{#link-to 'players.player.stats' model.id}}<i class="fa fa-trophy"></i> Stats{{/link-to}} </li>
-    <li class="pull-right"> {{#link-to 'players.player.general' model.id}}<i class="fa fa-user-o"></i> General{{/link-to}} </li>
-  </ul>
+<!--   <ul class="nav nav-tabs player-tabs"> -->
+<!--     <li class="pull-right"> {{#link-to 'players.player.items' model.id}}<i class="fa fa-cubes"></i> Items{{/link-to}} </li> -->
+<!--     <li class="pull-right"> {{#link-to 'players.player.stats' model.id}}<i class="fa fa-trophy"></i> Stats{{/link-to}} </li> -->
+<!--     <li class="pull-right"> {{#link-to 'players.player.general' model.id}}<i class="fa fa-user-o"></i> General{{/link-to}} </li> -->
+<!--   </ul> -->
 
   {{/md.header}}
 
   {{#md.body}}
 
+    <div class="row">
+      <label class="control-label">Name</label>
+      {{#if model.errors.name.length}}
+        <span class="text-danger">
+        {{#each model.errors.name as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+      {{input type="text" class="form-control" id="name" value=model.name}}
+    </div>
+
+
+    <div class="row">
+      <label class="control-label">Name</label>
+      {{#if model.errors.email.length}}
+        <span class="text-danger">
+        {{#each model.errors.email as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+      {{input type="text" class="form-control" id="email" value=model.email}}
+    </div>
+
+    <div class="row">
+      <label class="control-label">Password</label>
+      {{#if model.errors.password.length}}
+        <span class="text-danger">
+        {{#each model.errors.password as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+      {{input disabled=true type="password" class="form-control" id="password" value=model.password}}
+    </div>
+    <div class="row">
+      <label class="control-label">Password Confirmation</label>
+      {{#if model.errors.password_confirmation.length}}
+        <span class="text-danger">
+        {{#each model.errors.password_confirmation as |err|}}{{err.message}}{{/each}}
+        </span>
+      {{/if}}
+      {{input disabled=true type="password" class="form-control" id="password_confirmation" value=model.password_confirmation}}
+    </div>
+
+    <div class="row">
+      <label class="control-label">Player</label>
+      TODO: set player
+      {{#if model.player}}
+        {{player-details player=model.player}}
+      {{/if}}
+    </div>
+
+    <div class="row">
+      <label class="control-label">Permissions</label>
+    </div>
+
+    {{#each sec as |s|}}
+      <div class="row">
+        <label class="control-label">{{s.name}}</label>
+        <br>
+        {{#each s.prop as |p|}}
+          <div class="col-md-2">
+<!--           {{concat-string s.name "_" p.name}} -->
+          {{check-box model=model.permission prop=(concat-string s.name "_" p.name) desc=p.name}}
+          </div>
+        {{/each}}
+      </div>
+<!--       <div style="clear: both;"/> -->
+        <br>
+    {{/each}}
+<!--     </div> -->
+
+  {{!--
+      {{check-box model=model.permission prop="reward_read" desc="Readward Read"}}
 
   <div class="tab-content">
     {{outlet}}
   </div>
+  --}}
 
 
   {{/md.body}}
 
   {{#md.footer}}
     {{#if session.current_user.permission.user_delete}}
-      <button type="submit" class="btn btn-danger" {{action "deleteMember" model}}>{{fa-icon "user-times"}} Delete</button>
+      <button type="submit" class="btn btn-danger" {{action "deleteUser" model}}>{{fa-icon "user-times"}} Delete</button>
     {{/if}}
 
-    {{#if (or session.current_user.permission.user_edit model.loggedIn)}}
-      <button type="submit" class="btn btn-primary" {{action "saveMember" model}} disabled={{if model.hasDirtyAttributes false true}}>{{fa-icon "save"}} Save</button>
+    {{#if (or session.current_user.permission.user_edit)}}
+      <button type="submit" class="btn btn-primary" {{action "saveUser" model}} disabled={{if (or model.hasDirtyAttributes model.permission.hasDirtyAttributes) false true}}>{{fa-icon "save"}} Save</button>
     {{/if}}
 
     <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
@@ -41,10 +112,11 @@
 {{/bs-modal}}
 
 
+{{!--
 {{#if showHandleDialog}}
   {{handle-create handle=currHandle showDialog=showHandleDialog}}
 {{/if}}
-
+--}}
 {{#if showConfirmDialog}}
   {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}
 {{/if}}

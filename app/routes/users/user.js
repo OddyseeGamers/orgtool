@@ -9,7 +9,7 @@ export default Ember.Route.extend({
 //   },
 
   model: function(params) {
-//     Ember.Logger.debug("first");
+    Ember.Logger.debug("get user", params.user_id);
     return this.store.findRecord('user', params.user_id);
   },
 
