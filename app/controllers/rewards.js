@@ -35,18 +35,34 @@ export default Ember.Controller.extend({
 
 
   changed: function() {
-//       console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
+      console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
       var self = this;
 //       if (get(this, "model")) {
 //       get(this, "model.rewards").reload();
+      get(this, "store").unloadAll();
       get(this, "store").findAll("rewardType").then(function(types) {
         types.forEach(function(t) {
-//       get(this, "model").forEach(function(t) {
-//         console.debug(">>> reload", get(t, "id"));
-        get(self, "store").findRecord("rewardType", get(t, "id"));
+        get(self, "store").unloadAll(t);
+//         t.reload();
+//         console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
+//         get(self, "store").findRecord("rewardType", get(t, "id"));
         });
-//       }
+
+        get(self, "store").findAll("rewardType").then(function(types) {
+          console.debug(">>> reload", get(types, "length")); //, get(this, "model.length"));
+          types.forEach(function(t) {
+              console.debug(">>>>> reload", get(t, "id")); //, get(this, "model.length"));
+            get(self, "store").findRecord("rewardType", get(t, "id"));
+          });
+        });
       });
+
+//       get(this, "store").findAll("player").then(function(types) {
+//         types.forEach(function(t) {
+//         get(self, "store").findRecord("rewardType", get(t, "id"));
+//         });
+//       });
+
 //     Ember.Logger.debug("filter changed", this.get('currFilter'));
   }.observes('model'), //, 'model.rewards'),
 
