@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   gameFilter: null,
 //   columns: [100],
 //   itemHeight: 39,
+  typeFilter: "cats",
 
   columns: [16.6, 16.6, 16.6, 16.6, 16.6, 16.6],
   itemHeight: 140,
