@@ -75,12 +75,12 @@ export default Ember.Component.extend({
   onDrag: function(e) {
     var el = this.getElementId(e);
     var matches = el.unitid !== undefined;
-    debug("drag", matches);
+//     debug("drag", matches);
     this.$('body').css("cursor", function() {
       return (matches) ? "copy" : "move";
     });
     //     var last = this.get('lastElement');
-    debug("dest", el);
+//     debug("dest", el);
     if (matches && el.dest == "path") {
       this.setLast(e.toElement);
     } else {
@@ -94,6 +94,7 @@ export default Ember.Component.extend({
     // Dropped on a non-matching target.
     var elm = this.getElementId(event);
     var unitid = elm.unitid;
+    debug("DROP");
     if (!unitid) {
       //       Ember.Logger.debug("no match");
       return;

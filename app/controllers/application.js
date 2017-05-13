@@ -54,27 +54,62 @@ export default Ember.Controller.extend({
   },
 
   assign: function(data) {
-    console.log("data", data)
-    var player = this.store.peekRecord('player', data.id);
-    var unit = this.store.peekRecord('unit', data.dest);
+    console.log("DO IT data", data)
 
-    switch (data.destType) {
-    case "player":
-      unit.get('players').pushObject(player).save().catch(function(err) {
-         unit.rollback();
+    var self = this;
+    return this.store.findRecord('player', data.id).then(function(player) {
+      console.log("find 1", player);
+      return self.store.findRecord('unit', data.dest).then(function(unit) {
+        console.log("find 2", unit);
+        switch (data.destType) {
+        case "path":
+        case "player":
+          console.log(" -> player")
+//           return player.get('playerships').pushObject(unit).save().then(function(np) {
+//             console.log(" -> save ok", np)
+//           }).catch(function(err) {
+//             console.log(" -> err", err);
+//              unit.rollback();
+//           });
+
+          unit.get('players').pushObject(player).save().then(function(np) {
+            console.log(" -> save ok", np)
+          }).catch(function(err) {
+            console.log(" -> err", err);
+//              unit.rollback();
+          });
+ 
+//           .catch(function(err) {
+//              unit.rollback();
+//           });
+          break;
+        case "leader":
+          console.log(" -> leader")
+
+          unit.get('leaders').pushObject(player).save().catch(function(err) {
+             unit.rollback();
+          });
+          break;
+        case "applicant":
+          console.log(" -> applicants")
+          unit.get('applicants').pushObject(player).save().catch(function(err) {
+             unit.rollback();
+          });
+          break;
+        }
+      
+
       });
-      break;
-    case "leader":
-      unit.get('leaders').pushObject(player).save().catch(function(err) {
-         unit.rollback();
-      });
-      break;
-    case "applicant":
-      unit.get('applicants').pushObject(player).save().catch(function(err) {
-         unit.rollback();
-      });
-      break;
-    }
+    });
+
+//     var player = this.store.peekRecord('player', data.id);
+//     var unit = this.store.peekRecord('unit', data.dest);
+
+
+
+
+
+
     
 //     Ember.Logger.debug(">>>> assign", data, player.get("name"));
 
