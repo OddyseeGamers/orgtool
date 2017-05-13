@@ -20,6 +20,13 @@ export default Ember.Component.extend({
       debug("templates: ", get(templates, "length"));
       self.set('templates', templates);
     });
+
+    if (get(this, "item.id")) {
+      get(this, 'store').findRecord('item', get(this, "item.id")).then(function(nitem) {
+        debug("imte: ", get(nitem, "name"));
+//         self.set('item', categories);
+      });
+    }
   }),
 
   actions: {
@@ -71,6 +78,27 @@ export default Ember.Component.extend({
       }
     },
     close: function() {
+      var item = get(this, 'item');
+      if (!Ember.isEmpty(item)) {
+        if (!Ember.isEmpty(item.get("id"))) {
+          item.reload();
+        } else if (item.get("isNew")) {
+          var self = this;
+          item.destroyRecord().then(function() {
+            get(self, "session").log("item", "item " + item.get("name") + " deleted");
+          }).catch(function(err) {
+            get(self, "session").log("error", "could not save item " + item.get("name"));
+            Ember.Logger.debug("error deleteing item", err);
+          });
+        }
+
+//         if (!Ember.isEmpty(item.get("player")) && !Ember.isEmpty(item.get("player").get("items"))) {
+          //         Ember.Logger.debug(">>> RELOAD  MEMBER");
+          //           item.get("player").get("items").reload();
+//         }
+      }
+      this.set('showDialog', false);
+      this.set('item', null);
     },
   }
 
