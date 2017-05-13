@@ -14,24 +14,24 @@
   </div>
 {{/if}}
 
+{{items-hack item}}
+{{items-hack item.player}}
 <div class={{if count "top-left-sm" "top-left"}}>
-    {{#if item.player.avatar}}
-      <img class="top-left-img" src={{item.player.avatar}}>
-    {{else}}
-      {{#if item.parent.parent.img}}
-        <img class="top-left-img" src={{item.parent.parent.img}}>
-      {{else}}
-        {{#if item.parent.img}}
-          <img class={{if count "top-left-img-sm" "top-left-img"}} src={{item.parent.img}}>
-        {{/if}}
+    {{#if item.category.img}}
+      {{#if item.category.img}}
+        <img class="top-left-img" src={{item.category.img}}>
       {{/if}}
     {{/if}}
 
-<!--     {{#unless count}} -->
-<!--     <span class="top-left-name"> -->
-<!--       {{item.parent.name}} -->
-<!--     </span> -->
-<!--     {{/unless}} -->
+      {{#if item.player.avatar}}
+        <img class="top-left-img" src={{item.player.avatar}}>
+      {{else}}
+        {{#if item.template.category.img}}
+          <img class="top-left-img" src={{item.template.category.img}}>
+        {{/if}}
+      {{/if}}
+
+
 
     {{#if item.player.name}}
       <span class={{if (and item.type (eq item.type.permissions "1")) "top-left-name" "item-name"}}>
@@ -49,8 +49,33 @@
 
 </div>
 
+{{#if (or item.template item.category)}}
+  {{partial 'components/item-item-details'}}
+{{else}}
+  {{partial 'components/item-category-details'}}
+{{/if}}
 
-{{#if (eq typeFilter nil)}}
+{{!--
+{{#if (eq typeFilter "cats")}}
+
+{{#if item.img}}
+  <img class="item-img" src={{item.img}}>
+{{else}}
+  {{#if item.template.img}}
+    <img class="item-img" src={{item.template.img}}>
+  {{/if}}
+
+  {{#if item.category.img}}
+    <img class="item-img" src={{item.category.img}}>
+  {{/if}}
+{{/if}}
+--}}
+
+
+
+{{!--
+
+{{#if (eq typeFilter "cats")}}
   {{partial 'components/item-category-details'}}
 {{/if}}
 
@@ -62,7 +87,7 @@
   {{partial 'components/item-item-details'}}
 {{/if}}
 
-{{!--
+
 {{#if (gt item.type.id '3')}}
   {{partial 'components/item-ship-details'}}
   {{/if}}

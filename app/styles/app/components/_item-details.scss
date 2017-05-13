@@ -118,8 +118,13 @@ $item-info-bg: rgba(10, 12, 17, .80);
   }
 
   .item-type-img {
-         height: 75%;
-     display: block;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+
+    height: 50%;
+
+    display: block;
     margin-bottom: auto;
     margin-top: auto;
     margin-left: auto;

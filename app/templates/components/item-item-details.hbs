@@ -31,21 +31,33 @@
 <!-- </div> -->
 
 
-
 {{#if item.img}}
   <img class="item-img" src={{item.img}}>
 {{else}}
-  {{#if item.parent.img}}
-    <img class="item-img" src={{item.parent.img}}>
+  {{#if item.template.img}}
+    <img class="item-img" src={{item.template.img}}>
+  {{/if}}
+
+  {{#if item.category.img}}
+    <img class="item-img" src={{item.category.img}}>
+  {{/if}}
+{{/if}}
+
+{{!--
+{{#if item.img}}
+  <img class="item-img" src={{item.img}}>
+{{else}}
+  {{#if item.template.img}}
+    <img class="item-img" src={{item.template.img}}>
   {{/if}}
 {{/if}}
 
 <div class="bottom-right">
   <div class="bottom-right-text">
-    {{get-item-prop item.parent "class"}}
+    {{get-item-prop item.template "class"}}
   </div>
 </div>
-
+--}}
 <!--
 <div class="ship-class">
   {{#if details}}
