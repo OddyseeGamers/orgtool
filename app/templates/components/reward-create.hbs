@@ -3,9 +3,9 @@
   {{#md.header}}
     <h4 class="modal-title">
       {{#if reward.isNew}}
-        Add '{{reward.name}}' to {{reward.type.name}}
+        Add '{{reward.name}}' to {{reward.rewardType.name}}
       {{else}}
-        Manage {{reward.type.name}} '{{reward.name}}'
+        Manage {{reward.rewardType.name}} '{{reward.name}}'
       {{/if}}
     </h4>
   {{/md.header}}
@@ -17,6 +17,11 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if reward.errors.name.length}}
+      <span class="text-danger">
+      {{#each reward.errors.name as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=reward.name}}
 
     <label class="control-label">
@@ -25,16 +30,31 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if reward.errors.level.length}}
+      <span class="text-danger">
+      {{#each reward.errors.level as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="number" class="form-control" value=reward.level}}
 
     <label class="control-label">
       Description
     </label>
+    {{#if reward.errors.description.length}}
+      <span class="text-danger">
+      {{#each reward.errors.description as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=reward.description}}
 
     <label class="control-label">
       Image
     </label>
+    {{#if reward.errors.img.length}}
+      <span class="text-danger">
+      {{#each reward.errors.img as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=reward.img}}
 
     <label class="control-label">
@@ -43,7 +63,7 @@
   </div>
 
   <div class="reward-mu-list">
-    {{#if (and (not reward.isNew) (not-eq reward.type.id "2"))}}
+    {{#if (and (not reward.isNew) (not-eq reward.rewardType.id "2"))}}
       <div class="toolbar">
         {{player-select onConfirm=(action "rewardMember") actionName="Reward"}}
       </div>

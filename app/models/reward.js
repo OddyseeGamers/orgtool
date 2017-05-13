@@ -5,7 +5,7 @@ export default DS.Model.extend({
   description: DS.attr(),
   img: DS.attr(),
   level: DS.attr(),
-  type: DS.belongsTo('rewardType'),
+  rewardType: DS.belongsTo('rewardType'),
 //   playerRewards: DS.hasMany('playerReward', { async: true }),
   players: DS.hasMany('player'),
 
