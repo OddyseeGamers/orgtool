@@ -1,0 +1,9 @@
+<div class="check-box" {{action (toggle model prop)}}>
+<button type="button" class="btn btn-check">
+  {{#if (get model prop)}}
+  <i class="fa fa-check-square-o"></i>
+  {{else}}
+  <i class="fa fa-square-o"></i>
+  {{/if}}
+</button> {{desc}}
+</div>
