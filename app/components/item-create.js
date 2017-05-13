@@ -24,6 +24,15 @@ export default Ember.Component.extend({
 
   actions: {
     changeOwner: function(owner) {
+      var item = get(this, "item");
+      set(item, "player", owner);
+//       debug("change owner", get(owner, "name"));
+      item.save().then(function(done) {
+        debug("saved....", get(done, "id"));
+      }).catch(function(err) {
+        debug("item-create save failed, err", err);
+//         item.rollbackAttributes();
+      });
     },
 
     setTemplate: function(template) {
