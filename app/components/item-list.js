@@ -28,10 +28,10 @@ export default Ember.Component.extend({
   adminMode: false,
 
   setup: Ember.on('didInsertElement', function() {
-    if (!Ember.isEmpty(get(this, "player"))) {
-      debug(">>> list",get(this, "player") );
+//     if (!Ember.isEmpty(get(this, "player"))) {
+//       debug(">>> list",get(this, "player") );
 //       set(this, "items", get(this, "player").get("items"));
-    } 
+//     } 
 
 //     this.get('eventManager').on('deleteItem', this.deleteItem.bind(this));
 //     this.get('eventManager').on('editItem', this.editItem.bind(this));
@@ -70,9 +70,8 @@ export default Ember.Component.extend({
     });
 */
 
-    Ember.Logger.log("itemTypeFilter", get(this, "itemTypeFilter"), "|adminmode:", get(this, "adminMode"));
+//     Ember.Logger.log("itemTypeFilter", get(this, "itemTypeFilter"), "|adminmode:", get(this, "adminMode"));
     var self = this;
-
 
     debug("has player", get(this, "player"));
     if (!Ember.isEmpty(get(this, "player"))) {
@@ -197,6 +196,18 @@ export default Ember.Component.extend({
   },
     */
 
+  resetAll: function() {
+    set(this, "currItem", null);
+    set(this, "currCategory", null);
+    set(this, "currTemplate", null);
+
+    set(this, "showItemDialog", false);
+    set(this, "showCategoryDialog", false);
+    set(this, "showTemplateDialog", false);
+
+    set(this, "showConfirmDialog", false);
+  },
+
   actions: {
     setTypeFilter: function(data) {
       set(this, 'typeFilter', data);
@@ -211,60 +222,85 @@ export default Ember.Component.extend({
     },
 
     showConfirm: function(item) {
-      set(this, "msg", { "type": "delete", "item": item, "title": "Delete Item!", "content": "Do you really want to delete the item " + item.get("name") + "?" });
-      set(this, "showConfirmDialog", true);
-    },
+      Ember.Logger.debug("show confirm", get(item, "name"));
+//       var element = get(msg, "item");
+      var typename = item.get('constructor.modelName');
+      debug("element type", typename);
 
-    showConfirmType: function(itemType) {
-      set(this, "msg", { "type": "delete", "item": itemType, "title": "Delete Item Type!", "content": "Do you really want to delete the item type " + itemType.get("name") + "?" });
+      set(this, "msg", { "type": "delete", "item": item, "title": "Delete " + typename + "!", "content": "Do you really want to delete the " + typename + " " + item.get("name") + "?" });
       set(this, "showConfirmDialog", true);
     },
 
     onConfirmed: function(msg) {
-      Ember.Logger.debug("on confirm");
+//       Ember.Logger.debug("on confirm");
       var element = get(msg, "item");
       var typename = element.get('constructor.modelName');
-      Ember.Logger.debug("element type", typename);
+//       debug("element type", typename);
 
+      var self = this;
       if (element && typename) {
         if (get(msg, "type") == "delete") {
-          var self = this;
 //           Ember.Logger.debug("has mem", get(get(msg, "item"), "player"));
 
-          element.destroyRecord().then(function(nitem) {
-            get(self, "session").log(typename, nitem.get("name") + " deleted");
+          element.destroyRecord().then(function() {
+            get(self, "session").log(typename, element.get("name") + " deleted");
 
-            Ember.Logger.debug("reset filter", (get(self, "typeFilter") === element));
-            if (get(self, "typeFilter") === element) {
-              set(self, "typeFilter", null);
-            }
+//             Ember.Logger.debug("reset filter", (get(self, "typeFilter") === element));
+//             if (get(self, "typeFilter") === element) {
+//               set(self, "typeFilter", null);
+//             }
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
             Ember.Logger.debug("error deleting", err);
           }).finally(function() {
-            set(self, "currItem", null);
-            set(self, "currItemType", null);
-            set(self, "showConfirmDialog", false);
-            set(self, "showItemDialog", false);
-            set(self, "showItemTypeDialog", false);
+            self.resetAll();
           });
         }
       } else {
-        set(this, "currItem", null);
-        set(this, "currItemType", null);
-        set(this, "showConfirmDialog", false);
-        set(this, "showItemDialog", false);
-        set(this, "showItemTypeDialog", false);
+        self.resetAll();
       }
     },
 
     showEdit: function(item) {
-      set(this, "currItem", item);
-      set(this, "showItemDialog", true);
+//       Ember.Logger.debug("show edit", get(item, "name"));
+//       var element = get(msg, "item");
+      var typename = item.get('constructor.modelName');
+//       debug("element type", typename);
+
+      if (typename == "category") {
+        this.set('currCategory', item);
+        this.set('showCategoryDialog', true);
+      } else if (typename == "template") {
+        this.set('currTemplate', item);
+        this.set('showTemplateDialog', true);
+      } else if (typename == "item") {
+        this.set('currItem', item);
+        this.set('showItemDialog', true);
+      }
+      return;
+//       set(this, "currItem", item);
+//       set(this, "showItemDialog", true);
+    },
+
+
+    addCategory: function() {
+//       debug("ADD CAT");
+      var category = get(this, "store").createRecord('category');
+      get(this, "session").log("category", "new category created");
+      this.set('currCategory', category);
+      this.set('showCategoryDialog', true);
+    },
+
+    addTemplate: function() {
+//       debug("ADD TEMP");
+      var template = get(this, "store").createRecord('template');
+      get(this, "session").log("template", "new template created");
+      this.set('currTemplate', template);
+      this.set('showTemplateDialog', true);
     },
 
     addItem: function() {
-      debug("ADD ITEM");
+//       debug("ADD ITEM");
       var item = get(this, "store").createRecord('item');
       get(this, "session").log("item", "new item created");
       if (!Ember.isEmpty(get(this, "player"))) {

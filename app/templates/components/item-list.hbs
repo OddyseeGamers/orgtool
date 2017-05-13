@@ -30,15 +30,39 @@
     </div>
   {{/if}}
 
+<!--     <div class="item-type-tb"> -->
+<!--     </div> -->
+
+  {{!--
+    {{#if (and adminMode session.isAdmin)}}
+    <div class="item-type-tb">
+      {{#if typeFilter}}
+      <button type="button" class="tb tb-default" {{action "editItemType" typeFilter}}> <i class="fa fa-gear" ></i></button>
+      {{/if}}
+      <button type="button" class="tb tb-default" {{action "addItemType"}}><i class="fa fa-plus" ></i> </button>
+    </div>
+    {{/if}}
+    --}}
   <div class="item-stat-menu">
     Items: {{filteredContent.length}} 
 <!--     / {{items.length}} -->
   </div>
 
 
-  {{#if session.current_user.permission.item_create}}
+  {{#if session.current_user.permission.item_list_filter}}
     <div class="toolbar">
-      <button type="button" class="tb tb-default" {{action "addItem" player}}> <i class="fa fa-plus" ></i> Item</button>
+
+      {{#if (and session.current_user.permission.category_create (eq typeFilter "cats"))}}
+        <button type="button" class="tb tb-default" {{action "addCategory"}}> <i class="fa fa-plus" ></i> Category</button>
+      {{/if}}
+
+      {{#if (and session.current_user.permission.template_create (eq typeFilter 'tpls'))}}
+        <button type="button" class="tb tb-default" {{action "addTemplate"}}> <i class="fa fa-plus" ></i> Template</button>
+      {{/if}}
+
+      {{#if (and session.current_user.permission.item_create (eq typeFilter 'items'))}}
+        <button type="button" class="tb tb-default" {{action "addItem" player}}> <i class="fa fa-plus" ></i> Item</button>
+      {{/if}}
     </div>
   {{/if}}
 </div>
@@ -49,13 +73,18 @@
   {{/ember-collection}}
 </div>
 
+{{#if showCategoryDialog}}
+  {{category-create category=currCategory showDialog=showCategoryDialog onConfirm=(action "showConfirm")}}
+{{/if}}
+
+{{#if showTemplateDialog}}
+  {{template-create template=currTemplate showDialog=showTemplateDialog onConfirm=(action "showConfirm")}}
+{{/if}}
+
 {{#if showItemDialog}}
   {{item-create item=currItem showDialog=showItemDialog itemTypeFilter=itemTypeFilter}}
 {{/if}}
 
-{{#if showItemTypeDialog}}
-  {{item-type-create itemType=currItemType showDialog=showItemTypeDialog onConfirm=(action "showConfirmType")}}
-{{/if}}
 
 {{#if showConfirmDialog}}
   {{confirm-dialog showDialog=showConfirmDialog msg=msg onConfirm=(action "onConfirmed")}}

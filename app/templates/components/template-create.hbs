@@ -1,0 +1,92 @@
+{{!--
+{{#if (and session.current_user showDialog)}}
+--}}
+{{#if showDialog}}
+
+{{#bs-modal open=showDialog size='m' header=false body=false footer=false autoClose=false onHide=(action 'close') as |md|}}
+  {{#md.header}}
+    <h4 class="modal-title">
+      Add Template
+    </h4>
+  {{/md.header}}
+  {{#md.body}}
+
+
+  <div class="row">
+    <label class="control-label">
+      Name
+<!--       {{#unless category.name}} -->
+<!--       <span class="text-danger">(required)</span> -->
+<!--       {{/unless}} -->
+    </label>
+    {{#if template.errors.name.length}}
+      <span class="text-danger">
+      {{#each template.errors.name as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
+    {{input type="text" class="form-control" value=template.name}}
+  </div>
+
+  <div class="row">
+    <label class="control-label">Categories</label>
+    <div class="input-group ship-model-modal">
+      <input type="text" class="form-control" id="itemTypeParent" value={{template.category.name}} readonly>
+      <div class="input-group-btn">
+        {{#bs-dropdown as |dd|}}
+          {{#dd.button}}<span class="caret"></span>{{/dd.button}}
+          {{#dd.menu align="right"}}
+              <li {{action "setParent" null}}><a href="#" class={{if (not itemType.parent) "active"}} >None</a></li>
+              {{#each cats as |cat|}}
+                <li {{action "setParent" cat}}><a href="#" class={{if (eq cat.id template.category.id) "active"}} >{{cat.name}}</a></li>
+              {{/each}}
+          {{/dd.menu}}
+        {{/bs-dropdown}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="control-label">Description</label>
+    {{#if template.errors.description.length}}
+      <span class="text-danger">
+      {{#each template.errors.description as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
+    {{input type="text" class="form-control" value=template.description}}
+  </div>
+
+  <div class="row">
+    <label class="control-label">Image</label>
+    {{#if template.errors.img.length}}
+      <span class="text-danger">
+      {{#each template.errors.img as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
+    {{input type="text" class="form-control" value=template.img}}
+  </div>
+
+  <div class="row" style="height: 30%;">
+    <br>
+    <div class="item-img-box">
+      {{#if template.img}}
+        {{item-details item=template details=false tb=false}}
+      {{/if}}
+    </div>
+  </div>
+
+  {{/md.body}}
+  {{#md.footer}}
+    {{#if session.current_user.permission.template_delete}}
+      <button type="submit" class="btn btn-danger" {{action "deleteTemplate" template}} disabled={{template.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+    {{/if}}
+    {{#if session.current_user.permission.template_edit}}
+      <button type="submit" class="btn btn-primary" {{action "saveTempate" template}} disabled={{if (or (not requiredFields) (not template.hasDirtyAttributes)) true false}} >
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+  {{/md.footer}}
+{{/bs-modal}}
+
+{{/if}}
+
