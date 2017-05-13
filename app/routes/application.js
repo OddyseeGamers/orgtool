@@ -6,7 +6,7 @@ var set = Ember.set;
 export default Ember.Route.extend({
   session: Ember.inject.service(),
 
-//   beforeModel: function(transition) {
+  beforeModel: function(transition) {
 //     Ember.Logger.log(">>> app route >>>> beforemodel", transition);
 //     if (!get(this, "session.current_user")) {
 //       Ember.Logger.log(">>> app route >>>> beforemodel - has no user");
@@ -16,7 +16,7 @@ export default Ember.Route.extend({
 //       this.transitionTo('overview');
 //     Ember.Logger.log(">>> app route >>>> beforemodel ->");
 
-//     Ember.get(this, "session");
+    Ember.get(this, "session");
 //
 //     Ember.Logger.log(">>> app route >>>> beforemodel", Ember.get(this, "session"));
 //     Ember.get(this, "session");
@@ -25,7 +25,7 @@ export default Ember.Route.extend({
 
 //     Ember.Logger.log(">>> app route >>>> redirect");
 //     this.transitionTo('overview');
-//   },
+  },
 
 
 
