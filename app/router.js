@@ -27,14 +27,11 @@ Router.map(function() {
       });
     });
 
+    this.route('items');
+    this.route('rewards');
+
     this.route('lfg');
     this.route('log');
-
-    this.route('settings', { resetNamespace: true }, function() {
-      this.route('items');
-      this.route('rewards');
-    });
-
 });
 
 export default Router;
