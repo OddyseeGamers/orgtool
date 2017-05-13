@@ -79,7 +79,8 @@ export default Ember.Service.extend({
 //       mem.set("loggedIn", true);
       self.set("current_user", user);
 //       Ember.Logger.log(">>> USER", user.serialize());
-//       Ember.Logger.log("Player ID:", get(user, "player").get("id"));
+      Ember.Logger.log("Player ID:", get(user, "player").get("id"));
+      Ember.Logger.log("Perm ID:", get(user, "permission").get("id"));
       if (!Ember.isEmpty(get(user, "player").get("id"))) {
         set(get(user, "player"), "loggedIn", true);
       }
