@@ -94,7 +94,7 @@ export default Ember.Component.extend({
     // Dropped on a non-matching target.
     var elm = this.getElementId(event);
     var unitid = elm.unitid;
-    debug("DROP");
+//     debug("DROP", unitid);
     if (!unitid) {
       //       Ember.Logger.debug("no match");
       return;
@@ -155,18 +155,25 @@ export default Ember.Component.extend({
     //     Ember.Logger.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
     //     Ember.Logger.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
 
-    if (!id) {
-      id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
-      dest = "player"
-    }
 
     if (!id) {
-      id = this.$(item.originalEvent.target).closest( ".unit-leader-container" ).data('unitid');
+      id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
+      dest = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('dest');
       //       Ember.Logger.debug("elm leader");
-      dest = "leader"
+//       dest = "leader"
       //     } else {
       //       Ember.Logger.debug(" else");
     }
+
+//     if (!id) {
+//       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
+//       dest = "player"
+//     }
+
+//     if (!id) {
+//       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
+//       dest = "player"
+//     }
 
     if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-name-container" ).data('unitid');
