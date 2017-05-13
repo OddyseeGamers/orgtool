@@ -39,6 +39,7 @@
     <div class="player-list-result">
       {{#each model as |user|}}
       <div class="row">
+        {{#link-to "users.user" user}}
         <div class="col-md-3">
           {{user.name}}
         </div>
@@ -49,8 +50,8 @@
 
         <div class="col-md-4">
           {{user.player.name}}
-          {{user.permission.user_read}}
         </div>
+        {{/link-to}}
       </div>
       {{/each}}
     </div>

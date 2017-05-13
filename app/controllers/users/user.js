@@ -56,6 +56,7 @@ export default Ember.Controller.extend({
 
       user.save().then(function(data) {
         self.set('showDialog', false);
+        this.transitionToRoute('users');
       }).catch(function(err) {
        debug("save error", err);
       });
@@ -64,6 +65,7 @@ export default Ember.Controller.extend({
     close: function() {
 //       Ember.Logger.debug("the other close...");
       this.set('showDialog', false);
+        this.transitionToRoute('users');
 //       this.transitionToRoute('players');
     }
   }
