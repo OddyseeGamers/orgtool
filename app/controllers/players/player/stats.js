@@ -11,12 +11,18 @@ export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
   grouped: Ember.computed('model', function() {
-    var types = this.store.peekAll("rewardType");
+//     var types = this.store.peekAll("rewardType");
+    var self = this;
+    return this.store.findAll("rewardType").then(function(types) {
+    set(self, "types", types);
+    debug("d1", types, get(types, "length"));
     var temp = types.toArray().sort(function(a, b) {
       return Ember.compare(get(a, 'numericLevel'), get(b, 'numericLevel'));
     });
 
-    var group = Ember.A();
+    debug("d2", temp, get(temp, "length"));
+
+    var group = []; //Ember.A();
     var rt_lookup = [];
     var idx = 0;
 
@@ -26,7 +32,9 @@ export default Ember.Controller.extend({
       idx++;
     });
 
-    get(this, 'model').get("playerRewards").forEach(function(mr) {
+    debug("d3", group, get(group, "length"));
+    get(self, 'model').get("rewards").forEach(function(mr) {
+      debug("d4", mr, get(mr, "length"));
       var gidx = rt_lookup[get(mr, "reward").get("type").get('id')];
       var or = get(mr, "reward");
       var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: []};
@@ -59,7 +67,8 @@ export default Ember.Controller.extend({
     // });
 
     return group;
-  }).property('model', 'model.playerRewards.length', 'model.playerUnits.length', 'showConfirmDialog'),
+    });
+  }).property('model', 'model.rewards.length', 'model.playerUnits.length', 'showConfirmDialog'),
 
 
   actions: {

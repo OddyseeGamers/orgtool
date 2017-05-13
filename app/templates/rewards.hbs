@@ -23,7 +23,7 @@
         </div>
 
   <!--       <div class="row"> -->
-            {{#each rt.rewards as |r|}}
+            {{#each rt.sortedRewards as |r|}}
               <div class="row selectable" {{action "editReward" r}}>
                 <div class="col-md-1">
                 </div>
@@ -36,8 +36,9 @@
                 <div class="col-md-3">
                   {{!--
                   {{if r.playerUnits.length r.playerUnits.length ""}}
-                  --}}
                   {{sum r.playerUnits.length r.playerRewards.length}}
+                  --}}
+                  {{r.players.length}}
                 </div>
                 <div class="col-md-1">
 <!--                   <button type="button" class="tb" {{action "editReward" r}}>{{fa-icon "edit"}}</button> -->

@@ -6,9 +6,9 @@ export default DS.Model.extend({
   description: DS.attr(),
   img: DS.attr(),
   level: DS.attr(),
-  _rewards: DS.hasMany('reward', { async: true }),
+  rewards: DS.hasMany('reward'),
   
   numericLevel: Ember.computed('level', function() { return Number(this.get('level')) }),
   p: ['numericLevel:asc'],
-  rewards: Ember.computed.sort('_rewards', 'p'),
+  sortedRewards: Ember.computed.sort('rewards', 'p'),
 });

@@ -49,17 +49,17 @@
       </div>
     {{/if}}
 
-    {{#ember-collection items=merged cell-layout=(percentage-columns-layout merged.length columns itemHeight) as |mu index|}}
+    {{#ember-collection items=merged cell-layout=(percentage-columns-layout merged.length columns itemHeight) as |player index|}}
         <div class="row" >
           <div class="col-md-3">
             <img src={{mu.player.avatar}} style="width:32px"/>
-            {{mu.player.name}}
+            {{player.name}}
           </div>
           <div class="col-md-3">
-            {{mu.unit.name}}
+            unit? {{unit.name}}
           </div>
           <div class="col-md-1">
-            <button class="tb txt-red" type="button" {{action 'showConfirm' mu}}><i class="fa fa-sign-out"></i></button>
+            <button class="tb txt-red" type="button" {{action 'showConfirm' player}}><i class="fa fa-sign-out"></i></button>
           </div>
           <div class="col-md-1">
           </div>

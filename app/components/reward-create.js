@@ -13,7 +13,7 @@ export default Ember.Component.extend({
   columns: [100],
   itemHeight: 39,
 
-  merged: Ember.computed.union('reward.playerRewards'),
+  merged: Ember.computed.union('reward.players'),
 
   setup: Ember.on('init', function() {
   }),
@@ -38,7 +38,16 @@ export default Ember.Component.extend({
 
     rewardMember: function(player) {
       debug("add player", get(player, 'id'), "to", get(this.get('reward'), 'id'));
+      get(player, "rewards").pushObject(this.get('reward'));
+      player.save().then(function(done) {
+        debug("saved....", get(done, "id"));
+      }).catch(function(err) {
+        debug("player-reward save failed, err", err);
+//         player.rollbackAttributes();
+      });
 
+
+/*
       var memrew = get(this, 'store').createRecord('playerReward');
       set(memrew, "player", player);
       set(memrew, "reward", this.get('reward'));
@@ -48,6 +57,7 @@ export default Ember.Component.extend({
         debug("player-reward save failed, err", err);
         memrew.rollbackAttributes();
       });
+*/
     },
 
     showConfirm: function(memUn) {

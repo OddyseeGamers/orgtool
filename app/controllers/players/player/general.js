@@ -8,10 +8,10 @@ var debug = Ember.Logger.debug;
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
-  rank: Ember.computed.filter('model.playerRewards', function(mr, index, array) {
+  rank: Ember.computed.filter('model.rewards', function(mr, index, array) {
 //       return !chore.done;
 //     debug(" - wtf", index, get(get(mr, "reward"), "type").get("id") ,"=", get(get(mr, "reward"), "type").get("name"), "||||", get(get(mr, "reward"), "type").get("id") == 1);
-    return get(get(mr, "reward"), "type").get("id") == 1;
+    return get(mr, "type").get("id") == 1;
   }), //.property('model.playerRewards'),
 
 //   rank: Ember.computed('model', function() {
