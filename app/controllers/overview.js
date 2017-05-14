@@ -32,6 +32,8 @@ export default Ember.Controller.extend({
 //   sortedContent: Ember.computed.sort('allItems', 'sortProperties').property('allItems'),
 
   sumItems: Ember.computed("sumMembers", function() {
+    return {};
+    /*
     var items = {};
     var mems = this.get('sumMembers');
     mems.forEach(function(mem) {
@@ -59,6 +61,7 @@ export default Ember.Controller.extend({
     });
 
     return output;
+    */
   }),
 
   sumMembers: Ember.computed("currentUnit", function() {
