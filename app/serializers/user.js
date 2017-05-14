@@ -11,6 +11,11 @@ import config from '../config/environment';
 
 export default DS.JSONAPISerializer.extend({
 // export default DS.JSONAPISerializer.extend(DS.EmbeddedRecordsMixin, {
+//   attrs: {
+//     permission: { embedded: 'always' },
+//     includeIds: true,
+//   },
+
 //   include: 'permission',
 //   attrs: {
 //     permission: { serialize: true }
@@ -67,9 +72,16 @@ export default DS.JSONAPISerializer.extend({
       delete serialized.data.included;
     }
 
+//     if (serialized.data.permission) {
+//       serialized.included = [ serialized.data.permission.data ];
+//       delete serialized.data.permission;
+//     }
+
+
 //     console.debug("serialize", serialized)
     return serialized;
   },
+
 
 
   serializeBelongsTo(snapshot, json, relationship) {
@@ -81,7 +93,13 @@ export default DS.JSONAPISerializer.extend({
 //       console.debug("serializeBelongsTo snap", snapshot);
 //       console.debug("serializeBelongsTo bel ", belongsTo);
 
-      var js = {"type": key, "id": belongsTo.id, "attributes": belongsTo.record.toJSON() };
+//       var js = {"type": key, "id": belongsTo.id, "attributes": belongsTo.record.toJSON() };
+      var js = this.serialize(belongsTo).data;
+      js["id"] = belongsTo.id;
+
+//       console.debug("--- serializeBelongsTo ", key, "=", belongsTo.record.toJSON());
+//       console.debug("--- serializeBelongsTo ", key, "=", js);
+
       if (json.included) {
         json.included.push(js);
       } else {
@@ -93,6 +111,7 @@ export default DS.JSONAPISerializer.extend({
 //     key = this.keyForRelationship ? this.keyForRelationship(key, "belongsTo", "serialize") : key;
 //     json[key] = Ember.isNone(belongsTo) ? belongsTo : belongsTo.record.toJSON();
   },
+
 
 /*
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {

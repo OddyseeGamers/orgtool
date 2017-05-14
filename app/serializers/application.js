@@ -15,6 +15,11 @@ export default DS.JSONAPISerializer.extend({
 //     permission: { embedded: 'always' }
 //   },
 
+//   keyForAttribute: function(attr) {
+//     console.debug(">DASH", attr,Ember.String.dasherize(attr) );
+//     return Ember.String.dasherize(attr);
+//   },
+
   modelNameFromPayloadKey: function(key) {
   //     Ember.Logger.log("---> model", key);
     return Ember.String.singularize(key); //this.normalizeModelName(key));
