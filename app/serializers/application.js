@@ -9,10 +9,11 @@ import DS from 'ember-data';
 import Ember from 'ember';
 import config from '../config/environment';
 
-export default DS.JSONAPISerializer.extend(DS.EmbeddedRecordsMixin, {
-  attrs: {
-    permission: { embedded: 'always' }
-  },
+// export default DS.JSONAPISerializer.extend(DS.EmbeddedRecordsMixin, {
+export default DS.JSONAPISerializer.extend({
+//   attrs: {
+//     permission: { embedded: 'always' }
+//   },
 
   modelNameFromPayloadKey: function(key) {
   //     Ember.Logger.log("---> model", key);

@@ -92,15 +92,6 @@ export default Ember.Controller.extend({
 //////////////////////////////////////
 
 
-  saveMember: function(player) {
-    Ember.Logger.debug("save player", player.get('id'));
-    player.save().then(function(mem) {
-      Ember.Logger.debug("save ok", mem);
-    }).catch(function(err) {
-      Ember.Logger.debug("save not ok", err);
-    });
-  },
-
   deleteMember: function(player) {
       if (!player) {
         return;
@@ -123,7 +114,7 @@ export default Ember.Controller.extend({
         Ember.Logger.debug("create user");
         var player = this.get('store').createRecord('player'); //this.store.createRecord('player');
         var self = this;
-        player.save().then(function(done) {
+        player.save({include: ["permission"]}).then(function(done) {
           self.transitionToRoute('players.player', done.get('id'));
         }).catch(function(err) {
           Ember.Logger.debug("create user", err);

@@ -42,8 +42,8 @@ export default DS.Model.extend({
   reward_edit: DS.attr(),
   reward_delete: DS.attr(),
 
-  inserted_at: DS.attr(),
-  created_at: DS.attr(),
+//   inserted_at: DS.attr(),
+//   created_at: DS.attr(),
 
 
   settings: Ember.computed('user_read', 'item_read', 'reward_read', function() {

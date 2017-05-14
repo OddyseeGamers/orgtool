@@ -6,5 +6,5 @@ export default DS.Model.extend({
 //   inserted_at: DS.attr(),
 //   created_at: DS.attr(),
   player: DS.belongsTo('player'),
-  permission: DS.belongsTo('permission'),
+  permission: DS.belongsTo('permission', { async: true } ),
 });

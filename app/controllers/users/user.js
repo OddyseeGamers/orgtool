@@ -39,6 +39,16 @@ export default Ember.Controller.extend({
     ]);
   }),
 
+//   changed: function() {
+//     console.debug(">>> user changed", get(this, "model"), get(this, "model.length"));
+
+//     var self = this;
+//     get(this, "store").findRecord("permission", get(this, "model.permission.id")).then(function(perm) {
+//       debug("--- set permi fix");
+//       self.set("perm", perm);
+//     });
+//   }.observes('model'),
+
   actions: {
     deleteUser:function(user) {
 //       get(this, 'onConfirm')(user);
