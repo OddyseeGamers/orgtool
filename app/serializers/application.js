@@ -1,8 +1,19 @@
+// import DS from 'ember-data';
+// export default DS.JSONAPISerializer.extend(DS.EmbeddedRecordsMixin,{
+//   attrs: {
+//     screenshots: { embedded: 'always' }
+//   }
+// });
+
 import DS from 'ember-data';
 import Ember from 'ember';
 import config from '../config/environment';
 
-export default DS.JSONAPISerializer.extend({
+export default DS.JSONAPISerializer.extend(DS.EmbeddedRecordsMixin, {
+  attrs: {
+    permission: { embedded: 'always' }
+  },
+
   modelNameFromPayloadKey: function(key) {
   //     Ember.Logger.log("---> model", key);
     return Ember.String.singularize(key); //this.normalizeModelName(key));
@@ -12,6 +23,17 @@ export default DS.JSONAPISerializer.extend({
       return Ember.String.singularize(modelName);
   },
 
+/*
+  serialize(snapshot) {
+    let serialized = this._super(...arguments);
+    let { adapterOptions } = snapshot;
+    if (adapterOptions && adapterOptions.updateRelationship === 'permission') {
+      return serialized.data.relationships.permission;
+    }
+
+    return serialized;
+  }
+*/
 /*
   keyForAttribute: function(attr) {
     Ember.Logger.log("---> KEY", attr);

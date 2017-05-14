@@ -25,7 +25,9 @@ export default Ember.Controller.extend({
   sec: [],
 
   setup: Ember.on('init', function() {
-    var perms = get(this, 'session.current_user.permission');
+//     var perms = get(this, 'session.current_user.permission');
+//     var perms = get(this, 'mo.current_user.permission');
+
     set(this, "sec", [
       { name: "user", prop: this.def },
       { name: "player", prop: this.def },
@@ -36,29 +38,38 @@ export default Ember.Controller.extend({
       { name: "reward", prop: this.def }
     ]);
   }),
-  changed: function() {
-      console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
-  }.observes('model'),
 
   actions: {
     deleteUser:function(user) {
-//       get(this, 'onConfirm')(get(this, "reward"));
+//       get(this, 'onConfirm')(user);
+      Ember.Logger.debug("delete user now", user);
+      set(this, "msg", { "type": "delete", "item": user, "title": "Delete User!", "content": "Do you really want to delete user " + user.get("id") + ", " + user.get("name") + "?" });
+      set(this, "showConfirmDialog", true);
+
     },
+
+    onConfirmed: function(msg) {
+//       Ember.Logger.debug("on confirm del mem", msg, " - ", get(msg, "item"));
+      if (!msg || !msg.item) {
+        return;
+      }
+      Ember.Logger.debug("delete user");
+      var self = this;
+      msg.item.destroyRecord().then(function(done) {
+        set(self, "showConfirmDialog", false);
+        self.transitionToRoute('users');
+      }).catch(function(err) {
+        Ember.Logger.debug("delete  user", err);
+      });
+    },
+
     saveUser:function(user) {
       var self = this;
-//       var r = this.get("reward");
-
-//       get(user, "permission").save().then(function(data) {
-//         self.set('showDialog', false);
-//       }).catch(function(err) {
-//        debug("save error", err);
-//       });
-
       user.save().then(function(data) {
         self.set('showDialog', false);
-        this.transitionToRoute('users');
+        self.transitionToRoute('users');
       }).catch(function(err) {
-       debug("save error", err);
+        debug("save error", err);
       });
     },
 

@@ -15,7 +15,7 @@
 
       <div class="col-md-12">
         <div class="filter-stats">
-          Members: {{filteredContent.length}} / {{users.length}} 
+          users: {{filteredContent.length}} / {{model.length}} 
         </div>
       </div>
 
@@ -38,8 +38,8 @@
     </div>
     <div class="player-list-result">
       {{#each model as |user|}}
-      <div class="row">
-        {{#link-to "users.user" user}}
+      <div class="row row-select">
+        {{#link-to "users.user" user tagName='div' href=false}}
         <div class="col-md-3">
           {{user.name}}
         </div>
