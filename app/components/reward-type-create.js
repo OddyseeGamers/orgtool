@@ -21,9 +21,10 @@ export default Ember.Component.extend({
       var self = this;
       var rt = this.get("rt");
       rt.save().then(function(data) {
+        Ember.Logger.debug("save ok", data);
         self.set('showDialog', false);
       }).catch(function(err) {
-        Ember.Logger.debug("save error", data);
+        Ember.Logger.debug("save error", err);
       });
     },
     close: function() {

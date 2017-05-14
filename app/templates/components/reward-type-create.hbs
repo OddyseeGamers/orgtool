@@ -13,6 +13,11 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if rt.errors.name.length}}
+      <span class="text-danger">
+      {{#each rt.errors.name as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=rt.name}}
 
     <label class="control-label">
@@ -21,25 +26,49 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if rt.errors.level.length}}
+      <span class="text-danger">
+      {{#each rt.errors.level as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="number" class="form-control" value=rt.level}}
 
     <label class="control-label">
       Description
     </label>
+    {{#if rt.errors.description.length}}
+      <span class="text-danger">
+      {{#each rt.errors.description as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=rt.description}}
 
     <div class="row">
     <label class="control-label">
       Image
     </label>
+    {{#if rt.errors.img.length}}
+      <span class="text-danger">
+      {{#each rt.errors.img as |err|}}{{err.message}}{{/each}}
+      </span>
+    {{/if}}
     {{input type="text" class="form-control" value=rt.img}}
     </div>
     <br>
   {{/md.body}}
   {{#md.footer}}
-    <button type="submit" class="btn btn-danger" {{action "deleteRewardType"}} disabled={{rt.isSaving}}> Delete </button>
-    <button type="submit" class="btn btn-primary" {{action "saveRewardType"}} disabled={{if requiredFields false true}} > {{#if rt.hasDirtyAttributes}} Save {{else}} Ok {{/if}} </button>
-    <button type="button" class="btn btn-default" {{action "close"}}>Close</button>
+
+    {{#if session.current_user.permission.reward_delete}}
+      <button type="submit" class="btn btn-danger" {{action "deleteRewardType"}} disabled={{rt.isSaving}}>{{fa-icon "trash-o"}} Delete </button>
+    {{/if}}
+
+    {{#if session.current_user.permission.reward_edit}}
+      <button type="submit" class="btn btn-primary" {{action "saveRewardType"}} disabled={{if (or (not requiredFields) (not rt.hasDirtyAttributes)) true false}} >  
+        {{fa-icon "save"}} Save
+      </button>
+    {{/if}}
+    <button type="button" class="btn btn-default" {{action "close"}}>{{fa-icon "close"}} Close</button>
+
   {{/md.footer}}
 {{/bs-modal}}
 {{/if}}
