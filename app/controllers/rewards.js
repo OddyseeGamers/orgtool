@@ -11,15 +11,20 @@ export default Ember.Controller.extend({
   showRewardDialog: false,
 
   sortProperties: ['numericLevel:asc'],
-  sortedModel: Ember.computed.sort('model', 'sortProperties'),
+  sortedRewardTypes: Ember.computed.sort('rewardTypes', 'sortProperties'),
 
   setup: Ember.on('init', function() {
+    console.debug(">>> init rewards");
+    var self = this;
+    this.store.findAll('rewardType').then(function(types) {
+      console.debug("  >", get(types, "length"));
+      self.set("rewardTypes", types);
+    });
 //     get(this, "store").findAll("reward");
 
 //     var self = this;
 //     return this.store.findAll("rewardType").then(function(types) {
 
-      console.debug(">>>", get(this, "model"));
 //       get(this, "model").forEach(function(t) {
 //         get(self, "store").findRecord("rewardType", get(t, "id"));
 //       });
@@ -33,7 +38,7 @@ export default Ember.Controller.extend({
 //   },
   }),
 
-
+/*
   changed: function() {
       console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
       var self = this;
@@ -65,7 +70,7 @@ export default Ember.Controller.extend({
 
 //     Ember.Logger.debug("filter changed", this.get('currFilter'));
   }.observes('model'), //, 'model.rewards'),
-
+*/
   actions: {
 
     createRewardType: function() {
