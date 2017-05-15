@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
     {"name": "Facebook", "link": "auth/facebook",  "icon": "facebook", "img": null},
     {"name": "Slack",    "link": "auth/slack",     "icon": "slack",    "img": null}
   ],
-  cred: { email: "", password: "" },
+  cred: { email: "", password: "", _csrf_token: window.csrf },
 
   actions: {
     login: function() {
@@ -28,6 +28,9 @@ export default Ember.Controller.extend({
       prom.then(function(done) {
         console.debug("login done");
 //         self.transitionToRoute('/');
+        window.location.href="/";
+      }).catch(function(err) {
+        console.debug("login err". err);
         window.location.href="/";
       });
 
