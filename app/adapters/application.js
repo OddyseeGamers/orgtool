@@ -7,8 +7,17 @@ import config from '../config/environment';
 
 
 export default DS.JSONAPIAdapter.extend({
+  session: Ember.inject.service('session'),
   host: config.APP.API_HOST,
   namespace: 'api',
+  headers: {
+    'Authorization': 'Bearer ' + window.jwt,
+  },
+//   headers: Ember.computed('session.authToken', function() {
+//     return {
+//       'Authorization': this.get('session.authToken'),
+//     };
+//   }),
 
   queryRecord(store, type, query) {
 //     Ember.Logger.log("QUERY", store, "-------", type.modelName, "------------", query);
