@@ -72,7 +72,7 @@
     {{#ember-collection items=merged cell-layout=(percentage-columns-layout merged.length columns itemHeight) as |player index|}}
         <div class="row" >
           <div class="col-md-3">
-            <img src={{mu.player.avatar}} style="width:32px"/>
+            <img src={{player.avatar}} style="width:32px"/>
             {{player.name}}
           </div>
           <div class="col-md-3">

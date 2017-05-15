@@ -10,7 +10,8 @@ export default Ember.Controller.extend({
   eventManager: Ember.inject.service('events'),
   session: Ember.inject.service('session'),
 
-  grouped: Ember.computed('model', function() {
+  grouped: Ember.computed('model', 'model.rewards', function() {
+//     console.debug(">>>> setup GROUPS")
     var types = this.store.peekAll("rewardType");
     if (Ember.isEmpty(types)) {
       return [];
@@ -43,7 +44,14 @@ export default Ember.Controller.extend({
 
   actions: {
     rewardPlayer: function(reward) {
-      console.debug("TODO: reward", get(reward, "name"), "-", get(this, "model.name"));
+      var player = get(this, "model");
+      get(player, "rewards").pushObject(reward);
+      player.save().then(function(done) {
+//         debug("saved....", get(done, "id"));
+//         player.reload();
+      }).catch(function(err) {
+        debug("player reward save failed, err", err);
+      });
     },
 
     applyMember: function(unit) {

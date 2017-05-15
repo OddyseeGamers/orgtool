@@ -39,34 +39,20 @@ export default Ember.Component.extend({
     rewardMember: function(player) {
       debug("add player", get(player, 'id'), "to", get(this.get('reward'), 'id'));
       get(player, "rewards").pushObject(this.get('reward'));
+      var self = this;
       player.save().then(function(done) {
-        debug("saved....", get(done, "id"));
+        get(self, "session").log("player", "added reward " + get(self, "reward.name") + " to player " + get(player, "name"));
       }).catch(function(err) {
         debug("player-reward save failed, err", err);
-//         player.rollbackAttributes();
       });
-
-
-/*
-      var memrew = get(this, 'store').createRecord('playerReward');
-      set(memrew, "player", player);
-      set(memrew, "reward", this.get('reward'));
-      memrew.save().then(function(done) {
-        debug("saved....", get(done, "id"));
-      }).catch(function(err) {
-        debug("player-reward save failed, err", err);
-        memrew.rollbackAttributes();
-      });
-*/
     },
 
-    showConfirm: function(memUn) {
-      set(this, "msg", { "type": "delete", "item": memUn, "title": "Remove Reward", "content": "Do you really want to remove the reward '" + memUn.get("reward.name") + "' from player '" + memUn.get("player.name") + "'?" });
+    showConfirm: function(player) {
+      set(this, "msg", { "type": "delete", "item": player, "title": "Remove Reward", "content": "Do you really want to remove the reward '" + get(this, "reward.name") + "' from player '" + get(player, "name") + "'?" });
       set(this, "showConfirmDialog", true);
     },
 
     onConfirmed: function(msg) {
-//       Ember.Logger.debug("on confirm");
       var element = get(msg, "item");
       var typename = element.get('constructor.modelName');
 //       Ember.Logger.debug("element", typename, "===", element);
@@ -74,11 +60,10 @@ export default Ember.Component.extend({
       if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
-
-          element.destroyRecord().then(function(nitem) {
-            get(self, "session").log(typename, nitem + " deleted");
-//             debug(">>>>>>>>", nitem, self.grouped);
-//             self.grouped;
+          element.get("rewards").removeObject(get(this, "reward"));
+          element.save().then(function(nitem) {
+//             debug(">>>>>>>>", nitem);
+            get(self, "session").log(typename, "removed reward " + get(self, "reward.name") + " form player " + get(element, "name"));
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
             Ember.Logger.debug("error deleting", err);

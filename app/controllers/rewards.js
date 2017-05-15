@@ -14,70 +14,19 @@ export default Ember.Controller.extend({
   sortedRewardTypes: Ember.computed.sort('rewardTypes', 'sortProperties'),
 
   setup: Ember.on('init', function() {
-    console.debug(">>> init rewards");
     var self = this;
     this.store.findAll('rewardType').then(function(types) {
-      console.debug("  >", get(types, "length"));
       self.set("rewardTypes", types);
     });
-//     get(this, "store").findAll("reward");
-
-//     var self = this;
-//     return this.store.findAll("rewardType").then(function(types) {
-
-//       get(this, "model").forEach(function(t) {
-//         get(self, "store").findRecord("rewardType", get(t, "id"));
-//       });
-//     });
-//   createRequest: function(name, modelName) {
-//     var self = this;
-//     return self.get('store').findAll(modelName).then(function(data) {
-//       Ember.Logger.log(" loaded ", name, Ember.get(data, 'length'));
-//       return data;
-//     });
-//   },
   }),
 
-/*
-  changed: function() {
-      console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
-      var self = this;
-//       if (get(this, "model")) {
-//       get(this, "model.rewards").reload();
-      get(this, "store").unloadAll();
-      get(this, "store").findAll("rewardType").then(function(types) {
-        types.forEach(function(t) {
-        get(self, "store").unloadAll(t);
-//         t.reload();
-//         console.debug(">>> changed", get(this, "model"), get(this, "model.length"));
-//         get(self, "store").findRecord("rewardType", get(t, "id"));
-        });
-
-        get(self, "store").findAll("rewardType").then(function(types) {
-          console.debug(">>> reload", get(types, "length")); //, get(this, "model.length"));
-          types.forEach(function(t) {
-              console.debug(">>>>> reload", get(t, "id")); //, get(this, "model.length"));
-            get(self, "store").findRecord("rewardType", get(t, "id"));
-          });
-        });
-      });
-
-//       get(this, "store").findAll("player").then(function(types) {
-//         types.forEach(function(t) {
-//         get(self, "store").findRecord("rewardType", get(t, "id"));
-//         });
-//       });
-
-//     Ember.Logger.debug("filter changed", this.get('currFilter'));
-  }.observes('model'), //, 'model.rewards'),
-*/
   actions: {
-
     createRewardType: function() {
       var rt = this.store.createRecord('rewardType');
       this.set("currType", rt);
       this.set("showRTDialog", true);
     },
+
     editRewardType: function(rt) {
       this.set("currType", rt);
       this.set("showRTDialog", true);
@@ -89,6 +38,7 @@ export default Ember.Controller.extend({
       this.set("currReward", r);
       this.set("showRewardDialog", true);
     },
+
     editReward: function(r) {
       this.set("currReward", r);
       this.set("showRewardDialog", true);
