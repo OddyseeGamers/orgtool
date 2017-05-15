@@ -6,16 +6,22 @@
 <!--     </div> -->
 <!--     <div class="loader-text" style="width:60%;"> -->
       <div class="login-form">
-        <label class="control-label">Name</label>
-        {{input type="text" class="form-control" value=cred.name}}
+        <label class="control-label">Email</label>
+        {{input type="text" class="form-control" value=cred.email}}
 
         <label class="control-label">Password</label>
-        {{input type="password" class="form-control" value=cred.pwd}}
+        {{input type="password" class="form-control" value=cred.password}}
+<!--         <button class="btn btn-default" s {{action 'login' }} href="#">{{fa-icon "sign-in"}} Login</button> -->
 <!--       </div> -->
       <div class="login-links">
+        <a class="btn btn-default" {{action 'login'}} href="#">
+          <i class="fa fa-sign-in"></i> Login
+        </a>
+        <br><br>
+        TODO
 
         {{#each providers as |prov|}}
-        <a class="btn btn-default" {{action 'login' prov.link}} href="#">
+        <a class="btn btn-default" {{action 'loginProvider' prov.link}} href="#">
           <i class="fa fa-{{prov.icon}}"></i> {{prov.name}}
         </a>
         {{/each}}
@@ -43,6 +49,7 @@
     {{!--
       <div class="loader-bar">
         {{#bs-progress class="progress-sm" as |p|}}
+        gin
             {{p.bar value=session.state.length minValue=0 maxValue=session.statesDone showLabel=false roundDigits=false type="info" striped=true animate=true}}
         {{/bs-progress}}
           {{session.state.lastObject}} ...

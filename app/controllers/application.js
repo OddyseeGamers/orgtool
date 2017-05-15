@@ -158,7 +158,7 @@ export default Ember.Controller.extend({
       });
 
 //       var prom = this.get('ajax').del(config.APP.API_HOST + "/logout");
-      console.debug("PROM", prom);
+//       console.debug("PROM", prom);
       var self = this;
       prom.then(function(done) {
         console.debug("PROM done", done);
