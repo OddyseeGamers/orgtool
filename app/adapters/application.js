@@ -45,6 +45,23 @@ export default DS.JSONAPIAdapter.extend({
     }
   },
 
+
+  shouldReloadRecord: function(store, snapshot) {
+    return true;
+  },
+
+  shouldReloadAll: function(store, snapshot) {
+    return true;
+  },
+
+  shouldBackgroundReloadRecord: function(store, snapshot) {
+    return false;
+  },
+
+  shouldBackgroundReloadAll: function(store, snapshot) {
+    return false;
+  }
+
 //   pathForType: function(type) {
 //     Ember.Logger.log("---> type", type);
 //     return Ember.String.underscore(type);

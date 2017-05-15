@@ -11,16 +11,13 @@ export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
   grouped: Ember.computed('model', function() {
-//     var types = this.store.peekAll("rewardType");
-    var self = this;
-    return this.store.findAll("rewardType").then(function(types) {
-    set(self, "types", types);
-    debug("d1", types, get(types, "length"));
+    var types = this.store.peekAll("rewardType");
+    if (Ember.isEmpty(types)) {
+      return [];
+    }
     var temp = types.toArray().sort(function(a, b) {
       return Ember.compare(get(a, 'numericLevel'), get(b, 'numericLevel'));
     });
-
-    debug("d2", temp, get(temp, "length"));
 
     var group = []; //Ember.A();
     var rt_lookup = [];
@@ -32,44 +29,17 @@ export default Ember.Controller.extend({
       idx++;
     });
 
-//     debug("d3", group, get(group, "length"));
-    get(self, 'model').get("rewards").forEach(function(reward) {
-//       debug("d4", mr, get(mr, "length"));
-      var gidx = rt_lookup[reward.get("type").get('id')];
-//       var or = get(mr, "reward");
-      var nr = {id: get(reward, "id"), name: get(reward, "name"), img: get(reward, "img"), units: []};
-
-      group[gidx].rewards.push(nr);
+    var self = this;
+    get(this, 'model').get("rewards").forEach(function(nrew) {
+        if (!Ember.isEmpty(get(nrew, "rewardType.id"))) {
+          var gidx = rt_lookup[get(nrew, "rewardType.id")];
+          var nr = {id: get(nrew, "id"), name: get(nrew, "name"), img: get(nrew, "img"), units: []};
+          group[gidx].rewards.push(nr);
+        }
     });
-
-    // Rewards are no longer assigned to units
-    // get(this, 'model').get("playerUnits").forEach(function(mu) {
-    //   var gidx = rt_lookup[get(mu, "reward").get("type").get('id')];
-    //   var or = get(mu, "reward");
-    //   var ou = get(mu, "unit");
-    //   var nu = { name: get(ou, "name"), img: get(ou, "img"), mu: mu };
-
-    //   if (group[gidx].rewards.length) {
-    //     var res = group[gidx].rewards.find(function(r) {
-    //       return get(r, "id") == get(or, "id");
-    //     });
-    //     if (res) {
-    //       res.units.push(nu);
-    //     } else {
-    //       var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
-    //       group[gidx].rewards.push(nr);
-    //     }
-    //   } else {
-    //     var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: [ nu ]};
-    //     group[gidx].rewards.push(nr);
-    //   }
-
-    // });
 
     return group;
-    });
-  }).property('model', 'model.rewards.length', 'model.playerUnits.length', 'showConfirmDialog'),
-
+  }),
 
   actions: {
     applyMember: function(unit) {
@@ -97,9 +67,7 @@ export default Ember.Controller.extend({
           var self = this;
 
           element.destroyRecord().then(function(nitem) {
-            get(self, "session").log(typename, nitem + " deleted");
-//             debug(">>>>>>>>", nitem, self.grouped);
-//             self.grouped;
+            get(self, "session").log(typename, element.get("id") + " deleted");
           }).catch(function(err) {
             get(self, "session").log("error", "could not delete " + typename + " " + element.get("name"));
             Ember.Logger.log("error deleting", err);
@@ -111,7 +79,5 @@ export default Ember.Controller.extend({
         set(this, "showConfirmDialog", false);
       }
     },
-
   },
-
 });

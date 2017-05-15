@@ -28,15 +28,17 @@ export default Ember.Component.extend({
     //   Ember.onerror = function(error) {
     //     console.log("An error has occurred in ember: " + error.message);
     // };
+//     debug(">> init", Ember.get(this, "player.id"));
+
     if (!this.get('canDrag')) {
       return;
     }
 //     debug(">> init", Ember.get(this, "playerid"));
-    debug(">> init", Ember.get(this, "player.id"));
 //     this.get("store").findRecord("player", Ember.get(this, "playerid"));
 
     this.createDraggable();
   }),
+
 
   mergedUnits: function() {
     Ember.Logger.log(">>> player cachanged" );
@@ -46,9 +48,11 @@ export default Ember.Component.extend({
     res.pushObjects(get(this, 'player.applications').toArray());
     return res;
   }.property('player.leaderships', 'player.playerships', 'player.applications'),
+//   }.property('player'),
+
 
   reinit: function() {
-    Ember.Logger.log(">>> reinit" );
+//     Ember.Logger.log(">>> reinit" );
     if (!this.get('canDrag')) {
       return;
     }

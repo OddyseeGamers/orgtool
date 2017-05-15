@@ -8,22 +8,10 @@ var debug = Ember.Logger.debug;
 export default Ember.Controller.extend({
   session: Ember.inject.service('session'),
 
-  rank: Ember.computed.filter('model.rewards', function(mr, index, array) {
-//       return !chore.done;
-//     debug(" - wtf", index, get(get(mr, "reward"), "type").get("id") ,"=", get(get(mr, "reward"), "type").get("name"), "||||", get(get(mr, "reward"), "type").get("id") == 1);
-    return get(mr, "rewardType").get("id") == 1;
-  }), //.property('model.playerRewards'),
-
-//   rank: Ember.computed('model', function() {
-//     var ret = [];
-//     get(this, 'model').get("playerRewards").forEach(function(mr) {
-//       if (get(get(mr, "reward"), "type").get("id") == 1) {
-//         ret.push(get(mr, "reward"));
-//       }
-//     });
-//     return ret;
-//   }).property('model.playerRewards'),
-  
+  ranks: Ember.computed.filter('model.rewards', function(reward, index, array) {
+//     console.debug("GET RANK", get(reward, "name"), get(reward, "rewardType.id"));
+    return get(reward, "rewardType.id") == 1;
+  }),
 
   actions: {
     saveAvatar: function() {

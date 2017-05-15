@@ -9,7 +9,7 @@ export function getUniq(params/*, hash*/) {
   var prop = params[1];
   
   var result = [];
-  if (Ember.get(item, "length") > 0) {
+  if (!Ember.isEmpty(item) && Ember.get(item, "length") > 0) {
     for (var i = 0; i < Ember.get(item, "length"); i++) {
       if (item.objectAt(i).get(prop) && Ember.$.inArray(item.objectAt(i).get(prop), result) < 0) {
         result.push(item.objectAt(i).get(prop));

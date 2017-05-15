@@ -1,19 +1,24 @@
 <div class="stats">
   <div class="player-rewards col-md-6">
-
-    {{grouped.length}} / {{model.rewards.length}} / {{types.length}}
-
+<!--     {{grouped.length}} / {{model.rewards.length}} / {{rewardTypes.length}} -->
     {{#each grouped as |rt|}}
-    -------- {{rt}}
     <div class="row">
 <!--       <div class="col-md-4"> -->
         <div class="box">
+          {{!--
           {{#if (or session.current_user.permission.unit_apply model.loggedIn)}}
             {{#if (eq rt.id "2")}}
             <div class="toolbar">
               {{unit-select onConfirm=(action "applyMember") actionName="Apply"}}
             </div>
             {{/if}}
+            {{/if}}
+          --}}
+
+          {{#if (or session.current_user.permission.reward_edit)}}
+            <div class="toolbar">
+              TODO: reward selection
+            </div>
           {{/if}}
 
           <div class="box-header">
@@ -61,6 +66,7 @@
 <!--       </div> -->
     </div>
     {{/each}}
+
   </div>
 </div>
 

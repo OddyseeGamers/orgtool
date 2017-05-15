@@ -23,9 +23,9 @@ export default Ember.Controller.extend({
       self.set('rootUnit', unit);
     });
 
-    get(this, 'store').findAll('player').then(function(players) {
-      self.set('players', players);
-    });
+//     get(this, 'store').findAll('player').then(function(players) {
+//       self.set('players', players);
+//     });
   }),
 
 
@@ -45,7 +45,7 @@ export default Ember.Controller.extend({
   },
 
 
-  filteredContent: Ember.computed.filter('players', function(player, index, array) {
+  filteredContent: Ember.computed.filter('model', function(player, index, array) {
     var searchFilter = this.get('searchFilter');
     var unitFilter = this.get('unitFilter');
     var res = []
@@ -83,7 +83,7 @@ export default Ember.Controller.extend({
     }
 
     return res;
-  }).property('searchFilter', 'players.length', 'unitFilter'),
+  }).property('searchFilter', 'model', 'unitFilter'),
 
   sortedContent: Ember.computed.sort('filteredContent', 'sortProperties').property('filteredContent'),
 
