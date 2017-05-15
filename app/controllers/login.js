@@ -1,5 +1,8 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
+var get = Ember.get
+var set = Ember.set
 var debug = Ember.Logger.log
 
 export default Ember.Controller.extend({
@@ -15,16 +18,17 @@ export default Ember.Controller.extend({
 
   actions: {
     login: function() {
-      debug("login", get(this, "cred"));
-      var prom = this.get('ajax').request('/auth/identity', {
+//       debug("login", get(this, "cred"));
+      var prom = this.get('ajax').request('/auth/identity/callback', {
         method: 'POST',
         data: get(this, "cred")
       });
 
       var self = this;
       prom.then(function(done) {
-        console.debug("PROM done", done);
-        self.transitionToRoute('/');
+        console.debug("login done");
+//         self.transitionToRoute('/');
+        window.location.href="/";
       });
 
     },

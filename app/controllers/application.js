@@ -148,7 +148,6 @@ export default Ember.Controller.extend({
 
   actions: {
     logout: function() {
-
       var prom = this.get('ajax').request('/logout', {
         method: 'POST',
         data: {
@@ -161,8 +160,14 @@ export default Ember.Controller.extend({
 //       console.debug("PROM", prom);
       var self = this;
       prom.then(function(done) {
-        console.debug("PROM done", done);
-        self.transitionToRoute('/');
+//         console.debug("PROM done", done);
+        console.debug("logout done");
+        window.location.href="/";
+//         self.transitionToRoute('/');
+      }).catch(function(err) {
+        console.debug("logout err", err);
+        window.location.href="/";
+//         self.transitionToRoute('/');
       });
 //       Ember.$.ajax(config.APP.API_HOST + "/logout", 'DELETE', {});
     },
