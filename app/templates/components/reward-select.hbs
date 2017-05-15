@@ -1,0 +1,29 @@
+<span class="action-name">
+  {{actionName}}
+</span>
+
+  <div class="player-form">
+    {{#power-select
+      options=data
+      selected=selVal
+      onchange=(action (mut selVal))
+      renderInPlace=true
+      searchField="name"
+      initiallyOpened=selVal
+      as |reward idx|
+    }}
+       <img src="{{reward.img}}" class="mem-icon"> [{{reward.level}}] {{reward.name}}
+    {{/power-select}}
+
+    {{#if selVal}}
+      <span class="player-apply">
+        <button class="btn btn-default" type="button" {{action 'rewardPlayer' selVal}}><i class="fa fa-user-plus"></i></button>
+      </span>
+    {{/if}}
+  </div>
+
+{{!--
+{{/if}}
+--}}
+
+

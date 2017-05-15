@@ -25,23 +25,16 @@ export default Ember.Component.extend({
   session: Ember.inject.service('session'),
 
   setup: Ember.on('didInsertElement', function() {
-    //   Ember.onerror = function(error) {
-    //     console.log("An error has occurred in ember: " + error.message);
-    // };
 //     debug(">> init", Ember.get(this, "player.id"));
-
     if (!this.get('canDrag')) {
       return;
     }
-//     debug(">> init", Ember.get(this, "playerid"));
-//     this.get("store").findRecord("player", Ember.get(this, "playerid"));
-
     this.createDraggable();
   }),
 
 
   mergedUnits: function() {
-    Ember.Logger.log(">>> player cachanged" );
+//     Ember.Logger.log(">>> player cachanged" );
     var res = Ember.A();
     res.pushObjects(get(this, 'player.leaderships').toArray());
     res.pushObjects(get(this, 'player.playerships').toArray());
@@ -156,30 +149,10 @@ export default Ember.Component.extend({
     var id;
     var dest = "";
 
-    //     Ember.Logger.debug("i", $(item.toElement).data('unitid'));
-    //     Ember.Logger.debug("p", $(item.toElement).closest( ".unit-pilots-container" ).data('unitid'));
-    //     Ember.Logger.debug("l", $(item.toElement).closest( ".unit-leader-container" ).data('unitid'));
-    //     Ember.Logger.debug("u", $(item.toElement).closest( ".unit-name-container" ).data('unitid'));
-
-
     if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
       dest = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('dest');
-      //       Ember.Logger.debug("elm leader");
-//       dest = "leader"
-      //     } else {
-      //       Ember.Logger.debug(" else");
     }
-
-//     if (!id) {
-//       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
-//       dest = "player"
-//     }
-
-//     if (!id) {
-//       id = this.$(item.originalEvent.target).closest( ".unit-pilots-container" ).data('unitid');
-//       dest = "player"
-//     }
 
     if (!id) {
       id = this.$(item.originalEvent.target).closest( ".unit-name-container" ).data('unitid');
@@ -203,26 +176,7 @@ export default Ember.Component.extend({
 
   actions: {
     unassignMember: function(player, unit, type) {
-      //this.store.findRecord('unit', unitid).then(function(lead) {
-      console.log("unassign", player, unit, type);
-      //});
-      switch (type) {
-      case "leaders":
-        unit.get('leaders').removeObject(player);
-        unit.save();
-        break;
-      case "players":
-        unit.get('players').removeObject(player);
-        unit.save();
-        break;
-      case "applicants":
-        unit.get('applicants').removeObject(player);
-        unit.save();
-        break;
-      }
-      //this.get('eventManager').trigger('unassign', { 'id': player.get('id'), 'type': 'player', 'dest': unitid, 'destType': "unit" } );
+      this.get('eventManager').trigger('unassign', { 'player': player, 'unit': unit, 'type': type } );
     },
-
   }
-
 });

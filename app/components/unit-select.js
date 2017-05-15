@@ -17,7 +17,7 @@ export default Ember.Component.extend({
       store.query('unit', { id: 1, recursive: true }).then(function(units) {
         var root = store.peekRecord('unit', 1);
         var data = self._serializeChildren(root);
-        console.debug("DATA:", data);
+//         console.debug("DATA:", data);
         if (!Ember.isEmpty(data)) {
           set(self, "data", data.options);
         }

@@ -44,13 +44,13 @@ export default Ember.Controller.extend({
   },
 
   assign: function(data) {
-    console.log("DO IT data", data)
+//     console.log("DO IT data", data)
 
     var self = this;
     return this.store.findRecord('player', data.id).then(function(player) {
-      console.log("find 1", player);
+//       console.log("find 1", player);
       return self.store.findRecord('unit', data.dest).then(function(unit) {
-        console.log("find 2", unit);
+//         console.log("find 2", unit);
         switch (data.destType) {
         case "path":
         case "player":
@@ -95,9 +95,26 @@ export default Ember.Controller.extend({
 
 
   unassign: function(data) {
-    var player = this.store.peekRecord('player', data.id);
-    var unit = this.store.peekRecord('unit', data.dest);
+    var player = data.player;
+    var unit = data.unit;
+    var type = data.type;
 
+    console.debug("UNASSIGN", get(player, "name"), get(unit, "name"), type);
+    switch (type) {
+      case "leader":
+        unit.get('leaders').removeObject(player);
+        unit.save();
+        break;
+      case "player":
+        unit.get('players').removeObject(player);
+        unit.save();
+        break;
+      case "applicant":
+        unit.get('applicants').removeObject(player);
+        unit.save();
+        break;
+    }
+/*
     var units = get(player, 'units');
     var found = false;
     var memUn;
@@ -121,6 +138,7 @@ export default Ember.Controller.extend({
         memUn.rollback();
       });
     }
+    */
   },
 
 

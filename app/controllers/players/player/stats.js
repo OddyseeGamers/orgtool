@@ -42,6 +42,10 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    rewardPlayer: function(reward) {
+      console.debug("TODO: reward", get(reward, "name"), "-", get(this, "model.name"));
+    },
+
     applyMember: function(unit) {
 //       Ember.Logger.debug("apply mem to unit", get(this, "model.name"), unit);
       this.get('eventManager').trigger('assign', { 'id': get(this, "model.id"), 'type': 'player', 'dest': unit, 'destType': "applicant" } );
@@ -51,17 +55,24 @@ export default Ember.Controller.extend({
       Ember.Logger.debug("unassign mem from unit");
     },
 
-    showConfirm: function(memUn) {
-      set(this, "msg", { "type": "delete", "item": memUn, "title": "Leave Unit?", "content": "Do you really want to leave the unit " + memUn.get("unit.name") + "?" });
+    showConfirm: function(unit, type) {
+      set(this, "msg", { "type": "delete", "item": { unit: unit, type: type}, "title": "Leave Unit?", "content": "Do you really want to leave the unit " + unit.get("name") + "?" });
       set(this, "showConfirmDialog", true);
     },
 
     onConfirmed: function(msg) {
 //       Ember.Logger.debug("on confirm");
-      var element = get(msg, "item");
+      var struct = get(msg, "item");
+      var element = struct.unit
       var typename = element.get('constructor.modelName');
-//       Ember.Logger.debug("element", typename, "===", element);
+      Ember.Logger.debug("element", typename, "===", element);
 
+      this.get('eventManager').trigger('unassign', { 'player': get(this, "model"), 'unit': element, 'type': struct.type } );
+
+//       this.get('eventManager').trigger('unassign', { 'id': get(this, "model.id"), 'dest': get(element, "id") } );
+      set(this, "showConfirmDialog", false);
+
+/*
       if (element && typename) {
         if (get(msg, "type") == "delete") {
           var self = this;
@@ -78,6 +89,7 @@ export default Ember.Controller.extend({
       } else {
         set(this, "showConfirmDialog", false);
       }
+      */
     },
   },
 });

@@ -98,7 +98,7 @@
         {{#if showLeader}}
           <div class="unit-pilots">
             {{#each leaders as |lead|}}
-              {{player-details player=lead draggable=true unit=unit type="leaders"}}
+              {{player-details player=lead draggable=true unit=unit type="leader"}}
             {{/each}}
           </div>
 
@@ -122,7 +122,7 @@
         {{#if showMembers}}
           <div class="unit-pilots">
             {{#each players as |mem|}}
-              {{player-details player=mem draggable=true unit=unit type="players"}}
+              {{player-details player=mem draggable=true unit=unit type="player"}}
             {{/each}}
           </div>
         {{else}}
@@ -142,7 +142,7 @@
         {{#if showApplicants}}
           <div class="unit-pilots">
             {{#each applicants as |mem|}}
-              {{player-details player=mem draggable=true unit=unit type="applicants"}}
+              {{player-details player=mem draggable=true unit=unit type="applicant"}}
             {{/each}}
           </div>
         {{/if}}
