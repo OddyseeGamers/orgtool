@@ -2,58 +2,38 @@
   <div class="loader-box">
     <div class="login-text">
       LOGIN
-<!--       <br> -->
-<!--     </div> -->
-<!--     <div class="loader-text" style="width:60%;"> -->
-      <div class="login-form">
-        <label class="control-label">Email</label>
-        {{input type="text" class="form-control" value=cred.email}}
 
-        <label class="control-label">Password</label>
-        {{input type="password" class="form-control" value=cred.password}}
-<!--         <button class="btn btn-default" s {{action 'login' }} href="#">{{fa-icon "sign-in"}} Login</button> -->
-<!--       </div> -->
-      <div class="login-links">
-        <a class="btn btn-default" {{action 'login'}} href="#">
-          <i class="fa fa-sign-in"></i> Login
-        </a>
-        <br><br>
-        TODO
+      <div class="row login-form-row">
+        <div class="col-md-4">
+        </div>
 
-        {{#each providers as |prov|}}
-        <a class="btn btn-default" {{action 'loginProvider' prov.link}} href="#">
-          <i class="fa fa-{{prov.icon}}"></i> {{prov.name}}
-        </a>
-        {{/each}}
+        <div class="col-md-4">
 
-<!--             <a class="btn btn-default" {{action 'login' 'google'}} href="#">{{fa-icon "google"}} Google</a> -->
-<!--             <a class="btn btn-default" {{action 'login' 'google'}} href="#">{{fa-icon "github"}} Github</a> -->
-<!--             <a class="btn btn-default" {{action 'login' 'google'}} href="#">{{fa-icon "facebook"}} Facebook</a> -->
-<!--             <a class="btn btn-default" {{action 'login' 'google'}} href="#">{{fa-icon "slack"}} Slack</a> -->
+          <label class="control-label">Email</label>
+          {{input type="text" class="form-control" value=cred.email}}
 
-<!--         {{link-to ''}}<label class="control-label btn"><i class="fa fa-google"></i>Google</label> -->
-<!--           <a href="auth/github"><i class="fa fa-github"></i>Github</a> -->
-<!--         {{#link-to 'my-route' tagName='auth/google'}}<i class="fa fa-google"></i>Google{{/link-to}} -->
-<!--         {{#link-to 'my-route' tagName='auth/guthub'}}<i class="fa fa-github"></i>Google{{/link-to}} -->
+          <label class="control-label">Password</label>
+          {{input type="password" class="form-control" value=cred.password}}
+
+          <div class="login-links">
+            <a class="btn btn-default" {{action 'login'}} href="#">
+              <i class="fa fa-sign-in"></i> Login
+            </a>
+
+            <br><br>
+            TODO
+            {{#each providers as |prov|}}
+            <a class="btn btn-default" {{action 'loginProvider' prov.link}} href="#">
+              <i class="fa fa-{{prov.icon}}"></i> {{prov.name}}
+            </a>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="col-md-4">
         </div>
       </div>
 
-<!--       <i class="loader-spinner fa fa-download fa-pulse"></i> -->
     </div>
   </div>
-
-<!--       <div class="loader-bar"> -->
-<!--         Name: -->
-<!--         </div> -->
-
-    {{!--
-      <div class="loader-bar">
-        {{#bs-progress class="progress-sm" as |p|}}
-        gin
-            {{p.bar value=session.state.length minValue=0 maxValue=session.statesDone showLabel=false roundDigits=false type="info" striped=true animate=true}}
-        {{/bs-progress}}
-          {{session.state.lastObject}} ...
-        </div>
-    --}}
-<!--   </div> -->
 </div>
