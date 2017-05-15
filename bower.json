@@ -1,7 +1,7 @@
 {
   "name": "orgtool",
   "dependencies": {
-    "ember": "~2.13.0",
+    "ember": "~2.12.2",
     "jquery-ui": "^1.12.1",
     "font-awesome": "^4.7.0"
   },
