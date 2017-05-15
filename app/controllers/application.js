@@ -15,21 +15,11 @@ export default Ember.Controller.extend({
     this.get('eventManager').on('assign', this.assign.bind(this));
     this.get('eventManager').on('unassign', this.unassign.bind(this));
 
-
     this.get("session").log("init", "");
-
 
     this.get('eventManager').on('log', this.log.bind(this));
     this.get('eventManager').on('success', this.success.bind(this));
     this.get('eventManager').on('failure', this.failure.bind(this));
-
-    var self = this;
-    this.store.findRecord('reward', 7).then(function(lead) {
-      self.set('leaderFilter', lead);
-    });
-    this.store.findRecord('reward', 8).then(function(mem) {
-      self.set('playerFilter', mem);
-    });
   }),
 
   success: function(text) {
@@ -101,60 +91,6 @@ export default Ember.Controller.extend({
 
       });
     });
-
-//     var player = this.store.peekRecord('player', data.id);
-//     var unit = this.store.peekRecord('unit', data.dest);
-
-
-
-
-
-
-    
-//     Ember.Logger.debug(">>>> assign", data, player.get("name"));
-
-//     var cu = get(player, 'playerUnits');
-//     var found = false;
-//     var memUn;
-
-//     for (var i = 0; i < get(cu, 'length') && !found; i++) {
-//       var c = cu.objectAt(i);
-//       if (get(c, 'unit.id') == get(unit, 'id')) {
-//         found = true;
-//         memUn = c;
-//       }
-//     }
-
-//     if (!found) {
-//       memUn = this.store.createRecord('playerUnit');
-//       memUn.set('player', player);
-//       memUn.set('unit', unit);
-//       this.get("session").log("assign", 'assign player:' + data.id + ' to unit: ' + data.dest + ' as ' + data.destType);
-//     } else {
-//       this.get("session").log("assign", 'changing position of player:' + data.id + ' in unit: ' + data.dest + " to " + data.destType);
-//     }
-
-//     if (data.destType == "leader") {
-//       memUn.set('reward', this.store.peekRecord('reward', 7));
-// //       memUn.set('reward', this.leaderFilter);
-//     } else if (data.destType == "player" || data.destType == "path") {
-//       memUn.set('reward', this.store.peekRecord('reward', 8));
-// //       memUn.set('reward', this.playerFilter);
-//     } else if (data.destType == "applicant") {
-//       memUn.set('reward', this.store.peekRecord('reward', 9));
-// //       memUn.set('reward', this.playerFilter);
-//     }
-
-//       var self = this;
-//       self.set('loading', true);
-//       memUn.save().then(function() {
-//         self.get("session").log("assign", "player assigned " + data.id);
-//       }).catch(function(err) {
-//         self.get("session").log("error", "assigning player " + data.id);
-//         Ember.Logger.debug("assign err", err);
-//         memUn.rollback();
-//       });
-
   },
 
 
@@ -186,7 +122,6 @@ export default Ember.Controller.extend({
       });
     }
   },
-
 
 
   actions: {
