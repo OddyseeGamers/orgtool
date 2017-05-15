@@ -1,4 +1,5 @@
 {{#if details}}
+{{items-hack player}}
   {{#link-to 'players.player' player.id tagName="div" class="player-detail select"}}
     <!--     <div class="col-md-1"> -->
     <!--     </div> -->
@@ -19,19 +20,10 @@
 
     <div class="col-md-3">
       {{get-uniq player.handles "handle"}}
-      {{!--
-         {{#each player.handles as |han|}}
-         {{han.handle}},
-         {{/each}}
-         --}}
     </div>
 
     <div class="col-md-4">
-      {{#if player.playerUnits.length}}
-        {{#each player.playerUnits as |memUn|}}
-          {{memUn.unit.name}},
-        {{/each}}
-      {{/if}}
+      {{get-uniq mergedUnits "name"}}
     </div>
 
     <div class="col-md-1">
@@ -41,8 +33,6 @@
     <div class="col-md-1">
         {{#if player.items.length}}
           {{player.items.length}}
-        {{else}}
-          {{items-hack player}}
         {{/if}}
     </div>
 

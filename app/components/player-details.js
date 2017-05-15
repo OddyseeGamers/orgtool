@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+var get = Ember.get;
+var set = Ember.set;
 var debug = Ember.Logger.log;
 
 export default Ember.Component.extend({
@@ -30,20 +32,20 @@ export default Ember.Component.extend({
       return;
     }
 //     debug(">> init", Ember.get(this, "playerid"));
-    this.get("store").findRecord("player", Ember.get(this, "playerid"));
+    debug(">> init", Ember.get(this, "player.id"));
+//     this.get("store").findRecord("player", Ember.get(this, "playerid"));
 
     this.createDraggable();
   }),
 
-  reinit_2: function() {
+  mergedUnits: function() {
     Ember.Logger.log(">>> player cachanged" );
-//     if (!this.get('canDrag')) {
-//       return;
-//     }
-//     if (this.$().data('ui-draggable') === undefined) {
-//       this.createDraggable();
-//     }
-  }.observes('player'),
+    var res = Ember.A();
+    res.pushObjects(get(this, 'player.leaderships').toArray());
+    res.pushObjects(get(this, 'player.playerships').toArray());
+    res.pushObjects(get(this, 'player.applications').toArray());
+    return res;
+  }.property('player.leaderships', 'player.playerships', 'player.applications'),
 
   reinit: function() {
     Ember.Logger.log(">>> reinit" );
