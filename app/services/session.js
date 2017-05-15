@@ -9,7 +9,7 @@ export default Ember.Service.extend({
   isUser: false,
   store: Ember.inject.service(),
   user: null,
-  loading: false,
+  loading: true,
   statesDone: 16,
   state: Ember.A(),
   current_user: null,
@@ -54,12 +54,12 @@ export default Ember.Service.extend({
       }).catch(function(err) {
         Ember.Logger.log("error", err);
         self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
-      }).finally(function(){
-        self.set('loading', false);
+//       }).finally(function(){
+//         self.set('loading', false);
       });
     } else {
         self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
-        self.set('loading', false);
+//         self.set('loading', false);
     }
   },
 
@@ -97,6 +97,7 @@ export default Ember.Service.extend({
     } else {
         self.log("session", "logged in as guest");
     }
+    self.set('loading', false);
   },
 
   loadSession: function(session) {
