@@ -1,24 +1,28 @@
 <div id="myheader" class="clearfix">
   <ul class="nav nav-tabs">
 
+    <li>
+      {{#if session.current_user}}
+        {{#if session.current_user.player}}
+          {{#link-to 'players.player' session.current_user.player}}
+            <i class={{if session.current_user.permission.settings "fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
+          {{/link-to}}
+        {{else}}
+          <i class={{if session.current_user.permission.settings "fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
+        {{/if}}
+
+        <button type="button" class="btn btn-tb danger" {{action "logout"}}> <i class="fa fa-sign-out"></i> </button>
+      {{else}}
+        {{#link-to 'login'}}<i class="fa fa-sign-in"></i>{{/link-to}}
+      {{/if}}
+    </li>
+
     <li style="padding-left: 10px;">
       {{#if session.errors}}
         <i class="danger fa fa-warning"></i>
         {{#each session.errors as |error|}}
             {{error.message}},
         {{/each}}
-      {{else}}
-        {{#if session.current_user}}
-          {{#if  session.current_user.player}}
-            {{#link-to 'players.player' session.current_user.player}}
-              <i class={{if session.current_user.permission.settings "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
-            {{/link-to}}
-          {{else}}
-            <i class={{if session.current_user.permission.settings "danger fa fa-user" "fa fa-user"}}></i> {{session.current_user.name}}
-          {{/if}}
-        {{else}}
-          {{#link-to 'login'}}<i class="fa fa-sign-in"></i>{{/link-to}}
-        {{/if}}
       {{/if}}
 
       <button type="button" class="btn btn-check" {{action (toggle this "showBG")}}>

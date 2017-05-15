@@ -1,9 +1,13 @@
 import Ember from 'ember';
+// import DS from 'ember-data';
+import config from '../config/environment';
+// import ajax from 'ember-ajax';
 
 var get = Ember.get;
 var set = Ember.set;
 
 export default Ember.Controller.extend({
+  ajax: Ember.inject.service(),
   session: Ember.inject.service(),
   store: Ember.inject.service(),
   eventManager: Ember.inject.service('events'),
@@ -143,6 +147,25 @@ export default Ember.Controller.extend({
 
 
   actions: {
+    logout: function() {
+
+      var prom = this.get('ajax').request('/logout', {
+        method: 'POST',
+        data: {
+          _method: 'delete',
+          _csrf_token: window.csrf
+        }
+      });
+
+//       var prom = this.get('ajax').del(config.APP.API_HOST + "/logout");
+      console.debug("PROM", prom);
+      var self = this;
+      prom.then(function(done) {
+        console.debug("PROM done", done);
+        self.transitionToRoute('/');
+      });
+//       Ember.$.ajax(config.APP.API_HOST + "/logout", 'DELETE', {});
+    },
   }
 
 });
