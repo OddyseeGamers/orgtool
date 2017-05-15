@@ -17,6 +17,11 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if handle.errors.type.length}}
+    <span class="text-danger">
+      {{#each handle.errors.type as |err|}}{{err.message}}{{/each}}
+    </span>
+    {{/if}}
     <div class="input-group ship-model-modal">
       <input type="text" class="form-control" value={{handle.type}}>
       <div class="input-group-btn">
@@ -39,22 +44,37 @@
       <span class="text-danger">(required)</span>
       {{/unless}}
     </label>
+    {{#if handle.errors.handle.length}}
+    <span class="text-danger">
+      {{#each handle.errors.handle as |err|}}{{err.message}}{{/each}}
+    </span>
+    {{/if}}
     {{input type="text" class="form-control" value=handle.handle}}
 
     <label class="control-label">
       Name
     </label>
+    {{#if handle.errors.name.length}}
+    <span class="text-danger">
+      {{#each handle.errors.name as |err|}}{{err.message}}{{/each}}
+    </span>
+    {{/if}}
     {{input type="text" class="form-control" value=handle.name}}
 
     <label class="control-label">
       Image
     </label>
+    {{#if handle.errors.img.length}}
+    <span class="text-danger">
+      {{#each handle.errors.img as |err|}}{{err.message}}{{/each}}
+    </span>
+    {{/if}}
     {{input type="text" class="form-control" value=handle.img}}
     
-      <div class="col-md-4 row text-center disabled">
-        <label class="control-label stretch">Hidden</label>
+<!--       <div class="col-md-4 row text-center disabled"> -->
+<!--         <label class="control-label stretch">Hidden</label> -->
 <!--         {{bs-switch size='mini' checked=false indeterminate=false}} -->
-      </div>
+<!--       </div> -->
       <br>
       <br>
       <br>
