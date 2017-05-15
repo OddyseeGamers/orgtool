@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
   rank: Ember.computed.filter('model.rewards', function(mr, index, array) {
 //       return !chore.done;
 //     debug(" - wtf", index, get(get(mr, "reward"), "type").get("id") ,"=", get(get(mr, "reward"), "type").get("name"), "||||", get(get(mr, "reward"), "type").get("id") == 1);
-    return get(mr, "type").get("id") == 1;
+    return get(mr, "rewardType").get("id") == 1;
   }), //.property('model.playerRewards'),
 
 //   rank: Ember.computed('model', function() {

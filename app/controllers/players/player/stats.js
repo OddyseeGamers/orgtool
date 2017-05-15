@@ -32,12 +32,12 @@ export default Ember.Controller.extend({
       idx++;
     });
 
-    debug("d3", group, get(group, "length"));
-    get(self, 'model').get("rewards").forEach(function(mr) {
-      debug("d4", mr, get(mr, "length"));
-      var gidx = rt_lookup[get(mr, "reward").get("type").get('id')];
-      var or = get(mr, "reward");
-      var nr = {id: get(or, "id"), name: get(or, "name"), img: get(or, "img"), units: []};
+//     debug("d3", group, get(group, "length"));
+    get(self, 'model').get("rewards").forEach(function(reward) {
+//       debug("d4", mr, get(mr, "length"));
+      var gidx = rt_lookup[reward.get("type").get('id')];
+//       var or = get(mr, "reward");
+      var nr = {id: get(reward, "id"), name: get(reward, "name"), img: get(reward, "img"), units: []};
 
       group[gidx].rewards.push(nr);
     });
