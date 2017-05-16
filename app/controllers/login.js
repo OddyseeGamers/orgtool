@@ -26,13 +26,12 @@ export default Ember.Controller.extend({
 
       var self = this;
       prom.then(function(done) {
-        console.debug("login done");
-//         self.transitionToRoute('/');
-//         window.location.href="/";
+        console.debug("login done", done);
+        window.location.href="/";
       }).catch(function(err) {
         console.debug("login err", err);
         set(self, "error", err);
-//         window.location.href="/";
+        window.location.href="/";
       });
   },
 
