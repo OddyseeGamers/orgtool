@@ -7,6 +7,7 @@ export default Ember.Route.extend({
   session: Ember.inject.service(),
 
   beforeModel: function(transition) {
+    console.debug("GET SESDSION" );
     Ember.get(this, "session");
   },
 
@@ -15,10 +16,10 @@ export default Ember.Route.extend({
       var target = transition.targetName.split(".")[0];
 
       console.debug("ABBORT ?", target, Ember.isEmpty(get(this, "session.current_user")), "-",(target != "overview" || target != "login") );
-      if (Ember.isEmpty(get(this, "session.current_user")) && (target != "overview" || target != "login")) {
-        console.debug("ABBORT 1");
-        transition.abort();
-        return false;
+      if (Ember.isEmpty(get(this, "session.current_user")) && (target == "overview" || target == "login")) {
+//        console.debug("ABBORT 1");
+//        transition.abort();
+        return true;
       }
 
       var perms = get(this, "session.current_user.permission");

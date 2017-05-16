@@ -5,13 +5,22 @@ var set = Ember.set;
 
 export default Ember.Route.extend({
 //   eventManager: Ember.inject.service('events'),
+  session: Ember.inject.service(),
 
   model: function() {
-    return this.store.findAll("unit");
+    console.debug("GET UNITS", get(this, "session.current_user.permission.unit_read"));
+    if (get(this, "session.current_user.permission.unit_read")) {
+      return this.store.findAll("unit");
+    } else {
+     return null;
+    }
   },
 
   afterModel: function(model, transition) {
-    this.controllerFor('overview').set('players', this.store.findAll('player'));
+    console.debug("GET PLAYER", get(this, "session.current_user.permission.player_read"));
+    if (get(this, "session.current_user.permission.player_read")) {
+      this.controllerFor('overview').set('players', this.store.findAll('player'));
+    }
   },
 
 //   beforeModel: function(transition) {

@@ -112,6 +112,11 @@ export default Ember.Controller.extend({
 
 
   setDetails: function(data) {
+    if (!get(this, "session.current_user.permission.unit_read")) {
+	console.debug("nope, go away");
+    } else {
+	console.debug("ok, load units");
+    }
 //     Ember.Logger.log("---- set details", data);
     var unitId = data.unitid;
     var extended = data.extended;
