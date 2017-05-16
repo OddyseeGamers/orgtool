@@ -9,4 +9,11 @@ export default Ember.Route.extend({
 //     Ember.Logger.log(">>> index route >>>> redirect");
     this.transitionTo('overview');
   },
+
+//   actions: {
+//     willTransition(transition) {
+//       Ember.Logger.log(">>> index route >>>> willTransition");
+//       return true;
+//     }
+//   }
 });

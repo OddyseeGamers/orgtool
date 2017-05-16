@@ -5,7 +5,12 @@
       <br>
       Permission denied
       <br>
-      Please contect an administrator to activate your account
+      {{#if session.current_user}}
+        Please contect an administrator to activate your account
+      {{else}}
+        You are not logged in<br>
+        {{#link-to 'login'}}Login{{/link-to}}
+      {{/if}}
     </div>
   </div>
 </div>
