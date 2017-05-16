@@ -16,99 +16,109 @@
       </div>
       {{/if}}
 
+      {{#if identity}}
+        {{#if sign}}
+          SIGNUP
 
+          <div class="row login-form-row">
+            <div class="col-md-4">
+            </div>
 
+            <div class="col-md-4">
+              <label class="control-label">Name</label>
+              {{input type="text" class="form-control" value=sign.name}}
 
+              <label class="control-label">Email</label>
+              {{input type="text" class="form-control" value=sign.email}}
 
-      {{#if sign}}
-      SIGNUP
+              <label class="control-label">Password</label>
+              {{input type="password" class="form-control" value=sign.password}}
 
+              <label class="control-label">Password Confirmation</label>
+              {{input type="password" class="form-control" value=sign.password_confirmation}}
 
-      <div class="row login-form-row">
-        <div class="col-md-4">
-        </div>
+              <div class="login-links">
+                <a class="btn btn-default" {{action 'register'}} href="#">
+                  <i class="fa fa-sign-in"></i> Signup
+                </a>
+                <div class="text-right">
+                  <span class="login-provider" {{action 'unsetSignup'}}>
+                  <i class="fa fa-arrow-left"></i> Back to Login</span>
+                </div>
+              </div>
 
-        <div class="col-md-4">
-          <label class="control-label">Name</label>
-          {{input type="text" class="form-control" value=sign.name}}
+            </div>
 
-          <label class="control-label">Email</label>
-          {{input type="text" class="form-control" value=sign.email}}
-
-          <label class="control-label">Password</label>
-          {{input type="password" class="form-control" value=sign.password}}
-
-          <label class="control-label">Password Confirmation</label>
-          {{input type="password" class="form-control" value=sign.password_confirmation}}
-
-          <div class="login-links">
-            <a class="btn btn-default" {{action 'register'}} href="#">
-              <i class="fa fa-sign-in"></i> Signup
-            </a>
-            <div class="text-right">
-              <span class="login-provider" {{action 'unsetSignup'}}>
-              <i class="fa fa-arrow-left"></i> Back to Login</span>
+            <div class="col-md-4">
             </div>
           </div>
 
-        </div>
+        {{else}}
+          LOGIN
 
-        <div class="col-md-4">
-        </div>
-      </div>
+          <div class="row login-form-row">
+            <div class="col-md-4">
+            </div>
 
+            <div class="col-md-4">
+              <label class="control-label">Email</label>
+              {{input type="text" class="form-control" value=cred.email}}
 
-      {{else}}
-      LOGIN
-    
-
-      <div class="row login-form-row">
-        <div class="col-md-4">
-        </div>
-
-        <div class="col-md-4">
-          <label class="control-label">Email</label>
-          {{input type="text" class="form-control" value=cred.email}}
-
-          <label class="control-label">Password</label>
-          {{input type="password" class="form-control" value=cred.password}}
+              <label class="control-label">Password</label>
+              {{input type="password" class="form-control" value=cred.password}}
 
 
-          <div class="login-links">
-            <a class="btn btn-default" {{action 'login'}} href="#">
-              <i class="fa fa-sign-in"></i> Login
-            </a>
-            <div class="text-right">
-              <span class="login-provider" {{action 'setSignup'}}>Signup</span>
+              <div class="login-links">
+                <a class="btn btn-default" {{action 'login'}} href="#">
+                  <i class="fa fa-sign-in"></i> Login
+                </a>
+                <div class="text-right">
+                  <span class="login-provider" {{action 'setSignup'}}>Signup</span>
+                </div>
+              </div>
+
+              
+            </div>
+
+            <div class="col-md-4">
             </div>
           </div>
+        {{/if}}
+      {{/if}}
+      {{#if (and providers.length (not sign))}}
+        <div class="text-center">
+          {{#if identity}}
+          <div class="login-sub">
+            Alternative
+          </div>
+          {{else}}
+          LOGIN
+          {{/if}}
 
-          <div class="text-center">
-            <div class="login-sub">
-              Alternative
+          <div class="row login-form-row">
+            <div class="col-md-4">
             </div>
+
+            <div class="col-md-4 text-center">
               {{#each providers as |prov|}}
                 {{#if prov.icon}}
-                  <i class="login-provider fa fa-{{prov.icon}} fa-3x" {{action 'loginProvider' prov.link}}></i>
+                  <i class="login-provider fa fa-{{prov.icon}} fa-3x" {{action 'loginProvider' prov.name}}></i>
                 {{else}}
                   <span class="hover12">
                     <figure>
-                      <img class="login-provider login-provider-img" src={{prov.img}}  {{action 'loginProvider' prov.link}} /> 
+                      <img class="login-provider login-provider-img" src={{prov.img}}  {{action 'loginProvider' prov.name}} /> 
                     </figure>
                   </span>
                   
                 {{/if}}
               {{/each}}
+            </div>
+
+            <div class="col-md-4">
+            </div>
           </div>
         </div>
-
-        <div class="col-md-4">
-        </div>
-      </div>
-
-
-    {{/if}}
-
+      {{/if}}
     </div>
   </div>
 </div>
