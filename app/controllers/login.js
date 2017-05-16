@@ -1,5 +1,8 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import {isAjaxError, isNotFoundError, isForbiddenError} from 'ember-ajax/errors';
+import raw from 'ember-ajax/raw';
+
 
 var get = Ember.get
 var set = Ember.set
@@ -54,18 +57,21 @@ export default Ember.Controller.extend({
 
 
   sendRequest: function(data) {
-    var prom = this.get('ajax').request('/auth/identity/callback', {
-      method: 'POST',
-      data: data
-    });
+//     var prom = this.get('ajax').request('/auth/identity/callback', {
+//       method: 'POST',
+//       data: data
+//     });
+
+    var prom = raw("/auth/identity/callback", { method: 'POST', data: data });
+    // `result` is an object containing `response` and `jqXHR`, among other items
+//     return result;
 
     var self = this;
     prom.then(function() {
+//       console.debug("login done");
       window.location.href="/";
-    }).catch(function(err) {
-      console.debug("login err");
-//       set(self, "error", err);
-//       window.location.href="/";
+    }).catch(function(error) {
+      window.location.href="/";
     });
   },
 
