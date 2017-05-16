@@ -13,41 +13,67 @@ export default Ember.Service.extend({
   statesDone: 16,
   state: Ember.A(),
   current_user: null,
+  jwt: null,
+  csrf: null,
+  providers: null,
 
   init: function() {
     Ember.Logger.log(">>> init >>>> session");
     this._super(...arguments);
-    this.loadUser();
+//     this.loadUser();
   },
 
   loadUser: function() {
     var self = this;
     self.set('current_user', null);
 
-    Ember.Logger.log(">>> init >>>> loadUser, jwt", !Ember.isEmpty(window.jwt), "csrf", !Ember.isEmpty(window.csrf));
 
+      // fix path to assets in wordpress
     var scripts = document.getElementsByTagName("script");
     var filename = "assets/orgtool.js";
     for (var i = 0; i < scripts.length; i++) {
       var src = scripts[i].src;
       if (src.indexOf(filename) > 0) {
         self.set('rootURL', src.substring(0, src.indexOf(filename)));
+        console.debug(">> ROOT URL", self.get("rootURL"));
         break;
       }
     }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      // fix path to assets in wordpress
-      var session;
-      if (Ember.isEmpty(window.jwt)) {
-  //       self.setUser({"sub": "User:0"}, null);
-      } else {
-        session = self.parseJwt(window.jwt);
+      var element = document.querySelector('meta[name="guardian-token"]');
+      var token = element && element.getAttribute("content");
+
+      element = document.querySelector('meta[name="csrf-token"]');
+      var csrf = element && element.getAttribute("content");
+
+      element = document.querySelectorAll('meta[name="oauth-provider"]');
+      var providers = [];
+      element.forEach(function(p) {
+        providers.push(p.getAttribute("content"));
+      });
+
+      self.set("csrf", csrf);
+      self.set("providers", providers);
+
+//       console.debug("token", token);
+//       console.debug("csrf", csrf);
+//       console.debug("providers", providers);
+
+      if (Ember.isEmpty(token) || Ember.isEmpty(csrf)) {
+        Ember.Logger.log(">>> init >>>> NO session");
+        self.set('loading', false);
+        resolve();
+        return;
       }
 
-//       if (config.environment === 'development') {
-//         session = {"sub": "User:1"};
-//       }
+      self.set("token", "Bearer " + token);
+      var session = self.parseJwt(token);
+      if (config.environment === 'development') {
+        session = {"sub": "User:1"};
+      }
+
+      Ember.Logger.log(">>> init >>>> loadUser, jwt", !Ember.isEmpty(token), "csrf", !Ember.isEmpty(csrf));
 
       if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
         var userid = session.sub.split(':')[1];
@@ -68,7 +94,7 @@ export default Ember.Service.extend({
           reject();
         });
       } else {
-        Ember.Logger.log(">>> init >>>> NO session");
+        Ember.Logger.log(">>> init >>>> broken token");
         self.set('loading', false);
         resolve();
       }
@@ -82,21 +108,6 @@ export default Ember.Service.extend({
       return JSON.parse(window.atob(base64));
     }
     return null;
-  },
-
-  setUser: function(session, user) {
-    var self = this;
-    if (!Ember.isEmpty(user)) {
-      self.set("current_user", user);
-      if (!Ember.isEmpty(get(user, "player").get("id"))) {
-        set(get(user, "player"), "loggedIn", true);
-      }
-        self.log("session", "logged in as user");
-        self.set('loading', false);
-    } else {
-        self.log("session", "logged in as guest");
-        self.set('loading', false);
-    }
   },
 
   log: function(comp, msg) {

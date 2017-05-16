@@ -10,14 +10,14 @@ export default DS.JSONAPIAdapter.extend({
   session: Ember.inject.service('session'),
   host: config.APP.API_HOST,
   namespace: 'api',
-  headers: {
-    'Authorization': 'Bearer ' + window.jwt,
-  },
-//   headers: Ember.computed('session.authToken', function() {
-//     return {
-//       'Authorization': this.get('session.authToken'),
-//     };
-//   }),
+//   headers: {
+//     'Authorization': 'Bearer ' + window.jwt,
+//   },
+  headers: Ember.computed('session.token', function() {
+    return {
+      'Authorization': this.get('session.token'),
+    };
+  }),
 
   queryRecord(store, type, query) {
 //     Ember.Logger.log("QUERY", store, "-------", type.modelName, "------------", query);

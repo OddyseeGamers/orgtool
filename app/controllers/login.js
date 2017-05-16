@@ -9,16 +9,16 @@ var set = Ember.set
 var debug = Ember.Logger.log
 
 export default Ember.Controller.extend({
+  session: Ember.inject.service(),
   ajax: Ember.inject.service(),
-
-  cred: { email: "", password: "", _csrf_token: window.csrf },
+  cred: { email: "", password: "" },
   error: null,
   supporedProviders: [ "identity", "google", "twitter", "slack", "facebook", "github", "microsoft", "discord" ],
   identity: false,
   providers: [],
 
   setup: Ember.on('init', function() {
-    var provs = window.providers;
+    var provs = this.get('session.providers');
     if (Ember.isEmpty(provs)) {
       provs = ['identity'];
 //       TODO: return?
@@ -57,12 +57,13 @@ export default Ember.Controller.extend({
 
 
   sendRequest: function(data) {
-//     var prom = this.get('ajax').request('/auth/identity/callback', {
-//       method: 'POST',
-//       data: data
-//     });
+    data['_csrf_token'] = this.get('session.csrf');
+    var prom = this.get('ajax').request('/auth/identity/callback', {
+      method: 'POST',
+      data: data
+    });
 
-    var prom = raw("/auth/identity/callback", { method: 'POST', data: data });
+//     var prom = raw("/auth/identity/callback", { method: 'POST', data: data });
     // `result` is an object containing `response` and `jqXHR`, among other items
 //     return result;
 
@@ -77,7 +78,7 @@ export default Ember.Controller.extend({
 
   actions: {
     setSignup: function() {
-      set(this, "sign", { name: "", email: "", password: "", password_confirmation: "", _csrf_token: window.csrf });
+      set(this, "sign", { name: "", email: "", password: "", password_confirmation: "" });
     },
 
     unsetSignup: function() {

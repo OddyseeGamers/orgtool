@@ -148,11 +148,12 @@ export default Ember.Controller.extend({
 
   actions: {
     logout: function() {
+      var csrf = this.get("session.csrf");
       var prom = this.get('ajax').request('/logout', {
         method: 'POST',
         data: {
           _method: 'delete',
-          _csrf_token: window.csrf
+          _csrf_token: csrf
         }
       });
 
