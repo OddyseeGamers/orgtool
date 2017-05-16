@@ -38,8 +38,7 @@
     </div>
     <div class="player-list-result">
       {{#each model as |user|}}
-      <div class="row row-select">
-        {{#link-to "users.user" user tagName='div' href=false}}
+        {{#link-to "users.user" user tagName='div' class='row row-select'}}
         <div class="col-md-3">
           {{user.name}}
         </div>
@@ -52,7 +51,6 @@
           {{user.player.name}}
         </div>
         {{/link-to}}
-      </div>
       {{/each}}
     </div>
   </div>
