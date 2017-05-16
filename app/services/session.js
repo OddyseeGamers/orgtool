@@ -42,7 +42,7 @@ export default Ember.Service.extend({
       if (Ember.isEmpty(window.jwt)) {
   //       self.setUser({"sub": "User:0"}, null);
       } else {
-        session = this.parseJwt(window.jwt);
+        session = self.parseJwt(window.jwt);
       }
 
 //       if (config.environment === 'development') {
