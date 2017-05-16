@@ -54,20 +54,19 @@ export default Ember.Controller.extend({
 
 
   sendRequest: function(data) {
-      var prom = this.get('ajax').request('/auth/identity/callback', {
-        method: 'POST',
-        data: data
-      });
+    var prom = this.get('ajax').request('/auth/identity/callback', {
+      method: 'POST',
+      data: data
+    });
 
-      var self = this;
-      prom.then(function(done) {
-        console.debug("login done", done);
-        window.location.href="/";
-      }).catch(function(err) {
-        console.debug("login err", err);
-        set(self, "error", err);
-//         window.location.href="/";
-      });
+    var self = this;
+    prom.then(function() {
+      window.location.href="/";
+    }).catch(function(err) {
+      console.debug("login err");
+//       set(self, "error", err);
+//       window.location.href="/";
+    });
   },
 
   actions: {
