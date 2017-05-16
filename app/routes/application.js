@@ -6,10 +6,24 @@ var set = Ember.set;
 export default Ember.Route.extend({
   session: Ember.inject.service(),
 
-  beforeModel: function(transition) {
-    console.debug("GET SESDSION" );
-    Ember.get(this, "session");
-  },
+  beforeModel: function(transition){
+    console.debug("GET SESSIN FIRST!");
+    var self = this;
+    return this.get('session').loadUser().then(function(result) {
+      var target = transition.targetName.split(".")[0];
+      if (target !== 'login' && target !== "overview") {
+        const session = self.get('session');
+        console.debug("GET SESSIN RETURNED", session.current_user);
+        if (!session.current_user) {
+          self.transitionTo('overview');
+        }
+      }
+    });
+  }, 
+
+//   beforeModel: function(transition) {
+//     Ember.get(this, "session");
+//   },
 
   actions: {
     willTransition(transition) {

@@ -15,10 +15,17 @@ export default Ember.Service.extend({
   current_user: null,
 
   init: function() {
+    Ember.Logger.log(">>> init >>>> session");
+    this._super(...arguments);
+    this.loadUser();
+  },
+
+  loadUser: function() {
     var self = this;
     self.set('current_user', null);
 
-    // fix path to assets in wordpress
+    Ember.Logger.log(">>> init >>>> loadUser, jwt", !Ember.isEmpty(window.jwt), "csrf", !Ember.isEmpty(window.csrf));
+
     var scripts = document.getElementsByTagName("script");
     var filename = "assets/orgtool.js";
     for (var i = 0; i < scripts.length; i++) {
@@ -29,36 +36,44 @@ export default Ember.Service.extend({
       }
     }
 
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      // fix path to assets in wordpress
+      var session;
+      if (Ember.isEmpty(window.jwt)) {
+  //       self.setUser({"sub": "User:0"}, null);
+      } else {
+        session = this.parseJwt(window.jwt);
+      }
 
-    Ember.Logger.log(">>> init >>>> session, jwt", !Ember.isEmpty(window.jwt), "csrf", !Ember.isEmpty(window.csrf));
-    var session;
-    if (Ember.isEmpty(window.jwt)) {
-//       self.setUser({"sub": "User:0"}, null);
-    } else {
-      session = this.parseJwt(window.jwt);
-    }
+//       if (config.environment === 'development') {
+//         session = {"sub": "User:1"};
+//       }
 
-    if (config.environment === 'development') {
-      session = {"sub": "User:1"};
-    }
+      if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
+        var userid = session.sub.split(':')[1];
+        Ember.Logger.log("find user", userid);
+        return self.get('store').findRecord('user', userid).then(function(user) {
+          Ember.Logger.log(" user found", userid);
 
-    if (!Ember.isEmpty(session) && !Ember.isEmpty(get(session, "sub"))) {
-      var userid = session.sub.split(':')[1];
-      Ember.Logger.log("find user", userid);
-      return self.get('store').findRecord('user', userid).then(function(user) {
-        Ember.Logger.log(" user found", userid);
-        self.setUser(session, user);
-      }).catch(function(err) {
-        Ember.Logger.log("error", err);
+          self.set("current_user", user);
+          if (!Ember.isEmpty(get(user, "player").get("id"))) {
+            set(get(user, "player"), "loggedIn", true);
+          }
+          self.log("session", "logged in as user");
+          self.set('loading', false);
+          resolve();
+        }).catch(function(err) {
+          Ember.Logger.log("error", err);
+          self.set('loading', false);
+          reject();
+        });
+      } else {
+        Ember.Logger.log(">>> init >>>> NO session");
         self.set('loading', false);
-      });
-    } else {
-        //self.setUser({"sub": "User:0", "display_name": "Guest", "user_login": "guest", "isadmin": false}, null);
-     Ember.Logger.log(">>> init >>>> NO session");
-        self.set('loading', false);
-    }
+        resolve();
+      }
+    });
   },
-
 
   parseJwt: function(token) {
     if (!Ember.isEmpty(token)) {
@@ -73,9 +88,6 @@ export default Ember.Service.extend({
     var self = this;
     if (!Ember.isEmpty(user)) {
       self.set("current_user", user);
-//       Ember.Logger.log(">>> USER", user.serialize());
-//       Ember.Logger.log("Player ID:", get(user, "player").get("id"));
-//       Ember.Logger.log("Perm ID:", get(user, "permission").get("id"));
       if (!Ember.isEmpty(get(user, "player").get("id"))) {
         set(get(user, "player"), "loggedIn", true);
       }

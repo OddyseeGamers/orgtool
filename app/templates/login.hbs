@@ -1,6 +1,25 @@
 <div class="loader-screen">
   <div class="loader-box">
     <div class="login-text">
+
+      {{#if error}}
+      <div class="row login-form-row">
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-4 text-danger text-center">
+          {{error.message}}
+        </div>
+
+        <div class="col-md-4">
+        </div>
+      </div>
+      {{/if}}
+
+
+
+
+
       {{#if sign}}
       SIGNUP
 
@@ -89,6 +108,7 @@
 
 
     {{/if}}
+
     </div>
   </div>
 </div>

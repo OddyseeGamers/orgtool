@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
     {"name": "Slack",    "link": "auth/slack",     "icon": "slack",              "img": null}
   ],
   cred: { email: "", password: "", _csrf_token: window.csrf },
+  error: null,
   
 
   sendRequest: function(data) {
@@ -27,10 +28,11 @@ export default Ember.Controller.extend({
       prom.then(function(done) {
         console.debug("login done");
 //         self.transitionToRoute('/');
-        window.location.href="/";
+//         window.location.href="/";
       }).catch(function(err) {
-        console.debug("login err". err);
-        window.location.href="/";
+        console.debug("login err", err);
+        set(self, "error", err);
+//         window.location.href="/";
       });
   },
 
