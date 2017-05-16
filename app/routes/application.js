@@ -14,7 +14,9 @@ export default Ember.Route.extend({
     willTransition(transition) {
       var target = transition.targetName.split(".")[0];
 
-      if (Ember.isEmpty(get(this, "session.current_user")) && target != "overview") {
+      console.debug("ABBORT ?", target, Ember.isEmpty(get(this, "session.current_user")), "-",(target != "overview" || target != "login") );
+      if (Ember.isEmpty(get(this, "session.current_user")) && (target != "overview" || target != "login")) {
+        console.debug("ABBORT 1");
         transition.abort();
         return false;
       }
@@ -45,6 +47,7 @@ export default Ember.Route.extend({
           }
       }
 
+      console.debug("ABBORT !!!");
       transition.abort();
     }
   }
