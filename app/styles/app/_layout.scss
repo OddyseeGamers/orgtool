@@ -147,7 +147,7 @@ body {
 }
 
 .login-text {
-  color: #555;
+  color: #fff;
   font-size: 42px;
   margin-top: -10%;
 }
@@ -155,6 +155,37 @@ body {
 .login-form-row {
   text-align: left;
   font-size: 12px;
+}
+
+.login-provider {
+  margin-left:10px;
+  margin-right:10px;
+//    background-color: #000;
+  color: #1a80b6;
+//    border: 1px solid #1a80b6;
+}
+
+.login-provider:hover {
+  cursor: pointer;
+  color: #fff;
+}
+
+.login-provider-img {
+  margin-top: -20px;
+  width: 36px;
+  height: 36px;
+}
+
+.hover12 figure {
+//    background: #1abc9c;
+}
+.hover12 figure img {
+	opacity: 1;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover12 figure:hover img {
+	opacity: .5;
 }
 
 .login-form {
@@ -174,6 +205,13 @@ body {
   a {
     display: block;
   }
+}
+
+.login-sub {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 14px;
 }
 
 .loader-details {
